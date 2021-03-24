@@ -10,7 +10,7 @@ script:
 # Script voor API
   - cd ./API
   - npm install --save
-  - npm test
+  - npm mocha
 
 # Script voor WebApp
   - cd ./WebApp
