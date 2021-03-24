@@ -58,3 +58,5 @@ The app needs to be build with nativescript and will output the needed file for 
 This application is made by Consultify.
 You can contact us on: team@consultify.org
 Check out our website!: https://www.consultify.org
+![Logo-zwart-cropped](https://user-images.githubusercontent.com/25418123/112319672-95c75980-8cae-11eb-84a9-b9aaf29880bf.png)
+
