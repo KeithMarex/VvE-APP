@@ -10,5 +10,4 @@ script:
   - cd ./WebApp
   - npm install -g @angular/cli
   - npm install --save
-  - ng lint
   - ng build --prod
