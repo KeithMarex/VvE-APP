@@ -13,7 +13,7 @@ script:
   - npm mocha
 
 # Script voor WebApp
-  - cd ./WebApp
+  - cd ././WebApp
   - npm install -g @angular/cli
   - npm install --save
   - ng build --prod
