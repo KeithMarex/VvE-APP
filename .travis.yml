@@ -6,8 +6,8 @@ sudo: required
 branches:
   only:
     - main
-before_script:
-  - npm install -g @angular/cli
 script:
+  - cd ./WebApp
+  - npm install -g @angular/cli
   - ng lint
   - ng build --prod --base-href https://github.com/KeithMarex/VvE-APP/tree/main/WebApp
