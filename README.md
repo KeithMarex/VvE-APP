@@ -1,7 +1,6 @@
 # VvE Application
 [![Build Status](https://travis-ci.com/KeithMarex/VvE-APP.svg?branch=main)](https://travis-ci.com/KeithMarex/VvE-APP)
 ![GitHub](https://img.shields.io/github/license/KeithMarex/VvE-APP)
-![Packagist Version](https://img.shields.io/packagist/v/KeithMarex/VvE-APP)
 
 The VvE App is intended as a central place for sharing information within a specific VvE.
 The app was commissioned by Hicham Ben Yessef.
