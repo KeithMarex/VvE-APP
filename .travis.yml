@@ -7,6 +7,12 @@ branches:
   only:
     - main
 script:
+# Script voor API
+  - cd ./API
+  - npm install --save
+  - npm start
+
+# Script voor WebApp
   - cd ./WebApp
   - npm install -g @angular/cli
   - npm install --save
