@@ -13,5 +13,6 @@
       "prefix": "ns"
     }
   },
-  "defaultProject": "tab-navigation"
+  "defaultProject": "tab-navigation",
+  "assets": [ "src/assets/svg/*" ]
 }
