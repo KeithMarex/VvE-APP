@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  title: VvE Api
+  description: This api serves the vve applications (Mobile and web)
+  version: 1.0.0
+tags:
+  - name: User
+
+paths:
+  /user/{id}:
+    $ref: ./user/getUser.yaml
+  /user/login:
+    $ref: ./user/login.yaml
+  /user/register:
+    $ref: ./user/register.yaml
