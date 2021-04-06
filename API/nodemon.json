@@ -11,8 +11,6 @@
     "watch": [
         "./"
     ],
-    "env": {
-      "NODE_ENV": "development"
-    },
-    "ext": "js,json,ts"
+    "exec": "npm start",
+    "ext": "js, json, ts"
   }
