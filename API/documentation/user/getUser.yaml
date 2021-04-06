@@ -1,0 +1,31 @@
+get:
+  summary: Returns the user by ID.
+  tags:
+    - User
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  responses:
+    '200':
+      description: User object
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              email:
+                type: string
+              createdAt:
+                type: string
+              updatedAt:
+                type: string
+              __v:
+                type: string
+    '500':
+      description: User does not exists
