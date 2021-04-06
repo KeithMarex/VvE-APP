@@ -526,3 +526,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,angular,nativescript,webstorm,visualstudiocode
+
+.update_backup
