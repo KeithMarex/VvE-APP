@@ -1,62 +1,31 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-const _ = require('lodash');
-require('dotenv').config()
+import 'dotenv/config'
 
-module.exports.createTokens = async (user, secret, secret2) => {
-    user = JSON.parse(JSON.stringify(user));
-    const createToken = jwt.sign(
-        {
-            user: _.pick(user, ['id']),
-        },
-        secret,
-        {
-            expiresIn: '1m',
-        },
-    );
-    const createRefreshToken = jwt.sign(
-        {
-            user: _.pick(user, 'id'),
-        },
-        secret2,
-        {
-            expiresIn: '14d',
-        },
-    );
+import jwt from 'jsonwebtoken';
+import User from '../models/User';
 
-    return Promise.all([createToken, createRefreshToken]);
+export function createTokens(user) {
+    const createdAccessToken = jwt.sign({ user: user }, process.env.ACCESS_TOKEN, { expiresIn: "3m" });
+    const createdRefreshToken = jwt.sign({ user: user }, process.env.REFRESH_TOKEN, { expiresIn: "40d" });
+
+    return [createdAccessToken, createdRefreshToken];
 }
 
-module.exports.refreshTokens = async (token, refreshToken, SECRET, SECRET_2) => {
-    let userId = -1;
+export const refreshTokens = async (refreshToken) => {
+    let user;
     try {
-        const { user: { id } } = jwt.decode(refreshToken);
-        userId = id;
+        user = jwt.decode(refreshToken);
     } catch (err) {
-        return {};
+        return { error: true, message: err };
     }
 
-    if (!userId) {
-        return {};
-    }
+    const updatedUser = await User.findById(user.id);
 
-    const user = await User.findById(userId);
-    if (!user) {
-        return {};
-    }
-
-    const refreshSecret = SECRET_2 + user.password;
     try {
-        jwt.verify(refreshToken, refreshSecret);
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN);
     } catch (err) {
-        return {};
+        return { error: true, message: err };
     }
 
-    const [newToken, newRefreshToken] = await this.createTokens(user, SECRET, refreshSecret);
-    return {
-        token: newToken,
-        refreshToken: newRefreshToken,
-        user,
-    };
+    const [newToken, newRefreshToken] = createTokens(updatedUser);
+    return { accesstoken: newToken, refreshToken: newRefreshToken, error: false, user: updatedUser };
 }
-

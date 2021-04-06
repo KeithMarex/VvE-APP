@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import './config/passport.js'(passport);
+import './config/passport.ts';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -8,7 +8,9 @@ import cookieParser from 'cookie-parser';
 import swaggerUI from 'swagger-ui-express';
 
 import swaggerDocument from './util/swagger.json';
-import isAuth from './middleware/isAuth.js';
+import { isAuth } from './middleware/isAuth';
+
+import userRouter from './routes/userRouter';
 
 const app = express();
 
@@ -24,6 +26,7 @@ app.use(passport.initialize());
 
 //ROUTES
 app.use(cors());
+app.use('/users' ,userRouter);
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})

@@ -9,6 +9,7 @@
       "rootDir": "./",
       "outDir": "./build",
       "esModuleInterop": true,
+      "resolveJsonModule": true,
       "strict": false,
       "typeRoots": ["node_modules/@types"]
     },

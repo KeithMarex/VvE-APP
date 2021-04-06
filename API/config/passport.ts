@@ -1,10 +1,9 @@
-require('dotenv/config')
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+import 'dotenv/config'
+import { ExtractJwt, JwtStrategy } from 'passport-jwt'
 
-const User = require('../models/user.js');
+import User from '../models/User';
 
-module.exports = function(passport) {
+export default function(passport) {
     passport.use(new JwtStrategy({
         jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
         secretOrKey: process.env.ACCESS_TOKEN

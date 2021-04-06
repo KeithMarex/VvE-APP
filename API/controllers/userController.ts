@@ -1,16 +1,16 @@
-const User = require('../models/user.ts');
-const auth = require('../auth.ts');
-const bcrypt = require('bcryptjs');
+import User from '../models/User';
+import { createTokens } from '../util/Auth';
+import bcrypt from 'bcryptjs';
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     User.findOne({email: email})
-    .then( async(user) => {
+    .then( async(user: any) => {
         const isEqual = await bcrypt.compare(password, user.password)
 
         if (isEqual) {
-            const [accesstoken, refreshToken] = auth.createTokens(user);
+            const [accesstoken, refreshToken] = createTokens(user);
             res.cookie('access-token', accesstoken, { maxAge: 60 * 60 * 24 * 7 * 1000 , httpOnly: true, secure: true });
             res.cookie('refresh-token', refreshToken, { maxAge: 60 * 60 * 24 * 7 * 1000, httpOnly: true, secure: true });
             user.password = null;
@@ -25,13 +25,13 @@ exports.login = async (req, res) => {
 }
 
 // Creating a new user and giving tokens for authentication
-exports.register = async(req, res) => {
+export const register = async(req, res) => {
     req.body.password = await bcrypt.hash(req.body.password, 12);
     const user = new User(req.body);
 
     user.save()
-    .then(result => {
-        const [accesstoken, refreshToken] = auth.createTokens(result);
+    .then((result: any) => {
+        const [accesstoken, refreshToken] = createTokens(result);
         res.cookie('access-token', accesstoken, { maxAge: 60 * 60 * 24 * 7 * 1000 , httpOnly: true, secure: true });
         res.cookie('refresh-token', refreshToken, { maxAge: 60 * 60 * 24 * 7 * 1000, httpOnly: true, secure: true });
         result.password = null;
@@ -43,7 +43,7 @@ exports.register = async(req, res) => {
     });
 }
 
-exports.getUser = (req, res) => {
+export const getUser = (req, res) => {
     const id = req.params.id;
     User.findById(id).select('-password')
     .then(result => {

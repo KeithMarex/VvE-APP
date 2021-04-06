@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const email = require('../validators/emailValidator.js');
-const beautifyUnique = require('mongoose-beautiful-unique-validation');
+import { validateEmail } from '../validators/emailValidator';
+import beautifyUnique from 'mongoose-beautiful-unique-validation';
 
 const UserSchema = new Schema({
     email: {
@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         lowercase: true,
         trime: true,
         validate: {
-            validator: email.validateEmail,
+            validator: validateEmail,
             message: 'Please fill a valid email address'
         },
     },
@@ -23,4 +23,4 @@ const UserSchema = new Schema({
 
 UserSchema.plugin(beautifyUnique);
 
-module.exports = mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema);
