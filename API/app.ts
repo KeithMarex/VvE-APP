@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import './config/passport.js'(passport);
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -6,7 +7,6 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import swaggerUI from 'swagger-ui-express';
 
-require('./config/passport.js')(passport);
 import swaggerDocument from './util/swagger.json';
 import isAuth from './middleware/isAuth.js';
 
