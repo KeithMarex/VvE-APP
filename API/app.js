@@ -1,47 +1,34 @@
+require('dotenv/config');
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const passport = require('passport');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const exampleRouter = require('./routes/ExampleRoutes');
-const http = require('http')
-const PORT = 3000;
-require('dotenv').config()
+const swaggerUI = require('swagger-ui-express');
+
+require('./config/passport.js')(passport);
+const swaggerDocument = require('./util/swagger.json');
+const isAuth = require('./middleware/isAuth.js');
 
 const app = express();
 
+app.use(express.urlencoded({extended: true}))
 app.use(cookieParser());
+app.use(express.json());
 
-// Body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Documentation middleware
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-// Passport middleware
+// passport middleware
 app.use(passport.initialize());
-app.use(passport.session());
 
-require('./config/passport')(passport);
+//ROUTES
+app.use(cors());
 
-// External access (CORS)
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', process.env.ORIGIN_URL);
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
-// Routes
-app.use('/api/example', exampleRouter);
-
-// const httpsServer = https.createServer(app);
-const httpServer = http.createServer(app);
-
-// Connection
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-    .then(() => {
-      // httpsServer.listen(PORT);
-      httpServer.listen(PORT);
-      console.log('Listening on ' + PORT)
+//LISTENER
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
+    .then(result => {
+        app.listen(process.env.PORT);
+        console.log(`Running on port ${process.env.PORT}`);
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
