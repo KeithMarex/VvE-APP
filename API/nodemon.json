@@ -11,6 +11,5 @@
     "watch": [
         "./"
     ],
-    "exec": "npm start",
     "ext": "js, json, ts"
   }
