@@ -2,7 +2,7 @@
   "name": "mobile-app",
   "main": "src/main.ts",
   "version": "8.0.2",
-  "description": "Mobile application vve",
+  "description": "Mobile app vve",
   "author": "Jan van Overbeek, Koen van der Marel and Jeroen Bol",
   "publishConfig": {
     "access": "public"
