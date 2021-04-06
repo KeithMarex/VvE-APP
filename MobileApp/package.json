@@ -1,11 +1,9 @@
 {
-  "name": "benzine-app",
+  "name": "mobile-app",
   "main": "src/main.ts",
-  "displayName": "Blank",
   "version": "8.0.2",
-  "description": "Mobile fuel application",
-  "author": "Jan van Overbeek",
-  "license": "SEE LICENSE IN <your-license-filename>",
+  "description": "Mobile application vve",
+  "author": "Jan van Overbeek, Koen van der Marel and Jeroen Bol",
   "publishConfig": {
     "access": "public"
   },
@@ -28,10 +26,10 @@
     "template",
     "category-general"
   ],
-  "repository": "https://github.com/Jannyboy313/benzine-verbruik-app.git",
-  "homepage": "https://github.com/Jannyboy313/benzine-verbruik-app.git",
+  "repository": "https://github.com/KeithMarex/VvE-APP.git",
+  "homepage": "https://github.com/KeithMarex/VvE-APP.git",
   "bugs": {
-    "url": "https://github.com/Jannyboy313/benzine-verbruik-app/issues"
+    "url": "https://github.com/KeithMarex/VvE-APP/issues"
   },
   "dependencies": {
     "@angular/animations": "~11.2.7",
