@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon app.ts",
     "docu": "swagger-cli bundle -o ./util/swagger.json ./documentation/swagger.yaml"
   },
   "dependencies": {
