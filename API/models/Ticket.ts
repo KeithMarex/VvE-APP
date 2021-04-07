@@ -36,5 +36,5 @@ const TicketSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Tag"
     }
-});
+}, { timestamps: true });
 export default mongoose.model('Ticket', TicketSchema);

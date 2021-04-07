@@ -27,5 +27,5 @@ const TagSchema = new Schema({
         ref: "Organization",
         required: [true, 'An organization needs to be connected to a tag']
     }
-});
+}, { timestamps: true });
 export default mongoose.model('Tag', TagSchema);
