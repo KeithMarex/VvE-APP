@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { validateColor } from '~/validators/colorValidator';
 import { validateName } from '~/validators/nameValidator';
+
 const Schema = mongoose.Schema;
 
 const TagSchema = new Schema({

@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
-import { validateEmail } from '../validators/emailValidator';
 import { beautifyUnique } from 'mongoose-beautiful-unique-validation';
+import { validateEmail } from '../validators/emailValidator';
 import { validateName } from '~/validators/nameValidator';
+
+const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
     email: {

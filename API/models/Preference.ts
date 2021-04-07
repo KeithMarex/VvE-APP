@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
 import { validateLanguage } from '~/validators/languageValidator';
+
+const Schema = mongoose.Schema;
 
 const PreferenceSchema = new Schema({
     language: {
