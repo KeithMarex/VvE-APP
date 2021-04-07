@@ -11,7 +11,7 @@ const OrganizationSchema = new Schema({
         required: [true, 'Name of organization is required'],
         unique: 'Organization does already exist',
         lowercase: true,
-        trime: true,
+        trim: true,
         validate: {
             validator: validateName,
             message: 'Please fill a valid organization name'

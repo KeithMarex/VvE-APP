@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         required: [true, 'Email is required'],
         unique: "Email does already exist",
         lowercase: true,
-        trime: true,
+        trim: true,
         validate: {
             validator: validateEmail,
             message: 'Please fill a valid email address'
@@ -23,12 +23,15 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
+        lowercase: true,
+        maxlength: [5, 'Role can\'t be longer then 5 characters'],
+        minlength: [4, 'Role must contain 4 characters'],
         default: 'user',
     },
     firstname: {
         type: String,
         required: [true, 'Firstname is required'],
-        MaxLength: [15, 'Firstname can\'t be longer then 25 Characters'],
+        maxlength: [15, 'Firstname can\'t be longer then 25 characters'],
         validate: {
             validator: validateName,
             message: 'Please fill a valid firstname'
@@ -38,7 +41,7 @@ const UserSchema = new Schema({
     lastname: {
         type: String,
         required: [true, 'Lastname is required'],
-        MaxLength: [25, 'Lastname can\'t be longer then 25 Characters'],
+        maxlength: [25, 'Lastname can\'t be longer then 25 characters'],
         validate: {
             validator: validateName,
             message: 'Please fill a valid lastname'

@@ -5,11 +5,13 @@ const Schema = mongoose.Schema;
 const TicketSchema = new Schema({
     title: {
         type: String,
+        trim: true,
         required: [true, 'A title is required'],
 
     },
     description: {
         type: String,
+        trim: true,
         required: [true, 'A description is required']
     },
     images: [{

@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const ImageSchema = new Schema({
     name: {
         type: String,
+        trim: true,
         required: [true, 'A name of the image is required'],
         MaxLength: [30, 'Name of image can\'t be longer then 30 characters']
     },

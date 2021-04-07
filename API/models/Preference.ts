@@ -7,7 +7,7 @@ const PreferenceSchema = new Schema({
     language: {
         type: String,
         default: 'NL',
-        maxLength: [2, 'Language only contains 2 letters'],
+        maxlength: [2, 'Language can only contain 2 letters'],
         validate: {
             validator: validateLanguage,
             message: 'Please fill a valid language'
