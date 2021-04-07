@@ -37,7 +37,7 @@ const UserSchema = new Schema({
     lastname: {
         type: String,
         required: [true, 'Lastname is required'],
-        MaxLength: [25, 'Firstname can\'t be longer then 25 Characters'],
+        MaxLength: [25, 'Lastname can\'t be longer then 25 Characters'],
         validate: {
             validator: validateName,
             message: 'Please fill a valid lastname'
