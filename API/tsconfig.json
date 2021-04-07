@@ -11,7 +11,10 @@
       "esModuleInterop": true,
       "resolveJsonModule": true,
       "strict": false,
-      "typeRoots": ["node_modules/@types"]
+      "typeRoots": ["node_modules/@types"],
+      "paths": {
+        "~/*": ["./*"]
+      }
     },
     "include": [
         "./"
