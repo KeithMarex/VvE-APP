@@ -17,7 +17,8 @@ const TicketSchema = new Schema({
     }],
     creator: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: [true, 'A creator of type User is required']
     },
     assignee: {
         type: Schema.Types.ObjectId,
