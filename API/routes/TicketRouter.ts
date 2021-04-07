@@ -3,7 +3,7 @@ import { postTicket, getTickets, getTicket, putTicket } from '../controllers/Tic
 
 const router = Router();
 
-router.post('/ticket', postTicket);
+router.post('/', postTicket);
 router.get('/', getTickets);
 router.get('/:id', getTicket);
 router.put('/:id', putTicket);
