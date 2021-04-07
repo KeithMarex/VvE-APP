@@ -45,4 +45,4 @@ const OrganizationSchema = new Schema({
 OrganizationSchema.plugin(beautifyUnique);
 
 
-export default mongoose.model('User', OrganizationSchema);
+export default mongoose.model('Organization', OrganizationSchema);
