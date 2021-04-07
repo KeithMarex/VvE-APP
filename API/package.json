@@ -1,10 +1,11 @@
 {
   "name": "api",
   "version": "0.0.0",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "start": "nodemon app.ts",
+    "start2": "tsnd app.ts",
     "docu": "swagger-cli bundle -o ./util/swagger.json ./documentation/swagger.yaml"
   },
   "dependencies": {
@@ -32,8 +33,10 @@
     "@types/node": "^14.14.37",
     "@types/passport": "^1.0.6",
     "@types/swagger-ui-express": "^4.1.2",
+    "node-dev": "^6.7.0",
     "nodemon": "^2.0.6",
     "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"
   }
 }
