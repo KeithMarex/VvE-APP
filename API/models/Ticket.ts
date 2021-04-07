@@ -27,7 +27,7 @@ const TicketSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Status"
     },
-    Comments: [{
+    comments: [{
         type: Schema.Types.ObjectId,
         ref: "Comment"
     }],
