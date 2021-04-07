@@ -22,3 +22,15 @@ export const getTicket = async (req, res) => {
         res.status(status).json({message: err})
     });
 }
+
+export const postTicket = async (req, res) => {
+    const ticket = new Ticket(req.body);
+    ticket.save()
+    .then(result => {
+        res.status(201).send(result);
+    })
+    .catch(err => {
+        const status = err.statusCode || 500;
+        res.status(status).json({message: err})
+    });
+}
