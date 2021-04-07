@@ -5,11 +5,9 @@
         "node_modules/**/node_modules"
     ],
     "verbose": true,
-    "execMap": {
-      "ts": "node --require ts-node/register"
-    },
+    "exec": "npx ts-node ./app.ts",
     "watch": [
         "./"
     ],
-    "ext": "js, json, ts"
+    "ext": "ts, json"
   }
