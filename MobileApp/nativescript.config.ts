@@ -1,7 +1,7 @@
 import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-  id: 'org.nativescript.benzineapp',
+  id: 'org.nativescript.mobileApp',
   appPath: 'src',
   appResourcesPath: 'App_Resources',
   android: {
