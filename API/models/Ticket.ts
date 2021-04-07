@@ -35,7 +35,7 @@ const TicketSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Comment"
     }],
-    Tag: {
+    tag: {
         type: Schema.Types.ObjectId,
         ref: "Tag"
     }
