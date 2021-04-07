@@ -1,8 +1,8 @@
 import { Router } from 'express';
-const router = Router();
-
 import { login, register, getUser } from '../controllers/UserController';
 import { isAuth } from '../middleware/isAuth';
+
+const router = Router();
 
 router.post('/login', login);
 router.post('/register', register);
