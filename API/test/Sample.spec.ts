@@ -7,21 +7,24 @@ const server = supertest.agent("http://localhost:3000");
 
 // Unit tests
 
+// You could call this the test class
 describe("SAMPLE unit test for requests",function(){
 
-    it("should return nothgin",function(done){
+    // This is a single test
+    it("should return json",function(done){
 
       // Making a request to the api
       server
-      .get("/ticket")
-      .expect("Content-type",/json/)
+      .get("/ticket") // Get > uri
+      .expect("Content-type",/json/) // Says content type
       .expect(200) // This is the HTTP response
-      .end(function(err,res){
+      .end(function(err,res){ // This function has all the values that are passed
         // HTTP status should be 200
         should(res.status).equal(200);
-        // Error key should be false.
+        // Error is not in the body when there is none
+        // Check if error doesn't exists (undefined)
         should(res.body.error).equal(false || undefined);
-        done();
+        done(); // End of test
       });
     });
 
