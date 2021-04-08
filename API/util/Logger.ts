@@ -1,19 +1,28 @@
-import winston from 'winston';
+import { createLogger, transports, format } from 'winston';
 
-export const successLog = winston.createLogger({
+const logFormat = format.printf(({ level, message, timestamp }) => {
+    return `${timestamp} ${level}: ${message}`;
+})
+
+export const successLog = createLogger({
     level: 'success',
-    format: winston.format.json(),
+    format: format.combine(
+        format.colorize(),
+        format.timestamp({ format: 'DD-MM-YYYY HH:mm:ss' }),
+        format.errors({stack: true}),
+        logFormat
+        ),
     transports: [
-        new (winston.transports.Console)(),
-        new (winston.transports.File)({ filename: './logs/success.log'}),
+        new (transports.Console)(),
+        new (transports.File)({ filename: './logs/success.log'}),
     ]
 })
 
-export const errorLog = winston.createLogger({
+export const errorLog = createLogger({
     level: 'error',
-    format: winston.format.json(),
+    format: logFormat,
     transports: [
-        new (winston.transports.Console)(),
-        new (winston.transports.File)({ filename: './logs/error.log'}),
+        new (transports.Console)(),
+        new (transports.File)({ filename: './logs/error.log'}),
     ]
 })
