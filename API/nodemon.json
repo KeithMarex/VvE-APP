@@ -5,7 +5,7 @@
         "node_modules/**/node_modules"
     ],
     "verbose": true,
-    "exec": "npx ts-node ./app.ts",
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./app.ts",
     "watch": [
         "./"
     ],
