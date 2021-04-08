@@ -43,7 +43,7 @@ Building the api
 The api documentation is found when the api is running under `http://localhost:3000/api-docs`.
 Documentation is added in the documentation folder within yaml files.
 Using `npm run docu` wil process the yaml files and generate the json located in util/swagger.json.
-This file is hosted when navigation to `/api-docs`.
+The swagger.json file is hosted by the api not the yaml files those are for easy and clean documenting.
 
 The web application wil be working just like a website when application is build.
 The app needs to be build with nativescript and will output the needed file for android/ios.
