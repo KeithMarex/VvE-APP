@@ -4,7 +4,7 @@ const logFormat = format.printf(({ level, message, timestamp }) => {
     return `${timestamp} ${level}: ${message}`;
 })
 
-export const successLog = createLogger({
+export const logger = createLogger({
     level: 'success',
     format: format.combine(
         format.colorize(),
@@ -14,15 +14,6 @@ export const successLog = createLogger({
         ),
     transports: [
         new (transports.Console)(),
-        new (transports.File)({ filename: './logs/success.log'}),
-    ]
-})
-
-export const errorLog = createLogger({
-    level: 'error',
-    format: logFormat,
-    transports: [
-        new (transports.Console)(),
-        new (transports.File)({ filename: './logs/error.log'}),
+        new (transports.File)({ filename: './logs/application.log'}),
     ]
 })
