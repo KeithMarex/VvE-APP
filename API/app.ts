@@ -9,8 +9,9 @@ import swaggerUI from 'swagger-ui-express';
 
 import swaggerDocument from './util/swagger.json';
 import { isAuth } from './middleware/isAuth';
-
-import userRouter from './routes/userRouter';
+import logger from '~/util/Logger';
+import UserRouter from './routes/UserRouter';
+import TicketRouter from './routes/TicketRouter';
 
 const app = express();
 
@@ -26,12 +27,13 @@ app.use(passport.initialize());
 
 //ROUTES
 app.use(cors());
-app.use('/users' ,userRouter);
+app.use('/user' ,UserRouter);
+app.use('/ticket' ,TicketRouter);
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-    .then(result => {
+    .then(() => {
         app.listen(process.env.PORT);
-        console.log(`Running on port ${process.env.PORT}`);
+        logger.info(`Running on port ${process.env.PORT}`);
     })
-    .catch(err => console.log(err));
+    .catch(err => logger.error(err));

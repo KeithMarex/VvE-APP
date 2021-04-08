@@ -1,6 +1,7 @@
 import User from '../models/User';
 import { createTokens } from '../util/Auth';
 import bcrypt from 'bcryptjs';
+import logger from '~/util/Logger';
 
 export const login = async (req, res) => {
     const email = req.body.email;
@@ -20,6 +21,7 @@ export const login = async (req, res) => {
         }
     })
     .catch(err => {
+        logger.error(err);
         return res.status(500).json({ message: err });
     });
 }
@@ -38,6 +40,7 @@ export const register = async(req, res) => {
         res.status(201).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err});
     });
@@ -50,6 +53,7 @@ export const getUser = (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
