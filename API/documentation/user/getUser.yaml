@@ -21,6 +21,12 @@ get:
                 type: string
               email:
                 type: string
+              role:
+                type: string
+              firstename:
+                type: string
+              lastname:
+                type: 
               createdAt:
                 type: string
               updatedAt:
