@@ -4,7 +4,7 @@ const logFormat = format.printf(({ level, message, timestamp }) => {
     return `${timestamp} ${level}: ${message}`;
 })
 
-export const logger = createLogger({
+const logger = createLogger({
     level: 'success',
     format: format.combine(
         format.timestamp({ format: 'DD-MM-YYYY HH:mm:ss' }),
@@ -12,7 +12,9 @@ export const logger = createLogger({
         logFormat
         ),
     transports: [
-        new (transports.Console)(),
-        new (transports.File)({ filename: './logs/application.log'}),
+        new transports.Console(),
+        new transports.File({ filename: './logs/application.log'}),
     ]
 })
+
+export default logger;
