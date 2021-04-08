@@ -9,7 +9,7 @@ import swaggerUI from 'swagger-ui-express';
 
 import swaggerDocument from './util/swagger.json';
 import { isAuth } from './middleware/isAuth';
-
+import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
 
 const app = express();
@@ -32,6 +32,6 @@ app.use('/users' ,UserRouter);
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
     .then(result => {
         app.listen(process.env.PORT);
-        console.log(`Running on port ${process.env.PORT}`);
+        logger.info(`Running on port ${process.env.PORT}`);
     })
     .catch(err => console.log(err));
