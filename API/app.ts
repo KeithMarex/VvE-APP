@@ -11,6 +11,7 @@ import swaggerDocument from './util/swagger.json';
 import { isAuth } from './middleware/isAuth';
 import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
+import TicketRouter from './routes/TicketRouter';
 
 const app = express();
 
@@ -26,7 +27,8 @@ app.use(passport.initialize());
 
 //ROUTES
 app.use(cors());
-app.use('/users' ,UserRouter);
+app.use('/user' ,UserRouter);
+app.use('/ticket' ,TicketRouter);
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
