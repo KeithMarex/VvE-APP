@@ -7,28 +7,43 @@ The app was commissioned by Hicham Ben Yessef.
 
 
 
-## Install
+## Installing dependencies
 
 Execute in 3 directories
 `npm install`
 
-Serving the web application and app
+
+## Running the applications
+
+Serving the web application
 `ng serve`
 
+Serving the mobile application
+`ns run android` or `ns preview`
+
 Serving the api
-`npm start`
+`npm run start`
+
+
+## Building the applications
 
 Building the web application
 `ng build --prod`
 
-Building the app
+Building the mobile application
 `We don't know yet`
+
+Building the api
+`Compling typescript to javascript`
 
 
 
 ## How to use
 
-The api documentation is found when the api is running under the uri `/api-docs`.
+The api documentation is found when the api is running under `http://localhost:3000/api-docs`.
+Documentation is added in the documentation folder within yaml files.
+Using `npm run docu` wil process the yaml files and generate the json located in util/swagger.json.
+This file is hosted when navigation to `/api-docs`.
 
 The web application wil be working just like a website when application is build.
 The app needs to be build with nativescript and will output the needed file for android/ios.
@@ -37,20 +52,17 @@ The app needs to be build with nativescript and will output the needed file for 
 
 ## Technologies used
 
-- Angular
-  - Typescript
-- Nodejs
-  - Typescript
-- Native script
-- Jasmine
-- Karma
-- Mongoose
-- Nodemon
-- CK Editor
-- Compodoc
-- Swagger
+- Angular (Web application)
+  - Jasmine (Tests)
+  - Karma (Tool for tests)
+  - Compodoc (Documentation)
 
+- Nodejs (Api)
+  - Mongoose (ODM)
+  - Swagger (Documentation)
+  - Mocha (Testing)
 
+- Native script (Mobile application)
 
 ## Made by
 
