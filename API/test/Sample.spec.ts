@@ -7,20 +7,20 @@ const server = supertest.agent("http://localhost:3000");
 
 // Unit tests
 
-describe("SAMPLE unit test",function(){
+describe("SAMPLE unit test for requests",function(){
 
-    it("should return json",function(done){
+    it("should return nothgin",function(done){
 
-      // calling home page api
+      // Making a request to the api
       server
-      .get("/")
+      .get("/ticket")
       .expect("Content-type",/json/)
       .expect(200) // This is the HTTP response
       .end(function(err,res){
         // HTTP status should be 200
-        res.status.should.equal(200);
+        should(res.status).equal(200);
         // Error key should be false.
-        res.body.error.should.equal(false);
+        should(res.body.error).equal(false || undefined);
         done();
       });
     });
