@@ -30,7 +30,7 @@ app.use('/users' ,UserRouter);
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-    .then(result => {
+    .then(() => {
         app.listen(process.env.PORT);
         logger.info(`Running on port ${process.env.PORT}`);
     })
