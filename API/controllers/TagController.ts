@@ -1,4 +1,5 @@
 import Tag from '../models/Tag';
+import logger from '~/util/Logger';
 
 export const getTags = async (req, res) => {
     Tag.find()
@@ -6,6 +7,7 @@ export const getTags = async (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
@@ -18,6 +20,7 @@ export const getTag = async (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
@@ -30,6 +33,7 @@ export const postTag = async (req, res) => {
         res.status(201).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
@@ -46,6 +50,7 @@ export const putTag = async (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
@@ -58,6 +63,7 @@ export const deleteTag = async (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });

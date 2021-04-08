@@ -1,4 +1,5 @@
 import Ticket from '../models/Ticket';
+import logger from '~/util/Logger';
 
 export const getTickets = async (req, res) => {
     Ticket.find({ user: req.locals.user._id })
@@ -6,6 +7,7 @@ export const getTickets = async (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
@@ -18,6 +20,7 @@ export const getTicket = async (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
@@ -30,6 +33,7 @@ export const postTicket = async (req, res) => {
         res.status(201).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
@@ -48,6 +52,7 @@ export const putTicket = async (req, res) => {
         res.status(200).send(result);
     })
     .catch(err => {
+        logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
