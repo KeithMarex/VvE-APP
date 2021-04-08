@@ -34,4 +34,4 @@ mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTop
         app.listen(process.env.PORT);
         logger.info(`Running on port ${process.env.PORT}`);
     })
-    .catch(err => console.log(err));
+    .catch(err => logger.error(err));
