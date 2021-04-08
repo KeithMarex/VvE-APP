@@ -9,13 +9,13 @@ const server = supertest.agent("http://localhost:3000");
 
 describe("SAMPLE unit test",function(){
 
-    it("should return home page",function(done){
+    it("should return json",function(done){
 
       // calling home page api
       server
       .get("/")
       .expect("Content-type",/json/)
-      .expect(200) // THis is HTTP response
+      .expect(200) // This is the HTTP response
       .end(function(err,res){
         // HTTP status should be 200
         res.status.should.equal(200);
