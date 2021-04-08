@@ -7,7 +7,6 @@ const logFormat = format.printf(({ level, message, timestamp }) => {
 export const logger = createLogger({
     level: 'success',
     format: format.combine(
-        format.colorize(),
         format.timestamp({ format: 'DD-MM-YYYY HH:mm:ss' }),
         format.errors({stack: true}),
         logFormat
