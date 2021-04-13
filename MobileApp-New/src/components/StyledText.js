@@ -19,6 +19,7 @@ const getTextStyle = (inputStyle) => {
             color: inputStyle.color ? inputStyle.color : '#451864',
             fontWeight: inputStyle.fontWeight ? inputStyle.fontWeight : 'normal',
             textAlign: inputStyle.textAlign ? inputStyle.textAlign : 'center',
+            textTransform: inputStyle.textTransform ? inputStyle.textTransform : 'none'
         },
 
         // THEMES

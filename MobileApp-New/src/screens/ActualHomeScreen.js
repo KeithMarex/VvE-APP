@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
 import StyledText from '../components/StyledText'
+import { BoxShadow } from 'react-native-shadow'
 
-const window = Dimensions.get('window');
+const window = Dimensions.get('window')
 
 const HomeScreen = (props) => {
+    // const [introHeight, setIntroHeight] = useState(0)
+
+    // console.log(introHeight)
+
+    const shadowOpt = {
+        width: window.width - 60,
+        height: 10,
+        color: "#111111",
+        border: 16,
+        radius: 10,
+        opacity: 0.04,
+        x: 0,
+        y: 8,
+        style: { marginVertical:5 }
+    }
+
     return (
         // <View style={styles.view}>
         //     <Image style={styles.logo} source={require('../resources/images/de-nieuwe-wereld-logo.png')} resizeMode="contain" />
@@ -17,10 +34,18 @@ const HomeScreen = (props) => {
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
                     <Image style={styles.logo} source={require('../resources/images/de-nieuwe-wereld-logo.png')} resizeMode="contain" />
-                    <View style={styles.intro}>
-                        <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
-                        <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
-                    </View>
+                    <BoxShadow setting={shadowOpt}>
+                        <View style={styles.intro}>
+                            <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
+                            <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
+                            <View style={styles.introMessage}>
+                                <StyledText inputStyle={styles.introMessageText}>1 nieuwe reactie ></StyledText>
+                            </View>
+                            <View style={styles.introMessage}>
+                                <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten ></StyledText>
+                            </View>
+                        </View>
+                    </BoxShadow>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -33,37 +58,54 @@ const styles = StyleSheet.create({
     },
     root: {
         backgroundColor: '#F7F7FC',
-        height: '100%'
+        height: '100%',
     },
-    scrollView: {
-        width: '100%'
-    },
+    // scrollView: {
+    //     width: '100%',
+    // },
     home: {
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        paddingRight: 30,
-        paddingLeft: 30,
-        paddingTop: 100,
-        paddingBottom: 100
+        position: 'relative',
+        padding: 30
     },
     logo: {
-        width: window.width / 10 * 7,
-        height: window.height / 4
+        width: window.width / 10 * 5,
+        height: window.height / 6,
+        marginBottom: 10
     },
 
     intro: {
+        width: '100%',
         backgroundColor: '#FCFCFC',
-        borderRadius: 60,
+        borderRadius: 20,
+        paddingRight: 10,
+        paddingLeft: 10,
         paddingTop: 21,
-        paddingBottom: 25
+        paddingBottom: 25,
+        position: 'relative'
     },
     introWelcome: {
-        fontSize: 30
+        fontSize: 13,
+        letterSpacing: 3,
+        color: '#14142B',
+        textTransform: 'uppercase'
     },
     introName: {
-
+        fontWeight: 'bold',
+        fontSize: 28
     },
+    introMessage: {
+        marginTop: 10
+    },
+    introMessageText: {
+        fontSize: 16,
+        fontWeight: '300'
+    },
+    introMessageTextAgenda: {
+        fontSize: 14
+    }
 
 });
 
