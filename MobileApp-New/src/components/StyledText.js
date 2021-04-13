@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native'
 
 
 const StyledText = (props) => {
-    const styles = getTextStyle(props.inputStyle)
+    const styles = getTextStyle(parseInputStyleArray(props.inputStyle))
     return (
         <Text style={[styles.styledText, styles[props.theme]]}>
             {props.children}
@@ -11,16 +11,37 @@ const StyledText = (props) => {
     )
 }
 
+const parseInputStyleArray = (inputStyle) => {
+    let result = {}
+    if (Array.isArray(inputStyle)) {
+        inputStyle.forEach((inputStyleItem) => {
+            Object.keys(inputStyleItem).forEach((inputStyleItemField) => {
+                result = {...result, [inputStyleItemField]: inputStyleItem[inputStyleItemField]}
+            })
+            result = {...result, }
+        })
+        return result
+    } else {
+        return inputStyle
+    }
+}
+
 const getTextStyle = (inputStyle) => {
+    let styledText = {
+        fontSize: 14,
+        letterSpacing: 1,
+        color: '#451864',
+        textAlign: 'center'
+    }
+
+    if (inputStyle && Object.keys(inputStyle).length > 0) {
+        Object.keys(inputStyle).forEach((inputStyleField) => {
+            styledText = {...styledText, [inputStyleField]: inputStyle[inputStyleField]}
+        })
+    }
+
     return StyleSheet.create({
-        styledText: {
-            fontSize: inputStyle.fontSize ? inputStyle.fontSize : 14,
-            letterSpacing: inputStyle.letterSpacing ? inputStyle.letterSpacing : 1,
-            color: inputStyle.color ? inputStyle.color : '#451864',
-            fontWeight: inputStyle.fontWeight ? inputStyle.fontWeight : 'normal',
-            textAlign: inputStyle.textAlign ? inputStyle.textAlign : 'center',
-            textTransform: inputStyle.textTransform ? inputStyle.textTransform : 'none'
-        },
+        styledText: styledText,
 
         // THEMES
         pageTitle: {
