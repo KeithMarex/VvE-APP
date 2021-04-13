@@ -3,17 +3,20 @@ import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import ComponentsScreen from './src/screens/ComponentsScreen';
 import Login_forget from "./src/screens/login_forget";
+import ActualHomeScreen from "./src/screens/ActualHomeScreen";
 
 const navigator = createStackNavigator(
   {
-    Home: { screen: HomeScreen, navigationOptions: { headerShown: false }},
+    Login: { screen: HomeScreen, navigationOptions: { headerShown: false }},
+    Home: { screen: ActualHomeScreen, navigationOptions: { headerShown: false }},
     Component: ComponentsScreen,
     login_forget: { screen: Login_forget, navigationOptions: { headerShown: false }}
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
-      title: "App",
+        title: "App",
+        headerShown: false
     },
   }
 );

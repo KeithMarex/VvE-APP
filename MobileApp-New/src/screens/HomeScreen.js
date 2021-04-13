@@ -21,7 +21,7 @@ const HomeScreen = (props) => {
                     <Lock style={styles.svg}/>
                     <TextInput style={styles.input} onChangeText={onChangePass} value={pass} placeholder="Password" />
                 </View>
-                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Component')}><Text style={styles.text}>Login</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Home')}><Text style={styles.text}>Login</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
