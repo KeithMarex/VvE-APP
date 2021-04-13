@@ -1,35 +1,42 @@
 import React from "react";
 import {View, Text, StyleSheet, FlatList, Dimensions, Image, TextInput, TouchableOpacity} from "react-native";
+import Mail from '../resources/icons/Mail.svg';
 
 const ss = Dimensions.get('window');
 
-const Login_forget = () => {
-    const friends = [
-        { name: "Friends 1", age: '10'},
-        { name: "Friends 2", age: '20'},
-        { name: "Friends 3", age: '45'},
-        { name: "Friends 4", age: '32'},
-        { name: "Friends 5", age: '27'},
-        { name: "Friends 6", age: '53'},
-        { name: "Friends 7", age: '30'},
-    ]
-
+const Login_forget = (props) => {
     const [username, onChangeName] = React.useState("");
-    const [pass, onChangePass] = React.useState("");
 
     return (
         <View style={styles.view}>
-            <Image style={styles.logo} source={require('../resources/images/de-nieuwe-wereld-logo.png')} resizeMode="contain" />
-            <Text>Wachtwoord herstellen</Text>
-            <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
-            <Text>Er wordt een nieuw wachtwoord naar uw mail adres gestuurd.</Text>
+            <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
+            <Text style={styles.topBeschrijving}>Wachtwoord herstellen</Text>
+            <View style={styles.emailField}>
+                <Mail style={styles.svg}/>
+                <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
+            </View>
+            <Text style={styles.beschrijving}>Er wordt een nieuw wachtwoord naar uw mail adres gestuurd.</Text>
             <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Component')}><Text style={styles.text}>Wachtwoord herstellen</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Terug naar login</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('Home')}><Text style={styles.passForgot}>Terug naar login</Text></TouchableOpacity>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    svg: {
+        marginLeft: ss.width / 25
+    },
+    topBeschrijving: {
+        color: '#451864',
+        marginBottom: ss.height / 40,
+        fontSize: ss.width / 20,
+        fontWeight: 'bold'
+    },
+    beschrijving: {
+        marginBottom: ss.height / 40,
+        width: Dimensions.get('window').width / 10 * 7,
+        color: '#838386'
+    },
     text: {
         color: '#fff',
     },
@@ -47,15 +54,16 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: Dimensions.get('window').width / 10 * 7,
-        height: Dimensions.get('window').height / 4
+        marginBottom: ss.height / 30
     },
     input: {
-        backgroundColor: '#EFF0F7',
-        width: Dimensions.get('window').width / 10 * 7,
+        flex: 1,
         height: Dimensions.get('window').height / 30 * 2,
         borderRadius: 10,
-        marginBottom: Dimensions.get('window').height / 30 * 1,
-        paddingLeft: ss.height / 25
+        paddingLeft: ss.height / 75
+    },
+    inputLogo: {
+      color: '#000'
     },
     loginButton: {
         backgroundColor: '#A0CAE8',
@@ -64,6 +72,15 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: "center",
         alignItems: "center"
+    },
+    emailField: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#EFF0F7',
+        borderRadius: 10,
+        marginBottom: Dimensions.get('window').height / 30 * 1,
+        width: Dimensions.get('window').width / 10 * 7,
     }
 });
 
