@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Text, StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
 import StyledText from '../components/StyledText'
+import {Svg, Defs, LinearGradient, Stop, Rect, Ellipse} from 'react-native-svg'
 
 const window = Dimensions.get('window')
 
@@ -36,7 +37,17 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Recent nieuws</StyledText>
                         <View style={[styles.homeSection, styles.news]}>
                             <Image style={styles.newsImage} source={require('../resources/images/news-placeholder.png')}/>
-                            <View style={styles.newsImageOverlay}/>
+                            <View style={styles.newsImageOverlay}>
+                                <Svg height="100%" width="100%">
+                                    <Defs>
+                                        <LinearGradient id="grad" x1="1" y1="0" x2="1" y2="1">
+                                            <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
+                                            <Stop offset="100%" stopColor="#5C3974" stopOpacity="0.9" />
+                                        </LinearGradient>
+                                    </Defs>
+                                    <Rect x="0" y="0" width="100%" height="100%" rx='10' fill="url(#grad)" />
+                                </Svg>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -127,14 +138,17 @@ const styles = StyleSheet.create({
     newsImage: {
         width: '100%',
         height: 225,
-        borderRadius: 20
+        borderRadius: 10,
     },
     newsImageOverlay: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
         position: 'absolute',
         width: '100%',
-        height: '100%',
-        borderRadius: 20,
-        backgroundColor: 'linear-gradient(0.24deg, lighten(rgba($primary, .8), 5%) .08%, lighten(rgba($primary, .7), 80%) 99.92%)'
+        height: 225,
+        borderRadius: 20
     }
 
 });
