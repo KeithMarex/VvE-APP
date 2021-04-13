@@ -18,8 +18,8 @@ const HomeScreen = (props) => {
                 <View style={styles.home}>
                     <Image style={styles.logo} source={require('../resources/images/de-nieuwe-wereld-logo.png')} resizeMode="contain" />
                     <View style={styles.intro}>
-                        <Text style={styles.introWelcome}>Welkom</Text>
-                        <Text style={styles.introName}>Hicham Ben Yessef</Text>
+                        <StyledText style={styles.introWelcome}>Welkom</StyledText>
+                        <StyledText style={styles.introName}>Hicham Ben Yessef</StyledText>
                     </View>
                 </View>
             </ScrollView>
