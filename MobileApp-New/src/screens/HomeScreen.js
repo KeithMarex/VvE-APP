@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native";
 import Mail from "../resources/icons/Mail.svg";
 import Lock from "../resources/icons/Lock.svg";
 
@@ -10,19 +10,21 @@ const HomeScreen = (props) => {
     const [pass, onChangePass] = React.useState("");
 
     return (
-        <View style={styles.view}>
-            <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
-            <View style={styles.emailField}>
-                <Mail style={styles.svg}/>
-                <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
+        <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
+            <View style={styles.view}>
+                <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
+                <View style={styles.emailField}>
+                    <Mail style={styles.svg}/>
+                    <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
+                </View>
+                <View style={styles.emailField}>
+                    <Lock style={styles.svg}/>
+                    <TextInput style={styles.input} onChangeText={onChangePass} value={pass} placeholder="Password" />
+                </View>
+                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Component')}><Text style={styles.text}>Login</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
             </View>
-            <View style={styles.emailField}>
-                <Lock style={styles.svg}/>
-                <TextInput style={styles.input} onChangeText={onChangePass} value={pass} placeholder="Password" />
-            </View>
-            <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Component')}><Text style={styles.text}>Login</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
 

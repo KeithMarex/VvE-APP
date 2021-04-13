@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, StyleSheet, FlatList, Dimensions, Image, TextInput, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, Dimensions, Image, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from "react-native";
 import Mail from '../resources/icons/Mail.svg';
 
 const ss = Dimensions.get('window');
@@ -8,17 +8,19 @@ const Login_forget = (props) => {
     const [username, onChangeName] = React.useState("");
 
     return (
-        <View style={styles.view}>
-            <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
-            <Text style={styles.topBeschrijving}>Wachtwoord herstellen</Text>
-            <View style={styles.emailField}>
-                <Mail style={styles.svg}/>
-                <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
+        <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
+            <View style={styles.view}>
+                <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
+                <Text style={styles.topBeschrijving}>Wachtwoord herstellen</Text>
+                <View style={styles.emailField}>
+                    <Mail style={styles.svg}/>
+                    <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
+                </View>
+                <Text style={styles.beschrijving}>Er wordt een nieuw wachtwoord naar uw mail adres gestuurd.</Text>
+                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Component')}><Text style={styles.text}>Wachtwoord herstellen</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('Home')}><Text style={styles.passForgot}>Terug naar login</Text></TouchableOpacity>
             </View>
-            <Text style={styles.beschrijving}>Er wordt een nieuw wachtwoord naar uw mail adres gestuurd.</Text>
-            <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Component')}><Text style={styles.text}>Wachtwoord herstellen</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('Home')}><Text style={styles.passForgot}>Terug naar login</Text></TouchableOpacity>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 
