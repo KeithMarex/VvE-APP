@@ -2,13 +2,13 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import ComponentsScreen from './src/screens/ComponentsScreen';
-import ListScreen from "./src/screens/ListScreen";
+import Login_forget from "./src/screens/login_forget";
 
 const navigator = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: { screen: HomeScreen, navigationOptions: { headerShown: false }},
     Component: ComponentsScreen,
-    List: ListScreen
+    login_forget: { screen: Login_forget, navigationOptions: { headerShown: false }}
   },
   {
     initialRouteName: "Home",

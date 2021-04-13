@@ -13,7 +13,7 @@ const HomeScreen = (props) => {
             <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
             <TextInput style={styles.input} onChangeText={onChangePass} value={pass} placeholder="Password" />
             <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Component')}><Text style={styles.text}>Login</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('List')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
         </View>
     );
 };
