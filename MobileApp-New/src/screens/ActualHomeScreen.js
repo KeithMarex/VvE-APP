@@ -13,8 +13,6 @@ const HomeScreen = (props) => {
                 <View style={styles.home}>
                     <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
 
-                    <Comment fill={'#ff2525'} stroke={'#ff2525'}/>
-
                     <View style={[styles.homeSection, styles.intro]}>
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
                         <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
