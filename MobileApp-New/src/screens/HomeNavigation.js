@@ -3,7 +3,7 @@ import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
 // Component imports
-import ActualHomeScreen from "./ActualHomeScreen";
+import ActualHomeScreen from "./HomeScreen";
 import login_forget from './login_forget';
 import React from "react";
 
