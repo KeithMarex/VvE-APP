@@ -41,12 +41,20 @@ const HomeScreen = (props) => {
                                 <Svg height="100%" width="100%">
                                     <Defs>
                                         <LinearGradient id="grad" x1="1" y1="0" x2="1" y2="1">
-                                            <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
+                                            <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.5" />
                                             <Stop offset="100%" stopColor="#5C3974" stopOpacity="0.9" />
                                         </LinearGradient>
                                     </Defs>
                                     <Rect x="0" y="0" width="100%" height="100%" rx='10' fill="url(#grad)" />
                                 </Svg>
+                            </View>
+                            <View style={styles.newsTextWrapper}>
+                                <View style={styles.newsTextTopWrapper}>
+                                    <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
+                                    <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
+                                    <StyledText inputStyle={styles.newsTextTop}>25/03/2021</StyledText>
+                                </View>
+                                <StyledText inputStyle={styles.newsTitle}>Nieuw lid bij de WhatsApp buurtpreventie</StyledText>
                             </View>
                         </View>
                     </View>
@@ -134,6 +142,7 @@ const styles = StyleSheet.create({
 
     news: {
         position: 'relative',
+        justifyContent: 'flex-end',
     },
     newsImage: {
         width: '100%',
@@ -149,7 +158,30 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 225,
         borderRadius: 20
-    }
+    },
+    newsTextWrapper: {
+        position: 'absolute',
+        alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 20
+    },
+    newsTitle: {
+        color: '#FCFCFC',
+        fontSize: 18
+    },
+    newsTextTopWrapper: {
+        flexDirection: 'row'
+    },
+    newsTextTop: {
+        color: '#FCFCFC',
+        fontSize: 10,
+        marginRight: 8,
+        marginLeft: 8
+    },
+    newsTextTopLine: {
+        fontSize: 10,
+        color: '#A0CAE8'
+    },
 
 });
 
