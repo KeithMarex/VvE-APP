@@ -8,8 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/bottom-tabs": "^5.11.9",
     "@expo-google-fonts/poppins": "^0.1.0",
-    "@react-native-community/masked-view": "^0.1.10",
     "expo": "~40.0.0",
     "expo-cli": "^4.3.5",
     "expo-status-bar": "~1.0.3",
@@ -25,12 +26,14 @@
     "react-native-svg": "12.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "undefined": "react-navigation/native"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "react-native-sass-transformer": "^1.4.0",
-    "react-native-svg-transformer": "^0.14.3"
+    "react-native-svg-transformer": "^0.14.3",
+    "yarn": "^1.22.10"
   },
   "private": true
 }
