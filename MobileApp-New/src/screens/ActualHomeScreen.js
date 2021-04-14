@@ -58,6 +58,48 @@ const HomeScreen = (props) => {
                             </View>
                         </View>
                     </View>
+
+                    <View style={styles.homeSectionWrapper}>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>VvE informatie</StyledText>
+                        <View style={styles.info}>
+
+                            <View style={styles.infoOrganization}>
+                                <StyledText inputStyle={styles.infoOrganizationName}>De Nieuwe Wereld</StyledText>
+                                <View style={styles.infoOrganizationFiles}>
+
+                                    <View style={styles.infoOrganizationFile}>
+                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Huishoudelijk reglement.pdf</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2KB)</StyledText>
+                                    </View>
+
+                                    <View style={styles.infoOrganizationFile}>
+                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Informatie over het pand.pdf</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(10,29KB)</StyledText>
+                                    </View>
+
+                                </View>
+                            </View>
+
+                            <View style={styles.infoOrganization}>
+                                <StyledText inputStyle={styles.infoOrganizationName}>Parkeerplaats</StyledText>
+                                <View style={styles.infoOrganizationFiles}>
+
+                                    <View style={styles.infoOrganizationFile}>
+                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf.pdf</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(8,13KB)</StyledText>
+                                    </View>
+
+                                    <View style={styles.infoOrganizationFile}>
+                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Kosten.pdf</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2,29KB)</StyledText>
+                                    </View>
+
+                                </View>
+                            </View>
+
+                        </View>
+                    </View>
+
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -76,7 +118,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        padding: 30
+        padding: 30,
+        paddingBottom: 90
     },
     logo: {
         width: window.width / 10 * 5,
@@ -183,6 +226,33 @@ const styles = StyleSheet.create({
         color: '#A0CAE8'
     },
 
+    infoOrganization: {
+        marginTop: 12
+    },
+    infoOrganizationName: {
+        fontSize: 16
+    },
+    infoOrganizationFiles: {
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    infoOrganizationFile: {
+        paddingBottom: 10,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    },
+    infoOrganizationFileName: {
+        color: '#6E7191',
+        fontSize: 16,
+        textDecorationLine: 'underline'
+    },
+    infoOrganizationFileSize: {
+        marginLeft: 6,
+        fontSize: 16,
+        color: '#A0CAE8',
+    }
 });
 
 export default HomeScreen;
