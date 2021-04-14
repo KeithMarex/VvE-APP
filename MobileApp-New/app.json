@@ -8,12 +8,6 @@
       "config": "metro.config.js",
       "sourceExts": ["js", "jsx", "scss", "sass"]
     },
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -21,12 +15,21 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": "./assets/ios/appstore.png",
+      "splash": {
+        "image": "./assets/ios/splash/splash.png"
+      }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+      "icon": "./assets/icons/playstore.png",
+      "splash": {
+        "mdpi": "./assets/android/splash/splash-mdpi.png",
+        "hdpi": "./assets/android/splash/splash-hdpi.png",
+        "xhdpi": "./assets/android/splash/splash-xhdpi.png",
+        "xxhdpi": "./assets/android/splash/splash-xxhdpi.png",
+        "xxxhdpi": "./assets/android/splash/splash-xxxhdpi.png",
+        "resizeMode": "cover"
       }
     },
     "web": {
