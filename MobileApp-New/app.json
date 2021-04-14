@@ -22,7 +22,7 @@
       }
     },
     "android": {
-      "icon": "./assets/icons/playstore.png",
+      "icon": "./assets/android/playstore.png",
       "splash": {
         "mdpi": "./assets/android/splash/splash-mdpi.png",
         "hdpi": "./assets/android/splash/splash-hdpi.png",
