@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Text, StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
 import StyledText from '../components/StyledText'
 import {Svg, Defs, LinearGradient, Stop, Rect, Ellipse} from 'react-native-svg'
+import Comment from "../resources/icons/Comment.svg";
 
 const window = Dimensions.get('window')
 
@@ -11,6 +12,8 @@ const HomeScreen = (props) => {
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
                     <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
+
+                    <Comment fill={'#ff2525'} stroke={'#ff2525'}/>
 
                     <View style={[styles.homeSection, styles.intro]}>
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
