@@ -1,11 +1,11 @@
-import {Text, View} from "react-native";
+import {Text, SafeAreaView} from "react-native";
 import React from "react";
 
 const Notification = () => {
     return (
-        <View>
+        <SafeAreaView>
             <Text>Dit is je notificatie pagina</Text>
-        </View>
+        </SafeAreaView>
     );
 };
 
