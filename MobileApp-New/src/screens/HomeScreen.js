@@ -2,8 +2,9 @@ import React from 'react'
 import { StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
 import StyledText from '../components/StyledText'
 import {Svg, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
-import Comment from '../resources/icons/Comment.svg';
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
+
+import { Comment, Calendar } from '../resources';
 
 const window = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
@@ -19,6 +20,7 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
                         <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
                         <View style={styles.introMessage}>
+                            <Comment style={styles.introMessageIcon} stroke={'#451864'} width={20} height={20} />
                             <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie ></StyledText>
                         </View>
                         <View style={styles.introMessage}>
@@ -161,7 +163,13 @@ const styles = StyleSheet.create({
         fontSize: 28
     },
     introMessage: {
-        marginTop: 10
+        marginTop: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    introMessageIcon: {
+        marginRight: 10
     },
     introMessageText: {
         fontWeight: '300'
