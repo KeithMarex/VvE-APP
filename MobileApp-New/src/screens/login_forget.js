@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, Dimensions, Image, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from "react-native";
-import Mail from '../resources/icons/Mail.svg';
+import Mail from '../resources/icons/login/Mail.svg';
 
 const ss = Dimensions.get('window');
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native";
-import Mail from "../resources/icons/Mail.svg";
-import Lock from "../resources/icons/Lock.svg";
+import Mail from "../resources/icons/login/Mail.svg";
+import Lock from "../resources/icons/login/Lock.svg";
 
 const ss = Dimensions.get('window');
 
@@ -21,7 +21,7 @@ const HomeScreen = (props) => {
                     <Lock style={styles.svg}/>
                     <TextInput style={styles.input} onChangeText={onChangePass} value={pass} placeholder="Password" />
                 </View>
-                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('Home')}><Text style={styles.text}>Login</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('HomeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>

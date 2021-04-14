@@ -1,10 +1,15 @@
-import React from 'react'
-import { Text, StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
+import React from 'react';
+import { Text, StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native';
+import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from "./HomeScreen";
+import login_forget from './login_forget';
 // import StyledText from '../components/StyledText'
 
 const window = Dimensions.get('window');
+const Tab = createBottomTabNavigator();
 
-const HomeScreen = (props) => {
+const ActualHomeScreen = (props) => {
     return (
         // <View style={styles.view}>
         //     <Image style={styles.logo} source={require('../resources/images/de-nieuwe-wereld-logo.png')} resizeMode="contain" />
@@ -67,4 +72,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default HomeScreen;
+export default ActualHomeScreen;
