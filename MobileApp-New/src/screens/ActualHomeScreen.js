@@ -10,7 +10,7 @@ const HomeScreen = (props) => {
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
-                    <Image style={styles.logo} source={require('../resources/images/de-nieuwe-wereld-logo.png')} resizeMode="contain" />
+                    <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
 
                     <View style={[styles.homeSection, styles.intro]}>
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
