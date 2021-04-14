@@ -19,10 +19,10 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
                         <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
                         <View style={styles.introMessage}>
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie ></StyledText>
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie</StyledText>
                         </View>
                         <View style={styles.introMessage}>
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten ></StyledText>
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten</StyledText>
                         </View>
                     </View>
 
