@@ -23,7 +23,7 @@ const navigator = createStackNavigator(
     notificatie: { screen: Profile, Notification: { headerShown: false }}
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "Home",
     defaultNavigationOptions: {
         title: "App",
         headerShown: false
