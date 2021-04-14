@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
-import { Text, StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
-import StyledText from '../components/StyledText'
-import {Svg, Defs, LinearGradient, Stop, Rect, Ellipse} from 'react-native-svg'
+import React from 'react';
+import { Text, StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native';
+import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from "./HomeScreen";
+import login_forget from './login_forget';
+// import StyledText from '../components/StyledText'
 
-const window = Dimensions.get('window')
+const window = Dimensions.get('window');
+const Tab = createBottomTabNavigator();
 
-const HomeScreen = (props) => {
+const ActualHomeScreen = (props) => {
     return (
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
@@ -255,4 +259,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeScreen;
+export default ActualHomeScreen;
