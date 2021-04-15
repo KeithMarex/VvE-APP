@@ -23,7 +23,7 @@ const HomeNavigation = (props) => {
     return (
         <View style={styles.root}>
             <NavigationContainer>
-                <Tab.Navigator tabBarOptions={{style: {backgroundColor: '#451864'}, showLabel: false,}}>
+                <Tab.Navigator tabBarOptions={{style: styles.navBar, showLabel: false}}>
                     <Tab.Screen name="Home" component={ActualHomeScreen} options={{
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
@@ -64,8 +64,10 @@ const styles = StyleSheet.create({
     root: {
         height: '100%'
     },
-    bottomNavigation: {
-        backgroundColor: '#451864'
+    navBar: {
+        backgroundColor: '#451864',
+        height: 60,
+        borderTopWidth: 0
     }
 });
 
