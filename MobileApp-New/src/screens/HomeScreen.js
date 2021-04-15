@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FCFCFC',
         borderRadius: 20,
         borderColor: '#f8f8f8',
-        borderWidth: 5
+        borderWidth: 5,
     },
     homeSectionWrapper: {
         marginTop: 40,
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     newsTextWrapper: {
+        width: '100%',
         position: 'absolute',
         alignItems: 'center',
         alignContent: 'center',
