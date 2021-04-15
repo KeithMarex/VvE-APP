@@ -95,7 +95,7 @@ const HomeScreen = (props) => {
                                 <View style={styles.infoOrganizationFiles}>
 
                                     <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf.pdf</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf</StyledText>
                                         <StyledText inputStyle={styles.infoOrganizationFileSize}>(8,13KB)</StyledText>
                                     </View>
 
@@ -111,11 +111,6 @@ const HomeScreen = (props) => {
                     </View>
 
                 </View>
-
-        {/*        <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.replace('HomeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>*/}
-        {/*        <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>*/}
-        {/*    </View>*/}
-        {/*</TouchableWithoutFeedback>*/}
 
             </ScrollView>
         </SafeAreaView>
@@ -234,8 +229,9 @@ const styles = StyleSheet.create({
     newsTextWrapper: {
         position: 'absolute',
         alignItems: 'center',
+        alignContent: 'center',
         paddingTop: 10,
-        paddingBottom: 20
+        paddingBottom: 20,
     },
     newsTitle: {
         color: '#FCFCFC',
