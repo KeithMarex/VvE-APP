@@ -1,11 +1,11 @@
-import {Text, View} from "react-native";
+import {Text, SafeAreaView} from "react-native";
 import React from "react";
 
 const News = () => {
     return (
-        <View>
+        <SafeAreaView>
             <Text>Dit is je nieuws pagina</Text>
-        </View>
+        </SafeAreaView>
     );
 };
 

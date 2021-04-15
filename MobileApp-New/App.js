@@ -12,8 +12,8 @@ import News from "./src/screens/News";
 
 const navigator = createStackNavigator(
   {
-    Login: { screen: LoginScreen, navigationOptions: { headerShown: false }},
-    Home: { screen: HomeScreen, navigationOptions: { headerShown: false }},
+    Login: { screen: LoginScreen, navigationOptions: { headerShown: false, headerLeft: ()=> null }},
+    Home: { screen: HomeScreen, navigationOptions: { headerShown: false, headerLeft: ()=> null }},
     HomeNavigation: { screen: HomeNavigation, navigationOptions: { headerShown: false }},
     Component: ComponentsScreen,
     login_forget: { screen: Login_forget, navigationOptions: { headerShown: false }},
