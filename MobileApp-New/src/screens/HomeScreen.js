@@ -4,7 +4,7 @@ import StyledText from '../components/StyledText'
 import {Svg, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
 
-import { Comment, Calendar } from '../resources';
+import { Comment, Calendar, Logo } from '../resources';
 
 const window = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
@@ -14,7 +14,7 @@ const HomeScreen = (props) => {
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
-                    <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
+                    <Logo style={styles.logo} width={window.width / 10 * 5}/>
 
                     <View style={[styles.homeSection, styles.intro]}>
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>

@@ -32,27 +32,27 @@ const HomeNavigation = () => {
                 <Tab.Navigator tabBarOptions={{activeTintColor: '#fff', inactiveTintColor: '#000', style: {backgroundColor: '#451864'}, showLabel: false,}}>
                     <Tab.Screen name="Home" component={ActualHomeScreen} options={{
                         tabBarIcon: () => (
-                            <HomeIcon/>
+                            <HomeIcon stroke={'#fff'}/>
                         ),
                     }} />
                     <Tab.Screen name="Agenda" component={Calandar} options={{
                         tabBarIcon: () => (
-                            <CalandarIcon/>
+                            <CalandarIcon stroke={'#fff'}/>
                         ),
                     }} />
                     <Tab.Screen name="Nieuws" component={News} options={{
                         tabBarIcon: () => (
-                            <NewsIcon/>
+                            <NewsIcon stroke={'#fff'}/>
                         ),
                     }} />
                     <Tab.Screen name="Meldingen" component={Notification} options={{
                         tabBarIcon: () => (
-                            <NotificationIcon/>
+                            <NotificationIcon stroke={'#fff'}/>
                         ),
                     }} />
                     <Tab.Screen name="Account" component={Profile} options={{
                         tabBarIcon: () => (
-                            <ProfileIcon/>
+                            <ProfileIcon stroke={'#fff'}/>
                         ),
                     }} />
                 </Tab.Navigator>

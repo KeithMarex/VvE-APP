@@ -14,14 +14,14 @@ const LoginScreen = (props) => {
             <View style={styles.view}>
                 <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
                 <View style={styles.emailField}>
-                    <Mail style={styles.svg}/>
+                    <Mail style={styles.svg} stroke={'#A0A3BD'}/>
                     <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
                 </View>
                 <View style={styles.emailField}>
-                    <Lock style={styles.svg}/>
+                    <Lock style={styles.svg} stroke={'#A0A3BD'}/>
                     <TextInput style={styles.input} onChangeText={onChangePass} value={pass} placeholder="Password" />
                 </View>
-                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.navigate('HomeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.replace('HomeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
