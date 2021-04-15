@@ -1,59 +1,64 @@
 // Functional import statements
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, NavigationState, useIsFocused } from '@react-navigation/native';
 
 // Component imports
 import ActualHomeScreen from "./HomeScreen";
-import login_forget from './login_forget';
 import React from "react";
 
 // Icons
 import HomeIcon from "../resources/icons/navigation/Home.svg";
-import CalandarIcon from "../resources/icons/navigation/Calandar.svg";
+import CalendarIcon from "../resources/icons/navigation/Calandar.svg";
 import NewsIcon from "../resources/icons/navigation/News.svg";
 import NotificationIcon from "../resources/icons/navigation/Notification.svg";
 import ProfileIcon from "../resources/icons/navigation/Profile.svg";
-
 
 import {Dimensions, StyleSheet, View} from "react-native";
 import Profile from "./Profile";
 import Notification from "./Notification";
 import News from "./News";
-import Calandar from "./Calandar";
+import Calendar from "./Calandar";
 
 const Tab = createBottomTabNavigator();
 const ss = Dimensions.get('window');
 
 
-const HomeNavigation = () => {
+const HomeNavigation = (props) => {
+
+
     return (
         <View style={styles.root}>
             <NavigationContainer>
-                <Tab.Navigator tabBarOptions={{activeTintColor: '#fff', inactiveTintColor: '#000', style: {backgroundColor: '#451864'}, showLabel: false,}}>
+                <Tab.Navigator tabBarOptions={{style: {backgroundColor: '#451864'}, showLabel: false,}}>
                     <Tab.Screen name="Home" component={ActualHomeScreen} options={{
-                        tabBarIcon: () => (
-                            <HomeIcon/>
-                        ),
+                        tabBarIcon: () => {
+                            const isFocused = useIsFocused()
+                            return <HomeIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} />
+                        },
                     }} />
-                    <Tab.Screen name="Agenda" component={Calandar} options={{
-                        tabBarIcon: () => (
-                            <CalandarIcon/>
-                        ),
+                    <Tab.Screen name="Agenda" component={Calendar} options={{
+                        tabBarIcon: () => {
+                            const isFocused = useIsFocused()
+                            return <CalendarIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} />
+                        },
                     }} />
                     <Tab.Screen name="Nieuws" component={News} options={{
-                        tabBarIcon: () => (
-                            <NewsIcon/>
-                        ),
+                        tabBarIcon: () => {
+                            const isFocused = useIsFocused()
+                            return <NewsIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} />
+                        },
                     }} />
                     <Tab.Screen name="Meldingen" component={Notification} options={{
-                        tabBarIcon: () => (
-                            <NotificationIcon/>
-                        ),
+                        tabBarIcon: () => {
+                            const isFocused = useIsFocused()
+                            return <NotificationIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} />
+                        },
                     }} />
                     <Tab.Screen name="Account" component={Profile} options={{
-                        tabBarIcon: () => (
-                            <ProfileIcon/>
-                        ),
+                        tabBarIcon: () => {
+                            const isFocused = useIsFocused()
+                            return <ProfileIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} />
+                        },
                     }} />
                 </Tab.Navigator>
             </NavigationContainer>
