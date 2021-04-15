@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
 import StyledText from '../components/StyledText'
 import {Svg, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
-import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { Comment, Calendar, Logo } from '../resources';
+import { CommentIcon, CalendarIcon, HomeIcon } from '../resources'
 
 const window = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
@@ -20,11 +20,12 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
                         <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
                         <View style={styles.introMessage}>
-                            <Comment style={styles.introMessageIcon} stroke={'#451864'} width={20} height={20} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie ></StyledText>
+                            <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie &#62;</StyledText>
                         </View>
                         <View style={styles.introMessage}>
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten ></StyledText>
+                            <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten &#62;</StyledText>
                         </View>
                     </View>
 
@@ -32,8 +33,9 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Binnenkort</StyledText>
                         <View style={[styles.homeSection, styles.agenda]}>
                             <StyledText inputStyle={styles.agendaItemName}>Maandelijkse vergadering</StyledText>
-                            <View>
-                                <StyledText inputStyle={styles.agendaItemDate}>Za. 11 maart 16:00 - 17:30</StyledText>
+                            <View style={styles.agendaItemDate}>
+                                <CalendarIcon style={styles.agendaItemDateIcon} stroke={'#451864'} width={19} height={19} />
+                                <StyledText inputStyle={styles.agendaItemDateText}>Za. 11 maart 16:00 - 17:30</StyledText>
                             </View>
                         </View>
                     </View>
@@ -55,7 +57,10 @@ const HomeScreen = (props) => {
                             </View>
                             <View style={styles.newsTextWrapper}>
                                 <View style={styles.newsTextTopWrapper}>
-                                    <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
+                                    <View style={styles.newsTextTopOrganization}>
+                                        <HomeIcon stroke={'#A0CAE8'} width={10} height={10} />
+                                        <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
+                                    </View>
                                     <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
                                     <StyledText inputStyle={styles.newsTextTop}>25/03/2021</StyledText>
                                 </View>
@@ -90,7 +95,7 @@ const HomeScreen = (props) => {
                                 <View style={styles.infoOrganizationFiles}>
 
                                     <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf.pdf</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf</StyledText>
                                         <StyledText inputStyle={styles.infoOrganizationFileSize}>(8,13KB)</StyledText>
                                     </View>
 
@@ -106,11 +111,6 @@ const HomeScreen = (props) => {
                     </View>
 
                 </View>
-
-        {/*        <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.replace('HomeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>*/}
-        {/*        <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>*/}
-        {/*    </View>*/}
-        {/*</TouchableWithoutFeedback>*/}
 
             </ScrollView>
         </SafeAreaView>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     introMessageIcon: {
-        marginRight: 10
+        marginRight: 8
     },
     introMessageText: {
         fontWeight: '300'
@@ -196,8 +196,15 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     agendaItemDate: {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    agendaItemDateText: {
         color: '#A0CAE8',
         fontSize: 14,
+    },
+    agendaItemDateIcon: {
+        marginRight: 10
     },
 
     news: {
@@ -222,25 +229,30 @@ const styles = StyleSheet.create({
     newsTextWrapper: {
         position: 'absolute',
         alignItems: 'center',
+        alignContent: 'center',
         paddingTop: 10,
-        paddingBottom: 20
+        paddingBottom: 20,
     },
     newsTitle: {
         color: '#FCFCFC',
         fontSize: 18
     },
     newsTextTopWrapper: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     newsTextTop: {
         color: '#FCFCFC',
         fontSize: 10,
         marginRight: 8,
-        marginLeft: 8
+        marginLeft: 8,
     },
     newsTextTopLine: {
         fontSize: 10,
         color: '#A0CAE8'
+    },
+    newsTextTopOrganization: {
+        flexDirection: 'row',
+        alignItems: 'center'
     },
 
     infoOrganization: {

@@ -41,9 +41,7 @@ const Profile = () => {
                         <Text>Parkeerplaats</Text>
                         <Text style={[styles.tussenTekst, {marginBottom: '10%'}]}>Autoplaatsplekstraat</Text>
                     </View>
-
                     <Text style={[styles.accountName, {marginTop: '5%'}]}>Taal</Text>
-
                 </View>
             </ScrollView>
         </TouchableWithoutFeedback>
