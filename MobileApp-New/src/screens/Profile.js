@@ -6,9 +6,8 @@ import {
     TouchableWithoutFeedback, Dimensions, Text
 } from "react-native";
 import React from "react";
-import Logo from '../resources/icons/logo/Logo nieuwe wereld.svg';
 
-import { Account, Mail, Phone } from '../resources/index';
+import { ProfileIcon, MailIcon, PhoneIcon, Logo } from '../resources';
 
 const window = Dimensions.get('window');
 
@@ -22,16 +21,16 @@ const Profile = () => {
 
                     <View style={styles.profileSection}>
                         <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
-                            <Account stroke={'#451864'} style={{marginRight: '5%'}}/>
+                            <ProfileIcon stroke={'#451864'} style={{marginRight: '5%'}}/>
                             <Text style={styles.accountName}>Hicham ben Yessef</Text>
                         </View>
                         <Text style={{paddingBottom: '3%'}}>Hasebroekstraat 75 ||</Text>
                         <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
-                            <Mail stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
+                            <MailIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
                             <Text>hicham@hotmail.com</Text>
                         </View>
                         <View style={{flexDirection: 'row'}}>
-                            <Phone stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
+                            <PhoneIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
                             <Text>06-12345678</Text>
                         </View>
 
