@@ -4,7 +4,7 @@ import StyledText from '../components/StyledText'
 import {Svg, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { Comment, Calendar, Home } from '../resources'
+import { CommentIcon, CalendarIcon, HomeIcon } from '../resources'
 
 const window = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
@@ -20,11 +20,11 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
                         <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
                         <View style={styles.introMessage}>
-                            <Comment style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
+                            <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
                             <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie &#62;</StyledText>
                         </View>
                         <View style={styles.introMessage}>
-                            <Calendar style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
+                            <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
                             <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten &#62;</StyledText>
                         </View>
                     </View>
@@ -34,7 +34,7 @@ const HomeScreen = (props) => {
                         <View style={[styles.homeSection, styles.agenda]}>
                             <StyledText inputStyle={styles.agendaItemName}>Maandelijkse vergadering</StyledText>
                             <View style={styles.agendaItemDate}>
-                                <Calendar style={styles.agendaItemDateIcon} stroke={'#451864'} width={19} height={19} />
+                                <CalendarIcon style={styles.agendaItemDateIcon} stroke={'#451864'} width={19} height={19} />
                                 <StyledText inputStyle={styles.agendaItemDateText}>Za. 11 maart 16:00 - 17:30</StyledText>
                             </View>
                         </View>
@@ -58,7 +58,7 @@ const HomeScreen = (props) => {
                             <View style={styles.newsTextWrapper}>
                                 <View style={styles.newsTextTopWrapper}>
                                     <View style={styles.newsTextTopOrganization}>
-                                        <Home stroke={'#A0CAE8'} width={10} height={10} />
+                                        <HomeIcon stroke={'#A0CAE8'} width={10} height={10} />
                                         <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
                                     </View>
                                     <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
