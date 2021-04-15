@@ -107,6 +107,12 @@ const HomeScreen = (props) => {
                     </View>
 
                 </View>
+
+        {/*        <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.replace('HomeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>*/}
+        {/*        <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>*/}
+        {/*    </View>*/}
+        {/*</TouchableWithoutFeedback>*/}
+
             </ScrollView>
         </SafeAreaView>
     );
