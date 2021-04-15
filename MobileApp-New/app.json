@@ -4,28 +4,23 @@
     "slug": "rn-starter",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "updates": {
       "fallbackToCacheTimeout": 0
+    },
+    "splash": {
+      "image": "./assets/ios/splash/splash.png"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "icon": "./assets/ios/appstore.png",
-      "splash": {
-        "image": "./assets/ios/splash/splash.png"
-      }
+      "supportsTablet": true
     },
     "android": {
-      "icon": "./assets/android/playstore.png",
-      "splash": {
-        "mdpi": "./assets/android/splash/splash-mdpi.png",
-        "hdpi": "./assets/android/splash/splash-hdpi.png",
-        "xhdpi": "./assets/android/splash/splash-xhdpi.png",
-        "xxhdpi": "./assets/android/splash/splash-xxhdpi.png",
-        "xxxhdpi": "./assets/android/splash/splash-xxxhdpi.png",
-        "resizeMode": "cover"
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#F7F7FC"
       }
     },
     "web": {
