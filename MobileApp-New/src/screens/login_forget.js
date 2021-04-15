@@ -13,7 +13,7 @@ const Login_forget = (props) => {
                 <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
                 <Text style={styles.topBeschrijving}>Wachtwoord herstellen</Text>
                 <View style={styles.emailField}>
-                    <Mail style={styles.svg}/>
+                    <Mail style={styles.svg} stroke={'#A0A3BD'}/>
                     <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
                 </View>
                 <Text style={styles.beschrijving}>Er wordt een nieuw wachtwoord naar uw mail adres gestuurd.</Text>
