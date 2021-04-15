@@ -12,18 +12,18 @@ import News from "./src/screens/News";
 
 const navigator = createStackNavigator(
   {
-    Login: { screen: LoginScreen, navigationOptions: { headerShown: false, headerLeft: ()=> null }},
-    Home: { screen: HomeScreen, navigationOptions: { headerShown: false, headerLeft: ()=> null }},
-    HomeNavigation: { screen: HomeNavigation, navigationOptions: { headerShown: false }},
+    login: { screen: LoginScreen, navigationOptions: { headerShown: false, headerLeft: ()=> null }},
+    home: { screen: HomeScreen, navigationOptions: { headerShown: false, headerLeft: ()=> null }},
+    homeNavigation: { screen: HomeNavigation, navigationOptions: { headerShown: false }},
     Component: ComponentsScreen,
     login_forget: { screen: Login_forget, navigationOptions: { headerShown: false }},
     profile: { screen: Profile, navigationOptions: { headerShown: false }},
     calandar: { screen: Calandar, navigationOptions: { headerShown: false }},
-    nieuws: { screen: News, navigationOptions: { headerShown: false }},
-    notificatie: { screen: Profile, Notification: { headerShown: false }}
+    news: { screen: News, navigationOptions: { headerShown: false }},
+    notificatie: { screen: Notification, navigationOptions: { headerShown: false }}
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "login",
     defaultNavigationOptions: {
         title: "App",
         headerShown: false
