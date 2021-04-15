@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 
-import { ProfileIcon, MailIcon, PhoneIcon, Logo } from '../resources';
+import { ProfileIcon, MailIcon, PhoneIcon, Logo, EditButton, NLFlag, ENFlag } from '../resources';
 
 const window = Dimensions.get('window');
 
@@ -18,6 +18,7 @@ const Profile = () => {
                 <View style={styles.home}>
                     <Logo style={styles.logo} width={window.width / 10 * 5}/>
                     <Text style={styles.topBeschrijving}>Algemeen</Text>
+                    <EditButton style={{marginBottom: '5%'}}/>
 
                     <View style={styles.profileSection}>
                         <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
@@ -41,6 +42,10 @@ const Profile = () => {
                         <Text style={[styles.tussenTekst, {marginBottom: '10%'}]}>Autoplaatsplekstraat</Text>
                     </View>
                     <Text style={[styles.accountName, {marginTop: '5%'}]}>Taal</Text>
+                    <View style={{flexDirection: 'row', marginTop: '5%'}}>
+                        <NLFlag style={{marginLeft: '2%', marginRight: '2%'}}/>
+                        <ENFlag style={{marginLeft: '2%', marginRight: '2%'}}/>
+                    </View>
                 </View>
             </ScrollView>
         </TouchableWithoutFeedback>
@@ -67,7 +72,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 30,
-        paddingBottom: 90
     },
     logo: {
         width: window.width / 10 * 5,

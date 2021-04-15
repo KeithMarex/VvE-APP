@@ -7,6 +7,11 @@ import NotificationIcon from './icons/Notification.svg'
 import Logo from './icons/logo/Logo nieuwe wereld.svg'
 import MailIcon from './icons/login/Mail.svg'
 import PhoneIcon from './icons/Call.svg'
+import EditButton from './icons/buttons/edit.svg'
+
+// Country flags
+import NLFlag from './icons/country/nl.svg'
+import ENFlag from './icons/country/en.svg'
 
 export {
     CalendarIcon,
@@ -17,5 +22,8 @@ export {
     NotificationIcon,
     Logo,
     MailIcon,
-    PhoneIcon
+    PhoneIcon,
+    EditButton,
+    NLFlag,
+    ENFlag
 }
