@@ -4,7 +4,7 @@ import StyledText from '../components/StyledText'
 import {Svg, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { CommentIcon, CalendarIcon, HomeIcon } from '../resources'
+import { CommentIcon, CalendarIcon, HomeIcon, Logo } from '../resources'
 
 const window = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
