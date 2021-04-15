@@ -4,7 +4,7 @@ import StyledText from '../components/StyledText'
 import {Svg, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { Comment, Calendar } from '../resources'
+import { Comment, Calendar, Home } from '../resources'
 
 const window = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
@@ -21,11 +21,11 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
                         <View style={styles.introMessage}>
                             <Comment style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie ></StyledText>
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie &#62;</StyledText>
                         </View>
                         <View style={styles.introMessage}>
                             <Calendar style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten ></StyledText>
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten &#62;</StyledText>
                         </View>
                     </View>
 
@@ -33,8 +33,9 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Binnenkort</StyledText>
                         <View style={[styles.homeSection, styles.agenda]}>
                             <StyledText inputStyle={styles.agendaItemName}>Maandelijkse vergadering</StyledText>
-                            <View>
-                                <StyledText inputStyle={styles.agendaItemDate}>Za. 11 maart 16:00 - 17:30</StyledText>
+                            <View style={styles.agendaItemDate}>
+                                <Calendar style={styles.agendaItemDateIcon} stroke={'#451864'} width={19} height={19} />
+                                <StyledText inputStyle={styles.agendaItemDateText}>Za. 11 maart 16:00 - 17:30</StyledText>
                             </View>
                         </View>
                     </View>
@@ -56,7 +57,10 @@ const HomeScreen = (props) => {
                             </View>
                             <View style={styles.newsTextWrapper}>
                                 <View style={styles.newsTextTopWrapper}>
-                                    <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
+                                    <View style={styles.newsTextTopOrganization}>
+                                        <Home stroke={'#A0CAE8'} width={10} height={10} />
+                                        <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
+                                    </View>
                                     <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
                                     <StyledText inputStyle={styles.newsTextTop}>25/03/2021</StyledText>
                                 </View>
@@ -197,8 +201,15 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     agendaItemDate: {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    agendaItemDateText: {
         color: '#A0CAE8',
         fontSize: 14,
+    },
+    agendaItemDateIcon: {
+        marginRight: 10
     },
 
     news: {
@@ -231,17 +242,21 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     newsTextTopWrapper: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     newsTextTop: {
         color: '#FCFCFC',
         fontSize: 10,
         marginRight: 8,
-        marginLeft: 8
+        marginLeft: 8,
     },
     newsTextTopLine: {
         fontSize: 10,
         color: '#A0CAE8'
+    },
+    newsTextTopOrganization: {
+        flexDirection: 'row',
+        alignItems: 'center'
     },
 
     infoOrganization: {
