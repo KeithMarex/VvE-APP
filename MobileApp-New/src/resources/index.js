@@ -1,7 +1,15 @@
-import Comment from './icons/Comment.svg'
-import Calendar from './icons/Calandar.svg'
+import CommentIcon from './icons/Comment.svg'
+import CalendarIcon from './icons/Calendar.svg'
+import HomeIcon from './icons/Home.svg'
+import ProfileIcon from './icons/Profile.svg'
+import NewsIcon from './icons/News.svg'
+import NotificationIcon from './icons/Notification.svg'
 
 export {
-    Calendar,
-    Comment
+    CalendarIcon,
+    CommentIcon,
+    HomeIcon,
+    ProfileIcon,
+    NewsIcon,
+    NotificationIcon
 }
