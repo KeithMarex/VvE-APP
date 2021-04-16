@@ -1,13 +1,13 @@
 import React from 'react'
 import { StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
 import StyledText from '../components/StyledText'
-import {Svg, Defs, LinearGradient, Stop, Rect} from 'react-native-svg'
+import { Svg, Defs, LinearGradient, Stop, Rect } from 'react-native-svg'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
 import { CommentIcon, CalendarIcon, HomeIcon, Logo } from '../resources'
 
-const window = Dimensions.get('window');
-const Tab = createBottomTabNavigator();
+const window = Dimensions.get('window')
+const Tab = createBottomTabNavigator()
 
 const HomeScreen = (props) => {
     return (
@@ -114,13 +114,10 @@ const HomeScreen = (props) => {
 
             </ScrollView>
         </SafeAreaView>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
-    text: {
-        fontSize: 25,
-    },
     root: {
         backgroundColor: '#F7F7FC',
         height: '100%',
@@ -133,8 +130,6 @@ const styles = StyleSheet.create({
         paddingBottom: 90
     },
     logo: {
-        width: window.width / 10 * 5,
-        height: window.height / 6,
         marginBottom: 10
     },
     homeSection: {
@@ -283,6 +278,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#A0CAE8',
     }
-});
+})
 
-export default HomeScreen;
+export default HomeScreen

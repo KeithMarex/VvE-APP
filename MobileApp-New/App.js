@@ -6,7 +6,7 @@ import Login_forget from "./src/screens/login_forget";
 import HomeScreen from "./src/screens/HomeScreen";
 import HomeNavigation from "./src/screens/HomeNavigation";
 import Profile from "./src/screens/Profile";
-import Notification from "./src/screens/Notification";
+import Tickets from "./src/screens/Tickets";
 import Calandar from "./src/screens/Calandar";
 import News from "./src/screens/News";
 
@@ -20,7 +20,7 @@ const navigator = createStackNavigator(
     profile: { screen: Profile, navigationOptions: { headerShown: false }},
     calandar: { screen: Calandar, navigationOptions: { headerShown: false }},
     news: { screen: News, navigationOptions: { headerShown: false }},
-    notificatie: { screen: Notification, navigationOptions: { headerShown: false }}
+    tickets: { screen: Tickets, navigationOptions: { headerShown: false }}
   },
   {
     initialRouteName: "login",

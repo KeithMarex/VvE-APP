@@ -11,7 +11,7 @@ import { HomeIcon, CalendarIcon, NewsIcon, NotificationIcon, ProfileIcon } from 
 
 import {Dimensions, StyleSheet, View} from "react-native";
 import Profile from "./Profile";
-import Notification from "./Notification";
+import Tickets from "./Tickets";
 import News from "./News";
 import Calendar from "./Calandar";
 
@@ -42,7 +42,7 @@ const HomeNavigation = (props) => {
                             return <NewsIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? '#451864' : '#FCFCFC'} />
                         },
                     }} />
-                    <Tab.Screen name="Meldingen" component={Notification} options={{
+                    <Tab.Screen name="Meldingen" component={Tickets} options={{
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
                             return <NotificationIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={'#FCFCFC'} />
