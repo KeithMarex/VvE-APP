@@ -27,5 +27,5 @@ put:
         application/json:
           schema:
             $ref: ../definitions/Tag.yaml
-    '500':
+    '400':
       description: validation error
