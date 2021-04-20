@@ -23,3 +23,5 @@ paths:
     $ref: ./tag/postTag.yaml
   /tag/{id}/:
     $ref: ./tag/putTag.yaml
+  /tag/{id}//:
+    $ref: ./tag/deleteTag.yaml
