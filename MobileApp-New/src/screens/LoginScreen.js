@@ -1,18 +1,19 @@
-import React from "react";
-import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native";
-import Mail from "../resources/icons/login/Mail.svg";
-import Lock from "../resources/icons/login/Lock.svg";
+import React from 'react'
+import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import Mail from '../resources/icons/login/Mail.svg'
+import Lock from '../resources/icons/login/Lock.svg'
+import { Logo } from '../resources'
 
-const ss = Dimensions.get('window');
+const ss = Dimensions.get('window')
 
 const LoginScreen = (props) => {
-    const [username, onChangeName] = React.useState("");
-    const [pass, onChangePass] = React.useState("");
+    const [username, onChangeName] = React.useState("")
+    const [pass, onChangePass] = React.useState("")
 
     return (
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
             <View style={styles.view}>
-                <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
+                <Logo width={ss.width / 10 * 7} style={styles.logo} />
                 <View style={styles.emailField}>
                     <Mail style={styles.svg} stroke={'#A0A3BD'}/>
                     <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder="Email" />
@@ -59,8 +60,8 @@ const styles = StyleSheet.create({
   view: {
       flex: 1,
       backgroundColor: '#F7F7FC',
-      justifyContent: "center",
-      alignItems: "center"
+      justifyContent: 'center',
+      alignItems: 'center'
   },
     logo: {
         width: Dimensions.get('window').width / 10 * 7,
@@ -71,8 +72,8 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width / 10 * 7,
         height: Dimensions.get('window').height / 30 * 2,
         borderRadius: 10,
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
