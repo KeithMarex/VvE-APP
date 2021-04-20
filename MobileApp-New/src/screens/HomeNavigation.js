@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     navBar: {
         backgroundColor: '#451864',
-        height: 60,
+        height: ss.height / 10,
         borderTopWidth: 0
     }
 });
