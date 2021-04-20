@@ -45,7 +45,7 @@ const getTextStyle = (inputStyle) => {
 
         // THEMES
         pageTitle: {
-            fontSize: 24,
+            fontSize: 28,
             color: '#451864',
             fontWeight: 'bold',
             letterSpacing: 1
@@ -56,6 +56,12 @@ const getTextStyle = (inputStyle) => {
             color: '#4E4B66',
             letterSpacing: 3,
             textTransform: 'uppercase'
+        },
+        cardHeader: {
+            color: '#451864',
+            fontWeight: 'bold',
+            fontSize: 20,
+            letterSpacing: 1
         }
     })
 }
