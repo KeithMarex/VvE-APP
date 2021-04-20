@@ -17,3 +17,5 @@ paths:
     $ref: ./user/register.yaml
   /tag/{id}:
     $ref: ./tag/getTag.yaml
+  /tag:
+    $ref: ./tag/getTags.yaml
