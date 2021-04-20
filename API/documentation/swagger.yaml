@@ -27,3 +27,5 @@ paths:
     $ref: ./tag/deleteTag.yaml
   /ticket:
     $ref: ./ticket/getTickets.yaml
+  /ticket/{id}:
+    $ref: ./ticket/getTicket.yaml
