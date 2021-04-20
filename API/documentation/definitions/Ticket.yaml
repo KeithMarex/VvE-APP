@@ -15,7 +15,7 @@ properties:
   assignee:
     $ref: ./User.yaml
   status:
-    $ref: ./Status.yaml
+    type: status
   comments:
     $ref: ./Comment.yaml
   tag:
