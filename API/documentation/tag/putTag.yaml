@@ -1,0 +1,46 @@
+put:
+  summary: Updates tag in the database
+  tags:
+    - Tag
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            color:
+              type: string
+  responses:
+    '200':
+      description: Receiving updated tag
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              name:
+                type: string
+              color:
+                type: string
+              organization:
+                type: organization
+              createdAt:
+                type: string
+              updatedAt:
+                type: string
+              __v:
+                type: string
+    '500':
+      description: validation error
