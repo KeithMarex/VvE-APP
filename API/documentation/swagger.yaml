@@ -33,3 +33,5 @@ paths:
     $ref: ./ticket/postTicket.yaml
   /ticket/{id}/:
     $ref: ./ticket/putTicket.yaml
+  /ticket/{id}//:
+    $ref: ./ticket/deleteTicket.yaml
