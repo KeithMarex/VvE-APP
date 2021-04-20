@@ -10,22 +10,6 @@ get:
           schema:
             type: array
             items:
-              type: object
-              properties:
-                _id:
-                  type: string
-                name:
-                  type: string
-                color:
-                  type: string
-                organization:
-                  $ref: ../definitions/Organization.yaml
-                createdAt:
-                  type: string
-                updatedAt:
-                  type: string
-                __v:
-                  type: string
-
+              $ref: ../definitions/Tag.yaml
     '500':
       description: Tags are not existing
