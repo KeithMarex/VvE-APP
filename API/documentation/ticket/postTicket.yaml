@@ -1,0 +1,24 @@
+post:
+  summary: Adds ticket to the database
+  tags:
+    - Ticket
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            color:
+              type: string
+  responses:
+    '201':
+      description: Receiving created ticket
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Ticket.yaml
+    '400':
+      description: validation error
