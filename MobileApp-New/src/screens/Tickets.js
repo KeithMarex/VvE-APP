@@ -15,8 +15,7 @@ const Tickets = (props) => {
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Meldingen</StyledText>
                     <PageActionButton icon={'plus'} text={'Aanmaken'}/>
 
-                    <View style={styles.ticketsSection}>
-
+                    <View>
                         <View style={styles.ticket}>
 
                             <View style={styles.ticketHeader}>
@@ -124,9 +123,6 @@ const styles = StyleSheet.create({
         color: 'black'
     },
 
-    ticketsSection: {
-
-    },
     ticket: {
         width: '100%',
         backgroundColor: '#fff',

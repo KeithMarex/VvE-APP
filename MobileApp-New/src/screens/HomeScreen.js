@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Image, Dimensions, ScrollView, SafeAreaView } from 'react-native'
+import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView } from 'react-native'
 import StyledText from '../components/StyledText'
-import { Svg, Defs, LinearGradient, Stop, Rect } from 'react-native-svg'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { CommentIcon, CalendarIcon, HomeIcon, Logo } from '../resources'
+import { CommentIcon, CalendarIcon, Logo } from '../resources'
+import NewsShowcase from '../components/NewsShowcase'
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
@@ -42,31 +42,7 @@ const HomeScreen = (props) => {
 
                     <View style={styles.homeSectionWrapper}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Recent nieuws</StyledText>
-                        <View style={[styles.homeSection, styles.news]}>
-                            <Image style={styles.newsImage} source={require('../resources/images/news-placeholder.png')}/>
-                            <View style={styles.newsImageOverlay}>
-                                <Svg height="100%" width="100%">
-                                    <Defs>
-                                        <LinearGradient id="grad" x1="1" y1="0" x2="1" y2="1">
-                                            <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.5" />
-                                            <Stop offset="100%" stopColor="#5C3974" stopOpacity="0.9" />
-                                        </LinearGradient>
-                                    </Defs>
-                                    <Rect x="0" y="0" width="100%" height="100%" rx='10' fill="url(#grad)" />
-                                </Svg>
-                            </View>
-                            <View style={styles.newsTextWrapper}>
-                                <View style={styles.newsTextTopWrapper}>
-                                    <View style={styles.newsTextTopOrganization}>
-                                        <HomeIcon stroke={'#A0CAE8'} width={10} height={10} />
-                                        <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
-                                    </View>
-                                    <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
-                                    <StyledText inputStyle={styles.newsTextTop}>25/03/2021</StyledText>
-                                </View>
-                                <StyledText inputStyle={styles.newsTitle}>Nieuw lid bij de WhatsApp buurtpreventie</StyledText>
-                            </View>
-                        </View>
+                        <NewsShowcase />
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
@@ -200,55 +176,6 @@ const styles = StyleSheet.create({
     },
     agendaItemDateIcon: {
         marginRight: 10
-    },
-
-    news: {
-        position: 'relative',
-        justifyContent: 'flex-end',
-    },
-    newsImage: {
-        width: '100%',
-        height: 225,
-        borderRadius: 10,
-    },
-    newsImageOverlay: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        position: 'absolute',
-        width: '100%',
-        height: 225,
-        borderRadius: 20
-    },
-    newsTextWrapper: {
-        width: '100%',
-        position: 'absolute',
-        alignItems: 'center',
-        alignContent: 'center',
-        paddingTop: 10,
-        paddingBottom: 20,
-    },
-    newsTitle: {
-        color: '#FCFCFC',
-        fontSize: 18
-    },
-    newsTextTopWrapper: {
-        flexDirection: 'row',
-    },
-    newsTextTop: {
-        color: '#FCFCFC',
-        fontSize: 10,
-        marginRight: 8,
-        marginLeft: 8,
-    },
-    newsTextTopLine: {
-        fontSize: 10,
-        color: '#A0CAE8'
-    },
-    newsTextTopOrganization: {
-        flexDirection: 'row',
-        alignItems: 'center'
     },
 
     infoOrganization: {
