@@ -1,0 +1,35 @@
+get:
+  summary: Returns the tag by ID.
+  tags:
+    - Tag
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  responses:
+    '200':
+      description: Tag object
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              name:
+                type: string
+              color:
+                type: string
+              organization:
+                type: organization
+              createdAt:
+                type: string
+              updatedAt:
+                type: string
+              __v:
+                type: string
+    '500':
+      description: Tag does not exists
