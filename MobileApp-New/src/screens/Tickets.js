@@ -1,7 +1,8 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Image, Dimensions, TouchableOpacity} from 'react-native'
 import React from 'react'
 import StyledText from '../components/StyledText'
-import {Logo, CommentIcon, EditButton} from '../resources'
+import { Logo, CommentIcon, EditButton, PlusIcon } from '../resources'
+import PageActionButton from '../components/PageActionButton'
 
 const window = Dimensions.get('window')
 
@@ -14,7 +15,7 @@ const Tickets = (props) => {
 
                     <StyledText inputStyle={styles.ticketsTitle} theme={'pageTitle'}>Meldingen</StyledText>
 
-                    <EditButton style={styles.addButton}/>
+                    <PageActionButton icon={'plus'} text={'Aanmaken'}/>
 
                     <View style={styles.ticketsList}>
 
@@ -106,9 +107,23 @@ const styles = StyleSheet.create({
     ticketsTitle: {
       marginBottom: 20
     },
+
     addButton: {
-        marginBottom: 10,
-        marginTop: 15
+        marginVertical: 15,
+        alignItems: 'center'
+    },
+    addButtonIconWrapper: {
+        backgroundColor: '#A0CAE8',
+        borderRadius: 50,
+        width: window.width / 10 * 1.1,
+        height: window.width / 10 * 1.1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    addButtonText: {
+        marginTop: 4,
+        fontSize: 11,
+        color: 'black'
     },
 
     ticketsList: {
