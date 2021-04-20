@@ -1,7 +1,7 @@
 get:
   summary: Returns all the tickets of user/organization.
   tags:
-    - Tag
+    - Ticket
   responses:
     '200':
       description: Array with ticket objects
