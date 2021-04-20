@@ -19,7 +19,7 @@ get:
                 color:
                   type: string
                 organization:
-                  type: organization
+                  $ref: ../definitions/Organization.yaml
                 createdAt:
                   type: string
                 updatedAt:
