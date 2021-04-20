@@ -12,5 +12,5 @@ delete:
   responses:
     '200':
       description: Success message
-    '500':
+    '404':
       description: Tag does not exists
