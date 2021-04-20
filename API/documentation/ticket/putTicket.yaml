@@ -16,20 +16,12 @@ put:
         schema:
           type: object
           properties:
-            title:
-              type: string
-            description:
-              type: string
-            images:
-              type: array
-              items:
-                $ref: ../definitions/Image.yaml
-            creator:
-              $ref: ../definitions/User.yaml
             assignee:
               $ref: ../definitions/User.yaml
             tag:
               $ref: ../definitions/Tag.yaml
+            status:
+              type: status
   responses:
     '200':
       description: Receiving updated ticket
