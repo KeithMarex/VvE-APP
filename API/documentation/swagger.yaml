@@ -5,6 +5,8 @@ info:
   version: 1.0.0
 tags:
   - name: User
+  - name: Tag
+  - name: Ticket
 
 paths:
   /user/{id}:
@@ -13,3 +15,23 @@ paths:
     $ref: ./user/login.yaml
   /user/register:
     $ref: ./user/register.yaml
+  /tag:
+    $ref: ./tag/getTags.yaml
+  /tag/{id}:
+    $ref: ./tag/getTag.yaml
+  /tag/:
+    $ref: ./tag/postTag.yaml
+  /tag/{id}/:
+    $ref: ./tag/putTag.yaml
+  /tag/{id}//:
+    $ref: ./tag/deleteTag.yaml
+  /ticket:
+    $ref: ./ticket/getTickets.yaml
+  /ticket/{id}:
+    $ref: ./ticket/getTicket.yaml
+  /ticket/:
+    $ref: ./ticket/postTicket.yaml
+  /ticket/{id}/:
+    $ref: ./ticket/putTicket.yaml
+  /ticket/{id}//:
+    $ref: ./ticket/deleteTicket.yaml

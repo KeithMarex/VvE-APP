@@ -1,0 +1,15 @@
+get:
+  summary: Returns all the tags of organization.
+  tags:
+    - Tag
+  responses:
+    '200':
+      description: Array with tag objects
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../definitions/Tag.yaml
+    '500':
+      description: Tags are not existing
