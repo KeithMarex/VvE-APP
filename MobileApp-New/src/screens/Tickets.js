@@ -1,7 +1,7 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Image, Dimensions, TouchableOpacity} from 'react-native'
 import React from 'react'
 import StyledText from '../components/StyledText'
-import { Logo, CommentIcon } from '../resources'
+import {Logo, CommentIcon, EditButton} from '../resources'
 
 const window = Dimensions.get('window')
 
@@ -13,6 +13,8 @@ const Tickets = (props) => {
                     <Logo style={styles.logo} width={window.width / 10 * 5} />
 
                     <StyledText inputStyle={styles.ticketsTitle} theme={'pageTitle'}>Meldingen</StyledText>
+
+                    <EditButton style={styles.addButton}/>
 
                     <View style={styles.ticketsList}>
 
@@ -103,6 +105,10 @@ const styles = StyleSheet.create({
     },
     ticketsTitle: {
       marginBottom: 20
+    },
+    addButton: {
+        marginBottom: 10,
+        marginTop: 15
     },
 
     ticketsList: {
