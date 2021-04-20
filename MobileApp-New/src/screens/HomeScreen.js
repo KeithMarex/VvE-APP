@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     },
     homeSection: {
         width: '100%',
-        backgroundColor: '#FCFCFC',
+        backgroundColor: '#fff',
         borderRadius: 20,
         borderColor: '#f8f8f8',
         borderWidth: 5,

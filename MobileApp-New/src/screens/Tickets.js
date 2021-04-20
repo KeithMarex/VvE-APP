@@ -1,7 +1,7 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Image, Dimensions, TouchableOpacity} from 'react-native'
+import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
 import React from 'react'
 import StyledText from '../components/StyledText'
-import { Logo, CommentIcon, EditButton, PlusIcon } from '../resources'
+import { Logo, CommentIcon } from '../resources'
 import PageActionButton from '../components/PageActionButton'
 
 const window = Dimensions.get('window')
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     ticketsTitle: {
-      marginBottom: 20
+        marginBottom: window.height / 40,
     },
 
     addButton: {
@@ -131,12 +131,12 @@ const styles = StyleSheet.create({
     },
     ticket: {
         width: '100%',
-        backgroundColor: '#FCFCFC',
+        backgroundColor: '#fff',
         borderRadius: 20,
         borderColor: '#f8f8f8',
         borderWidth: 5,
         paddingVertical: 20,
-        paddingHorizontal: 30,
+        paddingHorizontal: '7%',
         marginBottom: 8
     },
     ticketHeader: {
