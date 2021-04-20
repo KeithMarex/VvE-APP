@@ -5,6 +5,8 @@ info:
   version: 1.0.0
 tags:
   - name: User
+  - name: Tag
+  - name: Ticket
 
 paths:
   /user/{id}:
