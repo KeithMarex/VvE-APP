@@ -9,20 +9,10 @@ post:
         schema:
           type: object
           properties:
-            title:
+            name:
               type: string
-            description:
+            color:
               type: string
-            images:
-              type: array
-              items:
-                $ref: ../definitions/Image.yaml
-            creator:
-              $ref: ../definitions/User.yaml
-            assignee:
-              $ref: ../definitions/User.yaml
-            tag:
-              $ref: ../definitions/Tag.yaml
   responses:
     '201':
       description: Receiving created tag
