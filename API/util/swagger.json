@@ -8,6 +8,12 @@
   "tags": [
     {
       "name": "User"
+    },
+    {
+      "name": "Tag"
+    },
+    {
+      "name": "Ticket"
     }
   ],
   "paths": {
@@ -41,6 +47,15 @@
                     },
                     "email": {
                       "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "firstename": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": null
                     },
                     "createdAt": {
                       "type": "string"
@@ -182,6 +197,278 @@
           },
           "500": {
             "description": "Email already exists"
+          }
+        }
+      }
+    },
+    "/tag": {
+      "get": {
+        "summary": "Returns all the tags of user.",
+        "tags": [
+          "Tag"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array with tag objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "organization": {
+                        "type": "organization"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Tags are not existing"
+          }
+        }
+      }
+    },
+    "/tag/{id}": {
+      "get": {
+        "summary": "Returns the tag by ID.",
+        "tags": [
+          "Tag"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tag object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Tag does not exists"
+          }
+        }
+      }
+    },
+    "/tag/": {
+      "post": {
+        "summary": "Adds tag to the database",
+        "tags": [
+          "Tag"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Receiving created tag",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation error"
+          }
+        }
+      }
+    },
+    "/tag/{id}/": {
+      "put": {
+        "summary": "Updates tag in the database",
+        "tags": [
+          "Tag"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Receiving updated tag",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "validation error"
+          }
+        }
+      }
+    },
+    "/tag/{id}//": {
+      "delete": {
+        "summary": "Deletes the tag by ID.",
+        "tags": [
+          "Tag"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "500": {
+            "description": "Tag does not exists"
           }
         }
       }
