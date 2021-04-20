@@ -1,0 +1,14 @@
+type: object
+properties:
+  _id:
+    type: string
+  name:
+    type: string
+  image:
+    type: string
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+  __v:
+    type: string
