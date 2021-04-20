@@ -12,12 +12,10 @@ const Tickets = (props) => {
             <ScrollView style={styles.scrollView}>
                 <View style={styles.tickets}>
                     <Logo style={styles.logo} width={window.width / 10 * 5} />
-
-                    <StyledText inputStyle={styles.ticketsTitle} theme={'pageTitle'}>Meldingen</StyledText>
-
+                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Meldingen</StyledText>
                     <PageActionButton icon={'plus'} text={'Aanmaken'}/>
 
-                    <View style={styles.ticketsList}>
+                    <View style={styles.ticketsSection}>
 
                         <View style={styles.ticket}>
 
@@ -104,7 +102,7 @@ const styles = StyleSheet.create({
     logo: {
         marginBottom: 10
     },
-    ticketsTitle: {
+    pageTitle: {
         marginBottom: window.height / 40,
     },
 
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
         color: 'black'
     },
 
-    ticketsList: {
+    ticketsSection: {
 
     },
     ticket: {
