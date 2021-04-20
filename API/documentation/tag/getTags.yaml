@@ -1,5 +1,5 @@
 get:
-  summary: Returns all the tags of user.
+  summary: Returns all the tags of organization.
   tags:
     - Tag
   responses:
