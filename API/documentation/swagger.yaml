@@ -19,3 +19,5 @@ paths:
     $ref: ./tag/getTags.yaml
   /tag/{id}:
     $ref: ./tag/getTag.yaml
+  /tag/:
+    $ref: ./tag/postTag.yaml
