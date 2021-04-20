@@ -203,7 +203,7 @@
     },
     "/tag": {
       "get": {
-        "summary": "Returns all the tags of user.",
+        "summary": "Returns all the tags of organization.",
         "tags": [
           "Tag"
         ],
@@ -215,30 +215,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "color": {
-                        "type": "string"
-                      },
-                      "organization": {
-                        "type": "organization"
-                      },
-                      "createdAt": {
-                        "type": "string"
-                      },
-                      "updatedAt": {
-                        "type": "string"
-                      },
-                      "__v": {
-                        "type": "string"
-                      }
-                    }
+                    "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
                   }
                 }
               }
@@ -273,30 +250,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "color": {
-                      "type": "string"
-                    },
-                    "organization": {
-                      "type": "organization"
-                    },
-                    "createdAt": {
-                      "type": "string"
-                    },
-                    "updatedAt": {
-                      "type": "string"
-                    },
-                    "__v": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
                 }
               }
             }
@@ -349,7 +303,38 @@
                       "type": "string"
                     },
                     "organization": {
-                      "type": "organization"
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "emailcredentials": {
+                          "type": "string"
+                        },
+                        "theme": {
+                          "type": "object",
+                          "properties": {
+                            "primarycolor": {
+                              "type": "string"
+                            },
+                            "secondarycolor": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "string"
+                        }
+                      }
                     },
                     "createdAt": {
                       "type": "string"
@@ -412,35 +397,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "color": {
-                      "type": "string"
-                    },
-                    "organization": {
-                      "type": "organization"
-                    },
-                    "createdAt": {
-                      "type": "string"
-                    },
-                    "updatedAt": {
-                      "type": "string"
-                    },
-                    "__v": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
                 }
               }
             }
           },
-          "500": {
+          "400": {
             "description": "validation error"
           }
         }
@@ -467,8 +429,319 @@
           "200": {
             "description": "Success message"
           },
-          "500": {
+          "404": {
             "description": "Tag does not exists"
+          }
+        }
+      }
+    },
+    "/ticket": {
+      "get": {
+        "summary": "Returns all the tickets of user/organization.",
+        "tags": [
+          "Ticket"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array with ticket objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/paths/~1ticket~1/post/responses/201/content/application~1json/schema"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Tickets are not existing"
+          }
+        }
+      }
+    },
+    "/ticket/{id}": {
+      "get": {
+        "summary": "Returns the Ticket by ID.",
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1ticket~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ticket does not exists"
+          }
+        }
+      }
+    },
+    "/ticket/": {
+      "post": {
+        "summary": "Adds ticket to the database",
+        "tags": [
+          "Ticket"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "image": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "creator": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "firstename": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": null
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "assignee": {
+                    "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                  },
+                  "tag": {
+                    "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Receiving created ticket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/images/items"
+                      }
+                    },
+                    "creator": {
+                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                    },
+                    "assignee": {
+                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                    },
+                    "status": {
+                      "type": "status"
+                    },
+                    "comments": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "user": {
+                          "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                        },
+                        "comment": {
+                          "type": "string"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/images/items"
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "tag": {
+                      "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation error"
+          }
+        }
+      }
+    },
+    "/ticket/{id}/": {
+      "put": {
+        "summary": "Updates ticket in the database",
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "assignee": {
+                    "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                  },
+                  "tag": {
+                    "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                  },
+                  "status": {
+                    "type": "status"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Receiving updated ticket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1ticket~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation error"
+          }
+        }
+      }
+    },
+    "/ticket/{id}//": {
+      "delete": {
+        "summary": "Deletes the ticket by ID.",
+        "tags": [
+          "Ticket"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "404": {
+            "description": "Ticket does not exists"
           }
         }
       }
