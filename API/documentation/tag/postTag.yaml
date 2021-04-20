@@ -1,0 +1,24 @@
+post:
+  summary: Adds tag to the database
+  tags:
+    - Tag
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            color:
+              type: string
+  responses:
+    '201':
+      description: Receiving created tag
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Tag.yaml
+    '400':
+      description: validation error

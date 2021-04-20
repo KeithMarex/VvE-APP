@@ -1,0 +1,33 @@
+put:
+  summary: Updates ticket in the database
+  tags:
+    - Ticket
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            assignee:
+              $ref: ../definitions/User.yaml
+            tag:
+              $ref: ../definitions/Tag.yaml
+            status:
+              type: status
+  responses:
+    '200':
+      description: Receiving updated ticket
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Ticket.yaml
+    '400':
+      description: validation error

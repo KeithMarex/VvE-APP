@@ -1,0 +1,21 @@
+type: object
+properties:
+  _id:
+    type: string
+  name:
+      type: string
+  emailcredentials:
+      type: string
+  theme:
+    type: object
+    properties:
+      primarycolor:
+        type: string
+      secondarycolor:
+        type: string
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+  __v:
+    type: string

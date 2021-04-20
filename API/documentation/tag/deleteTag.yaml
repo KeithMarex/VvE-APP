@@ -1,0 +1,16 @@
+delete:
+  summary: Deletes the tag by ID.
+  tags:
+    - Tag
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  responses:
+    '200':
+      description: Success message
+    '404':
+      description: Tag does not exists
