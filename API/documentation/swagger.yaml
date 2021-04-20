@@ -29,3 +29,5 @@ paths:
     $ref: ./ticket/getTickets.yaml
   /ticket/{id}:
     $ref: ./ticket/getTicket.yaml
+  /ticket/:
+    $ref: ./ticket/postTicket.yaml
