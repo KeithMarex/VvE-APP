@@ -38,7 +38,7 @@ const Tickets = (props) => {
                                     <StyledText inputStyle={styles.lastUpdateText}>13 mei 2021 15:30</StyledText>
                                 </View>
 
-                                <TouchableOpacity style={styles.ticketBtn} onPress={() => props.navigation.navigate('homeNavigation')} >
+                                <TouchableOpacity style={styles.ticketBtn} onPress={() => alert('Tapped ticket button')} >
                                     <StyledText inputStyle={styles.ticketBtnText}>
                                         Meer info &#62;
                                     </StyledText>
