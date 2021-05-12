@@ -10,6 +10,8 @@ const LoginScreen = (props) => {
     const [username, onChangeName] = React.useState("")
     const [pass, onChangePass] = React.useState("")
 
+    fetch()
+
     return (
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
             <View style={styles.view}>
