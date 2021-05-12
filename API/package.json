@@ -2,9 +2,9 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "start": "nodemon app.ts",
+    "start": "nodemon",
+    "test": "npx mocha -r tsconfig-paths/register -r ts-node/register ./test/*.spec.ts",
     "docu": "swagger-cli bundle -o ./util/swagger.json ./documentation/swagger.yaml"
   },
   "dependencies": {
@@ -20,7 +20,8 @@
     "mongoose-float": "^1.0.4",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -32,8 +33,14 @@
     "@types/node": "^14.14.37",
     "@types/passport": "^1.0.6",
     "@types/swagger-ui-express": "^4.1.2",
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
     "nodemon": "^2.0.6",
+    "should": "^13.2.3",
+    "supertest": "^6.1.3",
+    "swagger-cli": "^4.0.4",
     "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^4.2.3"
   }
 }

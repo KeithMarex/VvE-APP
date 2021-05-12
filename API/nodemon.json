@@ -5,11 +5,9 @@
         "node_modules/**/node_modules"
     ],
     "verbose": true,
-    "execMap": {
-      "ts": "node --require ts-node/register"
-    },
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./app.ts",
     "watch": [
         "./"
     ],
-    "ext": "js, json, ts"
-  }
+    "ext": "ts, json"
+}

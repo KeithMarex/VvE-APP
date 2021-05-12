@@ -1,0 +1,35 @@
+.login-logo {
+    width: 60%;
+    margin: 5% 0 10% 0;
+}
+
+.login-center {
+    vertical-align: center;
+}
+
+.login-username, .login-pass {
+    background-color: #EFF0F6;
+    width: 80%;
+    margin: 5% auto 0 auto;
+    padding: 20% 15% 20% 15%;
+    border-radius: 15%;
+}
+
+.login-submit {
+    background-color: #A0CAE8;
+    width: 80%;
+    margin: 5% auto 0 auto;
+    padding: 20% 15% 20% 15%;
+    border-radius: 15%;
+    color: white;
+}
+
+.login-forgot {
+    padding-top: 15%;
+    width: 100%;
+    margin: auto;
+    text-decoration: underline;
+    text-align: center;
+    font-size: 15px;
+}
+

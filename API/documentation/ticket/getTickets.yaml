@@ -1,0 +1,15 @@
+get:
+  summary: Returns all the tickets of user/organization.
+  tags:
+    - Ticket
+  responses:
+    '200':
+      description: Array with ticket objects
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../definitions/Ticket.yaml
+    '500':
+      description: Tickets are not existing
