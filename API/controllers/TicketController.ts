@@ -1,5 +1,6 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
+import mailer  from '~/util/Mailer';
 
 export const getTickets = async (req, res) => {
     Ticket.find({ user: req.locals.user._id })
