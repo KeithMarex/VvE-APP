@@ -6,6 +6,10 @@ import StyledText from "./StyledText";
 const window = Dimensions.get('window')
 
 const TicketsListItem = (props) => {
+    const viewTicket = () => {
+        alert('Go to ticket: ' + props.ticket.title)
+    }
+
     return (
         <View style={styles.ticket}>
 
@@ -39,7 +43,7 @@ const TicketsListItem = (props) => {
                     </StyledText>
                 </View>
 
-                <TouchableOpacity style={styles.ticketBtn} onPress={() => alert('Tapped ticket button')} >
+                <TouchableOpacity style={styles.ticketBtn} onPress={ viewTicket } >
                     <StyledText inputStyle={styles.ticketBtnText}>
                         Meer info
                     </StyledText>
