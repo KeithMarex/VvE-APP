@@ -6,6 +6,7 @@ import PlusIcon from './icons/Plus.svg'
 import NewsIcon from './icons/News.svg'
 import PenIcon from './icons/Pen.svg'
 import NotificationIcon from './icons/Notification.svg'
+import ArrowIcon from './icons/Arrow.svg'
 import Logo from './icons/logo/Logo nieuwe wereld.svg'
 import MailIcon from './icons/login/Mail.svg'
 import PhoneIcon from './icons/Call.svg'
@@ -24,6 +25,7 @@ export {
     NewsIcon,
     PenIcon,
     NotificationIcon,
+    ArrowIcon,
     Logo,
     MailIcon,
     PhoneIcon,

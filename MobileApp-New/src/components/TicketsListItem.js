@@ -1,6 +1,6 @@
 import React from 'react'
-import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native'
-import {CommentIcon} from "../resources";
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { CommentIcon, ArrowIcon } from "../resources";
 import StyledText from "./StyledText";
 
 const window = Dimensions.get('window')
@@ -31,7 +31,9 @@ const TicketsListItem = (props) => {
 
             <View style={styles.ticketBottom}>
                 <View style={styles.lastUpdate}>
-                    <StyledText inputStyle={styles.lastUpdateText}>Laatste wijziging:</StyledText>
+                    <StyledText inputStyle={styles.lastUpdateText}>
+                        Laatste wijziging:
+                    </StyledText>
                     <StyledText inputStyle={styles.lastUpdateText}>
                         { props.ticket.lastUpdate }
                     </StyledText>
@@ -39,8 +41,9 @@ const TicketsListItem = (props) => {
 
                 <TouchableOpacity style={styles.ticketBtn} onPress={() => alert('Tapped ticket button')} >
                     <StyledText inputStyle={styles.ticketBtnText}>
-                        Meer info &#62;
+                        Meer info
                     </StyledText>
+                    <ArrowIcon width={14} height={14} stroke={'#A0CAE8'} />
                 </TouchableOpacity>
             </View>
 
@@ -122,13 +125,16 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 40,
         justifyContent: 'center',
+        alignItems: 'center',
         paddingHorizontal: 8,
-        paddingVertical: 4
+        paddingVertical: 4,
+        flexDirection: 'row'
     },
     ticketBtnText: {
         color: '#A0CAE8',
         fontSize: 14,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginRight: 4
     }
 })
 
