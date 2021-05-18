@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, Dimensions, Image, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from "react-native";
-import Mail from '../resources/icons/login/Mail.svg';
+import Mail from '../../resources/icons/login/Mail.svg';
 
 const ss = Dimensions.get('window');
 
@@ -10,7 +10,7 @@ const LoginForgot = (props) => {
     return (
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
             <View style={styles.view}>
-                <Image style={styles.logo} source={require('../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
+                <Image style={styles.logo} source={require('../../resources/images/vve-de-nieuwe-wereld.png')} resizeMode="contain" />
                 <Text style={styles.topBeschrijving}>Wachtwoord herstellen</Text>
                 <View style={styles.emailField}>
                     <Mail style={styles.svg} stroke={'#A0A3BD'}/>

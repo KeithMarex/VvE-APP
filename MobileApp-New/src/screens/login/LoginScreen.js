@@ -1,9 +1,9 @@
 import React from 'react'
 import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native'
-import Mail from '../resources/icons/login/Mail.svg'
-import Lock from '../resources/icons/login/Lock.svg'
-import { Logo } from '../resources'
-import ApiHelper from "../api/ApiHelper";
+import Mail from '../../resources/icons/login/Mail.svg'
+import Lock from '../../resources/icons/login/Lock.svg'
+import { Logo } from '../../resources'
+import ApiHelper from "../../api/ApiHelper";
 
 const ss = Dimensions.get('window')
 

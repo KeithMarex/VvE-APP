@@ -3,17 +3,17 @@ import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 
 // Component imports
-import ActualHomeScreen from "./HomeScreen";
+import ActualHomeScreen from "../../screens/home/HomeScreen";
 import React from "react";
 
 // Icons
-import { HomeIcon, CalendarIcon, NewsIcon, NotificationIcon, ProfileIcon } from "../resources/"
+import { HomeIcon, CalendarIcon, NewsIcon, NotificationIcon, ProfileIcon } from "../../resources"
 
 import {Dimensions, StyleSheet, View} from "react-native";
-import Profile from "./Profile";
-import News from "./News";
-import Calendar from "./Calandar";
-import TicketNavigation from "./TicketNavigation";
+import Profile from "../../screens/profile/Profile";
+import News from "../../screens/news/News";
+import Calendar from "../../screens/calendar/Calendar";
+import TicketNavigation from "./tabsNavigation/ticket/TicketNavigation";
 
 const Tab = createBottomTabNavigator();
 const ss = Dimensions.get('window');
