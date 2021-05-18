@@ -4,7 +4,7 @@ import Mail from '../resources/icons/login/Mail.svg';
 
 const ss = Dimensions.get('window');
 
-const Login_forget = (props) => {
+const LoginForgot = (props) => {
     const [username, onChangeName] = React.useState("");
 
     return (
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Login_forget;
+export default LoginForgot;

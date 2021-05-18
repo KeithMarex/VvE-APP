@@ -1,6 +1,6 @@
 // Functional import statements
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, NavigationState, useIsFocused } from '@react-navigation/native';
+import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 
 // Component imports
 import ActualHomeScreen from "./HomeScreen";
@@ -11,13 +11,12 @@ import { HomeIcon, CalendarIcon, NewsIcon, NotificationIcon, ProfileIcon } from 
 
 import {Dimensions, StyleSheet, View} from "react-native";
 import Profile from "./Profile";
-import Tickets from "./Tickets";
 import News from "./News";
 import Calendar from "./Calandar";
+import TicketNavigation from "./TicketNavigation";
 
 const Tab = createBottomTabNavigator();
 const ss = Dimensions.get('window');
-
 
 const HomeNavigation = (props) => {
     return (
@@ -42,7 +41,9 @@ const HomeNavigation = (props) => {
                             return <NewsIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? '#451864' : '#FCFCFC'} />
                         },
                     }} />
-                    <Tab.Screen name="Meldingen" component={Tickets} options={{
+                    <Tab.Screen name="Meldingen" component={TicketNavigation} options={{
+                        headerShown: false,
+                        headerLeft: ()=> null,
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
                             return <NotificationIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={'#FCFCFC'} />
