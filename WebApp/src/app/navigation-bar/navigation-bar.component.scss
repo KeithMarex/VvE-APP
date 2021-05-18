@@ -1,10 +1,47 @@
+@import "../../utilities/colors.scss";
+
 * {
     margin: 0;
     padding: 0;
 }
 
+body {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
 .navigation-bar {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 60px;
+    height: 90vh;
+    width: 67px;
+    border: 1px solid rgba($color: #000000, $alpha: 0.04);
+    border-radius: 7px;
+    box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+
+    .top-icon {
+        margin-top: 20px;
+        height: 25%;
+    }
+
+    ul {
+        list-style: none;
+
+        li {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+    }
+
+    img.active {
+        //TODO change svg properties
+    }
 }
 
+.colored-icon {
+    fill: red;
+}
