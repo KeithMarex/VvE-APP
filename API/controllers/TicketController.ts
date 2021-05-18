@@ -9,7 +9,7 @@ export const getTickets = (req, res) => {
     }
 }
 
-export const getTicket = async (req, res) => {
+export const getTicket = (req, res) => {
     const id = req.params.id;
     Ticket.findById(id)
     .then(result => {
@@ -22,7 +22,7 @@ export const getTicket = async (req, res) => {
     });
 }
 
-export const postTicket = async (req, res) => {
+export const postTicket = (req, res) => {
     const ticket = new Ticket(req.body);
     ticket.save()
     .then(result => {
@@ -35,7 +35,7 @@ export const postTicket = async (req, res) => {
     });
 }
 
-export const putTicket = async (req, res) => {
+export const putTicket = (req, res) => {
     const id = req.params.id;
     const ticket: any = new Ticket(req.body);
     Ticket.updateOne({ _id: id }, {
