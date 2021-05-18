@@ -3,10 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TicketOverviewComponent } from './ticket-overview/ticket-overview.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { NewsOverviewComponent } from './news-overview/news-overview.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { AccountManagementComponent } from './account-management/account-management.component';
+import { VveManagementComponent } from './vve-management/vve-management.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TicketOverviewComponent,
+    NavigationBarComponent,
+    NewsOverviewComponent,
+    CalendarComponent,
+    AccountManagementComponent,
+    VveManagementComponent
   ],
   imports: [
     BrowserModule,
