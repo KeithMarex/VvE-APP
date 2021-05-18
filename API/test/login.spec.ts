@@ -25,4 +25,21 @@ describe("Login unit test for requests",function(){
     });
   });
 
+  // This is a single test
+  it("should not login user with incorrect email",function(done){
+
+    // Making a post request to the api
+    server
+    .post("/login")
+    .send({ email: 'norealemail', password: 'test' })
+    .expect("Content-type",/json/) // Says content type
+    .expect(500)
+    .end( function(err,res) {
+      should(res.status).equal(500);
+      should.not.exist(res.cookies['access-token']);
+      should.not.exist(res.cookies['refresh-token']);
+      done();
+    });
+  });
+
 });
