@@ -33,7 +33,8 @@ export const postTicket = async (req, res) => {
     ticket.save()
     .then(result => {
         //Bestuurder mail
-        User.find({ role: 'user'}, "email", {}, async function(err, docs){
+        User.find({ role: 'admin'}, "email", {}, async function(err, docs){
+            if (!docs.length) return;
             let emailComposition = [];
             docs.forEach(function(user) {
                 emailComposition.push(user["email"]);
