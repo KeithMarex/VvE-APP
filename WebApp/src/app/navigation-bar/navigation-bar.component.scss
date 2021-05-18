@@ -39,10 +39,16 @@ body {
 
     svg.active {
         filter: drop-shadow(0 4px 4px rgba($color: #000000, $alpha: 0.25));
+        fill: $primary-color;
+        stroke: $primary-color;
 
         path {
             fill: $primary-color;
             stroke: $highlight-color;
         }
+    }
+
+    .bottom-section {
+        margin-bottom: 25px;
     }
 }

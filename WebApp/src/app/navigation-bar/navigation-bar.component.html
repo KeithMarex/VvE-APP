@@ -9,11 +9,9 @@
                 <ul>
                     <li>
                         <a routerLink="/vve-management">
-                            <!-- TODO find nicer method of implementing svg? -->
-                            <svg routerLinkActive="active" width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11 9.20168C11 8.25321 11.4485 7.3606 12.2096 6.79454L20 1L27.7904 6.79454C28.5515 7.3606 29 8.25321 29 9.20168V18.5C29 19.8807 27.8807 21 26.5 21H23.7C23.1477 21 22.7 20.5523 22.7 20V14.6818C22.7 14.4057 22.4761 14.1818 22.2 14.1818H17.8C17.5239 14.1818 17.3 14.4057 17.3 14.6818V20C17.3 20.5523 16.8523 21 16.3 21H13.5C12.1193 21 11 19.8807 11 18.5V9.20168Z" stroke="#451864" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M1 15.895C1 14.9354 1.45902 14.0338 2.23491 13.4692L12.5 6L22.7651 13.4692C23.541 14.0338 24 14.9354 24 15.895V28.5C24 29.8807 22.8807 31 21.5 31H16.95C16.3977 31 15.95 30.5523 15.95 30V22.9773C15.95 22.7011 15.7261 22.4773 15.45 22.4773H9.55C9.27386 22.4773 9.05 22.7011 9.05 22.9773V30C9.05 30.5523 8.60228 31 8.05 31H3.5C2.11929 31 1 29.8807 1 28.5V15.895Z" fill="white" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <div class="test">
+                                <app-vves-svg routerLinkActive="active"></app-vves-svg>
+                            </div>
                         </a>
                     </li>
                     <li>
@@ -46,17 +44,19 @@
                     </li>
                     <li>
                         <a routerLink="/calendar">
-                            <svg routerLinkActive="active" width="34" height="38" viewBox="0 0 34 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="2.83301" y="4" width="28.3333" height="28.5" rx="3" stroke="#451864" stroke-width="2"/>
-                                <path d="M9.91699 1V4" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M24.083 1V4" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M2.83301 11.5H31.1663" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.20801 19H10.6247" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16.292 19H17.7087" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M23.375 19H24.7917" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9.20801 25H10.6247" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M16.292 25H17.7087" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M23.375 25H24.7917" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <svg routerLinkActive="active" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g opacity="1">
+                                    <rect x="2" y="3" stroke="#451864" width="20" height="19" rx="3" stroke-width="2"/>
+                                    <path d="M7 1V3" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M17 1V3" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M2 8H22" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6.5 13H7.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M11.5 13H12.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16.5 13H17.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6.5 17H7.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M11.5 17H12.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16.5 17H17.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
                             </svg>
                         </a>
                     </li>
@@ -73,16 +73,8 @@
         </section>
 
         <section class="bottom-section">
-            <ul>
-                <li>
-                    <!-- Link to account page -->
-                    <img src="../../assets/icons/user.svg" alt="">
-                </li>
-                <li>
-                    <!-- Call logout function -->
-                    <img src="../../assets/icons/logout.svg" alt="">
-                </li>
-            </ul>
+            <!-- Call logout function -->
+            <img src="../../assets/icons/logout.svg" alt="">
         </section>
     </section>
 </body>
