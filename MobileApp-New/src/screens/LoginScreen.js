@@ -3,12 +3,19 @@ import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity,
 import Mail from '../resources/icons/login/Mail.svg'
 import Lock from '../resources/icons/login/Lock.svg'
 import { Logo } from '../resources'
+import ApiHelper from "../api/ApiHelper";
 
 const ss = Dimensions.get('window')
 
 const LoginScreen = (props) => {
     const [username, onChangeName] = React.useState("")
     const [pass, onChangePass] = React.useState("")
+    const [results, setResults] = React.useState([])
+
+    const loginUser = async (email, password) => {
+        const response = await ApiHelper.post('user/login', {email: email, password: password})
+        console.log(response.data);
+    };
 
     return (
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
@@ -22,7 +29,10 @@ const LoginScreen = (props) => {
                     <Lock style={styles.svg} stroke={'#A0A3BD'}/>
                     <TextInput style={styles.input} onChangeText={onChangePass} secureTextEntry={true} value={pass} placeholder="Password" />
                 </View>
-                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.replace('homeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.loginButton} onPress={() => {
+                    // props.navigation.replace('homeNavigation');
+                    loginUser(username, pass);
+                }}><Text style={styles.text}>Login</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
