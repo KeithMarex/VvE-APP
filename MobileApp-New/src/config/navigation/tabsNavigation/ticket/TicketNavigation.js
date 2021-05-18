@@ -2,8 +2,8 @@
 import React from "react";
 
 import {createStackNavigator} from "@react-navigation/stack";
-import Tickets from "./Tickets";
-import TicketCreate from "./TicketCreate";
+import Tickets from "../../../../screens/ticket/Tickets";
+import TicketCreate from "../../../../screens/ticket/TicketCreate";
 
 const Stack = createStackNavigator();
 

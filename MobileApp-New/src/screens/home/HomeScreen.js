@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView } from 'react-native'
-import StyledText from '../components/StyledText'
+import StyledText from '../../components/StyledText'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { CommentIcon, CalendarIcon, Logo } from '../resources'
-import NewsShowcase from '../components/NewsShowcase'
+import { CommentIcon, CalendarIcon, Logo } from '../../resources'
+import NewsShowcase from '../../components/NewsShowcase'
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()

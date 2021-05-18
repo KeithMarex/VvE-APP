@@ -1,8 +1,8 @@
 import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, Image } from 'react-native'
 import React from 'react'
-import {HomeIcon, Logo} from '../resources'
-import StyledText from '../components/StyledText'
-import NewsShowcase from '../components/NewsShowcase'
+import {HomeIcon, Logo} from '../../resources'
+import StyledText from '../../components/StyledText'
+import NewsShowcase from '../../components/NewsShowcase'
 
 const window = Dimensions.get('window')
 
@@ -23,7 +23,7 @@ const News = () => {
                             <View style={styles.newsThumbnailWrapper}>
                                 <Image
                                     style={styles.newsThumbnail}
-                                    source={require('../resources/images/news-placeholder.png')}
+                                    source={require('../../resources/images/news-placeholder.png')}
                                 />
                             </View>
                             <View style={styles.newsTextWrapper}>
@@ -43,7 +43,7 @@ const News = () => {
                             <View style={styles.newsThumbnailWrapper}>
                                 <Image
                                     style={styles.newsThumbnail}
-                                    source={require('../resources/images/news-placeholder.png')}
+                                    source={require('../../resources/images/news-placeholder.png')}
                                 />
                             </View>
                             <View style={styles.newsTextWrapper}>
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
-    
+
     newsTitle: {
         marginTop: 2,
         textAlign: 'left',
