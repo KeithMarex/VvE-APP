@@ -40,7 +40,7 @@ const Tickets = (props) => {
     }
 
     const viewTicket = (ticket) => {
-        props.navigation.navigate('Details')
+        props.navigation.navigate('Details', {ticket})
     }
 
     const ticketsListEl = []
@@ -55,7 +55,9 @@ const Tickets = (props) => {
             <ScrollView style={styles.scrollView}>
                 <View style={styles.tickets}>
                     <Logo style={styles.logo} width={window.width / 10 * 5} />
-                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Meldingen</StyledText>
+                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
+                        Meldingen
+                    </StyledText>
                     <TouchableOpacity onPress={() => props.navigation.navigate('Create')}>
                         <PageActionButton icon={'plus'} text={'Aanmaken'}/>
                     </TouchableOpacity>

@@ -1,11 +1,15 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions} from 'react-native'
-import React, {} from 'react'
+import React, {useState} from 'react'
 import StyledText from '../../components/StyledText'
 import { Logo } from '../../resources'
 
 const window = Dimensions.get('window')
 
 const TicketDetails = (props) => {
+    const [ticket, setTicket] = useState(props.route.params.ticket)
+
+    console.log(ticket)
+
     return (
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
