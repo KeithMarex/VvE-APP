@@ -1,22 +1,28 @@
-<div class="ticket-casing">
+<div class="container">
     <section class="left-block">
         <div class="top-section">
-            <!-- Insert username -->
-            <h1>Humberto Tan</h1>
+            <h1>{{ ticket.creator }} (TODO, momenteel user id)</h1>
         </div>
         <div class="description">
-            <!-- Insert ticket description -->
-            <h1>{{ ticket.content }}</h1>
+            <h1>{{ ticket.description }}</h1>
         </div>
     </section>
 
     <section class="right-block">
-        <p>Status: TODO</p>
-        <p>Aangewezen: TODO</p>
+        <div class="top-rows">
+            <div class="right-block-column">
+                <p>Status:</p>
+                <p>Aangewezen:</p>
+            </div>
+            <div class="right-block-column">
+                <p class="colored-text">{{ ticket.status }}</p>
+                <p class="colored-text">{{ ticket.assignee }} (TODO)</p>
+            </div>
+        </div>
 
         <div class="bottom-info">
-            <p>Aangemaakt op: TODO</p>
-            <p>Laatste wijziging: TODO</p>
+            <p>Aangemaakt op: {{ ticket.createdAt }}</p>
+            <p>Laatste wijziging: {{ ticket.updatedAt }}</p>
         </div>
     </section>
 </div>

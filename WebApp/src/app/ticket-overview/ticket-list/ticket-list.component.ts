@@ -7,7 +7,8 @@ import { Ticket } from 'src/shared/models/ticket.model';
   styleUrls: ['./ticket-list.component.scss']
 })
 export class TicketListComponent implements OnInit {
-  tickets: Ticket[] = [new Ticket(1, 'a'), new Ticket(2, 'b')];
+  tickets: Ticket[] = [new Ticket('1', 'Test titel', 'Test description', '5', '3', 'In behandeling', new Date(), new Date()), new Ticket('1', 'Test titel', 'Test description', '5', '3', 'In behandeling', new Date(), new Date())];
+  
 
   constructor() { }
 

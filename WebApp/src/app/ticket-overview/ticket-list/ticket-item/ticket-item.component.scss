@@ -1,17 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import "../../../../utilities/colors.scss";
 
-.ticket-casing {
+.container {
     display: flex;
+    justify-content: space-between;
     background-color: #F7F7FC;
     margin: 15px 25px;
     padding: 20px;
     border-radius: 32px;
+    font-family: 'Poppins', sans-serif;
 
     h1 {
-        font-family: 'Poppins', sans-serif;
-        color: $primary-color;
+        color: $default-text-color;
         font-size: 100%;
         font-weight: 500;
+    }
+
+    .top-section > h1 {
+        color: $primary-color;
+    }
+
+    .right-block {
+        display: flex;
+        flex-direction: column;
+        font-size: 85%;
+
+        .top-rows {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 0.2rem;
+            
+            .right-block-column {
+                display: flex;
+                flex-direction: column;
+                text-align: end;
+                margin-right: 1rem;
+            }
+    
+            .colored-text {
+                text-align: start;
+                color: $primary-color;
+            }
+        }
+
+        .bottom-info {
+            font-size: 60%;
+            color: #6E7191;
+        }
     }
 }
