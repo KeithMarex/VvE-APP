@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import jwt from 'jsonwebtoken';
-import User from '../models/dd';
+import User from '../models/User';
 
 export function createTokens(user) {
     const createdAccessToken = jwt.sign({ user: user }, process.env.ACCESS_TOKEN, { expiresIn: "3m" });
