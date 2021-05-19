@@ -56,24 +56,6 @@ const TicketsListItem = (props) => {
 }
 
 const styles = StyleSheet.create({
-    addButton: {
-        marginVertical: 15,
-        alignItems: 'center'
-    },
-    addButtonIconWrapper: {
-        backgroundColor: '#A0CAE8',
-        borderRadius: 50,
-        width: window.width / 10 * 1.1,
-        height: window.width / 10 * 1.1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    addButtonText: {
-        marginTop: 4,
-        fontSize: 11,
-        color: 'black'
-    },
-
     ticket: {
         width: '100%',
         backgroundColor: '#fff',
