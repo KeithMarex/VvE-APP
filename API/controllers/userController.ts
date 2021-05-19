@@ -2,6 +2,7 @@ import User from '../models/User';
 import { createTokens } from '../util/Auth';
 import bcrypt from 'bcryptjs';
 import logger from '~/util/Logger';
+import generator from 'generate-password';
 
 export const login = async (req, res) => {
     const email = req.body.email;
@@ -26,24 +27,22 @@ export const login = async (req, res) => {
     });
 }
 
-// Creating a new user and giving tokens for authentication
+// Creating a new users and generate password
 export const register = async(req, res) => {
-    req.body.password = await bcrypt.hash(req.body.password, 12);
-    const user = new User(req.body);
 
-    user.save()
-    .then((result: any) => {
-        const [accesstoken, refreshToken] = createTokens(result);
-        res.cookie('access-token', accesstoken, { maxAge: 60 * 60 * 24 * 7 * 1000 , httpOnly: true, secure: true });
-        res.cookie('refresh-token', refreshToken, { maxAge: 60 * 60 * 24 * 7 * 1000, httpOnly: true, secure: true });
-        result.password = null;
-        res.status(201).send(result);
-    })
-    .catch(err => {
-        logger.error(err);
+    const users = await createUsers(req.body);
+
+    let i: number;
+    try {
+        for (i=0; i < users.length; i++) {
+            users[i].save()
+        }
+    }
+    catch (err) {
+        logger.error(err)
         const status = err.statusCode || 500;
-        res.status(status).json({message: err});
-    });
+        return res.status(status).json({ message: `Error when creating users only: ${i} users have been created` });
+    }
 }
 
 export const getUser = (req, res) => {
@@ -57,4 +56,21 @@ export const getUser = (req, res) => {
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
+}
+
+// Creates all the user objects and generates a password for them
+const createUsers = async(body: Array<any>) => {
+    const passwords = generator.generateMultiple(body.length, {
+        length: 10,
+        numbers: true,
+    })
+
+    const users = [];
+
+    for (let i=0; i < body.length; i++) {
+        body[i].password = await bcrypt.hash(passwords[i], 12);
+        users.push(new User(body[i]))
+    }
+
+    return users;
 }

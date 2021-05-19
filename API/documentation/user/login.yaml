@@ -2,7 +2,7 @@ post:
   summary: Logs the user in and gives an access- & refreshtoken
   tags:
     - User
-  description: User gets authenticated and gets 2 tokens inside a cookie httponly secret
+  description: User gets authenticated and gets 2 tokens inside a cookie (httponly & secret)
   requestBody:
     required: true
     content:
@@ -20,19 +20,6 @@ post:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              _id:
-                type: string
-              email:
-                type: string
-              password:
-                type: null
-              createdAt:
-                type: string
-              updatedAt:
-                type: string
-              __v:
-                type: string
+            $ref: ../definitions/Tag.yaml
     '500':
       description: Email or password invalid
