@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import './config/Passport.ts';
+import './config/Passport';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
