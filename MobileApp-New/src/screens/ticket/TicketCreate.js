@@ -15,12 +15,16 @@ const TicketCreate = (props) => {
     const [subject, onChangeSubject] = React.useState("")
     const [description, onChangeDescription] = React.useState("")
 
-    const edit = () => {
-        alert('Je hebt op edit gedrukt!')
+    const takePicture = () => {
+        launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, callback => {
+            console.log(callback);
+        });
     };
 
-    const iets = () => {
-        alert('Je hebt op iets gedrukt!')
+    const choosePicture = () => {
+        launchImageLibrary({mediaType: "photo", includeBase64: true}, callback => {
+            console.log(callback);
+        })
     };
 
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
@@ -47,7 +51,7 @@ const TicketCreate = (props) => {
                     </View>
 
                     <TouchableOpacity onPress={() => null}>
-                        <OptionsMenu customButton={afbeeldingKnop} options={["Maak een foto", "Kies een foto", "Annuleren"]} actions={[edit, iets]}/>
+                        <OptionsMenu customButton={afbeeldingKnop} options={["Maak een foto", "Kies een foto", "Annuleren"]} actions={[takePicture, choosePicture]}/>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => null} style={styles.sendBtn}>
@@ -108,7 +112,9 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height / 5,
         borderRadius: 10,
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        paddingTop: 10,
+        textAlignVertical: "top",
     },
     inputField: {
         flexDirection: 'row',
