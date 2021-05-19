@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { refreshTokens } from "../util/Auth";
+import { refreshTokens } from "../util/uth";
 
 export const isAuth = async (req, res, next) => {
     if (!req.cookies['access-token']) {

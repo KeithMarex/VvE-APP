@@ -1,5 +1,5 @@
 import User from '../models/User';
-import { createTokens } from '../util/Auth';
+import { createTokens } from '../util/uth';
 import bcrypt from 'bcryptjs';
 import logger from '~/util/Logger';
 import generator from 'generate-password';
