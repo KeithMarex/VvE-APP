@@ -24,7 +24,6 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // passport middleware
 app.use(passport.initialize());
-
 //ROUTES
 app.use(cors());
 app.use('/user' ,UserRouter);
