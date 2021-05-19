@@ -43,7 +43,7 @@ const TicketsListItem = (props) => {
                     </StyledText>
                 </View>
 
-                <TouchableOpacity style={styles.ticketBtn} onPress={ viewTicket } >
+                <TouchableOpacity style={styles.ticketBtn} onPress={ viewTicket }>
                     <StyledText inputStyle={styles.ticketBtnText}>
                         Meer info
                     </StyledText>
@@ -58,6 +58,7 @@ const TicketsListItem = (props) => {
 const styles = StyleSheet.create({
     ticket: {
         width: '100%',
+        minWidth: '100%',
         backgroundColor: '#fff',
         borderRadius: 20,
         borderColor: '#f8f8f8',
@@ -76,7 +77,8 @@ const styles = StyleSheet.create({
 
     },
     ticketCommentCount: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     ticketCommentCountAmount: {
         color: '#4E4B66',
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 8,
-        paddingVertical: 4,
+        paddingVertical: 2,
         flexDirection: 'row'
     },
     ticketBtnText: {
