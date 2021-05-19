@@ -4,9 +4,8 @@ import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
 import PageActionButton from "../../components/PageActionButton";
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import OptionsMenu from "react-native-option-menu";
-const MoreIcon = require("../../resources/images/news-placeholder.png");
 
 
 const window = Dimensions.get('window')
@@ -16,13 +15,13 @@ const TicketCreate = (props) => {
     const [description, onChangeDescription] = React.useState("")
 
     const takePicture = () => {
-        launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, callback => {
-            console.log(callback);
+        launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, (callback) => {
+            console.log('hoi');
         });
     };
 
     const choosePicture = () => {
-        launchImageLibrary({mediaType: "photo", includeBase64: true}, callback => {
+        launchImageLibrary({mediaType: "photo", includeBase64: true}, (callback) => {
             console.log(callback);
         })
     };
