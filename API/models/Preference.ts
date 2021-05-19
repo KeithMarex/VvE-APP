@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { validateLanguage } from '~/validators/LanguageValidator';
+import { validateLanguage } from '~/validators/anguageValidator';
 
 const Schema = mongoose.Schema;
 
