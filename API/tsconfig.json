@@ -25,7 +25,8 @@
     ],
     "plugins": [
       {
-        "transform": "@zerollup/ts-transform-paths"
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
       }
     ]
 }
