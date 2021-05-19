@@ -1,7 +1,7 @@
 import {Text, SafeAreaView} from "react-native";
 import React from "react";
 
-const Calandar = () => {
+const Calendar = () => {
     return (
         <SafeAreaView>
             <Text>Dit is je calandar pagina</Text>
@@ -9,4 +9,4 @@ const Calandar = () => {
     );
 };
 
-export default Calandar;
+export default Calendar;

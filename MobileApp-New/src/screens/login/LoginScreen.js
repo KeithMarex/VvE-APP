@@ -1,14 +1,31 @@
 import React from 'react'
-import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native'
-import Mail from '../resources/icons/login/Mail.svg'
-import Lock from '../resources/icons/login/Lock.svg'
-import { Logo } from '../resources'
+import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native'
+import Mail from '../../resources/icons/login/Mail.svg'
+import Lock from '../../resources/icons/login/Lock.svg'
+import { Logo } from '../../resources'
+import ApiHelper from "../../api/ApiHelper";
 
 const ss = Dimensions.get('window')
 
 const LoginScreen = (props) => {
     const [username, onChangeName] = React.useState("")
     const [pass, onChangePass] = React.useState("")
+    const [results, setResults] = React.useState([])
+
+    const loginUser = async (email, password) => {
+        // const response = await ApiHelper.post('user/login', {email: email, password: password})
+        if (email === 'admin' && password === 'admin'){
+            props.navigation.replace('homeNavigation');
+        } else if (email === '' && password !== ''){
+            Alert.alert('Geen email', 'Vul uw emailadres in');
+        } else if (password === '' && email !== ''){
+            Alert.alert('Geen wachtwoord', 'Vul uw wachtwoord in');
+        } else if (email === '' &&  password === ''){
+            Alert.alert('Fout', 'Vul geldige inloggegevens in');
+        } else {
+            Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem')
+        }
+    };
 
     return (
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
@@ -22,7 +39,7 @@ const LoginScreen = (props) => {
                     <Lock style={styles.svg} stroke={'#A0A3BD'}/>
                     <TextInput style={styles.input} onChangeText={onChangePass} secureTextEntry={true} value={pass} placeholder="Password" />
                 </View>
-                <TouchableOpacity style={styles.loginButton} onPress={() => props.navigation.replace('homeNavigation')}><Text style={styles.text}>Login</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.loginButton} onPress={() => { loginUser(username, pass); }}><Text style={styles.text}>Login</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>Wachtwoord vergeten?</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>

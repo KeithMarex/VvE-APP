@@ -3,6 +3,7 @@
       "allowSyntheticDefaultImports": true,
       "lib": ["ES2020"],
       "baseUrl": "./",
+      "skipLibCheck": true,
       "target": "ES2020",
       "module": "commonjs",
       "moduleResolution": "node",
@@ -14,12 +15,17 @@
       "typeRoots": ["node_modules/@types"],
       "paths": {
         "~/*": ["./*"]
-      }
+      },
+      "plugins": [
+        {
+          "transform": "typescript-transform-paths"
+        }
+      ]
     },
     "include": [
         "./"
     ],
     "exclude": [
         "node_modules"
-    ]
+    ],
 }

@@ -1,8 +1,8 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
 import React from 'react'
-import StyledText from '../components/StyledText'
-import { Logo, CommentIcon } from '../resources'
-import PageActionButton from '../components/PageActionButton'
+import StyledText from '../../components/StyledText'
+import { Logo, CommentIcon } from '../../resources'
+import PageActionButton from '../../components/PageActionButton'
 
 const window = Dimensions.get('window')
 
@@ -13,7 +13,9 @@ const Tickets = (props) => {
                 <View style={styles.tickets}>
                     <Logo style={styles.logo} width={window.width / 10 * 5} />
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Meldingen</StyledText>
-                    <PageActionButton icon={'plus'} text={'Aanmaken'}/>
+                    <TouchableOpacity onPress={() => props.navigation.navigate('Create')}>
+                        <PageActionButton icon={'plus'} text={'Aanmaken'}/>
+                    </TouchableOpacity>
 
                     <View>
                         <View style={styles.ticket}>

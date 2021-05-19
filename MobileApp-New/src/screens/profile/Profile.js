@@ -7,10 +7,10 @@ import {
 } from 'react-native'
 import React from 'react'
 
-import { ProfileIcon, MailIcon, PhoneIcon, Logo, NLFlag, ENFlag } from '../resources'
+import { ProfileIcon, MailIcon, PhoneIcon, Logo, NLFlag, ENFlag } from '../../resources'
 import { SafeAreaView } from 'react-navigation'
-import PageActionButton from '../components/PageActionButton'
-import StyledText from '../components/StyledText'
+import PageActionButton from '../../components/PageActionButton'
+import StyledText from '../../components/StyledText'
 
 const window = Dimensions.get('window')
 

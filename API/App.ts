@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import './config/passport.ts';
+import './config/Passport';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import swaggerUI from 'swagger-ui-express';
 
 import swaggerDocument from './util/swagger.json';
-import { isAuth } from './middleware/isAuth';
+import { isAuth } from './middleware/IsAuth';
 import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
 import TicketRouter from './routes/TicketRouter';
