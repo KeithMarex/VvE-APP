@@ -1,29 +1,44 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton'
 import TicketsListItem from '../../components/TicketsListItem'
+import axios from 'axios'
 
 const window = Dimensions.get('window')
 
 const Tickets = (props) => {
-    const tickets = [
-        {
-            title: 'Titel van melding',
-            description: 'Dit is een kleine beschrijving van de melding die is gedaan.',
-            comments: ['1', '2'],
-            lastUpdate: '13 mei 2021 15:30',
-            status: 'In behandeling'
-        },
-        {
-            title: 'Andere melding',
-            description: 'Dit is een andere melding.',
-            comments: ['1', '2', '3'],
-            lastUpdate: '15 mei 2021 15:30',
-            status: 'In behandeling'
-        },
-    ]
+    const [tickets, setTickets] = useState([])
+
+    useEffect(() => {
+        fetchTickets()
+    }, [])
+
+    const fetchTickets = () => {
+        setTickets([
+            {
+                title: 'Titel van melding',
+                description: 'Dit is een kleine beschrijving van de melding die is gedaan.',
+                comments: ['1', '2'],
+                lastUpdate: '13 mei 2021 15:30',
+                status: 'In behandeling'
+            },
+            {
+                title: 'Andere melding',
+                description: 'Dit is een andere melding.',
+                comments: ['1', '2', '3'],
+                lastUpdate: '15 mei 2021 15:30',
+                status: 'In behandeling'
+            },
+        ])
+
+        // TODO fetch from API
+        // axios.get('/ticket')
+        //     .then(r => console.log(r))
+        //     .catch((err) => console.log(err))
+    }
+
     const ticketsListEl = []
     for (let i = 0; i < tickets.length; i++) {
         ticketsListEl.push(
@@ -42,7 +57,11 @@ const Tickets = (props) => {
                     </TouchableOpacity>
 
                     <View>
-                        {ticketsListEl}
+                        {ticketsListEl.length > 0 ? ticketsListEl : (
+                            <StyledText inputStyle={styles.noTickets}>
+                                U heeft nog geen meldingen gedaan.
+                            </StyledText>
+                        )}
                     </View>
                 </View>
             </ScrollView>
@@ -86,6 +105,12 @@ const styles = StyleSheet.create({
         fontSize: 11,
         color: 'black'
     },
+
+    noTickets: {
+        color: 'black',
+        marginTop: '15%',
+        opacity: 0.4
+    }
 })
 
 export default Tickets
