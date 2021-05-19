@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: 'VvE Api',
-            script: './build/app.js',
+            script: './build/App.js',
             watch: true,
             max_memory_restart: '250M',
             env: {
