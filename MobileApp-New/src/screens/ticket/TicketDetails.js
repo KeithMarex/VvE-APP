@@ -2,6 +2,7 @@ import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions} from 'react-nati
 import React, {useState} from 'react'
 import StyledText from '../../components/StyledText'
 import { Logo } from '../../resources'
+import PageLogo from '../../components/PageLogo'
 
 const window = Dimensions.get('window')
 
@@ -14,8 +15,10 @@ const TicketDetails = (props) => {
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.ticketDetails}>
-                    <Logo style={styles.logo} width={window.width / 10 * 5} />
-                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Titel van melding</StyledText>
+                    <PageLogo/>
+                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
+                        { ticket.title }
+                    </StyledText>
 
                     <View>
 
@@ -35,11 +38,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        padding: 30,
+        paddingHorizontal: 30,
+        paddingTop: 0,
         paddingBottom: 90
-    },
-    logo: {
-        marginBottom: 10
     },
     pageTitle: {
         marginBottom: window.height / 40,
