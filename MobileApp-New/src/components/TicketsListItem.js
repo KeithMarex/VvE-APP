@@ -1,7 +1,7 @@
 import React from 'react'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { CommentIcon, ArrowIcon } from "../resources";
-import StyledText from "./StyledText";
+import { CommentIcon, ArrowIcon } from "../resources"
+import StyledText from './StyledText'
 
 const window = Dimensions.get('window')
 

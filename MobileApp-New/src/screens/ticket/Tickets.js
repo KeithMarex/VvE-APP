@@ -1,12 +1,9 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
 import React from 'react'
 import StyledText from '../../components/StyledText'
-import { Logo, CommentIcon } from '../../resources'
+import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton'
-import StyledText from '../components/StyledText'
-import { Logo, CommentIcon } from '../resources'
-import PageActionButton from '../components/PageActionButton'
-import TicketsListItem from '../components/TicketsListItem'
+import TicketsListItem from '../../components/TicketsListItem'
 
 const window = Dimensions.get('window')
 
@@ -91,4 +88,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Tickets;
+export default Tickets
