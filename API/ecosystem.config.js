@@ -9,7 +9,7 @@ module.exports = {
             env: {
                 githook: {
                     branch: 'development',
-                    command: 'git pull && npm install && tsc'
+                    command: 'git pull && npm install && npm run build'
                 }
             }
         },
