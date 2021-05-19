@@ -1,8 +1,8 @@
 module.exports = {
     apps: [
         {
-            name: 'My Application',
-            script: './dist/index.js',
+            name: 'VvE Api',
+            script: './build/app.js',
         },
     ],
 };
