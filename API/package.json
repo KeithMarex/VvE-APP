@@ -6,7 +6,8 @@
     "start": "nodemon",
     "test": "npx mocha -r tsconfig-paths/register -r ts-node/register ./test/*.spec.ts",
     "docu": "swagger-cli bundle -o ./util/swagger.json ./documentation/swagger.yaml",
-    "prodstart": "tsc && pm2 trigger pm2-git-hook start pm2.config.js && pm2 start ecosystem.config.js",
+    "tsc": "tsc",
+    "prodstart": "tsc && pm2 trigger pm2-git-hook start ecosystem.config.js && pm2 start ecosystem.config.js",
     "prodstop": "pm2 trigger pm2-git-hook stop && pm2 stop ecosystem.config.js"
   },
   "dependencies": {
