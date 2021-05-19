@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const window = Dimensions.get('window')
 
-const Tickets = (props) => {
+const TicketDetails = (props) => {
     const [tickets, setTickets] = useState([])
 
     useEffect(() => {
@@ -23,30 +23,14 @@ const Tickets = (props) => {
                 comments: ['1', '2'],
                 lastUpdate: '13 mei 2021 15:30',
                 status: 'In behandeling'
-            },
-            {
-                title: 'Andere melding',
-                description: 'Dit is een andere melding.',
-                comments: ['1', '2', '3'],
-                lastUpdate: '15 mei 2021 15:30',
-                status: 'In behandeling'
-            },
+            }
         ])
-
-        // TODO fetch from API
-        // axios.get('/ticket')
-        //     .then(r => console.log(r))
-        //     .catch((err) => console.log(err))
-    }
-
-    const viewTicket = (ticket) => {
-        props.navigation.navigate('Details')
     }
 
     const ticketsListEl = []
     for (let i = 0; i < tickets.length; i++) {
         ticketsListEl.push(
-            <TicketsListItem ticket={tickets[i]} viewTicket={viewTicket} key={i}/>
+            <TicketsListItem ticket={tickets[i]} key={i}/>
         )
     }
 
@@ -117,4 +101,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Tickets
+export default TicketDetails

@@ -7,7 +7,7 @@ const window = Dimensions.get('window')
 
 const TicketsListItem = (props) => {
     const viewTicket = () => {
-        alert('Go to ticket: ' + props.ticket.title)
+        props.viewTicket(props.ticket)
     }
 
     return (
