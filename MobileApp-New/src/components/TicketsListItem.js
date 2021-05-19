@@ -1,10 +1,8 @@
 import React from 'react'
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { CommentIcon, ArrowIcon } from "../resources"
+import { StyleSheet, View } from 'react-native'
+import { CommentIcon} from "../resources"
 import StyledText from './StyledText'
 import Button from "./Button";
-
-const window = Dimensions.get('window')
 
 const TicketsListItem = (props) => {
     const viewTicket = () => {

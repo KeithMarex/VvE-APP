@@ -3,11 +3,9 @@ import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {ArrowIcon, Logo} from '../resources'
 import StyledText from "./StyledText";
 
-const window = Dimensions.get('window')
-
 const Button = (props) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={props.pressAction}>
+        <TouchableOpacity style={[styles.button, props.style]} onPress={props.pressAction}>
             <StyledText inputStyle={styles.buttonText}>
                 { props.children }
             </StyledText>

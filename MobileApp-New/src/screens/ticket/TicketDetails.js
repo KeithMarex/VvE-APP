@@ -2,6 +2,7 @@ import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions} from 'react-nati
 import React, {useState} from 'react'
 import StyledText from '../../components/StyledText'
 import PageLogo from '../../components/PageLogo'
+import Button from '../../components/Button'
 
 const window = Dimensions.get('window')
 
@@ -30,15 +31,30 @@ const TicketDetails = (props) => {
                         </StyledText>
                     </View>
 
-                    <View>
+                    <View style={styles.ticketSection}>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
+                            Uw afbeeldingen
+                        </StyledText>
+                        <Button>
+                            Afbeeldingen inzien
+                        </Button>
+                    </View>
+
+                    <View style={styles.ticketSection}>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
+                            Bericht
+                        </StyledText>
                         <StyledText inputStyle={styles.ticketContent}>
                             { ticket.description }
                         </StyledText>
                     </View>
 
-                    <StyledText inputStyle={styles.ticketContent}>
-                        { ticket.description }
-                    </StyledText>
+                    <View style={styles.ticketSection}>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
+                            Opmerkingen
+                        </StyledText>
+                    </View>
+
 
                 </View>
             </ScrollView>
@@ -57,7 +73,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 30,
         paddingTop: 0,
-        paddingBottom: 90
+        paddingBottom: 90,
     },
     pageTitle: {
     },
@@ -76,13 +92,19 @@ const styles = StyleSheet.create({
         fontSize: 15
     },
 
+    ticketSection: {
+        marginVertical: window.height / 40,
+    },
+    sectionHeader: {
+        marginBottom: 7
+    },
+
     ticketContent: {
         color: '#6E7191',
         fontSize: 14,
         textAlign: 'left',
         lineHeight: 17,
-        letterSpacing: 1.1
-
+        letterSpacing: 1.1,
     },
 })
 
