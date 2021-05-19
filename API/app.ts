@@ -10,7 +10,7 @@ import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './util/swagger.json';
 import { isAuth } from './middleware/isAuth';
 import logger from '~/util/Logger';
-import UserRouter from './routes/UserRouter';
+import UserRouter from './routes/serRouter';
 import TicketRouter from './routes/TicketRouter';
 
 const app = express();
