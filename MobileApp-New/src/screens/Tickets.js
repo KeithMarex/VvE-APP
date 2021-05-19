@@ -8,12 +8,27 @@ import TicketsListItem from '../components/TicketsListItem'
 const window = Dimensions.get('window')
 
 const Tickets = (props) => {
-    const ticket = {
-        title: 'Titel van melding',
-        description: 'Dit is een kleine beschrijving van de melding die is gedaan.',
-        comments: ['1', '2'],
-        lastUpdate: '13 mei 2021 15:30',
-        status: 'In behandeling'
+    const tickets = [
+        {
+            title: 'Titel van melding',
+            description: 'Dit is een kleine beschrijving van de melding die is gedaan.',
+            comments: ['1', '2'],
+            lastUpdate: '13 mei 2021 15:30',
+            status: 'In behandeling'
+        },
+        {
+            title: 'Andere melding',
+            description: 'Dit is een andere melding.',
+            comments: ['1', '2', '3'],
+            lastUpdate: '15 mei 2021 15:30',
+            status: 'In behandeling'
+        },
+    ]
+    const ticketsListEl = []
+    for (let i = 0; i < tickets.length; i++) {
+        ticketsListEl.push(
+            <TicketsListItem ticket={tickets[i]} key={i}/>
+        )
     }
 
     return (
@@ -25,13 +40,8 @@ const Tickets = (props) => {
                     <PageActionButton icon={'plus'} text={'Aanmaken'}/>
 
                     <View>
-                        <TicketsListItem ticket={ticket}/>
-                        <TicketsListItem ticket={ticket}/>
-                        <TicketsListItem ticket={ticket}/>
+                        {ticketsListEl}
                     </View>
-
-
-
                 </View>
             </ScrollView>
         </SafeAreaView>
