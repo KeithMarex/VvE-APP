@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'VvE Api',
+            name: 'vve-api',
             script: './build/App.js',
             watch: true,
             ignore_watch: ["logs/application.log"],
