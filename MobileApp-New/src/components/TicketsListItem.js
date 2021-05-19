@@ -10,6 +10,20 @@ const TicketsListItem = (props) => {
         props.viewTicket(props.ticket)
     }
 
+    const truncateContent = (input) => {
+        if (!input) return
+
+        const MAX = 110
+        let content
+
+        if (input.length > MAX)
+            content = input.substring(0, MAX) + '...'
+        else
+            content = input
+
+        return content.replace(/\r?\n|\r/g, ' ')
+    }
+
     return (
         <View style={styles.ticket}>
 
@@ -26,7 +40,7 @@ const TicketsListItem = (props) => {
             </View>
 
             <StyledText inputStyle={styles.ticketDescription}>
-                { props.ticket.description }
+                { truncateContent(props.ticket.description) }
             </StyledText>
 
             <StyledText inputStyle={styles.ticketStatus}>
