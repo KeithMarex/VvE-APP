@@ -7,10 +7,10 @@ module.exports = {
             max_memory_restart: '250M',
             env: {
                 githook: {
+                    branch: 'development',
                     command: 'git pull && npm install && tsc'
                 }
-
-        }
+            }
         },
     ]
 };
