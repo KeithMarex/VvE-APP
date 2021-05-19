@@ -51,10 +51,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Address"
     },
-    organizations: {
+    organizations: [{
         type: Schema.Types.ObjectId,
         ref: "Organization"
-    },
+    }],
     parking: {
         type: Boolean,
         default: false

@@ -2,11 +2,21 @@ import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 
 export const getTickets = (req, res) => {
-    if (req.locals.user.role === 'user') {
-        getTicketsUser(req, res);
-    } else {
-        getTicketsAdmin(req, res);
-    }
+    // getTicketsAdmin(req, res)
+    // if (req.locals.user.role === 'user') {
+    //     getTicketsUser(req, res);
+    // } else {
+    //     getTicketsAdmin(req, res);
+    // }
+    Ticket.find()
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json({message: err})
+    });
 }
 
 export const getTicket = (req, res) => {
@@ -67,7 +77,9 @@ const getTicketsUser = (req, res) => {
 }
 
 const getTicketsAdmin = (req, res) => {
-    Ticket.find({ organizations: req.locals.user.organizations })
+    Ticket.find({})
+    .where("parking").equals(false)
+    .populate({path: 'creator'})
     .then(result => {
         res.status(200).send(result);
     })
