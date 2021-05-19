@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import beautifyUnique from 'mongoose-beautiful-unique-validation';
 import { validateEmail } from '~/validators/EmailValidator';
-import { validateName } from '~/validators/NameValidator';
+import { validateName } from '~/validators/ameValidator';
 
 const Schema = mongoose.Schema;
 
