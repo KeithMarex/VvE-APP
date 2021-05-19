@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { validateEmail } from '~/validators/mailValidator';
+import { validateEmail } from '~/validators/EmailValidator';
 
 const Schema = mongoose.Schema;
 
