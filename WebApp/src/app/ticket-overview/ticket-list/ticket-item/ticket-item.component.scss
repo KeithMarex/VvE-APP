@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import "../../../../utilities/colors.scss";
+
+.ticket-casing {
+    display: flex;
+    background-color: #F7F7FC;
+    margin: 15px 25px;
+    padding: 20px;
+    border-radius: 32px;
+
+    h1 {
+        font-family: 'Poppins', sans-serif;
+        color: $primary-color;
+        font-size: 100%;
+        font-weight: 500;
+    }
+}

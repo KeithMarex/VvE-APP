@@ -10,6 +10,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { AccountManagementComponent } from './account-management/account-management.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
 import { LoginComponent } from './login/login.component';
+import { TicketListComponent } from './ticket-overview/ticket-list/ticket-list.component';
+import { TicketItemComponent } from './ticket-overview/ticket-list/ticket-item/ticket-item.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { LoginComponent } from './login/login.component';
     CalendarComponent,
     AccountManagementComponent,
     VveManagementComponent,
-    LoginComponent
+    LoginComponent,
+    TicketListComponent,
+    TicketItemComponent
   ],
   imports: [
     BrowserModule,
