@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import "../../utilities/colors.scss";
+@import "../../utilities/button.scss";
 
 * {
     margin: 0;
@@ -10,5 +11,27 @@ header {
     h1 {
         font-family: 'Inter', sans-serif;
         color: $primary-color;
+        font-size: 200%;
+        font-weight: 700;
+    }
+}
+
+body {
+    width: 1670px;
+    height: 500px;
+    background-color: white;
+    border: 1px solid rgba($color: #000000, $alpha: 0.04);
+    border-radius: 8px;
+    box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+
+    .button-section {
+        display: flex;
+        justify-content: flex-end;
+        border-bottom: 1px solid #DEDEDE;
+        margin: 0 15px;
+
+        button {
+            @include button;
+        }
     }
 }

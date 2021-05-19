@@ -9,9 +9,6 @@ import { NewsOverviewComponent } from './news-overview/news-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AccountManagementComponent } from './account-management/account-management.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
-
-// svg components
-import { VveSvgComponent } from 'src/assets/icons/svg-components/vves/vves.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
@@ -23,7 +20,6 @@ import { LoginComponent } from './login/login.component';
     CalendarComponent,
     AccountManagementComponent,
     VveManagementComponent,
-    VveSvgComponent,
     LoginComponent
   ],
   imports: [
