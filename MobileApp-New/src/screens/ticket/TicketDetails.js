@@ -12,16 +12,18 @@ const TicketDetails = (props) => {
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.ticketDetails}>
+
                     <PageLogo/>
+
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
                         { ticket.title }
                     </StyledText>
                     <View style={styles.ticketInfo}>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Aangemaakt op: 13 mei 2002 09:05
+                            Aangemaakt op: { ticket.createdAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Laatste wijziging: { ticket.lastUpdate }
+                            Laatste wijziging: { ticket.updatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
                             Status: { ticket.status }
@@ -34,9 +36,10 @@ const TicketDetails = (props) => {
                         </StyledText>
                     </View>
 
-                    <View>
+                    <StyledText inputStyle={styles.ticketContent}>
+                        { ticket.description }
+                    </StyledText>
 
-                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -59,16 +62,27 @@ const styles = StyleSheet.create({
     pageTitle: {
     },
     ticketInfo: {
-        marginBottom: window.height / 40,
+        marginVertical: window.height / 40,
     },
     ticketInfoDate: {
-        fontSize: 10,
+        fontSize: 12,
         color: '#6E7191',
         letterSpacing: 0.5,
         marginBottom: 3
     },
     ticketInfoStatus: {
-        color: '#14142B'
+        marginVertical: 1.5,
+        color: '#14142B',
+        fontSize: 15
+    },
+
+    ticketContent: {
+        color: '#6E7191',
+        fontSize: 14,
+        textAlign: 'left',
+        lineHeight: 17,
+        letterSpacing: 1.1
+
     },
 })
 

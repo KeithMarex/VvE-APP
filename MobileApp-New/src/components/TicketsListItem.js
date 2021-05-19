@@ -2,6 +2,7 @@ import React from 'react'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { CommentIcon, ArrowIcon } from "../resources"
 import StyledText from './StyledText'
+import Button from "./Button";
 
 const window = Dimensions.get('window')
 
@@ -48,21 +49,16 @@ const TicketsListItem = (props) => {
             </StyledText>
 
             <View style={styles.ticketBottom}>
-                <View style={styles.lastUpdate}>
-                    <StyledText inputStyle={styles.lastUpdateText}>
+                <View>
+                    <StyledText inputStyle={styles.updatedAtText}>
                         Laatste wijziging:
                     </StyledText>
-                    <StyledText inputStyle={styles.lastUpdateText}>
-                        { props.ticket.lastUpdate }
+                    <StyledText inputStyle={styles.updatedAtText}>
+                        { props.ticket.updatedAt }
                     </StyledText>
                 </View>
 
-                <TouchableOpacity style={styles.ticketBtn} onPress={ viewTicket }>
-                    <StyledText inputStyle={styles.ticketBtnText}>
-                        Meer info
-                    </StyledText>
-                    <ArrowIcon width={14} height={14} stroke={'#A0CAE8'} />
-                </TouchableOpacity>
+                <Button pressAction={viewTicket} withArrow={true}>Meer info</Button>
             </View>
 
         </View>
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     ticketTitle: {
         textAlign: 'left',
@@ -116,29 +112,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between'
     },
-    lastUpdateText: {
+    updatedAtText: {
         textAlign: 'left',
         fontSize: 10,
         color: '#6E7191',
         letterSpacing: 0.5,
         marginBottom: 3
     },
-    ticketBtn: {
-        borderColor: '#A0CAE8',
-        borderWidth: 2,
-        borderRadius: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 8,
-        paddingVertical: 2,
-        flexDirection: 'row'
-    },
-    ticketBtnText: {
-        color: '#A0CAE8',
-        fontSize: 14,
-        fontWeight: 'bold',
-        marginRight: 4
-    }
 })
 
 export default TicketsListItem
