@@ -71,8 +71,8 @@ const TicketsListItem = (props) => {
 
 const styles = StyleSheet.create({
     ticket: {
-        width: '100%',
         minWidth: '100%',
+        maxWidth: '100%',
         backgroundColor: '#fff',
         borderRadius: 20,
         borderColor: '#f8f8f8',
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     ticketTitle: {
-
+        textAlign: 'left',
+        maxWidth: '80%',
     },
     ticketCommentCount: {
         flexDirection: 'row',
