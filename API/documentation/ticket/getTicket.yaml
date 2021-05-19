@@ -16,5 +16,7 @@ get:
         application/json:
           schema:
             $ref: ../definitions/Ticket.yaml
-    '500':
+    '404':
       description: Ticket does not exists
+    '500':
+      description: Error trying to get ticket
