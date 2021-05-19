@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import swaggerUI from 'swagger-ui-express';
 
 import swaggerDocument from './util/swagger.json';
-import { isAuth } from './middleware/isAuth';
+import { isAuth } from './middleware/sAuth';
 import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
 import TicketRouter from './routes/TicketRouter';
