@@ -15,7 +15,12 @@
       "typeRoots": ["node_modules/@types"],
       "paths": {
         "~/*": ["./*"]
-      }
+      },
+      "plugins": [
+        {
+          "transform": "typescript-transform-paths"
+        }
+      ]
     },
     "include": [
         "./"
@@ -23,10 +28,4 @@
     "exclude": [
         "node_modules"
     ],
-    "plugins": [
-      {
-        "transform": "typescript-transform-paths",
-        "afterDeclarations": true
-      }
-    ]
 }
