@@ -4,6 +4,7 @@ module.exports = {
             name: 'VvE Api',
             script: './build/App.js',
             watch: true,
+            ignore_watch: ["logs/application.log"],
             max_memory_restart: '250M',
             env: {
                 githook: {
