@@ -4,7 +4,7 @@ import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
 import PageActionButton from "../../components/PageActionButton";
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
-import { launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
 
 
@@ -15,15 +15,17 @@ const TicketCreate = (props) => {
     const [description, onChangeDescription] = React.useState("")
 
     const takePicture = () => {
-        launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, (callback) => {
-            console.log('hoi');
-        });
+        // launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, (callback) => {
+        //     console.log('hoi');
+        // });
+
+        
     };
 
     const choosePicture = () => {
-        launchImageLibrary({mediaType: "photo", includeBase64: true}, (callback) => {
-            console.log(callback);
-        })
+        // launchImageLibrary({mediaType: "photo", includeBase64: true}, (callback) => {
+        //     console.log(callback);
+        // })
     };
 
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
