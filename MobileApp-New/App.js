@@ -11,7 +11,7 @@ const navigator = createStackNavigator(
         login_forget: { screen: LoginForgot, navigationOptions: { headerShown: false }},
     },
     {
-        initialRouteName: "login",
+        initialRouteName: "homeNavigation",
         defaultNavigationOptions: {
             headerShown: false
         },
