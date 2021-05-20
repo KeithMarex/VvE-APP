@@ -14,18 +14,32 @@ const TicketCreate = (props) => {
     const [subject, onChangeSubject] = React.useState("")
     const [description, onChangeDescription] = React.useState("")
 
-    const takePicture = () => {
+    const takePicture = async () => {
         // launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, (callback) => {
         //     console.log('hoi');
         // });
 
-        
+        let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("Toegang tot uw camera is vereist.");
+            return;
+        }
+
+        let pickerResult = await ImagePicker.launchCameraAsync({base64: true});
+        console.log(pickerResult);
     };
 
-    const choosePicture = () => {
-        // launchImageLibrary({mediaType: "photo", includeBase64: true}, (callback) => {
-        //     console.log(callback);
-        // })
+    const choosePicture = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+            alert("Wij hebben toegang nodig tot je camera rol.");
+            return;
+        }
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        console.log(pickerResult);
     };
 
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
