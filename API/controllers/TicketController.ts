@@ -1,22 +1,23 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
+import User from '~/models/User';
 
 export const getTickets = (req, res) => {
-    // getTicketsAdmin(req, res)
+    getTicketsAdmin(req, res)
     // if (req.locals.user.role === 'user') {
     //     getTicketsUser(req, res);
     // } else {
     //     getTicketsAdmin(req, res);
     // }
-    Ticket.find()
-    .then(result => {
-        res.status(200).send(result);
-    })
-    .catch(err => {
-        logger.error(err);
-        const status = err.statusCode || 500;
-        res.status(status).json({message: err})
-    });
+    // Ticket.find()
+    // .then(result => {
+    //     res.status(200).send(result);
+    // })
+    // .catch(err => {
+    //     logger.error(err);
+    //     const status = err.statusCode || 500;
+    //     res.status(status).json({message: err})
+    // });
 }
 
 export const getTicket = (req, res) => {
@@ -77,9 +78,22 @@ const getTicketsUser = (req, res) => {
 }
 
 const getTicketsAdmin = (req, res) => {
-    Ticket.find({})
-    .where("parking").equals(false)
-    .populate({path: 'creator'})
+    Ticket.aggregate([
+        {
+            "$lookup": {
+                "from": User.collection.name,
+                "localField": "creator",
+                "foreignField": "_id",
+                "as": "creator"
+            }
+        },
+        { "$unwind": "$creator" },
+        { "$match": { "organizations":  "60a51399c27149d22d8b717d" }},
+        { "$set": {"creator_id": "$creator._id"}},
+        { "$unset": "creator"},
+        { "$set": {"creator": "$creator_id"}},
+        { "$unset": "creator_id" }
+    ])
     .then(result => {
         res.status(200).send(result);
     })
