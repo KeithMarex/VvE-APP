@@ -29,7 +29,8 @@ const TicketSchema = new Schema({
     },
     status: {
         type: Schema.Types.ObjectId,
-        ref: "Status"
+        ref: "Status",
+        default: "60a79bb6890c71dde3117c21"
     },
     comments: [{
         type: Schema.Types.ObjectId,
