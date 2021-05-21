@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity,
 import Mail from '../../resources/icons/login/Mail.svg'
 import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
+import ApiHelper from '../../api/ApiHelper'
 
 const ss = Dimensions.get('window')
 
@@ -12,18 +13,10 @@ const LoginScreen = (props) => {
     const [results, setResults] = React.useState([])
 
     const loginUser = async (email, password) => {
-        // const response = await ApiHelper.post('user/login', {email: email, password: password})
-        if (email === 'admin' && password === 'admin'){
-            props.navigation.replace('homeNavigation');
-        } else if (email === '' && password !== ''){
-            Alert.alert('Geen email', 'Vul uw emailadres in');
-        } else if (password === '' && email !== ''){
-            Alert.alert('Geen wachtwoord', 'Vul uw wachtwoord in');
-        } else if (email === '' &&  password === ''){
-            Alert.alert('Fout', 'Vul geldige inloggegevens in');
-        } else {
-            Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem')
-        }
+        console.log(email, password);
+        const response = await ApiHelper.post('/user/login', JSON.stringify({email: email, password: password}), {headers: {'Content-Type': 'application/json'}});
+
+        console.log(response);
     };
 
     return (
