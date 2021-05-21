@@ -5,7 +5,7 @@ import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton'
 import TicketsListItem from '../../components/TicketsListItem'
 import PageLogo from '../../components/PageLogo'
-import ApiHelper from '../../api/ApiHelper'
+import ApiHelper from '../../util/ApiHelper'
 
 const window = Dimensions.get('window')
 

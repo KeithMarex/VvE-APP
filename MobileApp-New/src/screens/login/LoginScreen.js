@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity,
 import Mail from '../../resources/icons/login/Mail.svg'
 import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
-import ApiHelper from '../../api/ApiHelper'
+import ApiHelper from '../../util/ApiHelper'
 
 const ss = Dimensions.get('window')
 
