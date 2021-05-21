@@ -89,7 +89,9 @@ const getTicketsAdmin = (req, res) => {
             }
         },
         { "$unwind": "$creator" },
-        { "$match": { "creator.organizations": {"$expr": {"$in": ["60a77d5b57d8c960829a0343"]}} }},
+        { "$match": { "creator.organizations": {
+            "$elemMatch": {"$in": ["60a77d5b57d8c960829a0343"]}}}
+        },
         { "$set": {"creator": "$creator._id"}},
     ])
     .then(result => {
