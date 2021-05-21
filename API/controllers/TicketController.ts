@@ -1,10 +1,11 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
-import { truncate } from 'fs/promises';
+import { Types } from 'mongoose';
 
 export const getTickets = (req, res) => {
     getTicketsAdmin(req, res)
+    // Expressjs validator
     // if (req.locals.user.role === 'user') {
     //     getTicketsUser(req, res);
     // } else {
@@ -89,9 +90,7 @@ const getTicketsAdmin = (req, res) => {
             }
         },
         { "$unwind": "$creator" },
-        { "$match": { "creator.organizations": {
-            "$elemMatch": {"$in": ["60a77d5b57d8c960829a0343"]}}}
-        },
+        { "$match": { "creator.organizations": Types.ObjectId("60a77d5b57d8c960829a0343")}},
         { "$set": {"creator": "$creator._id"}},
     ])
     .then(result => {
