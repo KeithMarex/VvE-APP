@@ -12,6 +12,9 @@ import { VveManagementComponent } from './vve-management/vve-management.componen
 import { LoginComponent } from './login/login.component';
 import { TicketListComponent } from './ticket-overview/ticket-list/ticket-list.component';
 import { TicketItemComponent } from './ticket-overview/ticket-list/ticket-item/ticket-item.component';
+import { Dao } from 'src/shared/services/dao.service';
+import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,17 @@ import { TicketItemComponent } from './ticket-overview/ticket-list/ticket-item/t
     VveManagementComponent,
     LoginComponent,
     TicketListComponent,
-    TicketItemComponent
+    TicketItemComponent,
+    TicketCreatorComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    Dao,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

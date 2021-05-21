@@ -1,0 +1,11 @@
+<section>
+    <div class="window">
+        <div class="top-bar">
+            <h2>{{ title }}</h2>
+            <object data="../../assets/icons/Close.svg" type="" (click)="onClose()"></object>
+        </div>
+        <section class="content-container">
+            <ng-content></ng-content>
+        </section>
+    </div>
+</section>

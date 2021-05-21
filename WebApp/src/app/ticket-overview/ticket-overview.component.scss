@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import "../../utilities/colors.scss";
 @import "../../utilities/button.scss";
+@import "../../utilities/effects.scss";
 
 * {
     margin: 0;
@@ -9,7 +10,7 @@
 
 header {
     h1 {
-        font-family: 'Inter', sans-serif;
+        // font-family: 'Inter', sans-serif;
         color: $primary-color;
         font-size: 200%;
         font-weight: 700;
@@ -22,7 +23,7 @@ body {
     background-color: white;
     border: 1px solid rgba($color: #000000, $alpha: 0.04);
     border-radius: 8px;
-    box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+    box-shadow: $default-box-shadow;
 
     .button-section {
         display: flex;
@@ -34,4 +35,8 @@ body {
             @include button;
         }
     }
+}
+
+:host app-popup {
+    height: auto;
 }
