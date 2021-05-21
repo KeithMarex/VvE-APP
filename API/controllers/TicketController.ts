@@ -1,6 +1,7 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
+import { truncate } from 'fs/promises';
 
 export const getTickets = (req, res) => {
     getTicketsAdmin(req, res)
@@ -88,11 +89,8 @@ const getTicketsAdmin = (req, res) => {
             }
         },
         { "$unwind": "$creator" },
-        { "$match": { "organizations":  "60a51399c27149d22d8b717d" }},
-        { "$set": {"creator_id": "$creator._id"}},
-        { "$unset": "creator"},
-        { "$set": {"creator": "$creator_id"}},
-        { "$unset": "creator_id" }
+        { "$match": { "creator.organizations": {"$expr": {"$in": ["60a77d5b57d8c960829a0343"]}} }},
+        { "$set": {"creator": "$creator._id"}},
     ])
     .then(result => {
         res.status(200).send(result);
