@@ -11,6 +11,7 @@ import Logo from './icons/logo/Logo nieuwe wereld.svg'
 import MailIcon from './icons/login/Mail.svg'
 import PhoneIcon from './icons/Call.svg'
 import EditButton from './icons/buttons/edit.svg'
+import BackArrow from './icons/Back_Arrow.svg'
 
 // Country flags
 import NLFlag from './icons/country/nl.svg'
@@ -31,5 +32,6 @@ export {
     PhoneIcon,
     EditButton,
     NLFlag,
-    ENFlag
+    ENFlag,
+    BackArrow
 }

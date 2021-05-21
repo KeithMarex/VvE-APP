@@ -29,13 +29,12 @@ export const login = async (req, res) => {
 
 // Creating a new users and generate password
 export const register = async(req, res) => {
-
     const users = await createUsers(req.body);
 
     let i: number;
     try {
         for (i=0; i < users.length; i++) {
-            users[i].save()
+            await users[i].save()
         }
     }
     catch (err) {
@@ -43,6 +42,7 @@ export const register = async(req, res) => {
         const status = err.statusCode || 500;
         return res.status(status).json({ message: `Error when creating users only: ${i} users have been created` });
     }
+    return res.status(201).json(await removePasswords(users));
 }
 
 export const getUser = (req, res) => {
@@ -70,6 +70,14 @@ const createUsers = async(body: Array<any>) => {
     for (let i=0; i < body.length; i++) {
         body[i].password = await bcrypt.hash(passwords[i], 12);
         users.push(new User(body[i]))
+    }
+
+    return users;
+}
+
+const removePasswords = async(users: Array<any>) => {
+    for (let i=0; i < users.length; i++) {
+        users[i].password = null;
     }
 
     return users;

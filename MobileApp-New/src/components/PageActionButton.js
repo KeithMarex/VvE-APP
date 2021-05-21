@@ -1,6 +1,6 @@
 import React from 'react'
 import {Dimensions, StyleSheet, View} from 'react-native'
-import {PenIcon, PlusIcon} from '../resources'
+import {PenIcon, PlusIcon, BackArrow} from '../resources'
 import StyledText from './StyledText'
 
 const window = Dimensions.get('window')
