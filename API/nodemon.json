@@ -2,6 +2,8 @@
     "restartable": "rs",
     "ignore": [
         ".git",
+        "**/logs/**",
+        "**/build/**",
         "node_modules/**/node_modules"
     ],
     "verbose": true,

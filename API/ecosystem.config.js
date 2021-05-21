@@ -9,7 +9,7 @@ module.exports = {
             env: {
                 githook: {
                     branch: 'development',
-                    command: 'git pull && npm install && npm run build'
+                    command: 'git pull && npm install && npm run build && pm2 reload vve-api'
                 }
             }
         },
