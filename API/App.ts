@@ -27,7 +27,7 @@ app.use(passport.initialize());
 //ROUTES
 app.use(cors());
 app.use('/user' ,UserRouter);
-app.use('/ticket' ,TicketRouter);
+app.use('/ticket' ,isAuth, TicketRouter);
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
