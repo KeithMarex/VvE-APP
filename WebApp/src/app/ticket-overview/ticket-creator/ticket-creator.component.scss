@@ -7,10 +7,12 @@ section {
 }
 
 .left-side {
+    margin-right: 2rem;
 
     input, textarea {
         width: 100%;
         padding: 1rem;
+        margin-bottom: 1rem;
         border: none;
         border-bottom: 1px solid #C6C6C8;
         font-family: inherit;
@@ -28,9 +30,31 @@ section {
 }
 
 .right-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .assignee-field {
+        display: flex;
+        flex-direction: row;
+    }
+
+    select {
+        border: none;
+        padding: 1rem 0;
+        padding-right: 3rem;
+        width: 50%;
+
+        option {
+            background-color: #F7F7FC;
+        }
+    }
+
     button {
         @include button;
         
+        align-self: flex-end;
+        margin: 1rem 0;
         background-color: #498fc0;
     }
 }
