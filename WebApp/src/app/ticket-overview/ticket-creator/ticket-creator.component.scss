@@ -1,0 +1,36 @@
+@import "../../../utilities/button.scss";
+
+section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-side {
+
+    input, textarea {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-bottom: 1px solid #C6C6C8;
+        font-family: inherit;
+        font-size: 110%;
+        color: black;
+        resize: none;
+    }
+    ::placeholder {
+        color: black;
+    }
+
+    textarea {
+        height: 20rem;
+    }
+}
+
+.right-side {
+    button {
+        @include button;
+        
+        background-color: #498fc0;
+    }
+}
