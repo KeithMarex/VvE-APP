@@ -18,7 +18,7 @@ export const refreshTokens = async (refreshToken) => {
         return { error: true, message: err };
     }
 
-    const updatedUser = await User.findById(user.user._id);
+    const updatedUser = await User.findById(user.user._id).populate('organizations');
 
     try {
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN);
