@@ -12,7 +12,7 @@ export const getTickets = async(req, res) => {
         for (let i=0; i<user.organizations.length; i++) {
             try {
                 let tickets = await getTicketsAdmin(req, res, user.organizations[i]);
-                ticketsArray.concat(tickets);
+                ticketsArray = ticketsArray.concat(tickets);
             } catch (err) {
                 logger.error(err);
                 const status = err.statusCode || 500;
