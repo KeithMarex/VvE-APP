@@ -13,7 +13,7 @@ import { Dao } from 'src/shared/services/dao.service';
 export class TicketListComponent implements OnInit {
   tickets: Ticket[] = [new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
   new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
-  new Ticket('1', 'Test titel', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  new Ticket('1', 'Test titel', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', [new Image()], '5', '3', 'In behandeling', [], [new Tag()], new Date(), new Date()),
   new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
   new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
   new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
