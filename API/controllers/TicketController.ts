@@ -4,14 +4,21 @@ import User from '~/models/User';
 import { Types } from 'mongoose';
 
 export const getTickets = async(req, res) => {
-    const user = req.locals.user;
+    const user = res.locals.user;
     let ticketsArray: Array<any> = [];
     if (user.role === 'user') {
         return getTicketsUser(req, res);
     } else {
         for (let i=0; i<user.organizations.length; i++) {
-            let tickets = await getTicketsAdmin(req, res, user.organizations[i]);
-            ticketsArray.concat(tickets);
+            try {
+                let tickets = await getTicketsAdmin(req, res, user.organizations[i]);
+                ticketsArray.concat(tickets);
+            } catch (err) {
+                logger.error(err);
+                const status = err.statusCode || 500;
+                res.status(status).json({message: err})
+                res.end()
+            }
         }
         return res.status(200).send(ticketsArray);
     }
@@ -75,7 +82,7 @@ const getTicketsUser = (req, res) => {
 }
 
 const getTicketsAdmin = (req, res, organization) => {
-    Ticket.aggregate([
+    return Ticket.aggregate([
         {
             "$lookup": {
                 "from": User.collection.name,
@@ -88,13 +95,4 @@ const getTicketsAdmin = (req, res, organization) => {
         { "$match": { "creator.organizations": Types.ObjectId(organization)}},
         { "$set": {"creator": "$creator._id"}},
     ])
-    .then(result => {
-        return result
-    })
-    .catch(err => {
-        logger.error(err);
-        const status = err.statusCode || 500;
-        res.status(status).json({message: err})
-        res.end()
-    });
 }
