@@ -6,7 +6,7 @@
     justify-content: space-between;
     background-color: #F7F7FC;
     margin: 15px 25px;
-    padding: 20px;
+    padding: 1rem 2.5rem;
     border-radius: 32px;
     font-family: 'Poppins', sans-serif;
 
@@ -16,8 +16,29 @@
         font-weight: 500;
     }
 
-    .top-section > h1 {
-        color: $primary-color;
+    .top-section {
+        display: flex;
+        flex-direction: row;
+
+        h1 {
+            color: $primary-color;
+        }
+
+        object {
+            display: inline;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 1rem;
+        }
+    }
+
+    .left-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        max-width: 50%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 
     .right-block {
