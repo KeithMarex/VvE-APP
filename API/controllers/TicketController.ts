@@ -3,23 +3,18 @@ import logger from '~/util/Logger';
 import User from '~/models/User';
 import { Types } from 'mongoose';
 
-export const getTickets = (req, res) => {
-    getTicketsAdmin(req, res)
-    // Expressjs validator
-    // if (req.locals.user.role === 'user') {
-    //     getTicketsUser(req, res);
-    // } else {
-    //     getTicketsAdmin(req, res);
-    // }
-    // Ticket.find()
-    // .then(result => {
-    //     res.status(200).send(result);
-    // })
-    // .catch(err => {
-    //     logger.error(err);
-    //     const status = err.statusCode || 500;
-    //     res.status(status).json({message: err})
-    // });
+export const getTickets = async(req, res) => {
+    const user = req.locals.user;
+    let ticketsArray: Array<any> = [];
+    if (user.role === 'user') {
+        return getTicketsUser(req, res);
+    } else {
+        for (let i=0; i<user.organizations.length; i++) {
+            let tickets = await getTicketsAdmin(req, res, user.organizations[i]);
+            ticketsArray.concat(tickets);
+        }
+        return res.status(200).send(ticketsArray);
+    }
 }
 
 export const getTicket = (req, res) => {
@@ -79,7 +74,7 @@ const getTicketsUser = (req, res) => {
     });
 }
 
-const getTicketsAdmin = (req, res) => {
+const getTicketsAdmin = (req, res, organization) => {
     Ticket.aggregate([
         {
             "$lookup": {
@@ -90,15 +85,16 @@ const getTicketsAdmin = (req, res) => {
             }
         },
         { "$unwind": "$creator" },
-        { "$match": { "creator.organizations": Types.ObjectId("60a77d5b57d8c960829a0343")}},
+        { "$match": { "creator.organizations": Types.ObjectId(organization)}},
         { "$set": {"creator": "$creator._id"}},
     ])
     .then(result => {
-        res.status(200).send(result);
+        return result
     })
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
+        res.end()
     });
 }
