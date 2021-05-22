@@ -1,11 +1,12 @@
-<section>
-    <div class="window">
+<div class="popup">
+    <div class="container">
         <div class="top-bar">
             <h2>{{ title }}</h2>
-            <object data="../../assets/icons/Close.svg" type="" (click)="onClose()"></object>
+            <button id="close-button" (click)="onClose()"></button>
+            <!-- <object data="../../assets/icons/Close.svg" type="" (click)="onClose()"></object> -->
         </div>
-        <section class="content-container">
+        <div class="content-container">
             <ng-content></ng-content>
-        </section>
+        </div>
     </div>
-</section>
+</div>

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ticket-overview.component.scss']
 })
 export class TicketOverviewComponent implements OnInit {
-  creatingTicket = false;
+  creatingTicket = true;
 
   constructor() { }
 

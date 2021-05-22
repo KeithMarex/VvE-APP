@@ -15,8 +15,7 @@ export class PopupComponent implements OnInit {
   }
 
   onClose(): void {
-    console.log('a');
-    // this.closed.emit();
+    this.closed.emit();
   }
 
 }
