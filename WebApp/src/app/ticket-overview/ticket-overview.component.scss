@@ -14,6 +14,7 @@ header {
         color: $primary-color;
         font-size: 200%;
         font-weight: 700;
+        margin-bottom: 10px;
     }
 }
 
@@ -40,7 +41,7 @@ body {
         box-sizing: border-box;
         max-height: 90%;
         margin: auto;
-        overflow: auto;
+        overflow: scroll;
     }
 
     ::-webkit-scrollbar {
