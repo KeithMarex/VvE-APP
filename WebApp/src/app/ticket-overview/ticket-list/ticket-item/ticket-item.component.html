@@ -3,6 +3,8 @@
         <div class="top-section">
             <object data="../../../../assets/icons/members.svg" type=""></object>
             <h1>{{ ticket.creator }} (TODO, momenteel user id)</h1>
+            <h1 id="comment-count">{{ ticket.comments.length }}</h1>
+            <object id="comment-symbol" data="../../../../assets/icons/comment.svg" type=""></object>
         </div>
         <div class="description">
             <h1>{{ ticket.description }}</h1>

@@ -22,6 +22,7 @@
 
         h1 {
             color: $primary-color;
+            margin-right: 2rem;
         }
 
         object {
@@ -29,6 +30,15 @@
             width: 1.5rem;
             height: 1.5rem;
             margin-right: 1rem;
+        }
+
+        #comment-count {
+            margin-right: 0.5rem;
+        }
+
+        #comment-symbol {
+            width: 1.3rem;
+            height: 1.3rem;
         }
     }
 
