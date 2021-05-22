@@ -1,24 +1,30 @@
+import { Comment } from "./comment.model";
+import { Image } from "./image.model";
+import { Tag } from "./tag.model";
+
 export class Ticket {
-    id: string;
+    _id: string;
     title: string;
     description: string;
-    //TODO images
+    images: Image[];
     creator: string;
     assignee: string;
     status: string;
-    //TODO comments
-    //TODO tags
+    comments: Comment[];
+    tags: Tag[];
     createdAt: Date;
     updatedAt: Date;
 
-    //TODO add images, comments and tags
-    constructor(id: string, title: string, description: string, creator: string, assignee: string, status: string, createdAt: Date, updatedAt: Date) {
-        this.id = id;
+    constructor(_id: string, title: string, description: string, images: Image[], creator: string, assignee: string, status: string, comments: Comment[], tags: Tag[], createdAt: Date, updatedAt: Date) {
+        this._id = _id;
         this.title = title;
         this.description = description;
+        this.images = images;
         this.creator = creator;
         this.assignee = assignee;
         this.status = status;
+        this.comments = comments;
+        this.tags = tags;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Comment } from 'src/shared/models/comment.model';
+import { Image } from 'src/shared/models/image.model';
+import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
 import { Dao } from 'src/shared/services/dao.service';
 
@@ -8,11 +11,17 @@ import { Dao } from 'src/shared/services/dao.service';
   styleUrls: ['./ticket-list.component.scss']
 })
 export class TicketListComponent implements OnInit {
-  tickets: Ticket[] = [new Ticket('1', 'Test titel', 'Test description', '5', '3', 'In behandeling', new Date(), new Date()), new Ticket('1', 'Test titel', 'Test description', '5', '3', 'In behandeling', new Date(), new Date())];
+  tickets: Ticket[] = [new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date())]; //TODO remove and replace with real tickets
   
 
   constructor(
-    // private dao: Dao
+    private dao: Dao
   ) {}
 
   ngOnInit(): void {
@@ -20,8 +29,23 @@ export class TicketListComponent implements OnInit {
   }
 
   getTickets(): void {
-    // this.dao.sendGetRequest('ticket');
-    //TODO map response data as tickets array
+    this.dao.getAllTickets().subscribe((incomingTickets: Ticket[]) => {
+      incomingTickets.forEach(incomingTicket => {
+        this.tickets.push(new Ticket(
+          incomingTicket._id,
+          incomingTicket.title,
+          incomingTicket.description,
+          incomingTicket.images,
+          incomingTicket.creator,
+          'filler assignee', //FIXME
+          incomingTicket.status,
+          incomingTicket.comments,
+          [new Tag()], //FIXME
+          incomingTicket.createdAt,
+          incomingTicket.updatedAt
+        ))
+      })
+    });
   }
 
 }

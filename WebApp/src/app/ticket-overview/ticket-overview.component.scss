@@ -35,6 +35,27 @@ body {
             @include button;
         }
     }
+
+    .content-section {
+        box-sizing: border-box;
+        max-height: 90%;
+        margin: auto;
+        overflow: auto;
+    }
+
+    ::-webkit-scrollbar {
+        width: 2.5rem;
+        background-color: #DEDEDE;
+        border: 15px solid rgb(255, 255, 255);
+        border-radius: 25px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 18px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 1);
+    }
 }
 
 :host app-popup {
