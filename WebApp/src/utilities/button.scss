@@ -23,6 +23,7 @@
     }
 
     &::after {
+        justify-self: auto;
         margin-right: 0.6rem;
         content: '';
         background: url('../assets/icons/chevron.svg') no-repeat;

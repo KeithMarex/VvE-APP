@@ -11,7 +11,8 @@ import { Dao } from 'src/shared/services/dao.service';
   styleUrls: ['./ticket-list.component.scss']
 })
 export class TicketListComponent implements OnInit {
-  tickets: Ticket[] = [new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
+  tickets: Ticket[] = 
+  [new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
   new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
   new Ticket('1', 'Test titel', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', [new Image()], '5', '3', 'In behandeling', [], [new Tag()], new Date(), new Date()),
   new Ticket('1', 'Test titel', 'Test description', [new Image()], '5', '3', 'In behandeling', [new Comment()], [new Tag()], new Date(), new Date()),
@@ -29,23 +30,24 @@ export class TicketListComponent implements OnInit {
   }
 
   getTickets(): void {
-    this.dao.getAllTickets().subscribe((incomingTickets: Ticket[]) => {
-      incomingTickets.forEach(incomingTicket => {
-        this.tickets.push(new Ticket(
-          incomingTicket._id,
-          incomingTicket.title,
-          incomingTicket.description,
-          incomingTicket.images,
-          incomingTicket.creator,
-          'filler assignee', //FIXME
-          incomingTicket.status,
-          incomingTicket.comments,
-          [new Tag()], //FIXME
-          incomingTicket.createdAt,
-          incomingTicket.updatedAt
-        ))
-      })
-    });
+    this.dao.getAllTickets();
+    // .subscribe((incomingTickets: Ticket[]) => {
+    //   incomingTickets.forEach(incomingTicket => {
+    //     this.tickets.push(new Ticket(
+    //       incomingTicket._id,
+    //       incomingTicket.title,
+    //       incomingTicket.description,
+    //       incomingTicket.images,
+    //       incomingTicket.creator,
+    //       'filler assignee', //FIXME
+    //       incomingTicket.status,
+    //       incomingTicket.comments,
+    //       [new Tag()], //FIXME
+    //       incomingTicket.createdAt,
+    //       incomingTicket.updatedAt
+    //     ))
+    //   })
+    // });
   }
 
 }
