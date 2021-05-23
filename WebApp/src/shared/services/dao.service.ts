@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Ticket } from '../models/ticket.model';
 
 @Injectable()
 export class Dao {
@@ -10,17 +11,13 @@ export class Dao {
     constructor(private http: HttpClient) {}
 
     sendGetRequest(urlPath: string) : Observable<any> {
-      return this.http
-      .get<any>(this.dbAddress + urlPath, this.generateOptions());
+      return this.http.get<any>(this.dbAddress + urlPath); //FIXME generate options?
     }
 
-    getAllTickets(): Observable<any[]> {
-      return this.sendGetRequest('ticket')
-      .pipe(map(responseData => {
-        console.log('Request sent');
-        return responseData.result;
-      }))
-    }
+    getAllTickets(): Observable<Ticket[]> {
+      // return this.http.get<Ticket[]>("https://vve-api.janvanoverbeek.nl/ticket");
+      return this.sendGetRequest('ticket');
+    };
 
     private generateOptions(): { headers: HttpHeaders; withCredentials: boolean } {
       const headers = new HttpHeaders({

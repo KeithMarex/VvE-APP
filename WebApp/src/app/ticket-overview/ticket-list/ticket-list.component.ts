@@ -30,7 +30,10 @@ export class TicketListComponent implements OnInit {
   }
 
   getTickets(): void {
-    this.dao.getAllTickets();
+    this.dao.getAllTickets()
+    .subscribe(res => {
+      console.log(res);
+    });
     // .subscribe((incomingTickets: Ticket[]) => {
     //   incomingTickets.forEach(incomingTicket => {
     //     this.tickets.push(new Ticket(

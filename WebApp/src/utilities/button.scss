@@ -13,7 +13,7 @@
     box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
 }
 
-.dropdown-button {
+.icon-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,7 +26,6 @@
         justify-self: auto;
         margin-right: 0.6rem;
         content: '';
-        background: url('../assets/icons/chevron.svg') no-repeat;
         height: 14px;
         width: 14px;
     }
