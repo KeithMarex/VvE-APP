@@ -3,7 +3,7 @@ import { Comment } from 'src/shared/models/comment.model';
 import { Image } from 'src/shared/models/image.model';
 import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
-import { Dao } from 'src/shared/services/dao.service';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -12,9 +12,10 @@ import { Dao } from 'src/shared/services/dao.service';
 })
 export class TicketListComponent implements OnInit {
   tickets: Ticket[] = [];
+  
 
   constructor(
-    private dao: Dao
+    private ticketService: TicketDao
   ) {}
 
   ngOnInit(): void {
@@ -22,7 +23,7 @@ export class TicketListComponent implements OnInit {
   }
 
   getTickets(): void {
-    this.dao.getAllTickets()
+    this.ticketService.getAllTickets()
     .subscribe((incomingTickets: Ticket[]) => {
       incomingTickets.forEach(incomingTicket => {
         this.tickets.push(new Ticket(

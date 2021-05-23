@@ -16,6 +16,7 @@ import { Dao } from 'src/shared/services/dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { PopupComponent } from './popup/popup.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     Dao,
+    TicketDao,
   ],
   bootstrap: [AppComponent]
 })
