@@ -11,18 +11,20 @@ export class Dao {
     constructor(private http: HttpClient) {}
 
     sendGetRequest(urlPath: string) : Observable<any> {
-      return this.http.get<any>(this.dbAddress + urlPath); //FIXME generate options?
+      return this.http.get<any>(this.dbAddress + urlPath, this.generateOptions());
     }
 
     getAllTickets(): Observable<Ticket[]> {
-      // return this.http.get<Ticket[]>("https://vve-api.janvanoverbeek.nl/ticket");
-      return this.sendGetRequest('ticket');
+      return this.sendGetRequest('ticket')
+      .pipe(map((response: Ticket[]) => {
+        return response;
+      }));
     };
 
-    private generateOptions(): { headers: HttpHeaders; withCredentials: boolean } {
+    private generateOptions(): { headers: HttpHeaders } {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
-      return { headers, withCredentials: true };
+      return { headers };
     }
 }
