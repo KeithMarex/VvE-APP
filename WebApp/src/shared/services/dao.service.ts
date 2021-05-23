@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Ticket } from '../models/ticket.model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class Dao {
-    dbAddress = 'https://vve-api.janvanoverbeek.nl/';
+    dbAddress = environment.API_URL;
 
     constructor(private http: HttpClient) {}
 
