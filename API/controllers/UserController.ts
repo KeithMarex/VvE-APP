@@ -3,6 +3,7 @@ import { createTokens } from '../util/Auth';
 import bcrypt from 'bcryptjs';
 import logger from '~/util/Logger';
 import generator from 'generate-password';
+import { Types } from 'mongoose';
 
 export const login = async (req, res) => {
     const email = req.body.email;
@@ -47,7 +48,7 @@ export const register = async(req, res) => {
 
 export const getUser = (req, res) => {
     const id = req.params.id;
-    User.findById(id).select('-password')
+    User.findById(Types.ObjectId(id)).select('-password')
     .then(result => {
         res.status(200).send(result);
     })
