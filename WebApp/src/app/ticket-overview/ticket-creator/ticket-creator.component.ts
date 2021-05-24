@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
 @Component({
   selector: 'app-ticket-creator',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketCreatorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ticketDao: TicketDao) { }
 
   ngOnInit(): void {
+  }
+
+  onCreateTicket(form: NgForm) {
+    const formValues = form.value;
+    
+    //TODO send post request with formValues
   }
 
 }

@@ -7,7 +7,7 @@
             <object id="comment-symbol" data="../../../../assets/icons/comment.svg" type=""></object>
         </div>
         <div class="description">
-            <h1>{{ ticket.description }}</h1>
+            <h1>{{ ticket.description.length > 180 ? ticket.description.slice(0, 180) + '...' : ticket.description }}</h1>
         </div>
     </section>
 

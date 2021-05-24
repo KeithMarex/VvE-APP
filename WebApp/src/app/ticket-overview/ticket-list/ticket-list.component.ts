@@ -15,7 +15,7 @@ export class TicketListComponent implements OnInit {
   
 
   constructor(
-    private ticketService: TicketDao
+    private ticketDao: TicketDao
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class TicketListComponent implements OnInit {
   }
 
   getTickets(): void {
-    this.ticketService.getAllTickets()
+    this.ticketDao.getAllTickets()
     .subscribe((incomingTickets: Ticket[]) => {
       incomingTickets.forEach(incomingTicket => {
         this.tickets.push(new Ticket(

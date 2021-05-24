@@ -9,8 +9,12 @@ export class Dao {
 
     constructor(private http: HttpClient) {}
 
-    sendGetRequest(urlPath: string) : Observable<any> {
+    sendGetRequest(urlPath: string): Observable<any> {
       return this.http.get<any>(this.dbAddress + urlPath, this.generateOptions());
+    }
+
+    sendPostRequest(urlPath: string, body: unknown): Observable<any> {
+      return this.http.post<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }
 
     private generateOptions(): { headers: HttpHeaders } {

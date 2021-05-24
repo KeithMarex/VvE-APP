@@ -17,6 +17,7 @@ import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-
 import { PopupComponent } from './popup/popup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TicketDao } from 'src/shared/services/ticket-dao.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     Dao,

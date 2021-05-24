@@ -1,6 +1,6 @@
 @import "../../../utilities/button.scss";
 
-section {
+section > form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
