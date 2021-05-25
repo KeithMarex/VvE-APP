@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Ticket } from 'src/shared/models/ticket.model';
+import { UserDao } from 'src/shared/services/user-dao.service';
 
 @Component({
   selector: 'app-ticket-item',
@@ -9,14 +10,22 @@ import { Ticket } from 'src/shared/models/ticket.model';
 export class TicketItemComponent implements OnInit {
   @Input() ticket: Ticket;
   shortDesc = '';
+  creatorName = '';
 
-  constructor() { }
+  constructor(private userDao: UserDao) { }
 
   ngOnInit(): void {
     if (this.ticket.description.length > 180) {
       this.shortDesc = this.ticket.description.slice(0, 180);
-      console.log("Using shortdesc");
     }
+
+    this.getTicketUsername();
   }
 
+  getTicketUsername() {
+    this.userDao.getUserById(this.ticket.creator)
+    .subscribe(user => {
+      this.creatorName = user.firstname;
+    })
+  }
 }
