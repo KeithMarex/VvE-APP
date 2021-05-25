@@ -2,7 +2,8 @@ import Tag from '../models/Tag';
 import logger from '~/util/Logger';
 
 export const getTags = async (req, res) => {
-    const organizationid = req.headers.organisationid
+    const organizationid = res.locals.user; //res.locals.user.organisation[0];//req.headers.organisationid
+    console.log(organizationid);
 
     Tag.find({organization: organizationid})
     .then(result => {
