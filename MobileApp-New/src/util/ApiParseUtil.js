@@ -14,5 +14,6 @@ const ticketStatus = {
 }
 
 export const parseTicketStatus = (inputStatus, language) => {
+    if (!inputStatus) return '?'
     return ticketStatus[inputStatus][language]
 }
