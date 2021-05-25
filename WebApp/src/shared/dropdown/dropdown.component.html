@@ -1,0 +1,17 @@
+<div class="dropdown-container" [id]="name">
+    <div class="dropdown" (click)="showDropdown = !showDropdown">
+        <div class="selected-container" *ngIf="selected">
+            <ng-container *ngTemplateOutlet="dropdownSelectedTemplate; context: { $implicit: selected }"></ng-container>
+        </div>
+
+        <div class="right">
+            <fa-icon [icon]="icons.faChevronDown"></fa-icon>
+        </div>
+    </div>
+
+    <ul class="options" *ngIf="showDropdown" (click)="showDropdown = false">
+        <li *ngFor="let option of options" (click)="setOption(option)">
+            <ng-container *ngTemplateOutlet="dropdownOptionTemplate; context: { $implicit: option }"></ng-container>
+        </li>
+    </ul>
+</div>
