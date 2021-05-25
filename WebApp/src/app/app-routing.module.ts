@@ -4,6 +4,7 @@ import { AccountManagementComponent } from './account-management/account-managem
 import { CalendarComponent } from './calendar/calendar.component';
 import { LoginComponent } from './login/login.component';
 import { NewsOverviewComponent } from './news-overview/news-overview.component';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { TicketOverviewComponent } from './ticket-overview/ticket-overview.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
 
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent },
   { path: 'news-overview', component: NewsOverviewComponent },
   { path: 'ticket-overview', component: TicketOverviewComponent },
-  { path: 'vve-management', component: VveManagementComponent }
+  { path: 'vve-management', component: VveManagementComponent },
+  { path: 'ticket-details/:id', component: TicketDetailsComponent }
 ];
 
 @NgModule({
