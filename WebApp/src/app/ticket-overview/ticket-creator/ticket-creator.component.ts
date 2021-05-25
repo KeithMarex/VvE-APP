@@ -16,8 +16,35 @@ export class TicketCreatorComponent implements OnInit {
 
   onCreateTicket(form: NgForm) {
     const formValues = form.value;
-    
-    //TODO send post request with formValues
+
+    this.ticketDao.createTicket(
+      {
+        "title": formValues.title,
+        "description": formValues.description,
+        "creator": "60a69daf408255502dd4a948", //FIXME add ACTIVE user
+        "status": this.formatStatus(formValues.status)
+      }
+    )
+    .subscribe(res => {
+      console.log(res);
+    })
+  }
+
+  formatStatus(status: string): string {
+    switch(status) {
+
+      case "In afwachting":
+        return "PENDING";
+
+      case "In behandeling":
+        return "HANDLING";
+
+      case "Afgehandeld":
+        return "HANDLED";
+
+      default:
+        return "PENDING";
+    }
   }
 
 }
