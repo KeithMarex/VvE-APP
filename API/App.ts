@@ -14,7 +14,7 @@ import UserRouter from './routes/UserRouter';
 import TicketRouter from './routes/TicketRouter';
 
 const corsOptions = {
-    origin: `http:localhost:${process.env.PORT}`,
+    origin: `http://localhost:${process.env.APP_PORT}`,
     credentials: true
 }
 
