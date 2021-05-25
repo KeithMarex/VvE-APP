@@ -4,7 +4,7 @@ get:
     - Ticket
   responses:
     '200':
-      description: Array with ticket objects that are requested are returned. \n The user role is taken from the tokens and from there the correct tickets are send. \n So when an admin asks for tickets he will receive all tickets connected to his organization.
+      description: Array with ticket objects that are requested are returned. \n The user role is taken from the tokens and from there the correct tickets are send. \n So when an admin asks for tickets he will receive all tickets connected to his organizations.
       content:
         application/json:
           schema:

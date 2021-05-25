@@ -1,22 +1,27 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
+import User from '~/models/User';
+import { Types } from 'mongoose';
 
-export const getTickets = (req, res) => {
-    // getTicketsAdmin(req, res)
-    // if (req.locals.user.role === 'user') {
-    //     getTicketsUser(req, res);
-    // } else {
-    //     getTicketsAdmin(req, res);
-    // }
-    Ticket.find()
-    .then(result => {
-        res.status(200).send(result);
-    })
-    .catch(err => {
-        logger.error(err);
-        const status = err.statusCode || 500;
-        res.status(status).json({message: err})
-    });
+export const getTickets = async(req, res) => {
+    const user = res.locals.user;
+    let ticketsArray: Array<any> = [];
+    if (user.role === 'user') {
+        return getTicketsUser(req, res);
+    } else {
+        for (let i=0; i<user.organizations.length; i++) {
+            try {
+                let tickets = await getTicketsAdmin(req, res, user.organizations[i]);
+                ticketsArray = ticketsArray.concat(tickets);
+            } catch (err) {
+                logger.error(err);
+                const status = err.statusCode || 500;
+                res.status(status).json({message: err})
+                res.end()
+            }
+        }
+        return res.status(200).send(ticketsArray);
+    }
 }
 
 export const getTicket = (req, res) => {
@@ -76,16 +81,18 @@ const getTicketsUser = (req, res) => {
     });
 }
 
-const getTicketsAdmin = (req, res) => {
-    Ticket.find({})
-    .where("parking").equals(false)
-    .populate({path: 'creator'})
-    .then(result => {
-        res.status(200).send(result);
-    })
-    .catch(err => {
-        logger.error(err);
-        const status = err.statusCode || 500;
-        res.status(status).json({message: err})
-    });
+const getTicketsAdmin = (req, res, organization) => {
+    return Ticket.aggregate([
+        {
+            "$lookup": {
+                "from": User.collection.name,
+                "localField": "creator",
+                "foreignField": "_id",
+                "as": "creator"
+            }
+        },
+        { "$unwind": "$creator" },
+        { "$match": { "creator.organizations": Types.ObjectId(organization)}},
+        { "$set": {"creator": "$creator._id"}},
+    ])
 }

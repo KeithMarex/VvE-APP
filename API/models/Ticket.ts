@@ -25,11 +25,12 @@ const TicketSchema = new Schema({
     },
     assignee: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        default: null
     },
     status: {
-        type: Schema.Types.ObjectId,
-        ref: "Status"
+        type: String,
+        default: "60a79bb6890c71dde3117c21"
     },
     comments: [{
         type: Schema.Types.ObjectId,
