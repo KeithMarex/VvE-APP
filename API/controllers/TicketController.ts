@@ -1,7 +1,7 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
-import {mailer, getHTML}  from '~/util/Mailer';
 import User from '~/models/User';
+import {getAllBoardMemberMails, getMailFromCreatorObject, sendMail} from '~/util/Mailer';
 
 export const getTickets = async (req, res) => {
     Ticket.find({ user: req.locals.user._id })
@@ -31,22 +31,12 @@ export const getTicket = async (req, res) => {
 export const postTicket = async (req, res) => {
     const ticket = new Ticket(req.body);
     ticket.save()
-    .then(result => {
+    .then(async result => {
         //Bestuurder mail
-        User.find({ role: 'admin'}, "email", {}, async function(err, docs){
-            if (!docs.length) return;
-            let emailComposition = [];
-            docs.forEach(function(user) {
-                emailComposition.push(user["email"]);
-            });
+        sendMail("[VvE] Er is een nieuwe ticket aangemaakt", 'ticket_bestuurder.html', await getAllBoardMemberMails());
 
-            mailer.sendMail({
-                from: process.env.MAIL_USER,
-                to: emailComposition,
-                subject: "[VvE] Er is een nieuwe ticket aangemaakt",
-                html: await getHTML("ticket_bestuurder.html")
-            });
-        });
+        //Bewoner mail
+        sendMail("[VvE] U heeft een ticket aangemaakt", "ticket_aangemaakt_bewoner.html", await getMailFromCreatorObject(result['creator']));
 
         res.status(201).send(result);
     })
