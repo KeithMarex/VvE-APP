@@ -2,7 +2,8 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { CommentIcon} from "../resources"
 import StyledText from './StyledText'
-import Button from "./Button";
+import Button from './Button'
+import { parseTicketStatus } from '../util/ApiParseUtil'
 
 const TicketsListItem = (props) => {
     const viewTicket = () => {
@@ -43,7 +44,7 @@ const TicketsListItem = (props) => {
             </StyledText>
 
             <StyledText inputStyle={styles.ticketStatus}>
-                Status: { props.ticket.status }
+                Status: { props.ticket.parsedStatus }
             </StyledText>
 
             <View style={styles.ticketBottom}>
@@ -52,7 +53,7 @@ const TicketsListItem = (props) => {
                         Laatste wijziging:
                     </StyledText>
                     <StyledText inputStyle={styles.updatedAtText}>
-                        { props.ticket.updatedAt }
+                        { props.ticket.parsedUpdatedAt }
                     </StyledText>
                 </View>
 

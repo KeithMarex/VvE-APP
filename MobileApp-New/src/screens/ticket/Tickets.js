@@ -1,11 +1,12 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
-import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton'
 import TicketsListItem from '../../components/TicketsListItem'
-import axios from 'axios'
-import PageLogo from "../../components/PageLogo";
+import PageLogo from '../../components/PageLogo'
+import ApiHelper from '../../util/ApiHelper'
+import { initDateParser, parseDate } from '../../util/DateUtil'
+import { parseTicketStatus } from '../../util/ApiParseUtil'
 
 const window = Dimensions.get('window')
 
@@ -13,35 +14,23 @@ const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
 
     useEffect(() => {
+        initDateParser('nl') //TODO move to splash screen
         fetchTickets()
     }, [])
 
     const fetchTickets = () => {
-        setTickets([
-            {
-                title: 'Mijn leidingen zijn vervuild en ik ben boos en verdrietig.',
-                description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.\n\nEt harum quidem rerum facilis est et expedita distinctio.\n\nNam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.\n\nTemporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.\n\nItaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
-                comments: ['1', '2'],
-                createdAt: '12 mei 2021 12:32',
-                updatedAt: '13 mei 2021 15:30',
-                status: 'In behandeling',
-                images: ['1.jpg', '2.png']
-            },
-            {
-                title: 'Andere melding',
-                description: 'Dit is een andere melding.',
-                comments: ['1', '2', '3'],
-                createdAt: '12 mei 2021 12:32',
-                updatedAt: '15 mei 2021 15:30',
-                status: 'In behandeling',
-                images: ['1.jpg', '2.jpg']
-            },
-        ])
+        ApiHelper.get('/ticket')
+            .then((res) => {
+                const parsedTickets = []
+                res.data.forEach((ticket) => {
+                    ticket.parsedStatus = parseTicketStatus(ticket.status, 'nl')
+                    ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
+                    ticket.parsedCreatedAt = parseDate(ticket.createdAt)
+                    parsedTickets.push(ticket)
+                })
 
-        // TODO fetch from API
-        // axios.get('/ticket')
-        //     .then(r => console.log(r))
-        //     .catch((err) => console.log(err))
+                setTickets(parsedTickets)
+            })
     }
 
     const viewTicket = (ticket) => {
