@@ -13,6 +13,11 @@ import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
 import TicketRouter from './routes/TicketRouter';
 
+const corsOptions = {
+    origin: 'http://localhost',
+    credentials: true
+}
+
 const app = express();
 
 app.use(express.urlencoded({extended: true}))
@@ -25,7 +30,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 // passport middleware
 app.use(passport.initialize());
 //ROUTES
-app.use(cors());
+app.use(cors(corsOptions));
 app.use('/user' ,UserRouter);
 app.use('/ticket' ,isAuth, TicketRouter);
 
