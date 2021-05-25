@@ -12,6 +12,7 @@ import { isAuth } from './middleware/isAuth';
 import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
 import TicketRouter from './routes/TicketRouter';
+import TagRouter from './routes/TagRouter';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(passport.initialize());
 app.use(cors());
 app.use('/user' ,UserRouter);
 app.use('/ticket' ,TicketRouter);
+app.use('/tag', TagRouter)
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
