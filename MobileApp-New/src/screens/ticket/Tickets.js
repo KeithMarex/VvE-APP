@@ -1,87 +1,79 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
-import { Logo, CommentIcon } from '../../resources'
+import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton'
+import TicketsListItem from '../../components/TicketsListItem'
+import axios from 'axios'
+import PageLogo from "../../components/PageLogo";
 
 const window = Dimensions.get('window')
 
 const Tickets = (props) => {
+    const [tickets, setTickets] = useState([])
+
+    useEffect(() => {
+        fetchTickets()
+    }, [])
+
+    const fetchTickets = () => {
+        setTickets([
+            {
+                title: 'Mijn leidingen zijn vervuild en ik ben boos en verdrietig.',
+                description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.\n\nEt harum quidem rerum facilis est et expedita distinctio.\n\nNam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.\n\nTemporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.\n\nItaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
+                comments: ['1', '2'],
+                createdAt: '12 mei 2021 12:32',
+                updatedAt: '13 mei 2021 15:30',
+                status: 'In behandeling',
+                images: ['1.jpg', '2.png']
+            },
+            {
+                title: 'Andere melding',
+                description: 'Dit is een andere melding.',
+                comments: ['1', '2', '3'],
+                createdAt: '12 mei 2021 12:32',
+                updatedAt: '15 mei 2021 15:30',
+                status: 'In behandeling',
+                images: ['1.jpg', '2.jpg']
+            },
+        ])
+
+        // TODO fetch from API
+        // axios.get('/ticket')
+        //     .then(r => console.log(r))
+        //     .catch((err) => console.log(err))
+    }
+
+    const viewTicket = (ticket) => {
+        props.navigation.navigate('Details', {ticket})
+    }
+
+    const ticketsListEl = []
+    for (let i = 0; i < tickets.length; i++) {
+        ticketsListEl.push(
+            <TicketsListItem ticket={tickets[i]} viewTicket={viewTicket} key={i}/>
+        )
+    }
+
     return (
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.tickets}>
-                    <Logo style={styles.logo} width={window.width / 10 * 5} />
-                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Meldingen</StyledText>
+                    <PageLogo/>
+                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
+                        Meldingen
+                    </StyledText>
                     <TouchableOpacity onPress={() => props.navigation.navigate('Create')}>
                         <PageActionButton icon={'plus'} text={'Aanmaken'}/>
                     </TouchableOpacity>
 
                     <View>
-                        <View style={styles.ticket}>
-
-                            <View style={styles.ticketHeader}>
-                                <StyledText inputStyle={styles.ticketTitle} theme={'cardHeader'}>Titel van melding</StyledText>
-                                <View style={styles.ticketCommentCount}>
-                                    <StyledText inputStyle={styles.ticketCommentCountAmount}>0</StyledText>
-                                    <CommentIcon width={18} height={18} stroke={'#4E4B66'} />
-                                </View>
-                            </View>
-
-                            <StyledText inputStyle={styles.ticketDescription}>
-                                Dit is een kleine beschrijving van de melding die is gedaan.
+                        {ticketsListEl.length > 0 ? ticketsListEl : (
+                            <StyledText inputStyle={styles.noTickets}>
+                                U heeft nog geen meldingen gedaan.
                             </StyledText>
-
-                            <StyledText inputStyle={styles.ticketStatus}>Status: In behandeling</StyledText>
-
-                            <View style={styles.ticketBottom}>
-                                <View style={styles.lastUpdate}>
-                                    <StyledText inputStyle={styles.lastUpdateText}>Laatste wijziging:</StyledText>
-                                    <StyledText inputStyle={styles.lastUpdateText}>13 mei 2021 15:30</StyledText>
-                                </View>
-
-                                <TouchableOpacity style={styles.ticketBtn} onPress={() => alert('Tapped ticket button')} >
-                                    <StyledText inputStyle={styles.ticketBtnText}>
-                                        Meer info &#62;
-                                    </StyledText>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>
-
-                        <View style={styles.ticket}>
-
-                            <View style={styles.ticketHeader}>
-                                <StyledText inputStyle={styles.ticketTitle} theme={'cardHeader'}>Titel van melding</StyledText>
-                                <View style={styles.ticketCommentCount}>
-                                    <StyledText inputStyle={styles.ticketCommentCountAmount}>0</StyledText>
-                                    <CommentIcon width={18} height={18} stroke={'#4E4B66'} />
-                                </View>
-                            </View>
-
-                            <StyledText inputStyle={styles.ticketDescription}>
-                                Dit is een kleine beschrijving van de melding die is gedaan.
-                            </StyledText>
-
-                            <StyledText inputStyle={styles.ticketStatus}>Status: In behandeling</StyledText>
-
-                            <View style={styles.ticketBottom}>
-                                <View style={styles.lastUpdate}>
-                                    <StyledText inputStyle={styles.lastUpdateText}>Laatste wijziging:</StyledText>
-                                    <StyledText inputStyle={styles.lastUpdateText}>13 mei 2021 15:30</StyledText>
-                                </View>
-
-                                <TouchableOpacity style={styles.ticketBtn} onPress={() => alert('Tapped ticket button')}>
-                                    <StyledText inputStyle={styles.ticketBtnText}>
-                                        Meer info &#62;
-                                    </StyledText>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>
-
+                        )}
                     </View>
-
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -97,7 +89,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-        padding: 30,
+        paddingHorizontal: 30,
+        paddingTop: 0,
         paddingBottom: 90
     },
     logo: {
@@ -125,70 +118,11 @@ const styles = StyleSheet.create({
         color: 'black'
     },
 
-    ticket: {
-        width: '100%',
-        backgroundColor: '#fff',
-        borderRadius: 20,
-        borderColor: '#f8f8f8',
-        borderWidth: 5,
-        paddingVertical: 20,
-        paddingHorizontal: '7%',
-        marginBottom: 8
-    },
-    ticketHeader: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        justifyContent: 'space-between'
-    },
-    ticketTitle: {
-
-    },
-    ticketCommentCount: {
-        flexDirection: 'row'
-    },
-    ticketCommentCountAmount: {
-        color: '#4E4B66',
-        fontSize: 16,
-        marginRight: 5
-    },
-    ticketDescription: {
-        color: '#6E7191',
-        fontSize: 13,
-        textAlign: 'left',
-        marginBottom: 10,
-    },
-    ticketStatus: {
-        textAlign: 'left',
-        color: '#14142B',
-        marginBottom: 10
-    },
-    ticketBottom: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    lastUpdateText: {
-        textAlign: 'left',
-        fontSize: 10,
-        color: '#6E7191',
-        letterSpacing: 0.5,
-        marginBottom: 3
-    },
-    ticketBtn: {
-        borderColor: '#A0CAE8',
-        borderWidth: 2,
-        borderRadius: 40,
-        justifyContent: 'center',
-        paddingHorizontal: 8,
-        paddingVertical: 4
-    },
-    ticketBtnText: {
-        color: '#A0CAE8',
-        fontSize: 14,
-        fontWeight: 'bold'
+    noTickets: {
+        color: 'black',
+        marginTop: '15%',
+        opacity: 0.4
     }
-
 })
 
-export default Tickets;
+export default Tickets

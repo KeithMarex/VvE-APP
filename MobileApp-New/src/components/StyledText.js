@@ -1,12 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text } from 'react-native'
 
-
 const StyledText = (props) => {
     const styles = getTextStyle(parseInputStyleArray(props.inputStyle))
     return (
         <Text style={[styles.styledText, styles[props.theme]]}>
-            {props.children}
+            { props.children }
         </Text>
     )
 }
