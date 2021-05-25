@@ -1,19 +1,9 @@
-import mongoose from 'mongoose';
-import Status from './Status';
-import logger from '~/util/Logger';
+import mongoose, { Document } from 'mongoose';
+// import Status from './Status';
+// import logger from '~/util/Logger';
 
 const Schema = mongoose.Schema;
 
-const getStatus = () => {
-    Status.findOne({status: "PENDING"})
-    .then( status => {
-        return status._id
-    })
-    .catch(err => {
-        logger.error(err)
-        return err
-    })
-};
 const TicketSchema = new Schema({
     title: {
         type: String,
@@ -42,7 +32,7 @@ const TicketSchema = new Schema({
     },
     status: {
         type: String,
-        default: getStatus()
+        default: "PENDING"
     },
     comments: [{
         type: Schema.Types.ObjectId,
