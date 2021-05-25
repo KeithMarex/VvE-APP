@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, TextInput, Text} from 'react-native'
+import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, TextInput, Text, Image} from 'react-native'
 import React from 'react'
 import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
@@ -13,12 +13,9 @@ const window = Dimensions.get('window')
 const TicketCreate = (props) => {
     const [subject, onChangeSubject] = React.useState("")
     const [description, onChangeDescription] = React.useState("")
+    const [images, setImages] = React.useState([]);
 
     const takePicture = async () => {
-        // launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, (callback) => {
-        //     console.log('hoi');
-        // });
-
         let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
         if (permissionResult.granted === false) {
@@ -27,7 +24,7 @@ const TicketCreate = (props) => {
         }
 
         let pickerResult = await ImagePicker.launchCameraAsync({base64: true});
-        console.log(pickerResult);
+        setImages((images) => [...images, pickerResult['base64']]);
     };
 
     const choosePicture = async () => {
@@ -39,10 +36,20 @@ const TicketCreate = (props) => {
         }
 
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        console.log(pickerResult);
+        setImages((images) => [...images, pickerResult['base64']]);
     };
 
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
+
+    function maakMelding() {
+        console.log(images[0]);
+    }
+
+    function removeImage(index) {
+        const arr = [...images]
+        arr.splice(index, 1)
+        setImages(arr);
+    }
 
     return (
         <SafeAreaView style={styles.root}>
@@ -69,14 +76,17 @@ const TicketCreate = (props) => {
                         <OptionsMenu customButton={afbeeldingKnop} options={["Maak een foto", "Kies een foto", "Annuleren"]} actions={[takePicture, choosePicture]}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => null} style={styles.sendBtn}>
+                    {images.map(image => (
+                        <TouchableOpacity key={image} onPress={() => removeImage(images.indexOf(image))}>
+                            <Image style={{width: 100, height: 100, borderRadius: 15}} source={{uri: `data:image/png;base64,${image}`}} />
+                        </TouchableOpacity>
+                    ))}
+
+                    <TouchableOpacity onPress={() => maakMelding()} style={styles.sendBtn}>
                         <StyledText inputStyle={styles.ticketBtnText}>
                             Versturen
                         </StyledText>
                     </TouchableOpacity>
-
-
-
                 </View>
             </ScrollView>
         </SafeAreaView>
