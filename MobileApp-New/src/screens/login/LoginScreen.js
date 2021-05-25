@@ -3,7 +3,8 @@ import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity,
 import Mail from '../../resources/icons/login/Mail.svg'
 import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
-import ApiHelper from '../../util/ApiHelper'
+import ApiHelper from "../../api/ApiHelper";
+import UserModel from "../../models/user.model";
 
 const ss = Dimensions.get('window')
 
@@ -14,9 +15,15 @@ const LoginScreen = (props) => {
 
     const loginUser = async (email, password) => {
         console.log(email, password);
-        const response = await ApiHelper.post('/user/login', JSON.stringify({email: email, password: password}), {headers: {'Content-Type': 'application/json'}});
-
-        console.log(response);
+        await ApiHelper.post('/user/login', {email: email, password: password}).then(res => {
+            const d = res.data;
+            const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
+            props.navigation.navigate('homeNavigation', { user });
+        }).catch(error => {
+            if (error.response.status === 401){
+                Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
+            }
+        })
     };
 
     return (
