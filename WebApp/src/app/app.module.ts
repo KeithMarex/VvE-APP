@@ -14,9 +14,10 @@ import { TicketListComponent } from './ticket-overview/ticket-list/ticket-list.c
 import { TicketItemComponent } from './ticket-overview/ticket-list/ticket-item/ticket-item.component';
 import { PopupComponent } from './popup/popup.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
+import { AuthDao } from 'src/shared/services/auth-dao.service';
 import { FormsModule } from '@angular/forms';
 import { Dao } from 'src/shared/services/dao.service';
-import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { UserDao } from 'src/shared/services/user-dao.service';
 
@@ -44,6 +45,7 @@ import { UserDao } from 'src/shared/services/user-dao.service';
   providers: [
     Dao,
     TicketDao,
+    AuthDao,
     UserDao
   ],
   bootstrap: [AppComponent]
