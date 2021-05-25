@@ -1,4 +1,15 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, TextInput, Text, Image} from 'react-native'
+import {
+    SafeAreaView,
+    StyleSheet,
+    ScrollView,
+    View,
+    Dimensions,
+    TouchableOpacity,
+    TextInput,
+    Text,
+    Image,
+    Alert
+} from 'react-native'
 import React from 'react'
 import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
@@ -6,7 +17,8 @@ import PageActionButton from "../../components/PageActionButton";
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
 import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
-
+import ApiHelper from "../../api/ApiHelper";
+import * as ImageManipulator from 'expo-image-manipulator';
 
 const window = Dimensions.get('window')
 
@@ -23,8 +35,9 @@ const TicketCreate = (props) => {
             return;
         }
 
-        let pickerResult = await ImagePicker.launchCameraAsync({base64: true});
-        setImages((images) => [...images, pickerResult['base64']]);
+        let pickerResult = await ImagePicker.launchCameraAsync({base64: false});
+        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
+        setImages((images) => [...images, result.base64]);
     };
 
     const choosePicture = async () => {
@@ -36,13 +49,23 @@ const TicketCreate = (props) => {
         }
 
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        setImages((images) => [...images, pickerResult['base64']]);
+        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
+        setImages((images) => [...images, result.base64]);
     };
 
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
 
-    function maakMelding() {
-        console.log(images[0]);
+    async function maakMelding() {
+        const json = {title: subject, description: description, images: images, creator: '60a69daf408255502dd4a948'};
+        console.log(json);
+        await ApiHelper.post('/ticket/', json).then(res => {
+            props.navigation.replace('Ticket');
+        }).catch(error => {
+            console.log(error);
+            if (error.response.status === 413) {
+                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+            }
+        })
     }
 
     function removeImage(index) {
@@ -107,21 +130,20 @@ const styles = StyleSheet.create({
     imageCross: {
         position: 'absolute',
         right: 1,
-        color: '#451864',
-        marginRight: 18,
-        marginTop: 10,
-        fontSize: 20
+        color: 'white',
+        marginRight: 10,
+        marginTop: 3,
+        fontSize: 15
     },
     circle: {
         position: 'absolute',
         right: 1,
-        color: 'white',
-        marginRight: 10,
-        marginTop: 10,
+        marginRight: 0,
+        marginTop: 0,
         width: 30,
         height: 30,
         borderRadius: 100 / 2,
-        backgroundColor: "white",
+        backgroundColor: "#451864",
     },
     root: {
         backgroundColor: '#F7F7FC',
