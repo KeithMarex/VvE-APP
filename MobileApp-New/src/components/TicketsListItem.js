@@ -3,9 +3,16 @@ import { StyleSheet, View } from 'react-native'
 import { CommentIcon} from "../resources"
 import StyledText from './StyledText'
 import Button from './Button'
-import { parseDate } from '../util/DateUtil'
+import { initDateParser, parseDate } from '../util/DateUtil'
+import { useEffect } from 'react'
 
 const TicketsListItem = (props) => {
+
+    // TODO put this in splash screen
+    useEffect(() => {
+        initDateParser('nl')
+    }, [])
+
     const viewTicket = () => {
         props.viewTicket(props.ticket)
     }

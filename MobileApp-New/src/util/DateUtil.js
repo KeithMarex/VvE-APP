@@ -6,6 +6,6 @@ export const initDateParser = (language) => {
     moment.updateLocale('nl', [nl])
 }
 
-export const parseDate = (dateInput, language) => {
+export const parseDate = (dateInput) => {
     return moment(dateInput).format('LLL')
 }
