@@ -4,6 +4,7 @@ import { CommentIcon} from "../resources"
 import StyledText from './StyledText'
 import Button from './Button'
 import { initDateParser, parseDate } from '../util/DateUtil'
+import { parseTicketStatus } from '../util/ApiParseUtil'
 import { useEffect } from 'react'
 
 const TicketsListItem = (props) => {
@@ -51,7 +52,7 @@ const TicketsListItem = (props) => {
             </StyledText>
 
             <StyledText inputStyle={styles.ticketStatus}>
-                Status: { props.ticket.status }
+                Status: { parseTicketStatus(props.ticket.status, 'nl') }
             </StyledText>
 
             <View style={styles.ticketBottom}>
