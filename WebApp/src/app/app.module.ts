@@ -12,12 +12,13 @@ import { VveManagementComponent } from './vve-management/vve-management.componen
 import { LoginComponent } from './login/login.component';
 import { TicketListComponent } from './ticket-overview/ticket-list/ticket-list.component';
 import { TicketItemComponent } from './ticket-overview/ticket-list/ticket-item/ticket-item.component';
-import { Dao } from 'src/shared/services/dao.service';
-import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { PopupComponent } from './popup/popup.component';
 import { HttpClientModule } from '@angular/common/http';
-import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { FormsModule } from '@angular/forms';
+import { Dao } from 'src/shared/services/dao.service';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
+import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
+import { UserDao } from 'src/shared/services/user-dao.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { FormsModule } from '@angular/forms';
   providers: [
     Dao,
     TicketDao,
+    UserDao
   ],
   bootstrap: [AppComponent]
 })
