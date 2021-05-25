@@ -14,8 +14,8 @@ export const login = async (req, res) => {
 
         if (isEqual) {
             const [accesstoken, refreshToken] = createTokens(user);
-            res.cookie('access-token', accesstoken, { maxAge: 60 * 60 * 24 * 7 * 1000 , httpOnly: true, secure: true });
-            res.cookie('refresh-token', refreshToken, { maxAge: 60 * 60 * 24 * 7 * 1000, httpOnly: true, secure: true });
+            res.cookie('access-token', accesstoken, { maxAge: 60 * 60 * 24 * 7 * 1000 , httpOnly: true, secure: false });
+            res.cookie('refresh-token', refreshToken, { maxAge: 60 * 60 * 24 * 7 * 1000, httpOnly: true, secure: false });
             user.password = null;
             return res.status(200).json(user);
         } else {

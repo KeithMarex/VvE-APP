@@ -18,7 +18,7 @@ post:
               items:
                 $ref: ../definitions/Image.yaml
             creator:
-              $ref: ../definitions/User.yaml
+              type: id (string)
             assignee:
               $ref: ../definitions/User.yaml
             tag:

@@ -396,13 +396,13 @@
     },
     "/ticket": {
       "get": {
-        "summary": "Returns all the tickets of user/organization.",
+        "summary": "Returns all the tickets of user/admin.",
         "tags": [
           "Ticket"
         ],
         "responses": {
           "200": {
-            "description": "Array with ticket objects",
+            "description": "Array with ticket objects that are requested are returned. \\n The user role is taken from the tokens and from there the correct tickets are send. \\n So when an admin asks for tickets he will receive all tickets connected to his organizations.",
             "content": {
               "application/json": {
                 "schema": {
@@ -415,7 +415,7 @@
             }
           },
           "500": {
-            "description": "Tickets are not existing"
+            "description": "Error with finding tickets"
           }
         }
       }
@@ -448,8 +448,11 @@
               }
             }
           },
-          "500": {
+          "404": {
             "description": "Ticket does not exists"
+          },
+          "500": {
+            "description": "Error trying to get ticket"
           }
         }
       }
@@ -500,6 +503,9 @@
                     }
                   },
                   "creator": {
+                    "type": "id (string)"
+                  },
+                  "assignee": {
                     "type": "object",
                     "properties": {
                       "_id": {
@@ -527,9 +533,6 @@
                         "type": "string"
                       }
                     }
-                  },
-                  "assignee": {
-                    "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
                   },
                   "tag": {
                     "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
@@ -563,10 +566,10 @@
                       }
                     },
                     "creator": {
-                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
                     },
                     "assignee": {
-                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
                     },
                     "status": {
                       "type": "status"
@@ -578,7 +581,7 @@
                           "type": "string"
                         },
                         "user": {
-                          "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                          "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
                         },
                         "comment": {
                           "type": "string"
@@ -648,7 +651,7 @@
                 "type": "object",
                 "properties": {
                   "assignee": {
-                    "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/creator"
+                    "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
                   },
                   "tag": {
                     "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"

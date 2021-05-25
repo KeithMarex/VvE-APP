@@ -25,7 +25,8 @@ const TicketSchema = new Schema({
     },
     assignee: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        default: null
     },
     status: {
         type: String,
