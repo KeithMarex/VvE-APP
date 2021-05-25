@@ -76,11 +76,15 @@ const TicketCreate = (props) => {
                         <OptionsMenu customButton={afbeeldingKnop} options={["Maak een foto", "Kies een foto", "Annuleren"]} actions={[takePicture, choosePicture]}/>
                     </TouchableOpacity>
 
-                    {images.map(image => (
-                        <TouchableOpacity key={image} onPress={() => removeImage(images.indexOf(image))}>
-                            <Image style={{width: 100, height: 100, borderRadius: 15}} source={{uri: `data:image/png;base64,${image}`}} />
-                        </TouchableOpacity>
-                    ))}
+                    <View style={styles.images}>
+                        {images.map(image => (
+                            <TouchableOpacity key={image} onPress={() => removeImage(images.indexOf(image))}>
+                                <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image}`}} />
+                                <View style={styles.circle} />
+                                <Text style={styles.imageCross}>X</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
 
                     <TouchableOpacity onPress={() => maakMelding()} style={styles.sendBtn}>
                         <StyledText inputStyle={styles.ticketBtnText}>
@@ -94,6 +98,31 @@ const TicketCreate = (props) => {
 };
 
 const styles = StyleSheet.create({
+    images: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    },
+    imageCross: {
+        position: 'absolute',
+        right: 1,
+        color: '#451864',
+        marginRight: 18,
+        marginTop: 10,
+        fontSize: 20
+    },
+    circle: {
+        position: 'absolute',
+        right: 1,
+        color: 'white',
+        marginRight: 10,
+        marginTop: 10,
+        width: 30,
+        height: 30,
+        borderRadius: 100 / 2,
+        backgroundColor: "white",
+    },
     root: {
         backgroundColor: '#F7F7FC',
         height: '100%',
