@@ -17,6 +17,14 @@ export class Dao {
       return this.http.post<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }
 
+    //TODO remove
+    forceLogin() {
+      this.sendPostRequest('user/login', {
+        "email": "admin@test.com",
+        "password": "test"
+      }).subscribe();
+    }
+
     private generateOptions(): { headers: HttpHeaders } {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json'
