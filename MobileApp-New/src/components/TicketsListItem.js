@@ -3,17 +3,9 @@ import { StyleSheet, View } from 'react-native'
 import { CommentIcon} from "../resources"
 import StyledText from './StyledText'
 import Button from './Button'
-import { initDateParser, parseDate } from '../util/DateUtil'
 import { parseTicketStatus } from '../util/ApiParseUtil'
-import { useEffect } from 'react'
 
 const TicketsListItem = (props) => {
-
-    // TODO put this in splash screen
-    useEffect(() => {
-        initDateParser('nl')
-    }, [])
-
     const viewTicket = () => {
         props.viewTicket(props.ticket)
     }
@@ -52,7 +44,7 @@ const TicketsListItem = (props) => {
             </StyledText>
 
             <StyledText inputStyle={styles.ticketStatus}>
-                Status: { parseTicketStatus(props.ticket.status, 'nl') }
+                Status: { props.ticket.parsedStatus }
             </StyledText>
 
             <View style={styles.ticketBottom}>
@@ -61,7 +53,7 @@ const TicketsListItem = (props) => {
                         Laatste wijziging:
                     </StyledText>
                     <StyledText inputStyle={styles.updatedAtText}>
-                        { parseDate(props.ticket.updatedAt) }
+                        { props.ticket.parsedUpdatedAt }
                     </StyledText>
                 </View>
 

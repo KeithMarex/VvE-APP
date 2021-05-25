@@ -1,11 +1,12 @@
 import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
-import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton'
 import TicketsListItem from '../../components/TicketsListItem'
 import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
+import { initDateParser, parseDate } from '../../util/DateUtil'
+import { parseTicketStatus } from '../../util/ApiParseUtil'
 
 const window = Dimensions.get('window')
 
@@ -13,13 +14,22 @@ const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
 
     useEffect(() => {
+        initDateParser('nl') //TODO move to splash screen
         fetchTickets()
     }, [])
 
     const fetchTickets = () => {
         ApiHelper.get('/ticket')
             .then((res) => {
-                setTickets(res.data)
+                const parsedTickets = []
+                res.data.forEach((ticket) => {
+                    ticket.parsedStatus = parseTicketStatus(ticket.status, 'nl')
+                    ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
+                    ticket.parsedCreatedAt = parseDate(ticket.createdAt)
+                    parsedTickets.push(ticket)
+                })
+
+                setTickets(parsedTickets)
             })
     }
 

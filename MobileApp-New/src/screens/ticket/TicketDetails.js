@@ -21,13 +21,13 @@ const TicketDetails = (props) => {
                     </StyledText>
                     <View style={styles.ticketInfo}>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Aangemaakt op: { ticket.createdAt }
+                            Aangemaakt op: { ticket.parsedCreatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Laatste wijziging: { ticket.updatedAt }
+                            Laatste wijziging: { ticket.parsedUpdatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
-                            Status: { ticket.status }
+                            Status: { ticket.parsedStatus }
                         </StyledText>
                     </View>
 
