@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
@@ -8,6 +8,7 @@ import { TicketDao } from 'src/shared/services/ticket-dao.service';
   styleUrls: ['./ticket-creator.component.scss']
 })
 export class TicketCreatorComponent implements OnInit {
+  @Output() ticketCreated = new EventEmitter();
 
   constructor(private ticketDao: TicketDao) { }
 
@@ -27,6 +28,7 @@ export class TicketCreatorComponent implements OnInit {
     )
     .subscribe(res => {
       console.log(res);
+      this.ticketCreated.emit();
     })
   }
 

@@ -21,4 +21,9 @@ export class TicketOverviewComponent implements OnInit {
     this.creatingTicket = false;
   }
 
+  onCreateTicket() {
+    this.creatingTicket = false;
+    window.location.reload();
+  }
+
 }

@@ -11,6 +11,6 @@
         <app-ticket-list></app-ticket-list>
     </section>
     <app-popup *ngIf="creatingTicket" title="Ticket aanmaken" (closed)="onClose()">
-        <app-ticket-creator></app-ticket-creator>
+        <app-ticket-creator (ticketCreated)="onCreateTicket($event)"></app-ticket-creator>
     </app-popup>
 </body>
