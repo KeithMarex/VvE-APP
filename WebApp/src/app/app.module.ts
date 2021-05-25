@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { Dao } from 'src/shared/services/dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { UserDao } from 'src/shared/services/user-dao.service';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { UserDao } from 'src/shared/services/user-dao.service';
     TicketItemComponent,
     TicketCreatorComponent,
     PopupComponent,
+    TicketDetailsComponent,
   ],
   imports: [
     BrowserModule,
