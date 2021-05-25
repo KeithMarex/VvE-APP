@@ -1,0 +1,59 @@
+{
+  "name": "mobile-app",
+  "main": "src/main.ts",
+  "version": "8.0.2",
+  "description": "Mobile app vve",
+  "author": "Jan van Overbeek, Koen van der Marel and Jeroen Bol",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "src",
+    "App_Resources",
+    "tools",
+    "hooks",
+    "!tools/assets",
+    ".editorconfig",
+    "tsconfig.json"
+  ],
+  "keywords": [
+    "nstudio",
+    "nativescript",
+    "mobile",
+    "angular",
+    "{N}",
+    "tns",
+    "template",
+    "category-general"
+  ],
+  "repository": "https://github.com/KeithMarex/VvE-APP.git",
+  "homepage": "https://github.com/KeithMarex/VvE-APP.git",
+  "bugs": {
+    "url": "https://github.com/KeithMarex/VvE-APP/issues"
+  },
+  "dependencies": {
+    "@angular/animations": "~11.2.7",
+    "@angular/common": "~11.2.7",
+    "@angular/compiler": "~11.2.7",
+    "@angular/core": "~11.2.7",
+    "@angular/forms": "~11.2.7",
+    "@angular/platform-browser": "~11.2.7",
+    "@angular/platform-browser-dynamic": "~11.2.7",
+    "@angular/router": "~11.2.7",
+    "@nativescript/angular": "~11.8.0",
+    "@nativescript/core": "~8.0.0",
+    "@nativescript/theme": "~3.0.1",
+    "reflect-metadata": "~0.1.13",
+    "rxjs": "^6.6.7",
+    "sass": "^1.32.8",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "~11.2.7",
+    "@nativescript/android": "8.0.0",
+    "@nativescript/webpack": "^5.0.0-beta.2",
+    "@ngtools/webpack": "~11.2.6",
+    "typescript": "~4.0.0"
+  },
+  "private": "true"
+}
