@@ -96,3 +96,11 @@ const getTicketsAdmin = (req, res, organization) => {
         { "$set": {"creator": "$creator._id"}},
     ])
 }
+
+const createTicket = (req, res) => {
+    return new Ticket({
+        "title": req.body.title,
+        "description": req.body.description,
+        "creator": res.locals.user._id
+    })
+}
