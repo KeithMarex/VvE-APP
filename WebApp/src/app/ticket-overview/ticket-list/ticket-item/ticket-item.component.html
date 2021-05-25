@@ -29,6 +29,6 @@
                 <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
             </div>
         </div>
-        <button id="details-button"></button>
+        <button id="details-button" (click)="onEdit()"></button>
     </section>
 </div>

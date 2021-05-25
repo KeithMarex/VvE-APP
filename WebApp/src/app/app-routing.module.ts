@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'news-overview', component: NewsOverviewComponent },
   { path: 'ticket-overview', component: TicketOverviewComponent },
   { path: 'vve-management', component: VveManagementComponent },
-  { path: 'ticket-details/:id', component: TicketDetailsComponent }
+  { path: 'ticket-details/:id', component: TicketDetailsComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
