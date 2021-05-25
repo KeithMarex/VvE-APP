@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { Ticket } from "../models/ticket.model";
 
 @Injectable()
 export class TicketEditorService {
-    selectedTicket = new Subject<Ticket>();
+    selectedTicket = new BehaviorSubject<Ticket>(null);
 }

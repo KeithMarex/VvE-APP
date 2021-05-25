@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Ticket } from 'src/shared/models/ticket.model';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 
@@ -7,17 +9,28 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
   templateUrl: './ticket-details.component.html',
   styleUrls: ['./ticket-details.component.scss']
 })
-export class TicketDetailsComponent implements OnInit {
+export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
+  private ticketSubscription: Subscription;
 
-  constructor(private ticketEditorService: TicketEditorService) { }
+  constructor(private ticketEditorService: TicketEditorService, private router: Router) { }
 
   ngOnInit(): void {
-    this.ticketEditorService.selectedTicket.subscribe(ticketToEdit => {
+    this.getActiveTicket();
+  }
+
+  getActiveTicket() {
+    this.ticketSubscription = this.ticketEditorService.selectedTicket.subscribe(ticketToEdit => {
+      if (!ticketToEdit) {
+        //TODO send GET request with url param as failsafe
+        this.router.navigate(['ticket-overview']); //FIXME remove
+      }
       this.ticket = ticketToEdit;
-      console.log("Received ticket to edit in details component!");
     })
   }
 
+  ngOnDestroy(): void {
+    this.ticketSubscription.unsubscribe();
+  }
 
 }

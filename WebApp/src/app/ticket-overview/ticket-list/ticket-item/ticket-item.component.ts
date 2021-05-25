@@ -32,7 +32,7 @@ export class TicketItemComponent implements OnInit {
   }
 
   onEdit() {
-    this.router.navigate(['ticket-details/' + this.ticket._id]);
     this.ticketEditorService.selectedTicket.next(this.ticket);
+    this.router.navigate(['ticket-details/' + this.ticket._id]);
   }
 }

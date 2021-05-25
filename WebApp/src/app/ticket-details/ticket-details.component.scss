@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 85vw;
+}
+
+.ticket-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
