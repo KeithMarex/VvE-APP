@@ -9,7 +9,7 @@ export const imagesConvert = async(req, res, next) => {
 
     const images = await createImages(req);
 
-    let imageIds: Array<String>;
+    let imageIds: Array<String> = [];
     try {
         for (let i=0; i < images.length; i++) {
             let image = await images[i].save();
@@ -26,7 +26,7 @@ export const imagesConvert = async(req, res, next) => {
 }
 
 const createImages = (req) => {
-    let imageModels: Array<any>;
+    let imageModels: Array<any> = [];
     try {
         for (let i=0; i < req.body.images.length; i++) {
             imageModels.push(new Image(req.body.images[i]));
