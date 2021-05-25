@@ -25,10 +25,10 @@ export class Dao {
       }).subscribe();
     }
 
-    private generateOptions(): { headers: HttpHeaders } {
+    private generateOptions(): { headers: HttpHeaders, withCredentials: boolean } {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
-      return { headers };
+      return { headers, withCredentials: true };
     }
 }
