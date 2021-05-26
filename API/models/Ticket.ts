@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -25,11 +25,12 @@ const TicketSchema = new Schema({
     },
     assignee: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        default: null
     },
     status: {
-        type: Schema.Types.ObjectId,
-        ref: "Status"
+        type: String,
+        default: "PENDING"
     },
     comments: [{
         type: Schema.Types.ObjectId,
