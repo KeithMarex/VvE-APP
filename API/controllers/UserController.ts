@@ -62,11 +62,10 @@ export const getUser = (req, res) => {
 }
 
 export const getUsersOrganization = (req, res: Response) => {
-    console.log("GetUsers IS CALLED")
     User.find({
         "organizations": req.params.id,
         "role": "admin"
-    })
+    }).select('-password')
     .then(result => {
         res.status(200).json(result)
     })
