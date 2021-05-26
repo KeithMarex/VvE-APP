@@ -1,6 +1,7 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
+import {getAllBoardMemberMails, getMailFromCreatorObject, sendMail} from '~/util/Mailer';
 import { Types } from 'mongoose';
 
 export const getTickets = async(req, res) => {
@@ -38,9 +39,15 @@ export const getTicket = (req, res) => {
 }
 
 export const postTicket = (req, res) => {
-    const ticket = new Ticket(req.body);
+    const ticket = createTicket(req, res);
     ticket.save()
-    .then(result => {
+    .then(async result => {
+        //Bestuurder mail
+        sendMail("[VvE] Er is een nieuwe ticket aangemaakt", 'ticket_bestuurder.html', await getAllBoardMemberMails());
+
+        //Bewoner mail
+        sendMail("[VvE] U heeft een ticket aangemaakt", "ticket_aangemaakt_bewoner.html", await getMailFromCreatorObject(result['creator']));
+
         res.status(201).send(result);
     })
     .catch(err => {
@@ -95,4 +102,12 @@ const getTicketsAdmin = (req, res, organization) => {
         { "$match": { "creator.organizations": Types.ObjectId(organization)}},
         { "$set": {"creator": "$creator._id"}},
     ])
+}
+
+const createTicket = (req, res) => {
+    req.fields.creator = res.locals.user._id;
+    if (res.locals.images) {
+        req.fields.images = res.locals.images;
+    }
+    return new Ticket(req.fields);
 }

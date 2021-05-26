@@ -16,4 +16,8 @@ export class TicketDao {
           return response;
         }));
     };
+
+    createTicket(ticketData): Observable<any> {
+      return this.dao.sendPostRequest('ticket/', ticketData);
+    }
 }

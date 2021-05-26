@@ -2,10 +2,10 @@
     <form (ngSubmit)="onCreateTicket(form)" #form="ngForm">
         <div class="left-side">
             <div class="title-field">
-                <input type="text" placeholder="Ticket onderwerp" name="title" ngModel>
+                <input type="text" placeholder="Ticket onderwerp" name="title" required ngModel>
             </div>
             <div class="content-field">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Ticket omschrijving" name="description" ngModel></textarea>
+                <textarea name="" id="" cols="30" rows="10" placeholder="Ticket omschrijving" name="description" required ngModel></textarea>
             </div>
         </div>
         <div class="right-side">
@@ -24,13 +24,13 @@
             </div>
             <div class="status-field">
                 <h1>Status toewijzen</h1>
-                <select name="tag" id="tag">
-                    <option value="In afwachting">In afwachting</option>
+                <select name="status" id="tag" ngModel>
+                    <option selected value="In afwachting">In afwachting</option>
                     <option value="In behandeling">In behandeling</option>
                     <option value="Afgehandeld">Afgehandeld</option>
                 </select>
             </div>
-            <button type="submit">Aanmaken</button>
+            <button type="submit" [disabled]="form.invalid">Aanmaken</button>
         </div>
     </form>
 </section>

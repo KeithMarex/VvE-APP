@@ -2,7 +2,7 @@
     <section class="left-block">
         <div class="top-section">
             <object data="../../../../assets/icons/members.svg" type=""></object>
-            <h1>{{ ticket.creator }}</h1>
+            <h1>{{ creatorName }}</h1>
             <h1 id="comment-count">{{ ticket.comments.length }}</h1>
             <object id="comment-symbol" data="../../../../assets/icons/comment.svg" type=""></object>
         </div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="right-block-column">
                     <p class="colored-text">{{ ticket.status }}</p>
-                    <p class="colored-text">{{ ticket.assignee }} (TODO)</p>
+                    <p class="colored-text">{{ ticket.assignee }}</p>
                 </div>
             </div>
     
@@ -29,6 +29,6 @@
                 <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
             </div>
         </div>
-        <button id="details-button"></button>
+        <button id="details-button" (click)="onEdit()"></button>
     </section>
 </div>

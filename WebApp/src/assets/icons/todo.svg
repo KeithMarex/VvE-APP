@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="284.118 190.239 26 32.222" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 284.118 192.239 C 284.118 191.134 285.013 190.239 286.118 190.239 L 299.328 190.239 L 308.118 190.239 C 309.222 190.239 310.118 191.134 310.118 192.239 L 310.118 203.239 L 310.118 220.461 C 310.118 221.566 309.222 222.461 308.118 222.461 L 286.118 222.461 C 285.013 222.461 284.118 221.566 284.118 220.461 L 284.118 192.239 Z" fill="#FCFCFC" stroke="#451864" stroke-width="2"/>
+  <path d="M 295.646 200.282 L 306.294 200.293" stroke="#451864" stroke-width="2" stroke-linecap="round" style=""/>
+  <path d="M 295.646 207.387 L 306.294 207.398" stroke="#451864" stroke-width="2" stroke-linecap="round" style=""/>
+  <path d="M 295.646 214.491 L 306.294 214.502" stroke="#451864" stroke-width="2" stroke-linecap="round" style=""/>
+  <path d="M 287.79 199.479 L 289.57 201.557 L 293.13 197.4" stroke="#451864" stroke-width="2" stroke-linecap="round" style="fill: rgba(0, 0, 0, 0);"/>
+  <path d="M 287.79 206.61 L 289.57 208.849 L 293.13 204.372" stroke="#451864" stroke-width="2" stroke-linecap="round" style="fill: rgba(0, 0, 0, 0);"/>
+  <rect width="1.52" height="1.774" fill="white" style="" x="288.811" y="213.583"/>
+  <ellipse cx="289.527" cy="214.491" rx="0.783" ry="0.835" stroke="#451864" stroke-width="3" style="fill: rgb(69, 24, 100);"/>
+</svg>

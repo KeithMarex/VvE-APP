@@ -12,8 +12,6 @@ import { VveManagementComponent } from './vve-management/vve-management.componen
 import { LoginComponent } from './login/login.component';
 import { TicketListComponent } from './ticket-overview/ticket-list/ticket-list.component';
 import { TicketItemComponent } from './ticket-overview/ticket-list/ticket-item/ticket-item.component';
-import { Dao } from 'src/shared/services/dao.service';
-import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { PopupComponent } from './popup/popup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
@@ -24,6 +22,11 @@ import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
 import { TagItemComponent } from './tags-overview/tag-list/tag-item/tag-item.component';
 import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.component';
+import { Dao } from 'src/shared/services/dao.service';
+import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
+import { UserDao } from 'src/shared/services/user-dao.service';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.com
     TagListComponent,
     TagItemComponent,
     TagCreatorComponent,
+    TicketDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +59,9 @@ import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.com
     TicketDao,
     TagDao,
     AuthDao,
+    AuthDao,
+    UserDao,
+    TicketEditorService,
   ],
   bootstrap: [AppComponent]
 })

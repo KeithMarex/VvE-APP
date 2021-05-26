@@ -3,6 +3,7 @@ import { Comment } from 'src/shared/models/comment.model';
 import { Image } from 'src/shared/models/image.model';
 import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
+import { Dao } from 'src/shared/services/dao.service';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
 @Component({
@@ -15,10 +16,12 @@ export class TicketListComponent implements OnInit {
   
 
   constructor(
-    private ticketDao: TicketDao
+    private ticketDao: TicketDao,
+    private Dao: Dao //TODO remove
   ) {}
 
   ngOnInit(): void {
+    this.Dao.forceLogin(); //TODO remove
     this.getTickets();
   }
 
@@ -32,7 +35,7 @@ export class TicketListComponent implements OnInit {
           incomingTicket.description,
           incomingTicket.images,
           incomingTicket.creator,
-          'filler assignee', //FIXME
+          this.checkAssignee(incomingTicket.assignee),
           incomingTicket.status,
           incomingTicket.comments,
           incomingTicket.tag, //FIXME
@@ -41,6 +44,15 @@ export class TicketListComponent implements OnInit {
         ))
       })
     });
+  }
+
+  checkAssignee(assignee: string): string {
+    if (assignee) {
+      return assignee;
+    }
+    else {
+      return 'Niet toegewezen';
+    }
   }
 
 }

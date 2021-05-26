@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -6,13 +7,16 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation-bar.component.scss']
 })
 export class NavigationBarComponent implements OnInit {
-  primaryColor: string = "#451864";
-  secondaryColor: string = "#A0CAE8";
-  highlightColor: string = "#ffffff";
+  @Input() ticketCount = 0;
 
-  constructor() { }
+
+  constructor(private ticketDao: TicketDao) { }
 
   ngOnInit(): void {
+    this.ticketDao.getAllTickets()
+    .subscribe(res => {
+      this.ticketCount = res.length;
+    })
   }
 
 }

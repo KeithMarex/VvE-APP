@@ -3,21 +3,6 @@
 @import "../../utilities/button.scss";
 @import "../../utilities/effects.scss";
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    h1 {
-        // font-family: 'Inter', sans-serif;
-        color: $primary-color;
-        font-size: 200%;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-}
-
 body {
     width: 85vw;
     height: 80vh;

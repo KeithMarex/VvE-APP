@@ -3,6 +3,8 @@ import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity,
 import Mail from '../../resources/icons/login/Mail.svg'
 import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
+import ApiHelper from '../../util/ApiHelper'
+import UserModel from '../../models/user.model'
 
 const ss = Dimensions.get('window')
 
@@ -12,18 +14,16 @@ const LoginScreen = (props) => {
     const [results, setResults] = React.useState([])
 
     const loginUser = async (email, password) => {
-        // const response = await ApiHelper.post('user/login', {email: email, password: password})
-        if (email === 'admin' && password === 'admin'){
-            props.navigation.replace('homeNavigation');
-        } else if (email === '' && password !== ''){
-            Alert.alert('Geen email', 'Vul uw emailadres in');
-        } else if (password === '' && email !== ''){
-            Alert.alert('Geen wachtwoord', 'Vul uw wachtwoord in');
-        } else if (email === '' &&  password === ''){
-            Alert.alert('Fout', 'Vul geldige inloggegevens in');
-        } else {
-            Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem')
-        }
+        console.log(email, password);
+        await ApiHelper.post('/user/login', {email: email, password: password}).then(res => {
+            const d = res.data;
+            const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
+            props.navigation.navigate('homeNavigation', { user });
+        }).catch(error => {
+            if (error.response.status === 401){
+                Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
+            }
+        })
     };
 
     return (
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#EFF0F7',
         borderRadius: 10,
-        marginBottom: Dimensions.get('window').height / 30 * 1,
+        marginBottom: Dimensions.get('window').height / 30,
         width: Dimensions.get('window').width / 10 * 7,
     },
     input: {

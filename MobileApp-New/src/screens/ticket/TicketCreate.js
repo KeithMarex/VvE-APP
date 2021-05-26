@@ -1,24 +1,33 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, TextInput, Text} from 'react-native'
+import {
+    SafeAreaView,
+    StyleSheet,
+    ScrollView,
+    View,
+    Dimensions,
+    TouchableOpacity,
+    TextInput,
+    Text,
+    Image,
+    Alert
+} from 'react-native'
 import React from 'react'
 import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
-import PageActionButton from "../../components/PageActionButton";
+import PageActionButton from '../../components/PageActionButton';
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
 import * as ImagePicker from 'expo-image-picker';
-import OptionsMenu from "react-native-option-menu";
-
+import OptionsMenu from 'react-native-option-menu';
+import ApiHelper from '../../util/ApiHelper';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 const window = Dimensions.get('window')
 
 const TicketCreate = (props) => {
     const [subject, onChangeSubject] = React.useState("")
     const [description, onChangeDescription] = React.useState("")
+    const [images, setImages] = React.useState([]);
 
     const takePicture = async () => {
-        // launchCamera({mediaType: "photo", cameraType: "back", includeBase64: true}, (callback) => {
-        //     console.log('hoi');
-        // });
-
         let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
         if (permissionResult.granted === false) {
@@ -26,8 +35,9 @@ const TicketCreate = (props) => {
             return;
         }
 
-        let pickerResult = await ImagePicker.launchCameraAsync({base64: true});
-        console.log(pickerResult);
+        let pickerResult = await ImagePicker.launchCameraAsync();
+        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
+        setImages((images) => [...images, result]);
     };
 
     const choosePicture = async () => {
@@ -39,10 +49,38 @@ const TicketCreate = (props) => {
         }
 
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        console.log(pickerResult);
+        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
+        setImages((images) => [...images, result]);
     };
 
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
+
+    async function maakMelding() {
+        const fd = new FormData();
+        fd.append('title', subject);
+        fd.append('description', description);
+        fd.append('creator', '60a69daf408255502dd4a948');
+        images.forEach((image, index) => {
+            fd.append(`file${index}` , {
+                name: image['uri'].split('ImageManipulator/')[1],
+                type: 'image/png',
+                uri: image['uri']
+            })
+        })
+
+        await ApiHelper.post('/ticket', fd, {withCredentials: true ,'content-type': 'multipart/form-data'}).then(res => {
+            props.navigation.goBack();
+        }).catch(error => {
+            if (error.response.status === 413) {
+                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+            }
+        })
+    }
+
+    function removeImage(index) {
+        const arr = [...images].splice(index, 1);
+        setImages(arr);
+    }
 
     return (
         <SafeAreaView style={styles.root}>
@@ -69,14 +107,21 @@ const TicketCreate = (props) => {
                         <OptionsMenu customButton={afbeeldingKnop} options={["Maak een foto", "Kies een foto", "Annuleren"]} actions={[takePicture, choosePicture]}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => null} style={styles.sendBtn}>
+                    <View style={styles.images}>
+                        {images.map(image => (
+                            <TouchableOpacity key={image} onPress={() => removeImage(images.indexOf(image))}>
+                                <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image['base64']}`}} />
+                                <View style={styles.circle} />
+                                <Text style={styles.imageCross}>X</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+
+                    <TouchableOpacity onPress={() => maakMelding()} style={styles.sendBtn}>
                         <StyledText inputStyle={styles.ticketBtnText}>
                             Versturen
                         </StyledText>
                     </TouchableOpacity>
-
-
-
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -84,6 +129,30 @@ const TicketCreate = (props) => {
 };
 
 const styles = StyleSheet.create({
+    images: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+    },
+    imageCross: {
+        position: 'absolute',
+        right: 1,
+        color: 'white',
+        marginRight: 10,
+        marginTop: 3,
+        fontSize: 15
+    },
+    circle: {
+        position: 'absolute',
+        right: 1,
+        marginRight: 0,
+        marginTop: 0,
+        width: 30,
+        height: 30,
+        borderRadius: 100 / 2,
+        backgroundColor: "#451864",
+    },
     root: {
         backgroundColor: '#F7F7FC',
         height: '100%',

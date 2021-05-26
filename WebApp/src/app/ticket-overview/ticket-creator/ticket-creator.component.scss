@@ -56,5 +56,9 @@ section > form {
         align-self: flex-end;
         margin: 1rem 0;
         background-color: #498fc0;
+
+        &:disabled {
+            filter:saturate(50%);
+        }
     }
 }
