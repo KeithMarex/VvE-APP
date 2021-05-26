@@ -26,7 +26,7 @@ export const getMailFromCreatorObject = async function(creatorObject) {
 }
 
 export const sendMail = async function(subject, htmlFilePath, emailList) {
-    if(!emailList.length) return;
+    if(!emailList.length || !process.env.MAIL_USER || !process.env.MAIL_PASS) return;
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
         to: emailList,
