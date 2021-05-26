@@ -68,8 +68,6 @@ const TicketCreate = (props) => {
             })
         })
 
-        console.log(fd);
-
         await ApiHelper.post('/ticket', fd, {withCredentials: true ,'content-type': 'multipart/form-data'}).then(res => {
             props.navigation.goBack();
         }).catch(error => {
