@@ -41,6 +41,7 @@ import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.com
     TagsOverviewComponent,
     TagListComponent,
     TagItemComponent,
+    TagCreatorComponent,
   ],
   imports: [
     BrowserModule,
