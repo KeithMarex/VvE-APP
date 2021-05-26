@@ -35,7 +35,7 @@ export class TicketListComponent implements OnInit {
           incomingTicket.description,
           incomingTicket.images,
           incomingTicket.creator,
-          'filler assignee', //FIXME
+          this.checkAssignee(incomingTicket.assignee),
           incomingTicket.status,
           incomingTicket.comments,
           [new Tag()], //FIXME
@@ -44,6 +44,15 @@ export class TicketListComponent implements OnInit {
         ))
       })
     });
+  }
+
+  checkAssignee(assignee: string): string {
+    if (assignee) {
+      return assignee;
+    }
+    else {
+      return 'Niet toegewezen';
+    }
   }
 
 }
