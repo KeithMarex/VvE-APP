@@ -38,7 +38,7 @@ export class TicketListComponent implements OnInit {
           this.checkAssignee(incomingTicket.assignee),
           incomingTicket.status,
           incomingTicket.comments,
-          [new Tag()], //FIXME
+          incomingTicket.tag, //FIXME
           incomingTicket.createdAt,
           incomingTicket.updatedAt
         ))

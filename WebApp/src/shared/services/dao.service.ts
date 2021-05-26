@@ -17,6 +17,14 @@ export class Dao {
       return this.http.post<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }
 
+    sendPutRequest(urlPath: string, body: unknown): Observable<any> {
+      return this.http.put<any>(this.dbAddress + urlPath, body, this.generateOptions());
+    }
+
+    sendDeleteRequest(urlPath: string, body: unknown): Observable<any> {
+      return this.http.delete<any>(this.dbAddress + urlPath, this.generateOptions());
+    }
+
     //TODO remove
     forceLogin() {
       this.sendPostRequest('user/login', {
