@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { NewsOverviewComponent } from './news-overview/news-overview.component';
 import { TicketOverviewComponent } from './ticket-overview/ticket-overview.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
+import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent },
   { path: 'news-overview', component: NewsOverviewComponent },
   { path: 'ticket-overview', component: TicketOverviewComponent },
-  { path: 'vve-management', component: VveManagementComponent }
+  { path: 'vve-management', component: VveManagementComponent },
+  { path: 'tags-overview', component: TagsOverviewComponent }
 ];
 
 @NgModule({
