@@ -19,7 +19,6 @@ import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
 import ApiHelper from "../../api/ApiHelper";
 import * as ImageManipulator from 'expo-image-manipulator';
-import FormData from 'form-data';
 
 const window = Dimensions.get('window')
 
@@ -27,8 +26,6 @@ const TicketCreate = (props) => {
     const [subject, onChangeSubject] = React.useState("")
     const [description, onChangeDescription] = React.useState("")
     const [images, setImages] = React.useState([]);
-
-    const fd = new FormData({});
 
     const takePicture = async () => {
         let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -59,26 +56,26 @@ const TicketCreate = (props) => {
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
 
     async function maakMelding() {
+        const fd = new FormData();
         fd.append('title', subject);
         fd.append('description', description);
         fd.append('creator', '60a69daf408255502dd4a948');
-        images.forEach(image => {
-            fd.append('file', {
-                name: 'foto',
-                type: 'image',
+        images.forEach((image, index) => {
+            fd.append(`file${index}` , {
+                name: image['uri'].split('ImageManipulator/')[1],
+                type: 'image/png',
                 uri: image['uri']
             })
         })
 
-        await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/from-data'}).then(res => {
-            // props.navigation.replace('Ticket');
-            console.log(res);
-            Alert.alert('Succes', 'goed');
+        console.log(fd);
+
+        await ApiHelper.post('/ticket', fd, {withCredentials: true ,'content-type': 'multipart/form-data'}).then(res => {
+            props.navigation.goBack();
         }).catch(error => {
-            console.log(error);
-            // if (error.response.status === 413) {
-            //     Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
-            // }
+            if (error.response.status === 413) {
+                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+            }
         })
     }
 
