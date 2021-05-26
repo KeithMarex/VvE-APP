@@ -160,6 +160,78 @@
         }
       }
     },
+    "/user/organization/{id}": {
+      "get": {
+        "summary": "Returns the users from a specific organization.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "organizations": {
+                        "type": "array",
+                        "items": {
+                          "type": "string ObjectId"
+                        }
+                      },
+                      "parking": {
+                        "type": "boolean"
+                      },
+                      "firstename": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": null
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
     "/tag": {
       "get": {
         "summary": "Returns all the tags of organization.",
@@ -584,33 +656,7 @@
                 "type": "object",
                 "properties": {
                   "assignee": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "role": {
-                        "type": "string"
-                      },
-                      "firstename": {
-                        "type": "string"
-                      },
-                      "lastname": {
-                        "type": null
-                      },
-                      "createdAt": {
-                        "type": "string"
-                      },
-                      "updatedAt": {
-                        "type": "string"
-                      },
-                      "__v": {
-                        "type": "string"
-                      }
-                    }
+                    "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
                   },
                   "tag": {
                     "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"

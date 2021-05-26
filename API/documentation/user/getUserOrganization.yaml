@@ -1,0 +1,22 @@
+get:
+  summary: Returns the users from a specific organization.
+  tags:
+    - User
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  responses:
+    '200':
+      description: User object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../definitions/User.yaml
+    '400':
+      description: Bad request
