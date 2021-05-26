@@ -35,7 +35,7 @@ export class TicketListComponent implements OnInit {
           'filler assignee', //FIXME
           incomingTicket.status,
           incomingTicket.comments,
-          [new Tag()], //FIXME
+          incomingTicket.tag, //FIXME
           incomingTicket.createdAt,
           incomingTicket.updatedAt
         ))
