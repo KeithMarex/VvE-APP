@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity} from 'react-native'
+import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, ActivityIndicator} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import PageActionButton from '../../components/PageActionButton'
@@ -12,6 +12,7 @@ const window = Dimensions.get('window')
 
 const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
+    const [isFetchingTickets, setIsFetchingTickets] = useState(false)
 
     useEffect(() => {
         initDateParser('nl') //TODO move to splash screen
@@ -19,6 +20,7 @@ const Tickets = (props) => {
     }, [])
 
     const fetchTickets = () => {
+        setIsFetchingTickets(true)
         ApiHelper.get('/ticket')
             .then((res) => {
                 const parsedTickets = []
@@ -27,8 +29,8 @@ const Tickets = (props) => {
                     ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
                     ticket.parsedCreatedAt = parseDate(ticket.createdAt)
                     parsedTickets.push(ticket)
+                    setIsFetchingTickets(false)
                 })
-
                 setTickets(parsedTickets)
             })
     }
@@ -37,11 +39,25 @@ const Tickets = (props) => {
         props.navigation.navigate('Details', {ticket})
     }
 
-    const ticketsListEl = []
-    for (let i = 0; i < tickets.length; i++) {
-        ticketsListEl.push(
-            <TicketsListItem ticket={tickets[i]} viewTicket={viewTicket} key={i}/>
-        )
+    const createTicketsList = () => {
+        const ticketsListEl = []
+        for (let i = 0; i < tickets.length; i++) {
+            ticketsListEl.push(
+                <TicketsListItem ticket={tickets[i]} viewTicket={viewTicket} key={i}/>
+            )
+        }
+        return ticketsListEl
+    }
+
+    // Is used when no tickets are available; they're being fetched or don't exist
+    const createTicketsReplacement = () => {
+        if (tickets.length <= 0) {
+            return isFetchingTickets
+                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
+                : <StyledText inputStyle={styles.noTickets}>
+                    U heeft nog geen meldingen gedaan.
+                </StyledText>
+        }
     }
 
     return (
@@ -57,11 +73,10 @@ const Tickets = (props) => {
                     </TouchableOpacity>
 
                     <View>
-                        {ticketsListEl.length > 0 ? ticketsListEl : (
-                            <StyledText inputStyle={styles.noTickets}>
-                                U heeft nog geen meldingen gedaan.
-                            </StyledText>
-                        )}
+                        {tickets.length > 0
+                            ? (createTicketsList())
+                            : (createTicketsReplacement())
+                        }
                     </View>
                 </View>
             </ScrollView>
@@ -111,7 +126,10 @@ const styles = StyleSheet.create({
         color: 'black',
         marginTop: '15%',
         opacity: 0.4
-    }
+    },
+    loadingSpinner: {
+        marginTop: '15%'
+    },
 })
 
 export default Tickets
