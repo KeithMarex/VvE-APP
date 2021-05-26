@@ -12,6 +12,8 @@ import { isAuth } from './middleware/IsAuth';
 import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
 import TicketRouter from './routes/TicketRouter';
+import TagRouter from './routes/TagRouter';
+import CommentRouter from './routes/CommentRouter';
 
 const corsOptions = {
     origin: `http://localhost:${process.env.APP_PORT}`,
@@ -32,7 +34,9 @@ app.use(passport.initialize());
 //ROUTES
 app.use(cors(corsOptions));
 app.use('/user' ,UserRouter);
+app.use('/tag', isAuth, TagRouter);
 app.use('/ticket' ,isAuth, TicketRouter);
+app.use('/comment', isAuth, CommentRouter);
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
