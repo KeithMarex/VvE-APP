@@ -93,7 +93,7 @@ public class MainApplication extends Application implements ReactApplication {
       UpdatesController.initialize(this);
     }
 
-    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    // initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
   /**
