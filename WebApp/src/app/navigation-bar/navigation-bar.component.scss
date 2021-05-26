@@ -53,6 +53,14 @@ body {
         }
     }
 
+    svg {
+        stroke: $primary-color;
+
+        path {
+            stroke: $primary-color;
+        }
+    }
+
     svg.active {
         filter: drop-shadow(0 4px 4px rgba($color: #000000, $alpha: 0.25));
         fill: $primary-color;
