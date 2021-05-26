@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import Image from '~/models/Image';
 import logger from '~/util/Logger';
-
+import path from 'path'
 
 // export const imagesConvert = async(req, res, next) => {
 //     if (!req.body.images || !req.body.images.length ) {
@@ -26,39 +26,49 @@ import logger from '~/util/Logger';
 //     return next()
 // }
 
-// const createImages = (req) => {
-//     let imageModels: Array<any> = [];
-//     try {
-//         for (let i=0; i < req.body.images.length; i++) {
-//             imageModels.push(new Image(req.body.images[i]));
-//         }
-//     } catch (err) {
-//         logger.error(err);
-//         return err;
-//     }
+const createImages = (files) => {
+    let imageModels: Array<any> = [];
+    try {
+        for(let key in files) {
+            if (files.hasOwnProperty(key)) {
+                let file = files[key]
+                // imageModels.push(new Image(files[key][i]));
+            }
+        }
+    } catch (err) {
+        logger.error(err);
+        return err;
+    }
 
-//     return imageModels;
-// }
+    return imageModels;
+}
 
-const isImage = (file: any) => {
-    const ext = file.detectedFileExtension
-    return (ext === '.png' || ext === '.jpg' || ext === '.jpeg')
+const isImage = (files: any) => {
+    for(let key in files) {
+        if (files.hasOwnProperty(key)) {
+            var file = files[key];
+            let ext = path.extname(file.name).substr(1);
+            console.log("This is the file: ", file)
+            if (!(ext === 'png' || ext === 'jpg' || ext === 'jpeg')) {
+                return false
+            }
+          }
+    }
+    return true;
 }
 
 export const imagesConvert = (req: any, res: Response, next: NextFunction) => {
-    console.log("This is the request: ", req)
-    // console.log("This is the req.file: ", req.file);
-    // console.log("This is the body: ", req.body)
-    if (!req.file) {
+
+    if (JSON.stringify(req.files)==JSON.stringify({})) {
         return next();
     }
 
-     if(isImage(req.file)) {
+    if(isImage(req.files)) {
         // Upload image
         next();
-     }else {
+    }else {
         res.status(400).json({message: "Only images are allowed"});
-     }
-     res.end();
+    }
+    res.end();
 
 }
