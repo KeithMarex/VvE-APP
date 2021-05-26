@@ -17,7 +17,7 @@ post:
             lastname:
               type: string
             organization:
-              type: organization
+              type: string ObjectId
   responses:
     '201':
       description: Users (accounts) have been registerd (created) succesfully

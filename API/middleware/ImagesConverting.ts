@@ -1,34 +1,28 @@
+import 'dotenv/config'
 import { NextFunction, Response } from 'express';
 import Image from '~/models/Image';
 import logger from '~/util/Logger';
 import path from 'path'
 import fs from 'fs';
-// export const imagesConvert = async(req, res, next) => {
-//     if (!req.body.images || !req.body.images.length ) {
-//         return next();
-//     }
+import FormData from 'form-data';
+import axios from 'axios'
 
-//     const images = await createImages(req);
-
-//     let imageIds: Array<String> = [];
-//     try {
-//         for (let i=0; i < images.length; i++) {
-//             let image = await images[i].save();
-//             imageIds.push(image._id);
-//         }
-//     }
-//     catch (err) {
-//         logger.error(err)
-//         res.status(500).json({ message: `Error when creating images` })
-//         return err;
-//     }
-//     req.body.images = imageIds;
-//     return next()
-// }
-
-// function getBase64(file) {
-//     file.readFileSync(encodeBase64);
-//  }
+const uploadImages = async(base64) => {
+    let form = new FormData();
+    form.append("image", base64);
+    let response;
+    try {
+        response = await axios.post(process.env.URL_IMGBB, form, {
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${form.getBoundary()}`
+            }
+        })
+    }catch (err) {
+        logger.error(err);
+        return err;
+    }
+    return {image: response.data.data.display_url, delete: response.data.data.delete_url};
+}
 
 const createImages = async(files) => {
     let imageIds: Array<any> = [];
@@ -36,20 +30,17 @@ const createImages = async(files) => {
         for(let key in files) {
             if (files.hasOwnProperty(key)) {
                 let file = files[key]
-                // let base64 = await imageToBase64(file.path);
                 let base64 = fs.readFileSync(file.path, {encoding: 'base64'});
-                // Kijken of base 64 opgeslagen kan worden en of ik deze terug naar image kan brengen.
-                console.log("This is the base64: ",base64);
-                let image = new Image({ "name": file.name, "image": base64 })
-                // let imageModel = await image.save();
-                // imageIds.push(imageModel._id);
+                let imageUrl = await uploadImages(base64);
+                let image = new Image({ "name": file.name, "image_url": imageUrl.image, "delete_url": imageUrl.delete })
+                let imageModel = await image.save();
+                imageIds.push(imageModel._id);
             }
         }
     } catch (err) {
         logger.error(err);
         return {err: true, message: err};
     }
-
     return {err: false, images: imageIds};
 }
 
@@ -58,7 +49,6 @@ const isImage = (files: any) => {
         if (files.hasOwnProperty(key)) {
             var file = files[key];
             let ext = path.extname(file.name).substr(1);
-            console.log("This is the file: ", file)
             if (!(ext === 'png' || ext === 'jpg' || ext === 'jpeg')) {
                 return false
             }
@@ -78,11 +68,9 @@ export const imagesConvert = async(req: any, res: Response, next: NextFunction) 
         if (imageIds.err === true) {
             return res.status(500).json({message: imageIds.message})
         }
-        return res.status(200).json({message: "Vgm werkt het"})
-        // return next();
+        res.locals.images = imageIds.images;
+        return next();
     }else {
         return res.status(400).json({message: "Only images are allowed"});
     }
-    res.end();
-
 }

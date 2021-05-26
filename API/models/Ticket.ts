@@ -1,6 +1,4 @@
 import mongoose, { Document } from 'mongoose';
-// import Status from './Status';
-// import logger from '~/util/Logger';
 
 const Schema = mongoose.Schema;
 
