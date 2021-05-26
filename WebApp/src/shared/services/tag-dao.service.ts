@@ -15,4 +15,11 @@ export class TagDao {
           return response;
         }));
     };
+
+  //   addTag(): Observable<Tag[]> {
+  //     return this.dao.sendPostRequest('tag')
+  //     .pipe(map((response: Tag[]) => {
+  //       return response;
+  //     }));
+  // };
 }
