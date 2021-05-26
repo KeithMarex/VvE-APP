@@ -68,6 +68,7 @@ export const imagesConvert = async(req: any, res: Response, next: NextFunction) 
         if (imageIds.err === true) {
             return res.status(500).json({message: imageIds.message})
         }
+        res.locals.images = imageIds;
         return next();
     }else {
         return res.status(400).json({message: "Only images are allowed"});
