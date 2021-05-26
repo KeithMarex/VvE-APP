@@ -12,7 +12,7 @@ const TicketDetails = (props) => {
 
     return (
         <SafeAreaView style={styles.root}>
-            <ScrollView style={styles.scrollView}>
+            <ScrollView style={styles.scrollView} keyboardShouldPersistTaps={'handled'}>
                 <View style={styles.ticketDetails}>
 
                     <PageLogo/>

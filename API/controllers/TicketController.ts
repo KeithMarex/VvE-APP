@@ -1,6 +1,7 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
+import {getAllBoardMemberMails, getMailFromCreatorObject, sendMail} from '~/util/Mailer';
 import { Types } from 'mongoose';
 
 export const getTickets = async(req, res) => {
@@ -40,7 +41,13 @@ export const getTicket = (req, res) => {
 export const postTicket = (req, res) => {
     const ticket = createTicket(req, res);
     ticket.save()
-    .then(result => {
+    .then(async result => {
+        //Bestuurder mail
+        sendMail("[VvE] Er is een nieuwe ticket aangemaakt", 'ticket_bestuurder.html', await getAllBoardMemberMails());
+
+        //Bewoner mail
+        sendMail("[VvE] U heeft een ticket aangemaakt", "ticket_aangemaakt_bewoner.html", await getMailFromCreatorObject(result['creator']));
+
         res.status(201).send(result);
     })
     .catch(err => {
