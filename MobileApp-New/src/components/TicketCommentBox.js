@@ -1,23 +1,29 @@
-import React, { useState } from 'react'
-import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native'
+import React, { useState, createRef, useEffect } from 'react'
+import {Dimensions, Keyboard, StyleSheet, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native'
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
 import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
 import { PlusIcon } from '../resources'
-import PageActionButton from "./PageActionButton";
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
     const [comments, setComments] = useState(props.comments)
+    let keyboardDidShowListener
+    let keyboardDidHideListener
+
+    useEffect(() => {
+        keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => alert('hoi'));
+        keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => alert('doei'));
+    })
 
     const sendComment = () => {
         if (!commentInputText) return
         const newComment = {
             comment: commentInputText,
         }
-
         setComments([...comments, newComment])
+        Keyboard.dismiss()
     }
 
     const commentsEl = []
@@ -28,7 +34,7 @@ const TicketCommentBox = (props) => {
     }
 
     return (
-        <View style={styles.ticketComments}>
+        <KeyboardAvoidingView style={styles.ticketComments}>
             {/*<TicketComment isUserTicket={false}/>*/}
             {/*<TicketComment isUserTicket={true}/>*/}
 
@@ -57,7 +63,7 @@ const TicketCommentBox = (props) => {
                     </Button>
                 )}
             </View>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
