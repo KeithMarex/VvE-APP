@@ -38,8 +38,8 @@ export const getTicket = (req, res) => {
 }
 
 export const postTicket = (req, res) => {
-    req.body.creator = res.locals.user._id
-    const ticket = new Ticket(req.body);
+    req.fields.creator = res.locals.user._id;
+    const ticket = new Ticket(req.fields);
     ticket.save()
     .then(result => {
         res.status(201).send(result);
