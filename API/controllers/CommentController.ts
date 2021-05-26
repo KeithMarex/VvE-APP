@@ -1,6 +1,7 @@
 import Comment from "~/models/Comment"
 import Ticket from "~/models/Ticket";
 import logger from "~/util/Logger";
+import { getAllBoardMemberMails, getMailFromCreatorObject, sendMail } from "~/util/Mailer";
 
 
 export const postComment = async(req, res) => {
@@ -12,7 +13,12 @@ export const postComment = async(req, res) => {
         Ticket.updateOne(
             { _id: req.fields.ticketID },
             { $push: { comments: result._id }}
-        ).then(resultmodified => {
+        ).then(async resultmodified => {
+            sendMail("[VvE] Er is een nieuwe bericht op een ticket", 'bericht_bestuurder.html', await getAllBoardMemberMails());
+
+            //Bewoner mail
+            sendMail("[VvE] U heeft een bericht geplaatst", "bericht_bewoner.html", await getMailFromCreatorObject(res.locals.user._id));
+
             res.status(200).send(result);
         })
         .catch(err => {
