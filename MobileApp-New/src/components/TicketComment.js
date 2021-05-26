@@ -5,7 +5,7 @@ import StyledText from "./StyledText";
 import Button from './Button'
 
 const TicketComment = (props) => {
-    const { isUserTicket } = props
+    const { isUserTicket, comment } = props
     const commentType = isUserTicket ? 'user' : 'org'
 
     return (
@@ -15,7 +15,7 @@ const TicketComment = (props) => {
                     { isUserTicket ? 'U' : 'Bestuur' }
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentContent}>
-                    Ik heb nog extra informatie nodig met betrekking tot het probleem die u nu ondervindt.
+                    {comment.comment}
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentDate}>
                     14 mei 2021 15:30

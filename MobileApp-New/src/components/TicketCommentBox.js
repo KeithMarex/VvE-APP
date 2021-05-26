@@ -9,19 +9,21 @@ import PageActionButton from "./PageActionButton";
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
+    const [comments, setComments] = useState(props.comments)
 
     const sendComment = () => {
         if (!commentInputText) return
         const newComment = {
             comment: commentInputText,
         }
-        alert(commentInputText)
+
+        setComments([...comments, newComment])
     }
 
     const commentsEl = []
-    for (let i = 0; i < props.comments.length; i++) {
+    for (let i = 0; i < comments.length; i++) {
         commentsEl.push(
-            <TicketComment isUserTicket={true} comment={props.comments[i]}/>
+            <TicketComment isUserTicket={true} comment={comments[i]} key={i}/>
         )
     }
 
