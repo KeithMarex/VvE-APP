@@ -1,5 +1,5 @@
 import React, { useState, createRef, useEffect } from 'react'
-import {Dimensions, Keyboard, StyleSheet, TouchableOpacity, View, KeyboardAvoidingView} from 'react-native'
+import {Dimensions, Keyboard, StyleSheet, TouchableOpacity, View, KeyboardAvoidingView, TextInput} from 'react-native'
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
 import Button from './Button'
 import TicketComment from './TicketComment'
@@ -9,13 +9,7 @@ import { PlusIcon } from '../resources'
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
     const [comments, setComments] = useState(props.comments)
-    let keyboardDidShowListener
-    let keyboardDidHideListener
-
-    useEffect(() => {
-        keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => alert('hoi'));
-        keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => alert('doei'));
-    })
+    let commentInputRef = createRef()
 
     const sendComment = () => {
         if (!commentInputText) return
@@ -24,6 +18,12 @@ const TicketCommentBox = (props) => {
         }
         setComments([...comments, newComment])
         Keyboard.dismiss()
+        clearCommentInput()
+    }
+
+    const clearCommentInput = () => {
+        commentInputRef.clear()
+        onCommentInputText('')
     }
 
     const commentsEl = []
@@ -46,9 +46,10 @@ const TicketCommentBox = (props) => {
             )}
 
             <View style={styles.commentInputFieldWrapper}>
-                <AutoGrowingTextInput
+                <TextInput
                     style={styles.commentInputField}
                     onChangeText={ onCommentInputText }
+                    ref={input => {commentInputRef = input}}
                     placeholder={'Typ hier uw opmerking'}
                     multiline
                 />
