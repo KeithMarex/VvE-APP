@@ -17,8 +17,13 @@ import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-
 import { PopupComponent } from './popup/popup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
+import { TagDao } from 'src/shared/services/tag-dao.service';
 import { AuthDao } from 'src/shared/services/auth-dao.service';
 import { FormsModule } from '@angular/forms';
+import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
+import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
+import { TagItemComponent } from './tags-overview/tag-list/tag-item/tag-item.component';
+import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +39,10 @@ import { FormsModule } from '@angular/forms';
     TicketItemComponent,
     TicketCreatorComponent,
     PopupComponent,
+    TagsOverviewComponent,
+    TagListComponent,
+    TagItemComponent,
+    TagCreatorComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,8 @@ import { FormsModule } from '@angular/forms';
   providers: [
     Dao,
     TicketDao,
-    AuthDao
+    TagDao,
+    AuthDao,
   ],
   bootstrap: [AppComponent]
 })

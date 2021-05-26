@@ -1,0 +1,73 @@
+@import "/src/app/shared/variables";
+
+.dropdown-container {
+    position: relative;
+
+    .dropdown {
+        padding: 10px 20px;
+        background-color: $color-gray-100;
+        border-radius: $border-radius;
+        border: 1px solid $color-gray-200;
+        display: flex;
+        position: relative;
+        cursor: pointer;
+        font-size: 13px;
+        user-select: none;
+
+        .selected-container {
+            margin-right: 50px;
+        }
+
+        .right {
+            margin-left: auto;
+            width: 40px;
+            height: calc(100% + 2px);
+            background-color: $color-primary;
+            display: block;
+            position: absolute;
+            right: -1px;
+            top: -1px;
+            border-top-right-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            fa-icon {
+                font-size: 13px;
+            }
+        }
+    }
+
+    .options {
+        width: 100%;
+        padding: 0 20px;
+        background-color: $color-white;
+        border-radius: $border-radius;
+        box-shadow: $shadow-dark;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        max-height: max(min(50vh, 300px), 300px);
+        overflow-y: auto;
+        z-index: 2;
+        
+        &::ng-deep {
+            white-space: initial;
+        }
+
+        li {
+            padding: 13px 0;
+            border-bottom: 1px solid $color-gray-300;
+            cursor: pointer;
+
+            &::ng-deep p {
+                font-size: 13px;
+            }
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+    }
+}
