@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native'
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
 import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
+import { PlusIcon } from '../resources'
+import PageActionButton from "./PageActionButton";
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
 
     const sendComment = () => {
-        console.log(commentInputText)
+        if (!commentInputText) return
+        const newComment = {
+            comment: commentInputText,
+        }
+        alert(commentInputText)
     }
 
     const commentsEl = []
@@ -39,11 +45,16 @@ const TicketCommentBox = (props) => {
                     multiline
                 />
             </View>
-            { commentInputText.length > 0 && (
-                <Button withArrow style={styles.commentSendButton} pressAction={ sendComment }>
-                    Versturen
-                </Button>
-            )}
+            <View style={styles.commentActionButtons}>
+                <TouchableOpacity onPress={() => alert('Add image')} style={styles.commentAddImageButton}>
+                    <PlusIcon on stroke={'#F7F7FC'} width={20} height={20}/>
+                </TouchableOpacity>
+                { commentInputText.length > 0 && (
+                    <Button withArrow style={styles.commentSendButton} pressAction={ sendComment }>
+                        Versturen
+                    </Button>
+                )}
+            </View>
         </View>
     )
 }
@@ -65,9 +76,23 @@ const styles = StyleSheet.create({
         minHeight: 50,
         fontSize: 14
     },
+    commentActionButtons: {
+        justifyContent: 'flex-end',
+        flexDirection: 'row'
+    },
+    commentAddImageButton: {
+        backgroundColor: '#A0CAE8',
+        borderRadius: 50,
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     commentSendButton: {
         alignSelf: 'flex-end',
         width: Dimensions.get('window').width / 2.5,
+        height: 30,
+        marginLeft: 10
     },
     noComments: {
         color: 'black',

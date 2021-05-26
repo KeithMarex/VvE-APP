@@ -63,23 +63,6 @@ const styles = StyleSheet.create({
         color: '#6E7191',
         fontSize: 12,
         textAlign: 'right'
-    },
-
-    commentInputFieldWrapper: {
-        marginVertical: 10,
-        backgroundColor: 'white',
-        borderRadius: 20,
-    },
-    commentInputField: {
-        paddingHorizontal: 14,
-        paddingVertical: 5,
-        maxHeight: 120,
-        minHeight: 50,
-        fontSize: 14
-    },
-    commentSendButton: {
-        alignSelf: 'flex-end',
-        width: Dimensions.get('window').width / 2.5,
     }
 })
 
