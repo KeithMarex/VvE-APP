@@ -1,0 +1,34 @@
+<div class="container">
+    <section class="left-block">
+        <div class="top-section">
+            <object data="../../../../assets/icons/members.svg" type=""></object>
+            <h1>{{ creatorName }}</h1>
+            <h1 id="comment-count">{{ ticket.comments.length }}</h1>
+            <object id="comment-symbol" data="../../../../assets/icons/comment.svg" type=""></object>
+        </div>
+        <div class="description">
+            <h1>{{ ticket.description.length > 180 ? ticket.description.slice(0, 180) + '...' : ticket.description }}</h1>
+        </div>
+    </section>
+
+    <section class="right-block">
+        <div class="information-block">
+            <div class="top-rows">
+                <div class="right-block-column">
+                    <p>Status:</p>
+                    <p>Aangewezen:</p>
+                </div>
+                <div class="right-block-column">
+                    <p class="colored-text">{{ ticket.status }}</p>
+                    <p class="colored-text">{{ ticket.assignee }}</p>
+                </div>
+            </div>
+    
+            <div class="bottom-info">
+                <p>Aangemaakt op: {{ ticket.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+                <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+        </div>
+        <button id="details-button" (click)="onEdit()"></button>
+    </section>
+</div>
