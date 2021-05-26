@@ -1,5 +1,11 @@
 @import "../../utilities/colors.scss";
 
+.details-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 header {
     margin: 5rem 0;
 
@@ -36,8 +42,12 @@ header {
 body {
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    // height: 70%;
     width: 85vw;
+    
+    h1 {
+        color: $primary-color;
+    }
 
     .ticket-details {
         display: flex;
@@ -49,7 +59,6 @@ body {
 
     .image-section {
         h1 {
-            color: $primary-color;
             margin-bottom: 1rem;
         }
 

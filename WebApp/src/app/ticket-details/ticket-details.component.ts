@@ -11,26 +11,38 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 })
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
+  ticketCreator: string;
   private ticketSubscription: Subscription;
+  private creatorSubscription: Subscription; //FIXME get entire user model instead?
 
   constructor(private ticketEditorService: TicketEditorService, private router: Router) { }
 
   ngOnInit(): void {
     this.getActiveTicket();
+    this.getCreatorName();
   }
 
   getActiveTicket() {
     this.ticketSubscription = this.ticketEditorService.selectedTicket.subscribe(ticketToEdit => {
       if (!ticketToEdit) {
-        //TODO send GET request with url param as failsafe
-        this.router.navigate(['ticket-overview']); //FIXME remove
+        //FIXME send GET request with url param as failsafe
+        this.router.navigate(['ticket-overview']);
       }
       this.ticket = ticketToEdit;
     })
   }
 
+  getCreatorName() {
+    this.creatorSubscription = this.ticketEditorService.ticketCreator.subscribe(creator => {
+      if (creator) {
+        this.ticketCreator = creator;
+      }
+    })
+  }
+
   ngOnDestroy(): void {
     this.ticketSubscription.unsubscribe();
+    this.creatorSubscription.unsubscribe();
   }
 
 }
