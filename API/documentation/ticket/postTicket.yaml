@@ -5,7 +5,7 @@ post:
   requestBody:
     required: true
     content:
-      application/json:
+      multipart/form-data:
         schema:
           type: object
           properties:
@@ -14,15 +14,17 @@ post:
             description:
               type: string
             images:
-              type: array
-              items:
-                $ref: ../definitions/Image.yaml
-            creator:
-              type: id (string)
+              type: string
+              format: binary
             assignee:
-              $ref: ../definitions/User.yaml
+              type: string ObjectId
             tag:
-              $ref: ../definitions/Tag.yaml
+              type: string ObjectId
+            status:
+              type: string
+          required:
+            - title
+            - description
   responses:
     '201':
       description: Receiving created ticket

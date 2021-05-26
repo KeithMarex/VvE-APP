@@ -9,17 +9,19 @@ properties:
   images:
     type: array
     items:
-      $ref: ./Image.yaml
+      type: string ObjectId
   creator:
-    $ref: ./User.yaml
+    type: string ObjectId
   assignee:
-    $ref: ./User.yaml
+    type: string ObjectId
   status:
-    type: status
+    type: string
   comments:
-    $ref: ./Comment.yaml
+    type: array
+    items:
+      type: string ObjectId
   tag:
-    $ref: ./Tag.yaml
+    type: string
   createdAt:
     type: string
   updatedAt:

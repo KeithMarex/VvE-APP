@@ -38,7 +38,7 @@ export const getTicket = (req, res) => {
 }
 
 export const postTicket = (req, res) => {
-    const ticket = new Ticket(req.body);
+    const ticket = createTicket(req, res);
     ticket.save()
     .then(result => {
         res.status(201).send(result);
@@ -95,4 +95,12 @@ const getTicketsAdmin = (req, res, organization) => {
         { "$match": { "creator.organizations": Types.ObjectId(organization)}},
         { "$set": {"creator": "$creator._id"}},
     ])
+}
+
+const createTicket = (req, res) => {
+    req.fields.creator = res.locals.user._id;
+    if (res.locals.images) {
+        req.fields.images = res.locals.images;
+    }
+    return new Ticket(req.fields);
 }

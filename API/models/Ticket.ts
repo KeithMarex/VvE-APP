@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -30,7 +30,7 @@ const TicketSchema = new Schema({
     },
     status: {
         type: String,
-        default: "60a79bb6890c71dde3117c21"
+        default: "PENDING"
     },
     comments: [{
         type: Schema.Types.ObjectId,

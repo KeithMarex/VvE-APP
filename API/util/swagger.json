@@ -143,7 +143,7 @@
                     "type": "string"
                   },
                   "organization": {
-                    "type": "organization"
+                    "type": "string ObjectId"
                   }
                 }
               }
@@ -466,7 +466,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -477,67 +477,23 @@
                     "type": "string"
                   },
                   "images": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "image": {
-                          "type": "string"
-                        },
-                        "createdAt": {
-                          "type": "string"
-                        },
-                        "updatedAt": {
-                          "type": "string"
-                        },
-                        "__v": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  },
-                  "creator": {
-                    "type": "id (string)"
+                    "type": "string",
+                    "format": "binary"
                   },
                   "assignee": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "role": {
-                        "type": "string"
-                      },
-                      "firstename": {
-                        "type": "string"
-                      },
-                      "lastname": {
-                        "type": null
-                      },
-                      "createdAt": {
-                        "type": "string"
-                      },
-                      "updatedAt": {
-                        "type": "string"
-                      },
-                      "__v": {
-                        "type": "string"
-                      }
-                    }
+                    "type": "string ObjectId"
                   },
                   "tag": {
-                    "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                    "type": "string ObjectId"
+                  },
+                  "status": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "title",
+                  "description"
+                ]
               }
             }
           }
@@ -562,49 +518,26 @@
                     "images": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/images/items"
+                        "type": "string ObjectId"
                       }
                     },
                     "creator": {
-                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
+                      "type": "string ObjectId"
                     },
                     "assignee": {
-                      "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
+                      "type": "string ObjectId"
                     },
                     "status": {
-                      "type": "status"
+                      "type": "string"
                     },
                     "comments": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string"
-                        },
-                        "user": {
-                          "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
-                        },
-                        "comment": {
-                          "type": "string"
-                        },
-                        "images": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/images/items"
-                          }
-                        },
-                        "createdAt": {
-                          "type": "string"
-                        },
-                        "updatedAt": {
-                          "type": "string"
-                        },
-                        "__v": {
-                          "type": "string"
-                        }
+                      "type": "array",
+                      "items": {
+                        "type": "string ObjectId"
                       }
                     },
                     "tag": {
-                      "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                      "type": "string"
                     },
                     "createdAt": {
                       "type": "string"
@@ -651,7 +584,33 @@
                 "type": "object",
                 "properties": {
                   "assignee": {
-                    "$ref": "#/paths/~1ticket~1/post/requestBody/content/application~1json/schema/properties/assignee"
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "firstename": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": null
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "string"
+                      }
+                    }
                   },
                   "tag": {
                     "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"

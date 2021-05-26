@@ -9,9 +9,13 @@ const ImageSchema = new Schema({
         required: [true, 'A name of the image is required'],
         MaxLength: [30, 'Name of image can\'t be longer then 30 characters']
     },
-    image: {
+    image_url: {
         type: String,
-        required: [true, 'A image is required'],
+        required: [true, 'A image url is required'],
+    },
+    delete_url: {
+        type: String,
+        required: [true, 'An delete url is required']
     }
 }, { timestamps: true });
 export default mongoose.model('Image', ImageSchema);

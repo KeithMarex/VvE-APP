@@ -3,8 +3,8 @@ import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity,
 import Mail from '../../resources/icons/login/Mail.svg'
 import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
-import ApiHelper from "../../api/ApiHelper";
-import UserModel from "../../models/user.model";
+import ApiHelper from '../../util/ApiHelper'
+import UserModel from '../../models/user.model'
 
 const ss = Dimensions.get('window')
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#EFF0F7',
         borderRadius: 10,
-        marginBottom: Dimensions.get('window').height / 30 * 1,
+        marginBottom: Dimensions.get('window').height / 30,
         width: Dimensions.get('window').width / 10 * 7,
     },
     input: {

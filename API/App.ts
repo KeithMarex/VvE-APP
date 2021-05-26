@@ -12,9 +12,10 @@ import { isAuth } from './middleware/IsAuth';
 import logger from '~/util/Logger';
 import UserRouter from './routes/UserRouter';
 import TicketRouter from './routes/TicketRouter';
+import TagRouter from './routes/TagRouter';
 
 const corsOptions = {
-    origin: `http://localhost:4200`,
+    origin: `http://localhost:${process.env.APP_PORT}`,
     credentials: true
 }
 
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 //ROUTES
 app.use(cors(corsOptions));
 app.use('/user' ,UserRouter);
+app.use('/tag', isAuth, TagRouter);
 app.use('/ticket' ,isAuth, TicketRouter);
 
 //LISTENER
