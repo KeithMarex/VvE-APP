@@ -24,7 +24,7 @@ const HomeNavigation = (props) => {
     return (
         <View style={styles.root}>
             <NavigationContainer>
-                <Tab.Navigator tabBarOptions={{style: styles.navBar, showLabel: false}}>
+                <Tab.Navigator tabBarOptions={{style: styles.navBar, showLabel: false, keyboardHidesTabBar: true}}>
                     <Tab.Screen name="Home" component={ActualHomeScreen} options={{
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
