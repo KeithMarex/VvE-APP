@@ -19,6 +19,7 @@ import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
 import ApiHelper from "../../api/ApiHelper";
 import * as ImageManipulator from 'expo-image-manipulator';
+import FormData from 'form-data';
 
 const window = Dimensions.get('window')
 
@@ -26,6 +27,8 @@ const TicketCreate = (props) => {
     const [subject, onChangeSubject] = React.useState("")
     const [description, onChangeDescription] = React.useState("")
     const [images, setImages] = React.useState([]);
+
+    const fd = new FormData({});
 
     const takePicture = async () => {
         let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -35,9 +38,9 @@ const TicketCreate = (props) => {
             return;
         }
 
-        let pickerResult = await ImagePicker.launchCameraAsync({base64: false});
+        let pickerResult = await ImagePicker.launchCameraAsync();
         const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
-        setImages((images) => [...images, result.base64]);
+        setImages((images) => [...images, result]);
     };
 
     const choosePicture = async () => {
@@ -50,27 +53,37 @@ const TicketCreate = (props) => {
 
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
         const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
-        setImages((images) => [...images, result.base64]);
+        setImages((images) => [...images, result]);
     };
 
     const afbeeldingKnop = (<PageActionButton icon={'plus'} text={'Afbeelding toevoegen'}/>);
 
     async function maakMelding() {
-        const json = {title: subject, description: description, images: images, creator: '60a69daf408255502dd4a948'};
-        console.log(json);
-        await ApiHelper.post('/ticket/', json).then(res => {
-            props.navigation.replace('Ticket');
+        fd.append('title', subject);
+        fd.append('description', description);
+        fd.append('creator', '60a69daf408255502dd4a948');
+        images.forEach(image => {
+            fd.append('file', {
+                name: 'foto',
+                type: 'image',
+                uri: image['uri']
+            })
+        })
+
+        await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/from-data'}).then(res => {
+            // props.navigation.replace('Ticket');
+            console.log(res);
+            Alert.alert('Succes', 'goed');
         }).catch(error => {
             console.log(error);
-            if (error.response.status === 413) {
-                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
-            }
+            // if (error.response.status === 413) {
+            //     Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+            // }
         })
     }
 
     function removeImage(index) {
-        const arr = [...images]
-        arr.splice(index, 1)
+        const arr = [...images].splice(index, 1);
         setImages(arr);
     }
 
@@ -102,7 +115,7 @@ const TicketCreate = (props) => {
                     <View style={styles.images}>
                         {images.map(image => (
                             <TouchableOpacity key={image} onPress={() => removeImage(images.indexOf(image))}>
-                                <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image}`}} />
+                                <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image['base64']}`}} />
                                 <View style={styles.circle} />
                                 <Text style={styles.imageCross}>X</Text>
                             </TouchableOpacity>
