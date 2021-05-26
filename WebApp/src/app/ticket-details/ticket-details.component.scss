@@ -1,4 +1,6 @@
 @import "../../utilities/colors.scss";
+@import "../../utilities/effects.scss";
+
 
 .details-page {
     display: flex;
@@ -42,11 +44,11 @@ header {
 body {
     display: flex;
     flex-direction: column;
-    // height: 70%;
     width: 85vw;
     
     h1 {
         color: $primary-color;
+        font-size: 150%;
     }
 
     .ticket-details {
@@ -70,6 +72,32 @@ body {
             img {
                 margin-right: 1.5rem;
             }
+        }
+    }
+
+    .info-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0.5rem 0;
+        padding: 1.5rem;
+        border-radius: 32px;
+        box-shadow: $default-box-shadow;
+
+        h1 {
+            font-size: 110%;
+        }
+
+        .first-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+
+            .status {
+                padding-right: 5rem;
+            }
+            
         }
     }
 }

@@ -19,7 +19,30 @@
             <div class="ticket-info">
                 <h1>Informatie</h1>
                 <div class="info-container">
-    
+                    <div class="first-row">
+                        <div class="status">
+                            <h1>Status</h1>
+                            <select name="status" id="">
+                                <option value="PENDING" [selected]="ticket.status == 'PENDING'">In afwachting</option>
+                                <option value="HANDLING" [selected]="ticket.status == 'HANDLING'">In afhandeling</option>
+                                <option value="HANDLED" [selected]="ticket.status == 'HANDLED'">Afgehandeld</option>
+                            </select>
+                        </div>
+                        <div class="tag">
+                            <h1>Tag</h1>
+                            <select name="tag" id="">
+                                <!-- Tag options toevoegen -->
+                                <option value="">Belangrijk</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="second-row">
+                        <h1>Toegewezen persoon</h1>
+                        <select name="assignee" id="">
+                            <!-- Assignee options toevoegen -->
+                            <option value="">Niet toegewezen</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>
