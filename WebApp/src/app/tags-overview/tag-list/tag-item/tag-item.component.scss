@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import "../../../../utilities/colors.scss";
+@import "../../../../utilities/button.scss";
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F7F7FC;
+    margin: 15px 25px;
+    padding: 1rem 1.5rem;
+    border-radius: 32px;
+    font-family: 'Poppins', sans-serif;
+
+    h1 {
+        color: $default-text-color;
+        font-size: 100%;
+        font-weight: 500;
+    }
+
+    .top-section {
+        display: flex;
+        flex-direction: row;
+
+        .dot {
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        h1 {
+            color: $primary-color;
+            margin-right: 2rem;
+            padding-left: 10px;
+        }
+    }
+
+    .date-info {
+        font-size: 70%;
+        color: #6E7191;
+        
+        .created-at {
+            display: inline-block;
+        }
+
+        .updated-at {
+            padding-left: 40px;
+            display: inline-block;
+        }
+    }
+
+    .left-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-left: 1rem;
+        max-width: 50%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+
+    .right-block {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+
+        .edit-button {
+            button {
+                @include button;
+
+                background-color: $secondary-color;
+                &::after {
+                    height: 17px;
+                    width: 20px;
+                    background: url('../../../../assets/icons/edit.svg') no-repeat;
+                }
+            }
+        }
+
+        .delete-button {
+            button {
+                @include button;
+
+                &::after {
+                    height: 17px;
+                    width: 20px;
+                    background: url('../../../../assets/icons/delete.svg') no-repeat;
+                }
+            }
+        }
+    }
+}
