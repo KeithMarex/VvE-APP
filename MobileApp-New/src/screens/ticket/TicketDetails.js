@@ -1,8 +1,9 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions} from 'react-native'
+import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TextInput} from 'react-native'
 import React, {useState} from 'react'
 import StyledText from '../../components/StyledText'
 import PageLogo from '../../components/PageLogo'
 import Button from '../../components/Button'
+import {AutoGrowingTextInput} from "react-native-autogrow-textinput";
 
 const window = Dimensions.get('window')
 
@@ -81,6 +82,17 @@ const TicketDetails = (props) => {
                                     </StyledText>
                                 </View>
                             </View>
+
+                            <View style={styles.commentInputFieldWrapper}>
+                                <AutoGrowingTextInput
+                                    style={styles.commentInputField}
+                                    placeholder={'Typ hier uw opmerking'}
+                                    multiline
+                                />
+                            </View>
+                            <Button withArrow style={styles.commentSendButton}>
+                                Versturen
+                            </Button>
                         </View>
                     </View>
 
@@ -178,6 +190,23 @@ const styles = StyleSheet.create({
         color: '#6E7191',
         fontSize: 12,
         textAlign: 'right'
+    },
+
+    commentInputFieldWrapper: {
+        marginVertical: 10,
+        backgroundColor: 'white',
+        borderRadius: 20,
+    },
+    commentInputField: {
+        paddingHorizontal: 14,
+        paddingVertical: 5,
+        maxHeight: 120,
+        minHeight: 50,
+        fontSize: 14
+    },
+    commentSendButton: {
+        alignSelf: 'flex-end',
+        width: Dimensions.get('window').width / 2.5,
     }
 })
 

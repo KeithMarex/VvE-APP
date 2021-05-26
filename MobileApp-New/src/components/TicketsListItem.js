@@ -57,7 +57,7 @@ const TicketsListItem = (props) => {
                     </StyledText>
                 </View>
 
-                <Button pressAction={viewTicket} withArrow={true}>Meer info</Button>
+                <Button pressAction={viewTicket} withArrow>Meer info</Button>
             </View>
 
         </View>
