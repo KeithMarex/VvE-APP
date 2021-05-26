@@ -11,6 +11,7 @@
     "prodstop": "pm2 trigger pm2-git-hook stop vve-api && pm2 stop vve-api"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
