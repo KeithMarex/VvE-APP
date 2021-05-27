@@ -1,7 +1,7 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
-import {getAllBoardMemberMails, getMailFromCreatorObject, sendMail} from '~/util/Mailer';
+import { getAllBoardMemberMails, getMailFromCreatorObject, sendMail } from '~/util/Mailer';
 import { Types } from 'mongoose';
 
 export const getTickets = async(req, res) => {
