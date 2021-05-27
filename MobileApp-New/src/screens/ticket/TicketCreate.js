@@ -6,7 +6,7 @@ import PageActionButton from "../../components/PageActionButton";
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
 import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
-import ApiHelper from "../../api/ApiHelper";
+import ApiHelper from "../../util/ApiHelper";
 import * as ImageManipulator from 'expo-image-manipulator';
 
 const window = Dimensions.get('window')
