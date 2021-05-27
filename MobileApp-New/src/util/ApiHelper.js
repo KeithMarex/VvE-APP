@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: 'https://vve-api.janvanoverbeek.nl/',
+    withCredentials: true,
+    baseURL: 'http://145.101.73.223:3001',
     headers: {'Content-Type': 'application/json'}
 })

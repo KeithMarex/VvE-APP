@@ -4,7 +4,9 @@ properties:
     type: string
   name:
     type: string
-  image:
+  image_url:
+    type: string
+  delete_url:
     type: string
   createdAt:
     type: string

@@ -1,12 +1,9 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
-<<<<<<< Updated upstream
-import {getAllBoardMemberMails, getMailFromCreatorObject, sendMail} from '~/util/Mailer';
-=======
 import { sendMailToBestuur, sendMailToBewoner } from '~/util/Mailer';
->>>>>>> Stashed changes
 import { Types } from 'mongoose';
+import { resolve6 } from 'dns';
 
 export const getTickets = async(req, res) => {
     const user = res.locals.user;
@@ -31,7 +28,7 @@ export const getTickets = async(req, res) => {
 
 export const getTicket = (req, res) => {
     const id = req.params.id;
-    Ticket.findById(id)
+    Ticket.findById(id).populate('images')
     .then(result => {
         res.status(200).send(result);
     })
@@ -81,8 +78,9 @@ export const putTicket = (req, res) => {
 }
 
 const getTicketsUser = (req, res) => {
-    Ticket.find({ user: req.locals.user._id })
+    Ticket.find({ creator: Types.ObjectId(res.locals.user._id) })
     .then(result => {
+        console.log("This is the response: ", result)
         res.status(200).send(result);
     })
     .catch(err => {

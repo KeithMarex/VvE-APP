@@ -1,0 +1,122 @@
+@import "../../utilities/colors.scss";
+@import "../../utilities/button.scss";
+
+main {
+    border-radius: 3px;
+    box-shadow: 2px 2px 8px #aaaaaa;
+    width: 722px;
+    height: 768px;
+    margin: auto;
+    padding-top: 50px;
+}
+
+.logo {
+    margin:auto;
+    background-color: #f8f8f8;
+    width: 401px;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-left: 89px;
+    padding-right: 89px;
+}
+
+.login-container {
+    margin: auto;
+    width: 722px;
+    height: 818px;
+    text-align: center;
+}
+
+.line1 {
+    width: 647px;
+    margin: auto;
+    padding-top: 1px;
+    border-radius: 100px;
+    background-color: $secondary-color;
+}
+
+.line2 {
+    width: 575px;
+    margin: auto;
+    padding-top: 1px;
+    border-radius: 100px;
+    background-color: $secondary-color;
+}
+
+.line3 {
+    width: 575px;
+    margin: auto;
+    padding-top: 1px;
+    border-radius: 100px;
+    background-color: $primary-color;
+}
+
+
+h1 {
+    width: 722px;
+    color:$primary-color;
+    margin: auto;
+    padding-top: 25px;
+    padding-bottom: 16px;
+    text-align: center;
+}
+
+.email {
+    display: inline-block;
+    padding-top: 55px;
+}
+
+.email-logo {
+    float: left;
+}
+
+.email-field {
+    background: none;
+	border: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    width: 525px;
+}
+
+.password {
+    display: inline-block;
+    padding-top: 35px;
+}
+
+.password-logo {
+    float: left;
+}
+
+.password-field {
+    background: none;
+	border: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    width: 525px;
+}
+
+
+.form-group button {
+    @include button;
+    margin: auto;
+    margin-top: 85px;
+    margin-bottom: 30px;
+    &:disabled {
+        background-color: #666666;
+    }
+    &::after {
+        background:url("../../assets/icons/Forward-white.svg")no-repeat;
+        height: 17px;
+    }
+}
+
+.password-button {
+    background: none;
+	border: none;
+	outline: inherit;
+    text-decoration: underline;
+    color: #666666;
+    margin: auto;
+}

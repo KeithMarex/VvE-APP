@@ -518,9 +518,6 @@
             "content": {
               "application/json": {
                 "schema": {
-<<<<<<< Updated upstream
-                  "$ref": "#/paths/~1ticket~1/post/responses/201/content/application~1json/schema"
-=======
                   "type": "object",
                   "properties": {
                     "_id": {
@@ -566,7 +563,6 @@
                       "type": "string"
                     }
                   }
->>>>>>> Stashed changes
                 }
               }
             }

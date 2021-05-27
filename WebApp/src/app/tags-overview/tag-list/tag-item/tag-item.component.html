@@ -1,0 +1,21 @@
+<div class="container">
+    <section class="left-block">
+        <div class="top-section">
+            <div class="dot" [ngStyle]="{'background-color':tag.color}"></div>
+            <h1>{{ tag.name }}</h1>
+        </div>
+        <div class="date-info">
+            <p class="created-at">Aangemaakt op: {{ tag.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+            <p class="updated-at">Laatste wijziging: {{ tag.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
+        </div>
+    </section>
+
+    <section class="right-block">
+        <div class="edit-button">
+            <button class="icon-button">Wijzigen</button>
+        </div>
+        <div class="delete-button">
+            <button class="icon-button">Verwijderen</button>
+        </div>
+    </section>
+</div>
