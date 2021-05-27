@@ -63,10 +63,10 @@ const TicketCreate = (props) => {
             console.log(res);
             props.navigation.goBack();
         }).catch(error => {
-            console.log(error['message']);
-            if (error.response.status === 413) {
-                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
-            }
+            console.log(error);
+            // if (error.response.status === 413) {
+            //     Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+            // }
         })
     }
 
