@@ -1,5 +1,17 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions, TouchableOpacity, TextInput, Text, Image, Alert} from 'react-native'
-import React from 'react'
+import {
+    SafeAreaView,
+    StyleSheet,
+    ScrollView,
+    View,
+    Dimensions,
+    TouchableOpacity,
+    TextInput,
+    Text,
+    Image,
+    Alert,
+    ActivityIndicator
+} from 'react-native'
+import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
 import PageActionButton from "../../components/PageActionButton";
@@ -8,6 +20,7 @@ import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
 import ApiHelper from "../../util/ApiHelper";
 import * as ImageManipulator from 'expo-image-manipulator';
+import {initDateParser} from "../../util/DateUtil";
 
 const window = Dimensions.get('window')
 
@@ -60,13 +73,12 @@ const TicketCreate = (props) => {
         })
 
         await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/form-data'}).then(res => {
-            console.log(res);
             props.navigation.goBack();
         }).catch(error => {
             console.log(error);
-            // if (error.response.status === 413) {
-            //     Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
-            // }
+            if (error.response.status === 413) {
+                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+            }
         })
     }
 
