@@ -21,7 +21,7 @@ const Tickets = (props) => {
 
     const fetchTickets = () => {
         setIsFetchingTickets(true)
-        ApiHelper.get('/ticket')
+        ApiHelper.get('/ticket', {withCredentials: true})
             .then((res) => {
                 const parsedTickets = []
                 res.data.forEach((ticket) => {

@@ -14,7 +14,6 @@ const LoginScreen = (props) => {
     const [results, setResults] = React.useState([])
 
     const loginUser = async (email, password) => {
-        console.log(email, password);
         await ApiHelper.post('/user/login', {email: email, password: password}).then(res => {
             const d = res.data;
             const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);

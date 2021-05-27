@@ -3,6 +3,7 @@ import logger from '~/util/Logger';
 import User from '~/models/User';
 import { getAllBoardMemberMails, getMailFromCreatorObject, sendMail } from '~/util/Mailer';
 import { Types } from 'mongoose';
+import { resolve6 } from 'dns';
 
 export const getTickets = async(req, res) => {
     const user = res.locals.user;
@@ -77,8 +78,9 @@ export const putTicket = (req, res) => {
 }
 
 const getTicketsUser = (req, res) => {
-    Ticket.find({ user: req.locals.user._id })
+    Ticket.find({ creator: Types.ObjectId(res.locals.user._id) })
     .then(result => {
+        console.log("This is the response: ", result)
         res.status(200).send(result);
     })
     .catch(err => {

@@ -19,8 +19,6 @@ const Tab = createBottomTabNavigator();
 const ss = Dimensions.get('window');
 
 const HomeNavigation = (props) => {
-    console.log(props.navigation.state.params);
-
     return (
         <View style={styles.root}>
             <NavigationContainer>

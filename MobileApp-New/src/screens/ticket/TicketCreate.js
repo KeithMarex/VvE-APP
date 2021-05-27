@@ -8,17 +8,19 @@ import {
     TextInput,
     Text,
     Image,
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
 import PageActionButton from '../../components/PageActionButton';
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
 import * as ImagePicker from 'expo-image-picker';
-import OptionsMenu from 'react-native-option-menu';
-import ApiHelper from '../../util/ApiHelper';
+import OptionsMenu from "react-native-option-menu";
+import ApiHelper from "../../util/ApiHelper";
 import * as ImageManipulator from 'expo-image-manipulator';
+import {initDateParser} from "../../util/DateUtil";
 
 const window = Dimensions.get('window')
 
@@ -60,26 +62,33 @@ const TicketCreate = (props) => {
         fd.append('title', subject);
         fd.append('description', description);
         fd.append('creator', '60a69daf408255502dd4a948');
+
+        fd.append('images', )
         images.forEach((image, index) => {
-            fd.append(`file${index}` , {
+            fd.append(`file${index+1}` , {
                 name: image['uri'].split('ImageManipulator/')[1],
                 type: 'image/png',
                 uri: image['uri']
             })
         })
 
-        await ApiHelper.post('/ticket', fd, {withCredentials: true ,'content-type': 'multipart/form-data'}).then(res => {
+        await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/form-data'}).then(res => {
             props.navigation.goBack();
         }).catch(error => {
+            console.log(error);
             if (error.response.status === 413) {
                 Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
             }
         })
     }
 
-    function removeImage(index) {
-        const arr = [...images].splice(index, 1);
-        setImages(arr);
+    function removeImage(image) {
+        const array = [...images]
+        const index = array.indexOf(image);
+        if (index !== -1) {
+            array.splice(index, 1);
+            setImages(array);
+        }
     }
 
     return (
@@ -109,7 +118,7 @@ const TicketCreate = (props) => {
 
                     <View style={styles.images}>
                         {images.map(image => (
-                            <TouchableOpacity key={image} onPress={() => removeImage(images.indexOf(image))}>
+                            <TouchableOpacity key={image['uri'].split('ImageManipulator/')[1]} onPress={() => removeImage(image)}>
                                 <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image['base64']}`}} />
                                 <View style={styles.circle} />
                                 <Text style={styles.imageCross}>X</Text>
