@@ -18,6 +18,6 @@ export class TicketDao {
     };
 
     createTicket(ticketData): Observable<any> {
-      return this.dao.sendPostRequest('ticket/', ticketData);
+      return this.dao.sendPostRequestForm('ticket/', ticketData);
     }
 }

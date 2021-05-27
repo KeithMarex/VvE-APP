@@ -13,8 +13,11 @@
                 <h1>Persoon toewijzen</h1>
                 <p>(TODO search component)</p>
             </div>
-            <div class="selected-assignee">
-                <p>(TODO selected assignee)</p>
+            <div class="member-select">
+                <select name="assignee" ngModel>
+                    <option value="unassigned" selected="selected">Niet toegewezen</option>
+                    <option value="" *ngFor="let member of organizationMembers" [ngValue]="member._id">{{ member.firstname + ' ' + member.lastname }}</option>
+                </select>
             </div>
             <div class="tag-field">
                 <h1>Tag toewijzen</h1>

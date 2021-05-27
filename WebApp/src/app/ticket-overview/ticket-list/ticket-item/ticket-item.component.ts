@@ -13,6 +13,7 @@ export class TicketItemComponent implements OnInit {
   @Input() ticket: Ticket;
   shortDesc = '';
   creatorName = '';
+  assigneeName = '';
 
   constructor(private userDao: UserDao, private router: Router, private ticketEditorService: TicketEditorService) { }
 
@@ -22,12 +23,20 @@ export class TicketItemComponent implements OnInit {
     }
 
     this.getTicketUsername();
+    // this.getTicketAssignee();
   }
 
   getTicketUsername() {
     this.userDao.getUserById(this.ticket.creator)
     .subscribe(user => {
       this.creatorName = user.firstname;
+    })
+  }
+
+  getTicketAssignee() { //TODO remove, not DRY
+    this.userDao.getUserById(this.ticket.assignee)
+    .subscribe(user => {
+      this.assigneeName = user.firstname;
     })
   }
 

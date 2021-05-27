@@ -15,4 +15,11 @@ export class UserDao {
           return response;
         }));
     };
+
+    getUsersByOrganization(organizationId: string): Observable<User[]> {
+      return this.dao.sendGetRequest('user/organization/' + organizationId)
+      .pipe(map((response: User[]) => {
+        return response;
+      }))
+    }
 }

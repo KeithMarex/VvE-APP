@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { User } from 'src/shared/models/user.model';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
+import { UserDao } from 'src/shared/services/user-dao.service';
 
 @Component({
   selector: 'app-ticket-creator',
@@ -9,25 +11,27 @@ import { TicketDao } from 'src/shared/services/ticket-dao.service';
 })
 export class TicketCreatorComponent implements OnInit {
   @Output() ticketCreated = new EventEmitter();
+  organizationMembers: User[];
 
-  constructor(private ticketDao: TicketDao) { }
+  constructor(private ticketDao: TicketDao, private userDao: UserDao) { }
 
   ngOnInit(): void {
+    this.fetchOrganizationUsers();
   }
 
   onCreateTicket(form: NgForm) {
     const formValues = form.value;
+    const mForm = new FormData();
 
-    this.ticketDao.createTicket(
-      {
-        "title": formValues.title,
-        "description": formValues.description,
-        "creator": "60a69daf408255502dd4a948", //FIXME add ACTIVE user
-        "status": this.formatStatus(formValues.status)
-      }
-    )
-    .subscribe(res => {
-      console.log(res);
+    mForm.append('title', formValues.title);
+    mForm.append('description', formValues.description);
+    if (formValues.assignee != 'unassigned') {
+      mForm.append('assignee', formValues.assignee);
+    }
+    mForm.append('status', this.formatStatus(formValues.status));
+
+    this.ticketDao.createTicket(mForm)
+    .subscribe(response => {
       this.ticketCreated.emit();
     })
   }
@@ -47,6 +51,13 @@ export class TicketCreatorComponent implements OnInit {
       default:
         return "PENDING";
     }
+  }
+
+  fetchOrganizationUsers() {
+    this.userDao.getUsersByOrganization('60a51399c27149d22d8b717d')
+    .subscribe(responseUsers => {
+      this.organizationMembers = responseUsers;
+    })
   }
 
 }
