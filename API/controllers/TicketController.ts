@@ -1,7 +1,7 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
-import {getAllBoardMemberMails, getMailFromCreatorObject, sendMail} from '~/util/Mailer';
+import { getAllBoardMemberMails, getMailFromCreatorObject, sendMail } from '~/util/Mailer';
 import { Types } from 'mongoose';
 
 export const getTickets = async(req, res) => {
@@ -27,7 +27,7 @@ export const getTickets = async(req, res) => {
 
 export const getTicket = (req, res) => {
     const id = req.params.id;
-    Ticket.findById(id)
+    Ticket.findById(id).populate('images')
     .then(result => {
         res.status(200).send(result);
     })

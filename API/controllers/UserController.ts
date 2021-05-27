@@ -1,5 +1,4 @@
 import User from '../models/User';
-import Organization from '../models/Organization';
 import { createTokens } from '../util/Auth';
 import bcrypt from 'bcryptjs';
 import logger from '~/util/Logger';
