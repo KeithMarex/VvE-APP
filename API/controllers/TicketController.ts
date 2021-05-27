@@ -27,7 +27,7 @@ export const getTickets = async(req, res) => {
 
 export const getTicket = (req, res) => {
     const id = req.params.id;
-    Ticket.findById(id)
+    Ticket.findById(id).populate('images')
     .then(result => {
         res.status(200).send(result);
     })
