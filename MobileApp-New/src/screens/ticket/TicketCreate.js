@@ -14,7 +14,7 @@ import {
 import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import {Logo} from '../../resources'
-import PageActionButton from "../../components/PageActionButton";
+import PageActionButton from '../../components/PageActionButton';
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
 import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";

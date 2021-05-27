@@ -1,0 +1,12 @@
+<div class="popup">
+    <div class="container">
+        <div class="top-bar">
+            <h2>{{ title }}</h2>
+            <button id="close-button" (click)="onClose()"></button>
+            <!-- <object data="../../assets/icons/Close.svg" type="" (click)="onClose()"></object> -->
+        </div>
+        <div class="content-container">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

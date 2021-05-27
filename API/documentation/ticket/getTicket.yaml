@@ -15,7 +15,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../definitions/Ticket.yaml
+            $ref: ../definitions/GetTicket.yaml
     '404':
       description: Ticket does not exists
     '500':

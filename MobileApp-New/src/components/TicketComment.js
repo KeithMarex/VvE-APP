@@ -5,7 +5,7 @@ import StyledText from "./StyledText";
 import Button from './Button'
 
 const TicketComment = (props) => {
-    const { isUserTicket } = props
+    const { isUserTicket, comment } = props
     const commentType = isUserTicket ? 'user' : 'org'
 
     return (
@@ -15,7 +15,7 @@ const TicketComment = (props) => {
                     { isUserTicket ? 'U' : 'Bestuur' }
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentContent}>
-                    Ik heb nog extra informatie nodig met betrekking tot het probleem die u nu ondervindt.
+                    {comment.comment}
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentDate}>
                     14 mei 2021 15:30
@@ -63,23 +63,6 @@ const styles = StyleSheet.create({
         color: '#6E7191',
         fontSize: 12,
         textAlign: 'right'
-    },
-
-    commentInputFieldWrapper: {
-        marginVertical: 10,
-        backgroundColor: 'white',
-        borderRadius: 20,
-    },
-    commentInputField: {
-        paddingHorizontal: 14,
-        paddingVertical: 5,
-        maxHeight: 120,
-        minHeight: 50,
-        fontSize: 14
-    },
-    commentSendButton: {
-        alignSelf: 'flex-end',
-        width: Dimensions.get('window').width / 2.5,
     }
 })
 

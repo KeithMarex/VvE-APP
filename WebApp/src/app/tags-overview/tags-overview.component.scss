@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import "../../utilities/colors.scss";
+@import "../../utilities/button.scss";
+@import "../../utilities/effects.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    h1 {
+        // font-family: 'Inter', sans-serif;
+        color: $primary-color;
+        font-size: 200%;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+}
+
+body {
+    width: 85vw;
+    height: 80vh;
+    background-color: white;
+    border: 1px solid rgba($color: #000000, $alpha: 0.04);
+    border-radius: 8px;
+    box-shadow: $default-box-shadow;
+
+    .button-section {
+        display: flex;
+        justify-content: flex-end;
+        border-bottom: 1px solid #DEDEDE;
+        margin: 0 15px;
+
+        button {
+            @include button;
+
+            &::after {
+                margin-top: 0.3rem;
+            }
+        }
+    }
+
+    .content-section {
+        box-sizing: border-box;
+        max-height: 90%;
+        margin: auto;
+        margin-top: 1rem;
+        overflow: scroll;
+    }
+
+    ::-webkit-scrollbar {
+        width: 2.5rem;
+        background-color: #DEDEDE;
+        border: 15px solid rgb(255, 255, 255);
+        border-radius: 25px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 18px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 1);
+    }
+}
+
+:host app-popup {
+    height: auto;
+}

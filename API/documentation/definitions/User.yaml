@@ -6,6 +6,12 @@ properties:
     type: string
   role:
     type: string
+  organizations:
+    type: array
+    items:
+      type: string ObjectId
+  parking:
+    type: boolean
   firstename:
     type: string
   lastname:
