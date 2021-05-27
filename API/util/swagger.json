@@ -14,6 +14,9 @@
     },
     {
       "name": "Ticket"
+    },
+    {
+      "name": "Comment"
     }
   ],
   "paths": {
@@ -515,7 +518,55 @@
             "content": {
               "application/json": {
                 "schema": {
+<<<<<<< Updated upstream
                   "$ref": "#/paths/~1ticket~1/post/responses/201/content/application~1json/schema"
+=======
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/paths/~1comment~1/post/responses/201/content/application~1json/schema/properties/images/items"
+                      }
+                    },
+                    "creator": {
+                      "type": "string ObjectId"
+                    },
+                    "assignee": {
+                      "type": "string ObjectId"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "comments": {
+                      "type": "array",
+                      "items": {
+                        "type": "string ObjectId"
+                      }
+                    },
+                    "tag": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+>>>>>>> Stashed changes
                 }
               }
             }
@@ -709,6 +760,104 @@
           },
           "404": {
             "description": "Ticket does not exists"
+          }
+        }
+      }
+    },
+    "/comment/": {
+      "post": {
+        "summary": "Adds comment to the database and ticket",
+        "tags": [
+          "Comment"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "type": "string"
+                  },
+                  "user": {
+                    "type": "string ObjectId"
+                  },
+                  "images": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "comment",
+                  "user"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Receiving created comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
+                    },
+                    "comment": {
+                      "type": "string"
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "image_url": {
+                            "type": "string"
+                          },
+                          "delete_url": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "__v": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation error"
           }
         }
       }

@@ -1,0 +1,30 @@
+post:
+  summary: Adds comment to the database and ticket
+  tags:
+    - Comment
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            comment:
+              type: string
+            user:
+              type: string ObjectId
+            images:
+              type: string
+              format: binary
+          required:
+            - comment
+            - user
+  responses:
+    '201':
+      description: Receiving created comment
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Comment.yaml
+    '400':
+      description: validation error

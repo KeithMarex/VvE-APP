@@ -1,8 +1,7 @@
 import Comment from "~/models/Comment"
 import Ticket from "~/models/Ticket";
 import logger from "~/util/Logger";
-import { getAllBoardMemberMails, getMailFromCreatorObject, sendMail } from "~/util/Mailer";
-
+import { sendMailToBestuur, sendMailToBewoner } from "~/util/Mailer";
 
 export const postComment = async(req, res) => {
     const comment = createComment(req, res);
@@ -10,22 +9,7 @@ export const postComment = async(req, res) => {
     comment.save()
     .then(result => {
         // Comment aangemaakt, nu toevoegen aan ticket.
-        Ticket.updateOne(
-            { _id: req.fields.ticketID },
-            { $push: { comments: result._id }}
-        ).then(async resultmodified => {
-            sendMail("[VvE] Er is een nieuwe bericht op een ticket", 'bericht_bestuurder.html', await getAllBoardMemberMails());
-
-            //Bewoner mail
-            sendMail("[VvE] U heeft een bericht geplaatst", "bericht_bewoner.html", await getMailFromCreatorObject(res.locals.user._id));
-
-            res.status(200).send(result);
-        })
-        .catch(err => {
-            logger.error(err);
-            const status = err.statusCode || 500;
-            res.status(status).json({message: err});
-        });
+        pushCommentToTicket(req, res, result);
     })
     .catch(err => {
         logger.error(err);
@@ -41,3 +25,26 @@ const createComment = (req, res) => {
     }
     return new Comment(req.fields);
 }
+
+const pushCommentToTicket = (req, res, commentObject) => {
+    Ticket.updateOne(
+        { _id: req.fields.ticketID },
+        { $push: { comments: commentObject._id }}
+    )
+    .then( () => {
+        //Bestuurder mail
+        sendMailToBestuur("[VvE] Er is een nieuw bericht op een ticket", "bericht_bestuurder.html");
+
+        //Bewoner mail
+        sendMailToBewoner("[VvE] U heeft een bericht geplaatst", "bericht_bewoner.html", res.locals.user._id);
+    
+        res.status(200).send(commentObject);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json({message: err});
+    });
+
+}
+
