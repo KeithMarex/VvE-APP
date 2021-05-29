@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: [true, 'A user is required']
     },
     comment: {
         type: String,

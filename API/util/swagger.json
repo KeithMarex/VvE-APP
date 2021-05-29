@@ -14,6 +14,9 @@
     },
     {
       "name": "Ticket"
+    },
+    {
+      "name": "Comment"
     }
   ],
   "paths": {
@@ -529,27 +532,7 @@
                     "images": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "image": {
-                            "type": "string"
-                          },
-                          "createdAt": {
-                            "type": "string"
-                          },
-                          "updatedAt": {
-                            "type": "string"
-                          },
-                          "__v": {
-                            "type": "string"
-                          }
-                        }
+                        "$ref": "#/paths/~1comment~1/post/responses/201/content/application~1json/schema/properties/images/items"
                       }
                     },
                     "creator": {
@@ -773,6 +756,104 @@
           },
           "404": {
             "description": "Ticket does not exists"
+          }
+        }
+      }
+    },
+    "/comment/": {
+      "post": {
+        "summary": "Adds comment to the database and ticket",
+        "tags": [
+          "Comment"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "type": "string"
+                  },
+                  "user": {
+                    "type": "string ObjectId"
+                  },
+                  "images": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "comment",
+                  "user"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Receiving created comment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
+                    },
+                    "comment": {
+                      "type": "string"
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "image_url": {
+                            "type": "string"
+                          },
+                          "delete_url": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          },
+                          "__v": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation error"
           }
         }
       }
