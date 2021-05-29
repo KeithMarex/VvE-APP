@@ -20,7 +20,7 @@
                 </div>
                 <div class="right-block-column">
                     <p class="colored-text">{{ ticket.status }}</p>
-                    <p class="colored-text">{{ ticket.assignee }}</p>
+                    <p class="colored-text">{{ assigneeName == '' ? 'Niet toegewezen' : assigneeName }}</p>
                 </div>
             </div>
     
