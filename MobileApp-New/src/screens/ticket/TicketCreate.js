@@ -20,7 +20,7 @@ import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
 import ApiHelper from "../../util/ApiHelper";
 import * as ImageManipulator from 'expo-image-manipulator';
-import {initDateParser} from "../../util/DateUtil";
+import CloseButtonComponent from "../../components/Buttons/CloseButton.Component";
 
 const window = Dimensions.get('window')
 
@@ -63,7 +63,6 @@ const TicketCreate = (props) => {
         fd.append('description', description);
         fd.append('creator', '60a69daf408255502dd4a948');
 
-        fd.append('images', )
         images.forEach((image, index) => {
             fd.append(`file${index+1}` , {
                 name: image['uri'].split('ImageManipulator/')[1],
@@ -120,8 +119,7 @@ const TicketCreate = (props) => {
                         {images.map(image => (
                             <TouchableOpacity key={image['uri'].split('ImageManipulator/')[1]} onPress={() => removeImage(image)}>
                                 <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image['base64']}`}} />
-                                <View style={styles.circle} />
-                                <Text style={styles.imageCross}>X</Text>
+                                <CloseButtonComponent style={styles.circle}/>
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -144,23 +142,12 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'center'
     },
-    imageCross: {
-        position: 'absolute',
-        right: 1,
-        color: 'white',
-        marginRight: 10,
-        marginTop: 3,
-        fontSize: 15
-    },
     circle: {
         position: 'absolute',
         right: 1,
-        marginRight: 0,
-        marginTop: 0,
-        width: 30,
-        height: 30,
-        borderRadius: 100 / 2,
-        backgroundColor: "#451864",
+        top: 1,
+        marginTop: -5,
+        marginRight: -5
     },
     root: {
         backgroundColor: '#F7F7FC',
