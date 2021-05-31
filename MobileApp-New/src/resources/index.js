@@ -12,6 +12,7 @@ import MailIcon from './icons/login/Mail.svg'
 import PhoneIcon from './icons/Call.svg'
 import EditButton from './icons/buttons/edit.svg'
 import BackArrow from './icons/Back_Arrow.svg'
+import CloseButton from './icons/Close.svg';
 
 // Country flags
 import NLFlag from './icons/country/nl.svg'
@@ -33,5 +34,6 @@ export {
     EditButton,
     NLFlag,
     ENFlag,
-    BackArrow
+    BackArrow,
+    CloseButton
 }
