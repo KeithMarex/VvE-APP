@@ -5,6 +5,7 @@ import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
 import { CommentIcon, CalendarIcon, Logo } from '../../resources'
 import NewsShowcase from '../../components/NewsShowcase'
+import PageLogo from "../../components/PageLogo";
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
@@ -14,7 +15,7 @@ const HomeScreen = (props) => {
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
-                    <Logo style={styles.logo} width={window.width / 10 * 5}/>
+                    <PageLogo/>
 
                     <View style={[styles.homeSection, styles.intro]}>
                         <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>

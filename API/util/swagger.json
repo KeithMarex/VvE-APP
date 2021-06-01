@@ -17,6 +17,9 @@
     },
     {
       "name": "Comment"
+    },
+    {
+      "name": "Agenda"
     }
   ],
   "paths": {
@@ -837,6 +840,134 @@
                           }
                         }
                       }
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation error"
+          }
+        }
+      }
+    },
+    "/agenda/{from}/{to}/": {
+      "get": {
+        "summary": "Returns the Agenda Items in given timeframe.",
+        "tags": [
+          "Agenda"
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "to",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agenda objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agenda does not exists"
+          },
+          "500": {
+            "description": "Error trying to get Agenda"
+          }
+        }
+      }
+    },
+    "/agenda/": {
+      "post": {
+        "summary": "Adds agenda item to the database",
+        "tags": [
+          "Agenda"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "Date"
+                  },
+                  "organisation": {
+                    "type": "string ObjectId"
+                  }
+                },
+                "required": [
+                  "title",
+                  "description",
+                  "date",
+                  "organisation"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Receiving created Agenda Item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "user": {
+                      "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
+                    },
+                    "organisation": {
+                      "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema/properties/organization"
                     },
                     "createdAt": {
                       "type": "string"
