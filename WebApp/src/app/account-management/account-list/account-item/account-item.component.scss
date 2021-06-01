@@ -20,6 +20,8 @@
     .user-info {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem 0;
 
         div {
             margin: auto 2rem;
@@ -41,6 +43,7 @@
 
         h1 .tooltip {
             position: absolute;
+            white-space: nowrap;
             z-index: 1;
             visibility: hidden;
             background-color: #F7F7FC;
@@ -56,20 +59,19 @@
     .controls {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
 
         button {
             @include button;
-            width: 8rem;
+            width: 10rem;
         }
 
         #role-button {
             background-color: $secondary-color;
             
             &::after {
-                margin-top: 0.5rem;
-                height: 1.7rem;
-                width: 2rem;
                 background: url('../../../../assets/icons/delete.svg') no-repeat !important;
+                background-position: center !important;
             }
         }
     }

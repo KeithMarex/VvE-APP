@@ -15,7 +15,7 @@
 
 .icon-button {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     &::before {
@@ -23,10 +23,11 @@
     }
 
     &::after {
-        justify-self: auto;
-        margin-right: 0.6rem;
+        display: flex;
+        // margin-right: 0.6rem;
         content: '';
-        height: 14px;
-        width: 14px;
+        height: 100%;
+        width: 1.5rem;
+        background-position: center !important;
     }
 }

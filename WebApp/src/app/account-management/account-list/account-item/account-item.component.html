@@ -2,13 +2,13 @@
     <section class="user-info">
         <div class="name">
             <p>Naam</p>
-            <h1>{{ user.firstname.length + user.lastname.length > 10 ? user.firstname.slice(0, 15) + '...' : user.firstname + ' ' + user.lastname }}
+            <h1>{{ user.firstname.length + user.lastname.length > 15 ? 'Selecteer om te tonen' : user.firstname + ' ' + user.lastname }}
                 <span class="tooltip">{{ user.firstname + ' ' + user.lastname }}</span>
             </h1>
         </div>
         <div class="email">
             <p>Email</p>
-            <h1 title="{{user.email}}">{{ user.email.length > 15 ? user.email.slice(0, 15) + '...' : user.email }}
+            <h1>{{ user.email.length > 15 ? 'Selecteer om te tonen' : user.email }}
                 <span class="tooltip">{{ user.email }}</span>
             </h1>
         </div>
@@ -19,7 +19,7 @@
     </section>
 
     <section class="controls">
-        <button id="role-button" class="icon-button">TODO</button>
+        <button class="icon-button" id="role-button">TODO</button>
         <button class="icon-button">TODO</button>
     </section>
 </div>
