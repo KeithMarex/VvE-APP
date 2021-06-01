@@ -35,6 +35,14 @@ export const sendMail = async function(subject, htmlFilePath, emailList) {
     });
 }
 
+export const sendMailToBestuur = async function (subject, htmlFilePath) {
+    sendMail(subject, htmlFilePath, await getAllBoardMemberMails());
+}
+
+export const sendMailToBewoner = async function (subject, htmlFilePath, bewonerID) {
+    sendMail(subject, htmlFilePath, await getMailFromCreatorObject(bewonerID));
+}
+
 export const mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

@@ -1,7 +1,7 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
-import { getAllBoardMemberMails, getMailFromCreatorObject, sendMail } from '~/util/Mailer';
+import { sendMailToBestuur, sendMailToBewoner } from '~/util/Mailer';
 import { Types } from 'mongoose';
 import { resolve6 } from 'dns';
 
@@ -42,12 +42,12 @@ export const getTicket = (req, res) => {
 export const postTicket = (req, res) => {
     const ticket = createTicket(req, res);
     ticket.save()
-    .then(async result => {
+    .then(result => {
         //Bestuurder mail
-        sendMail("[VvE] Er is een nieuwe ticket aangemaakt", 'ticket_bestuurder.html', await getAllBoardMemberMails());
+        sendMailToBestuur("[VvE] Er is een nieuwe ticket aangemaakt", "ticket_bestuurder.html");
 
         //Bewoner mail
-        sendMail("[VvE] U heeft een ticket aangemaakt", "ticket_aangemaakt_bewoner.html", await getMailFromCreatorObject(result['creator']));
+        sendMailToBewoner("[VvE] U heeft een ticket aangemaakt", "ticket_aangemaakt_bewoner.html", res.locals.user._id);
 
         res.status(201).send(result);
     })
