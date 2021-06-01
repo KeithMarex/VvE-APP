@@ -17,10 +17,42 @@
         font-weight: 500;
     }
 
+    .user-info {
+        display: flex;
+        justify-content: space-between;
+
+        div {
+            margin: auto 2rem;
+        }
+
+        p {
+            font-size: 70%;
+        }
+
+        h1 {
+            color: $primary-color;
+            font-size: 110%;
+        }
+        
+    }
+
     .controls {
+        display: flex;
+        flex-direction: row;
 
         button {
             @include button;
+        }
+
+        #role-button {
+            background-color: $secondary-color;
+            
+            &::after {
+                margin: auto 0;
+                height: 17px;
+                width: 20px;
+                background: url('../../../../assets/icons/delete.svg') no-repeat !important;
+            }
         }
     }
 }
