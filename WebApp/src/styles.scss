@@ -19,3 +19,21 @@ header {
         margin-bottom: 10px !important;
     }
 }
+
+::-webkit-scrollbar {
+    width: 2.5rem;
+    background-color: #DEDEDE;
+    border: 15px solid rgb(255, 255, 255);
+    border-radius: 25px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 18px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+:host app-popup {
+    height: auto;
+}
