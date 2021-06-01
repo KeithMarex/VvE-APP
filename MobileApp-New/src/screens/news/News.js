@@ -3,6 +3,7 @@ import React from 'react'
 import {HomeIcon, Logo} from '../../resources'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
+import PageLogo from "../../components/PageLogo";
 
 const window = Dimensions.get('window')
 
@@ -11,7 +12,7 @@ const News = () => {
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.news}>
-                    <Logo style={styles.logo} width={window.width / 10 * 5} />
+                    <PageLogo/>
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Nieuws</StyledText>
 
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Meest recent</StyledText>
