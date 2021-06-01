@@ -19,10 +19,36 @@ body {
 
         button {
             @include button;
+        }
+    }
 
-            &::after {
-                background: url('../../assets/icons/chevron.svg') no-repeat;
+    #add-user-button {
+
+        &::after {
+            background: url('../../assets/icons/chevron.svg') no-repeat;
+        }
+
+        .button-dropdown {
+            position: absolute;
+            visibility: hidden;
+            color: $primary-color;
+            background-color: #F7F7FC;
+            border: 2px solid $primary-color;
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+
+            p {
+                text-align: start;
+                font-size: 80%;
+            }
+
+            hr {
+                margin: 0.5rem 0;
             }
         }
+    }
+
+    #add-user-button:hover .button-dropdown {
+        visibility: visible;
     }
 }

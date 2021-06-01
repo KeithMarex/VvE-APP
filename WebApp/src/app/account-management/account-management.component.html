@@ -3,7 +3,13 @@
 </header>
 <body>
     <section class="button-section">
-        <button class="icon-button">Toevoegen</button>
+        <button id="add-user-button" class="icon-button">Toevoegen
+            <span class="button-dropdown">
+                <p>CSV importeren</p>
+                <hr>
+                <p (click)="onAddUser()">Gebruiker toevoegen</p>
+            </span>
+        </button>
         <p>TODO search component</p>
     </section>
     <section class="content-section">

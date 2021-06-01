@@ -12,4 +12,9 @@ export class AccountManagementComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onAddUser()
+  {
+    console.log("a");
+  }
+
 }
