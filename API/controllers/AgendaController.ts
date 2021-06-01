@@ -18,15 +18,12 @@ export const postAgenda = (req, res) => {
 }
 
 export const getAgenda = (req, res) => {
-    // verwijderen
-    let date = new Date();
-    // date.setDate(Date.now());
-    console.log(date.toISOString());
-
-    Agenda_item.find()
+    Agenda_item.find({
+        date: {
+            $gte: req.params.from,
+            $lte: req.params.to
+    }})
     .then(result => {
-        console.log(result);
-
         res.status(201).send(result);
     })
     .catch(err => {

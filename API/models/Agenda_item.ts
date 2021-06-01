@@ -21,6 +21,15 @@ const AgendaSchema = new Schema({
         //     validator: validateDate,
         //     message: 'Please give a valid date/time'
         // }
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
+    organisation: {
+        type: Schema.Types.ObjectId,
+        ref: "Organisation",
+        required: [true, 'An associated Organisation is required for Agenda_item']
     }
 }, {timestamps: true});
 
