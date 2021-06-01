@@ -26,21 +26,21 @@ export class TicketItemComponent implements OnInit {
     // this.getTicketAssignee();
   }
 
-  getTicketUsername() {
+  getTicketUsername(): void {
     this.userDao.getUserById(this.ticket.creator)
     .subscribe(user => {
       this.creatorName = user.firstname;
-    })
+    });
   }
 
-  getTicketAssignee() { //TODO remove, not DRY
+  getTicketAssignee(): void { // TODO remove, not DRY
     this.userDao.getUserById(this.ticket.assignee)
     .subscribe(user => {
       this.assigneeName = user.firstname;
-    })
+    });
   }
 
-  onEdit() {
+  onEdit(): void {
     this.ticketEditorService.selectedTicket.next(this.ticket);
     this.ticketEditorService.ticketCreator.next(this.creatorName);
     this.router.navigate(['ticket-details/' + this.ticket._id]);
