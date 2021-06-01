@@ -13,7 +13,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: string;
   private ticketSubscription: Subscription;
-  private creatorSubscription: Subscription; //FIXME get entire user model instead?
+  private creatorSubscription: Subscription; // FIXME get entire user model instead?
 
   constructor(private ticketEditorService: TicketEditorService, private router: Router) { }
 
@@ -22,22 +22,22 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.getCreatorName();
   }
 
-  getActiveTicket() {
+  getActiveTicket(): void {
     this.ticketSubscription = this.ticketEditorService.selectedTicket.subscribe(ticketToEdit => {
       if (!ticketToEdit) {
-        //FIXME send GET request with url param as failsafe
+        // FIXME send GET request with url param as failsafe
         this.router.navigate(['ticket-overview']);
       }
       this.ticket = ticketToEdit;
-    })
+    });
   }
 
-  getCreatorName() {
+  getCreatorName(): void {
     this.creatorSubscription = this.ticketEditorService.ticketCreator.subscribe(creator => {
       if (creator) {
         this.ticketCreator = creator;
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {

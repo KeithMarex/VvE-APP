@@ -10,7 +10,6 @@ import { TagDao } from 'src/shared/services/tag-dao.service';
 })
 export class TagListComponent implements OnInit {
   tags: Tag[] = [];
-  
 
   constructor(
     private tagDao: TagDao
@@ -21,8 +20,8 @@ export class TagListComponent implements OnInit {
   }
 
   getTags(): void {
-      this.tags.push(new Tag("1", "prachtige tag", "#C40000", new Date(), new Date()));
-      this.tags.push(new Tag("2", "leuke tag", "#14FF01", new Date(), new Date()));
+      this.tags.push(new Tag('1', 'prachtige tag', '#C40000', new Date(), new Date()));
+      this.tags.push(new Tag('2', 'leuke tag', '#14FF01', new Date(), new Date()));
     // this.tagDao.getAllTags()
     // .subscribe((incomingtags: Tag[]) => {
     //   incomingtags.forEach(incomingTag => {
@@ -35,7 +34,7 @@ export class TagListComponent implements OnInit {
     //     ))
     //   })
     // });
-    console.log(this.tags);
+      console.log(this.tags);
   }
 
 }
