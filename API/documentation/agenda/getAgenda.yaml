@@ -1,0 +1,39 @@
+get:
+  summary: Returns the Agenda Items in given timeframe.
+  tags:
+    - Agenda
+  # requestBody:
+  #   required: true
+  #   content:
+  #     application/json:
+  #       schema:
+  #         type: object
+  #         properties:
+  #           from:
+  #             type: Date
+  #           to:
+  #             type: Date
+  parameters:
+    - name: from
+      required: true
+      in: path
+      schema:
+        type: string
+        minimum: 1
+    - name: to
+      required: true
+      in: path
+      schema:
+        type: string
+        minimum: 1
+  responses:
+    '200':
+      description: Agenda objects
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Agenda.yaml
+    '404':
+      description: Agenda does not exists
+    '500':
+      description: Error trying to get Agenda
