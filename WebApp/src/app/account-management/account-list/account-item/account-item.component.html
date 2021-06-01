@@ -1,1 +1,21 @@
-<p>account-item works!</p>
+<div class="container">
+    <section class="user-info">
+        <div class="name">
+            <p>Naam</p>
+            <h1>{{ user.firstname + ' ' + user.lastname }}</h1>
+        </div>
+        <div class="email">
+            <p>Email</p>
+            <h1>{{ user.email }}</h1>
+        </div>
+        <div class="role">
+            <p>Functie</p>
+            <h1>{{ user.role }}</h1>
+        </div>
+    </section>
+
+    <section class="controls">
+        <button>TODO</button>
+        <button>TODO</button>
+    </section>
+</div>

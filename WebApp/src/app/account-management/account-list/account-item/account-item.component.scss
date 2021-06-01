@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import "../../../../utilities/colors.scss";
+@import "../../../../utilities/button.scss";
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F7F7FC;
+    margin: 15px 25px;
+    padding: 1rem 1.5rem;
+    border-radius: 32px;
+    font-family: 'Poppins', sans-serif;
+
+    h1 {
+        color: $default-text-color;
+        font-size: 100%;
+        font-weight: 500;
+    }
+
+    .controls {
+
+        button {
+            @include button;
+        }
+    }
+}
