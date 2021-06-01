@@ -27,6 +27,8 @@ import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
+import { AccountListComponent } from './account-management/account-list/account-list.component';
+import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
     TagItemComponent,
     TagCreatorComponent,
     TicketDetailsComponent,
+    AccountListComponent,
+    AccountItemComponent,
   ],
   imports: [
     BrowserModule,
