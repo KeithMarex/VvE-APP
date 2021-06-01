@@ -62,7 +62,7 @@ Running the tests
   - REFRESH_TOKEN= secret
   - PORT=3000
   - MAIL_USER=mail@gmail.com
-  - MAIL_PASS=wachtwoord
+  - MAIL_PASS=password
   - URL_IMGBB=https://api.imgbb.com/1/upload?key=secret
 
 ### Web application and App
