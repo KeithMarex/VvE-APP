@@ -13,6 +13,7 @@
     box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
 }
 
+// TODO replace with mixin
 .icon-button {
     display: flex;
     justify-content: space-between;
@@ -29,4 +30,38 @@
         height: 14px;
         width: 14px;
     }
+}
+
+@mixin icon-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &::before {
+        content: '';
+    }
+
+    &::after {
+        justify-self: auto;
+        margin-right: 0.6rem;
+        content: '';
+        height: 14px;
+        width: 14px;
+    }
+}
+
+@mixin button-section {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid #DEDEDE;
+  margin: 0 15px;
+
+  button {
+    @include button;
+
+    &::after {
+      margin-top: 0.3rem;
+      background: url('../assets/icons/chevron.svg') no-repeat;
+    }
+  }
 }
