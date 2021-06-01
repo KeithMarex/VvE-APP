@@ -2,11 +2,15 @@
     <section class="user-info">
         <div class="name">
             <p>Naam</p>
-            <h1>{{ user.firstname + ' ' + user.lastname }}</h1>
+            <h1>{{ user.firstname.length + user.lastname.length > 10 ? user.firstname.slice(0, 15) + '...' : user.firstname + ' ' + user.lastname }}
+                <span class="tooltip">{{ user.firstname + ' ' + user.lastname }}</span>
+            </h1>
         </div>
         <div class="email">
             <p>Email</p>
-            <h1>{{ user.email }}</h1>
+            <h1 title="{{user.email}}">{{ user.email.length > 15 ? user.email.slice(0, 15) + '...' : user.email }}
+                <span class="tooltip">{{ user.email }}</span>
+            </h1>
         </div>
         <div class="role">
             <p>Functie</p>

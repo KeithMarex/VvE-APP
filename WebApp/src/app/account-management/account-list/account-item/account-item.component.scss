@@ -30,8 +30,25 @@
         }
 
         h1 {
+            position: relative;
             color: $primary-color;
             font-size: 110%;
+        }
+
+        h1:hover .tooltip {
+            visibility: visible;
+        }
+
+        h1 .tooltip {
+            position: absolute;
+            z-index: 1;
+            visibility: hidden;
+            background-color: #F7F7FC;
+            padding: 0.2rem 1rem;
+            border: 1px solid $primary-color;
+            border-radius: 0.5rem;
+            bottom: 0;
+            left: 0;
         }
         
     }
@@ -42,15 +59,16 @@
 
         button {
             @include button;
+            width: 8rem;
         }
 
         #role-button {
             background-color: $secondary-color;
             
             &::after {
-                margin: auto 0;
-                height: 17px;
-                width: 20px;
+                margin-top: 0.5rem;
+                height: 1.7rem;
+                width: 2rem;
                 background: url('../../../../assets/icons/delete.svg') no-repeat !important;
             }
         }
