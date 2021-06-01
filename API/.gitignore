@@ -41,6 +41,7 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+build/
 
 # Dependency directories
 node_modules/
@@ -138,5 +139,6 @@ temp/
 # Ignore all local history of files
 .history
 .ionide
+/public
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node

@@ -1,0 +1,32 @@
+@import "./colors.scss";
+
+@mixin button {
+    height: 44px;
+    width: 202px;
+    margin: 10px;
+    background-color: $primary-color;
+    color: $highlight-color;
+    font-family: 'Inter', sans-serif;
+    font-size: 110%;
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+}
+
+.icon-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &::before {
+        content: '';
+    }
+
+    &::after {
+        justify-self: auto;
+        margin-right: 0.6rem;
+        content: '';
+        height: 14px;
+        width: 14px;
+    }
+}

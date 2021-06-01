@@ -1,0 +1,30 @@
+type: object
+properties:
+  _id:
+    type: string
+  title:
+    type: string
+  description:
+    type: string
+  images:
+    type: array
+    items:
+      $ref: ./Image.yaml
+  creator:
+    type: string ObjectId
+  assignee:
+    type: string ObjectId
+  status:
+    type: string
+  comments:
+    type: array
+    items:
+      type: string ObjectId
+  tag:
+    type: string
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+  __v:
+    type: string

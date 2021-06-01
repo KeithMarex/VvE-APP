@@ -1,10 +1,10 @@
 get:
-  summary: Returns all the tickets of user/organization.
+  summary: Returns all the tickets of user/admin.
   tags:
     - Ticket
   responses:
     '200':
-      description: Array with ticket objects
+      description: Array with ticket objects that are requested are returned. \n The user role is taken from the tokens and from there the correct tickets are send. \n So when an admin asks for tickets he will receive all tickets connected to his organizations.
       content:
         application/json:
           schema:
@@ -12,4 +12,4 @@ get:
             items:
               $ref: ../definitions/Ticket.yaml
     '500':
-      description: Tickets are not existing
+      description: Error with finding tickets

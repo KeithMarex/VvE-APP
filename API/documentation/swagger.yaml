@@ -7,6 +7,7 @@ tags:
   - name: User
   - name: Tag
   - name: Ticket
+  - name: Comment
 
 paths:
   /user/{id}:
@@ -15,6 +16,8 @@ paths:
     $ref: ./user/login.yaml
   /user/register:
     $ref: ./user/register.yaml
+  /user/organization/{id}:
+    $ref: ./user/getUserOrganization.yaml
   /tag:
     $ref: ./tag/getTags.yaml
   /tag/{id}:
@@ -35,3 +38,5 @@ paths:
     $ref: ./ticket/putTicket.yaml
   /ticket/{id}//:
     $ref: ./ticket/deleteTicket.yaml
+  /comment/:
+    $ref: ./comment/postComment.yaml
