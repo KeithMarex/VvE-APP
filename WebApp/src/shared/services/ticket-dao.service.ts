@@ -17,6 +17,13 @@ export class TicketDao {
         }));
     };
 
+    getTicketById(id: string): Observable<Ticket> {
+      return this.dao.sendGetRequest('ticket/' + id)
+      .pipe(map((response: Ticket) => {
+        return response;
+      }));
+  };
+
     createTicket(ticketData): Observable<any> {
       return this.dao.sendPostRequestForm('ticket/', ticketData);
     }

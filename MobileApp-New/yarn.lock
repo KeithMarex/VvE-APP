@@ -6932,7 +6932,7 @@
   "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz"
   "version" "2.5.5"
 
-"hoist-non-react-statics@^3.3.0", "hoist-non-react-statics@^3.3.2":
+"hoist-non-react-statics@^3.3.0", "hoist-non-react-statics@^3.3.1", "hoist-non-react-statics@^3.3.2":
   "integrity" "sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw=="
   "resolved" "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   "version" "3.3.2"
@@ -7215,6 +7215,11 @@
   "integrity" "sha512-aqXhGP7//Gui2+UrEtvxZxSquQVXTpZ7KDxfCcKAF3Vysvw0CViVaW9RZ1j1xlIYqaaaipBoqdqeibkc18PNvA=="
   "resolved" "https://registry.npmjs.org/immer/-/immer-8.0.1.tgz"
   "version" "8.0.1"
+
+"immutable@^4.0.0-rc.12":
+  "integrity" "sha512-0M2XxkZLx/mi3t8NVwIm1g8nHoEmM9p9UBl/G9k4+hm0kBgOVdMV/B3CY5dQ8qG8qc80NN4gDV4HQv6FTJ5q7A=="
+  "resolved" "https://registry.npmjs.org/immutable/-/immutable-4.0.0-rc.12.tgz"
+  "version" "4.0.0-rc.12"
 
 "import-fresh@^2.0.0":
   "integrity" "sha1-2BNVwVYS04bGH53dOSLUMEgipUY="
@@ -8617,6 +8622,11 @@
   "resolved" "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz"
   "version" "0.3.0"
 
+"memoize-one@^5.2.1":
+  "integrity" "sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q=="
+  "resolved" "https://registry.npmjs.org/memoize-one/-/memoize-one-5.2.1.tgz"
+  "version" "5.2.1"
+
 "memory-cache@~0.2.0":
   "integrity" "sha1-eJCwHVLADI68nVM+H46xfjA0hxo="
   "resolved" "https://registry.npmjs.org/memory-cache/-/memory-cache-0.2.0.tgz"
@@ -9183,7 +9193,7 @@
   "resolved" "https://registry.npmjs.org/mockdate/-/mockdate-3.0.5.tgz"
   "version" "3.0.5"
 
-"moment@^2.29.1":
+"moment@^2.24.0", "moment@^2.29.1":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
@@ -10844,7 +10854,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.5.10", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -11137,6 +11147,21 @@
   "resolved" "https://registry.npmjs.org/react-native-autogrow-textinput/-/react-native-autogrow-textinput-5.4.0.tgz"
   "version" "5.4.0"
 
+"react-native-calendars@^1.1262.0":
+  "integrity" "sha512-6E45gVOHh8LHCTsnH5YgwOB4/B7H6o/JZ8QHBrPJiq1/3hFOUR2O2QCjVdmo7QAl2OmCcWLdjgrJrTqSebjiVA=="
+  "resolved" "https://registry.npmjs.org/react-native-calendars/-/react-native-calendars-1.1262.0.tgz"
+  "version" "1.1262.0"
+  dependencies:
+    "hoist-non-react-statics" "^3.3.1"
+    "immutable" "^4.0.0-rc.12"
+    "lodash" "^4.17.15"
+    "memoize-one" "^5.2.1"
+    "prop-types" "^15.5.10"
+    "react-native-swipe-gestures" "^1.0.5"
+    "xdate" "^0.8.0"
+  optionalDependencies:
+    "moment" "^2.24.0"
+
 "react-native-dotenv@^2.5.5":
   "integrity" "sha512-ODaFNUX52ZYfBLJ8WSEm87nv+HrwxeEoZchuwsPyEWwsC4ARRhklfsKTf1dg09UpPS31zx5IUV431fLvcepCsA=="
   "resolved" "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-2.5.5.tgz"
@@ -11223,6 +11248,11 @@
   dependencies:
     "css-select" "^2.1.0"
     "css-tree" "^1.0.0-alpha.39"
+
+"react-native-swipe-gestures@^1.0.5":
+  "integrity" "sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw=="
+  "resolved" "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz"
+  "version" "1.0.5"
 
 "react-native-unimodules@~0.13.3":
   "integrity" "sha512-fjbNbAcvJHF8Ywqe77oveRW1WfaAKCQGV4a3Fxgpai17oNHq1LFwwKw0crFo0k7Njm5u7kCMVNbm9ZILNBfABQ=="
@@ -14221,6 +14251,11 @@
   dependencies:
     "simple-plist" "^1.1.0"
     "uuid" "^7.0.3"
+
+"xdate@^0.8.0":
+  "integrity" "sha1-17AzwASF0CaVuvAET06s2j/JYaM="
+  "resolved" "https://registry.npmjs.org/xdate/-/xdate-0.8.2.tgz"
+  "version" "0.8.2"
 
 "xhr@^2.0.1":
   "integrity" "sha512-/eCGLb5rxjx5e3mF1A7s+pLlR6CGyqWN91fv1JgER5mVWg1MZmlhBvy9kjcsOdRk8RrIujotWyJamfyrp+WIcA=="
