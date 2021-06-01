@@ -2,17 +2,6 @@ get:
   summary: Returns the Agenda Items in given timeframe.
   tags:
     - Agenda
-  # requestBody:
-  #   required: true
-  #   content:
-  #     application/json:
-  #       schema:
-  #         type: object
-  #         properties:
-  #           from:
-  #             type: Date
-  #           to:
-  #             type: Date
   parameters:
     - name: from
       required: true
