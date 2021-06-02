@@ -62,7 +62,7 @@ export const getUser = (req, res) => {
 
 export const getUsersOrganization = (req, res: Response) => {
     User.find({
-        "organizations": req.params.id,
+        "organizations": Types.ObjectId(res.locals.user.organization[0]),
         "role": "admin"
     }).select('-password')
     .then(result => {
