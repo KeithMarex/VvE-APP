@@ -6,6 +6,7 @@ import StyledText from "../../components/StyledText";
 import PageLogo from "../../components/PageLogo";
 import ModalComponent from "../../components/ModalComponent";
 import ApiHelper from "../../util/ApiHelper";
+import moment from "moment";
 
 const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -27,6 +28,8 @@ const CalendarScreen = () => {
         })
     };
 
+    const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
+    getDatumElements(nowDateObj)
     const closeModal = () => {
         setModalVisible(false);
     }
