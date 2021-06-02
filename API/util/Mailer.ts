@@ -1,12 +1,12 @@
-import { readFileSync } from "fs";
+import { readFileSync, readFile } from "fs";
 import nodemailer from "nodemailer";
 import handlebars from 'handlebars';
 import User from "~/models/User";
+import path from 'path'
 
 export const getHTML = async function(fileName){
-    const pathToHtml = "./html/";
-
-    return readFileSync(pathToHtml + fileName, 'utf8');;
+    const filePath = path.join(__dirname, `../html/${fileName}.html`);
+    return readFileSync(filePath, 'utf-8').toString();
 }
 
 export const getAllBoardMemberMails = async function() {
@@ -44,7 +44,22 @@ export const sendMailToBewoner = async function (subject, htmlFilePath, bewonerI
     sendMail(subject, htmlFilePath, await getMailFromCreatorObject(bewonerID));
 }
 
-export const mailTransporter = nodemailer.createTransport({
+export const sendRegisterMail = async(subject, info, htlm) => {
+    let source = await getHTML(htlm)
+    if (info) {
+        const template = handlebars.compile(source);
+        const replacements = info;
+        source = template(replacements);
+    }
+    mailTransporter.sendMail({
+        from: process.env.MAIL_USER,
+        to: info.email,
+        subject: subject,
+        html: source
+    });
+}
+
+const mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.MAIL_USER,
