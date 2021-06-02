@@ -5,15 +5,27 @@ import {Calendar} from 'react-native-calendars';
 import StyledText from "../../components/StyledText";
 import PageLogo from "../../components/PageLogo";
 import ModalComponent from "../../components/ModalComponent";
+import ApiHelper from "../../util/ApiHelper";
 
 const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalInfo, setModalInfo] = useState();
+    const [calendarData, setCalendarData] = useState({});
 
-    const datum = {
-        '2021-06-19': {marked: true, dotColor: '#451864'},
-        '2021-06-17': {marked: true, dotColor: '#451864'},
-    }
+    const getDatumElements = (dateObj) => {
+        const date = (dateObj['year']+'-'+dateObj['month']);
+
+        ApiHelper.get(`/agenda/${date}`).then(res => {
+            const dates = {};
+            if (res['data'].length !== 0 ){
+                res['data'].forEach(val => {
+                    const dateVal = val['date'].split('T', 1);
+                    dates[dateVal] = {marked: true, dotColor: '#451864', id: val['_id']};
+                })
+            }
+            setCalendarData(dates);
+        })
+    };
 
     const closeModal = () => {
         setModalVisible(false);
@@ -21,7 +33,7 @@ const CalendarScreen = () => {
 
     return (
         <SafeAreaView style={styles.root}>
-            <ModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo}/>
+            <ModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo} />
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
                     <PageLogo/>
@@ -37,10 +49,12 @@ const CalendarScreen = () => {
                     </View>
                     <View style={styles.calendarView}>
                         <Calendar style={{width: Dimensions.get('window').width * .7}} theme={{arrowColor: '#451864'}}
-                              markedDates={datum} onDayPress={(day) => {
+                              markedDates={calendarData} onDayPress={(day) => {
                                   setModalInfo(day)
                                   setModalVisible(true);
                               }}
+                              onMonthChange={(month) => {getDatumElements(month)}}
+                              enableSwipeMonths={true}
                         />
                     </View>
                 </View>
