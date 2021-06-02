@@ -1,0 +1,33 @@
+put:
+  summary: Updates Agenda item in the database
+  tags:
+    - Agenda
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+            date:
+              type: Date
+  responses:
+    '200':
+      description: Receiving updated Agenda item
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Agenda.yaml
+    '400':
+      description: validation error

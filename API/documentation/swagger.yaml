@@ -47,3 +47,7 @@ paths:
     $ref: ./agenda/getAgenda.yaml
   /agenda/:
     $ref: ./agenda/postAgenda.yaml
+  /agenda/{id}/:
+    $ref: ./agenda/putAgenda.yaml
+  /agenda/{id}//:
+    $ref: ./agenda/deleteAgenda.yaml
