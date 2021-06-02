@@ -32,7 +32,7 @@ export const login = async (req, res) => {
 
 // Creating a new users and generate password
 export const register = async(req, res) => {
-    const users = await createUsers(req.body);
+    const users = await createUsers(req.body, res.locals.user);
 
     let i: number;
     try {
@@ -101,7 +101,7 @@ export const deleteUser = (req, res) => {
 }
 
 // Creates all the user objects and generates a password for them
-const createUsers = async(body: Array<any>) => {
+const createUsers = async(body: Array<any>, user) => {
     const passwords = generator.generateMultiple(body.length, {
         length: 10,
         numbers: true,
@@ -110,9 +110,10 @@ const createUsers = async(body: Array<any>) => {
     const users = [];
 
     for (let i=0; i < body.length; i++) {
-        sendMail("Account created", "../html/", body[i].email)
         body[i].password = await bcrypt.hash(passwords[i], 12);
-        users.push(new User(body[i]))
+        body[i].organizations = [user.organizations[0]]
+        users.push(new User(body[i]));
+        // sendMail("Account created", "../html/", body[i].email);
     }
 
     return users;
