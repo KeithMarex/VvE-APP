@@ -1,1 +1,8 @@
-<p>calendar-item-creator works!</p>
+<ngx-daterangepicker-material (choosedDate)="pickedDateTime($event)"
+                              [autoApply]="true"
+                              [timePicker24Hour]="true"
+                              [linkedCalendars]="true"
+                              [startDate]="selected?.startDate"
+                              [endDate]="selected?.endDate"
+                              [timePicker]="true"
+                              [locale]="locale"></ngx-daterangepicker-material>

@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {
   CalendarModule,
   CalendarDateFormatter,
@@ -12,7 +13,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeNl from '@angular/common/locales/nl';
 registerLocaleData(localeNl);
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -78,6 +78,7 @@ import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [
     Dao,
