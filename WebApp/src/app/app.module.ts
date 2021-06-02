@@ -41,6 +41,7 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { AccountListComponent } from './account-management/account-list/account-list.component';
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
+import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { CalendarComponent } from './calendar-overview/calendar/calendar.compone
     AccountListComponent,
     AccountItemComponent,
     CalendarComponent,
+    CalendarItemCreatorComponent,
   ],
   imports: [
     BrowserModule,

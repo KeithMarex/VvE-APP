@@ -3,11 +3,12 @@
 </header>
 <div class="calendar">
     <section class="button-section">
-        <button (click)="onAddItem()">Nieuw</button>
+        <button (click)="onAddItemClicked()">Nieuw</button>
     </section>
     <section class="content-section">
         <app-calendar></app-calendar>
     </section>
-    <app-popup *ngIf="creatingCalendarItem" title="Ticket aanmaken" (closed)="onCloseAddItemPopUp()">
+    <app-popup *ngIf="creatingCalendarItem" title="Ticket aanmaken" (closed)="onAddItemPopUpClosed()">
+        <app-calendar-item-creator (itemAdded)="onItemAdded($event)"></app-calendar-item-creator>
     </app-popup>
 </div>

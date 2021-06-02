@@ -13,12 +13,16 @@ export class CalendarOverviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAddItem(): void {
+  onAddItemClicked(): void {
     this.creatingCalendarItem = true;
   }
 
-  onCloseAddItemPopUp(): void {
+  onAddItemPopUpClosed(): void {
     this.creatingCalendarItem = false;
+  }
+
+  onItemAdded(item: any): void {
+
   }
 
 }
