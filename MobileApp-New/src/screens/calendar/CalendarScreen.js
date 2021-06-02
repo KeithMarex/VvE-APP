@@ -8,6 +8,7 @@ import ModalComponent from "../../components/ModalComponent";
 
 const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalInfo, setModalInfo] = useState();
 
     const datum = {
         '2021-06-19': {marked: true, dotColor: '#451864'},
@@ -20,7 +21,7 @@ const CalendarScreen = () => {
 
     return (
         <SafeAreaView style={styles.root}>
-            <ModalComponent visible={modalVisible} onClose={closeModal}/>
+            <ModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo}/>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
                     <PageLogo/>
@@ -37,7 +38,7 @@ const CalendarScreen = () => {
                     <View style={styles.calendarView}>
                         <Calendar style={{width: Dimensions.get('window').width * .7}} theme={{arrowColor: '#451864'}}
                               markedDates={datum} onDayPress={(day) => {
-                                  console.log('selected day', day);
+                                  setModalInfo(day)
                                   setModalVisible(true);
                               }}
                         />
