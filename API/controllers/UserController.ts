@@ -49,7 +49,7 @@ export const register = async(req, res) => {
 
 export const getUsers = (req, res) => {
     User.find({
-        "organizations": Types.ObjectId(res.locals.user.organization[0])
+        "organizations": Types.ObjectId(res.locals.user.organizations[0])
     }).select('-password')
     .then(result => {
         res.status(200).json(result)
@@ -75,7 +75,7 @@ export const getUser = (req, res) => {
 
 export const getUsersOrganization = (req, res: Response) => {
     User.find({
-        "organizations": Types.ObjectId(res.locals.user.organization[0]),
+        "organizations": Types.ObjectId(res.locals.user.organizations[0]),
         "role": "admin"
     }).select('-password')
     .then(result => {
