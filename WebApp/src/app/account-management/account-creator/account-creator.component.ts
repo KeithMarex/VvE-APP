@@ -18,8 +18,27 @@ export class AccountCreatorComponent implements OnInit {
 
   onCreateUser(form: NgForm) {
     const formValues = form.value;
-    const mForm = new FormData();
 
+    const mailValid = this.validateInput(formValues.email, formValues.confirmEmail);
 
+    if (mailValid) {
+      const mForm = new FormData();
+
+      mForm.append('email', formValues.email);
+      mForm.append('firstname', formValues.firstname);
+      mForm.append('lastname', formValues.lastname);
+    }
+    else {
+      this.displayErrorMessage('Controleer of uw email op beide plekken correct is ingevoerd.');
+    }
+  }
+
+  validateInput(input: string, confirmInput: string): boolean {
+    return input == confirmInput;
+  }
+
+  displayErrorMessage(message: string)
+  {
+    this.errorMessage = message;
   }
 }

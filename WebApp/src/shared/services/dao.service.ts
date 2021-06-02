@@ -29,14 +29,6 @@ export class Dao {
       return this.http.delete<any>(this.dbAddress + urlPath, this.generateOptions());
     }
 
-    //TODO remove
-    forceLogin() {
-      this.sendPostRequest('user/login', {
-        "email": "admin@test.com",
-        "password": "test"
-      }).subscribe();
-    }
-
     private generateOptions(): { headers: HttpHeaders, withCredentials: boolean } {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json'

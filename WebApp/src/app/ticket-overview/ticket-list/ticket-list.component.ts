@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Ticket } from 'src/shared/models/ticket.model';
-import { Dao } from 'src/shared/services/dao.service';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
 @Component({
@@ -13,11 +12,9 @@ export class TicketListComponent implements OnInit {
 
   constructor(
     private ticketDao: TicketDao,
-    private dao: Dao // TODO remove
   ) {}
 
   ngOnInit(): void {
-    this.dao.forceLogin(); // TODO remove
     this.getTickets();
   }
 
@@ -34,7 +31,7 @@ export class TicketListComponent implements OnInit {
           this.checkAssignee(incomingTicket.assignee),
           incomingTicket.status,
           incomingTicket.comments,
-          incomingTicket.tag, // FIXME
+          incomingTicket.tag,
           incomingTicket.createdAt,
           incomingTicket.updatedAt
         ));

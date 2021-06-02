@@ -16,8 +16,8 @@ export class UserDao {
         }));
     };
 
-    getUsersByOrganization(organizationId: string): Observable<User[]> {
-      return this.dao.sendGetRequest('user/organization/' + organizationId)
+    getUsersByOrganization(): Observable<User[]> {
+      return this.dao.sendGetRequest('user')
       .pipe(map((response: User[]) => {
         return response;
       }))

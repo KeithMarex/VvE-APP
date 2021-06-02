@@ -17,7 +17,7 @@ export class AccountListComponent implements OnInit {
   }
 
   fetchOrganizationUsers() {
-    this.userDao.getUsersByOrganization('60a51399c27149d22d8b717d') //TODO set to user's organization ID
+    this.userDao.getUsersByOrganization()
     .subscribe(responseUsers => {
       this.users = responseUsers;
     })
