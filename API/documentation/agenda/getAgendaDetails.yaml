@@ -1,0 +1,22 @@
+get:
+  summary: Returns the Agenda Item corresponding with the given ID.
+  tags:
+    - Agenda
+  parameters:
+    - name: id
+      required: true
+      in: path
+      schema:
+        type: string
+        minimum: 1
+  responses:
+    '200':
+      description: Agenda object
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Agenda.yaml
+    '404':
+      description: Agenda does not exists
+    '500':
+      description: Error trying to get Agenda

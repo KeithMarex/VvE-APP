@@ -85,6 +85,20 @@ export const getAgendaNext = (req, res) => {
     });
 }
 
+export const getAgendaDetails = (req, res) => {
+    const id = req.params.id;
+
+    Agenda_item.findById(id)
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json({message: err})
+    });
+}
+
 const getMonthTimeFrame = (monthString) => { // YYYY-MM
     let from = new Date(monthString);
     let to = new Date(from);
