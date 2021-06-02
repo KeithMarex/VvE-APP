@@ -23,6 +23,7 @@ body {
     }
 
     #add-user-button {
+        position: relative;
 
         &::after {
             background: url('../../assets/icons/chevron.svg') no-repeat;
@@ -35,15 +36,18 @@ body {
             background-color: #F7F7FC;
             border: 2px solid $primary-color;
             border-radius: 1rem;
-            padding: 0.5rem 1rem;
+            width: inherit;
+            top: 2.7rem;
 
             p {
+                margin: 0.5rem 1rem;
                 text-align: start;
                 font-size: 80%;
             }
 
             hr {
-                margin: 0.5rem 0;
+                color: $primary-color;
+                margin: 0.5rem 1rem;
             }
         }
     }
