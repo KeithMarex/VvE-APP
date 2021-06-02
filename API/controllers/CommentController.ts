@@ -1,11 +1,11 @@
 import Comment from "~/models/Comment"
 import Ticket from "~/models/Ticket";
 import logger from "~/util/Logger";
-import { sendMailToBestuur, sendMailToBewoner } from "~/util/Mailer";
+import { sendAdminMail, sendMail } from "~/util/Mailer";
 
 export const postComment = async(req, res) => {
     const comment = createComment(req, res);
-    
+
     comment.save()
     .then(result => {
         // Comment aangemaakt, nu toevoegen aan ticket.
@@ -33,11 +33,11 @@ const pushCommentToTicket = (req, res, commentObject) => {
     )
     .then( () => {
         //Bestuurder mail
-        sendMailToBestuur("[VvE] Er is een nieuw bericht op een ticket", "bericht_bestuurder.html");
+        sendAdminMail("[VvE] Er is een nieuw bericht op een ticket",res.locals.user.organizations[0], "bericht_bestuurder.html");
 
         //Bewoner mail
-        sendMailToBewoner("[VvE] U heeft een bericht geplaatst", "bericht_bewoner.html", res.locals.user._id);
-    
+        sendMail("[VvE] U heeft een bericht geplaatst", res.locals.user, "bericht_bewoner");
+
         res.status(200).send(commentObject);
     })
     .catch(err => {

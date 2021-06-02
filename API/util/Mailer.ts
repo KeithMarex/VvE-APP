@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 import handlebars from 'handlebars';
 import User from "~/models/User";
 import path from 'path'
+import Organization from "~/models/Organization";
 
 export const getHTML = async (fileName) => {
     const filePath = path.join(__dirname, `../html/${fileName}.html`);
@@ -11,31 +12,25 @@ export const getHTML = async (fileName) => {
 
 export const sendMail = async(subject, info, htlm) => {
     let source = await getHTML(htlm)
-    if (info) {
-        source = addAttributes(source, info)
-    }
+    source = addAttributes(source, info)
+    let email = await getEmail(info._id);
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
-        to: info.email,
+        to: email,
         subject: subject,
         html: source
     });
 }
 
-export const sendMailToAdmin = async  (subject, htmlFilePath) => {
-    sendMail(subject, htmlFilePath, await getAdminEmails());
-}
-
-const getAdminEmails = async () => {
-    let emailComposition = [];
-
-    await User.find({ role: 'admin'}, "email", {}, function(err, docs){
-        if (!docs.length) return;
-        docs.forEach(function(user) {
-            emailComposition.push(user["email"]);
-        });
+export const sendAdminMail = async(subject, organizationId, htlm) => {
+    let source = await getHTML(htlm)
+    let email = await getAdminEmail(organizationId);
+    mailTransporter.sendMail({
+        from: process.env.MAIL_USER,
+        to: email,
+        subject: subject,
+        html: source
     });
-    return emailComposition;
 }
 
 const addAttributes = (source, attributes) => {
@@ -45,8 +40,13 @@ const addAttributes = (source, attributes) => {
 }
 
 const getEmail = async (userId) => {
-    const usermail = await User.find({_id: userId}, "email");
-    return usermail[0]['email'];
+    const email = await User.findOne({_id: userId}, "email");
+    return email["email"];
+}
+
+const getAdminEmail = async (organizationId) => {
+    const email = await Organization.findOne({_id: organizationId}).populate('emailCredentials');
+    return email["email"];
 }
 
 const mailTransporter = nodemailer.createTransport({
