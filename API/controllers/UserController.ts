@@ -5,6 +5,7 @@ import logger from '~/util/Logger';
 import generator from 'generate-password';
 import { Types } from 'mongoose';
 import { Response } from 'express';
+import { sendMail } from '~/util/Mailer';
 
 export const login = async (req, res) => {
     const email = req.body.email;
@@ -109,6 +110,7 @@ const createUsers = async(body: Array<any>) => {
     const users = [];
 
     for (let i=0; i < body.length; i++) {
+        sendMail("Account created", "../html/", body[i].email)
         body[i].password = await bcrypt.hash(passwords[i], 12);
         users.push(new User(body[i]))
     }
