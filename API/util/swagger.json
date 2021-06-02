@@ -119,8 +119,8 @@
               }
             }
           },
-          "500": {
-            "description": "Email or password invalid"
+          "400": {
+            "description": "Email or password incorrect"
           }
         }
       }
@@ -893,36 +893,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "description": {
-                      "type": "string"
-                    },
-                    "date": {
-                      "type": "Date"
-                    },
-                    "user": {
-                      "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
-                    },
-                    "organisation": {
-                      "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema/properties/organization"
-                    },
-                    "createdAt": {
-                      "type": "string"
-                    },
-                    "updatedAt": {
-                      "type": "string"
-                    },
-                    "__v": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
                 }
               }
             }
@@ -974,11 +945,40 @@
         },
         "responses": {
           "201": {
-            "description": "Receiving created ticket",
+            "description": "Receiving created Agenda Item",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1ticket~1/post/responses/201/content/application~1json/schema"
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "Date"
+                    },
+                    "user": {
+                      "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
+                    },
+                    "organisation": {
+                      "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema/properties/organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
