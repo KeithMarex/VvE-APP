@@ -23,6 +23,78 @@
     }
   ],
   "paths": {
+    "/user": {
+      "get": {
+        "summary": "Returns the users from a certain organization.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "organizations": {
+                        "type": "array",
+                        "items": {
+                          "type": "string ObjectId"
+                        }
+                      },
+                      "parking": {
+                        "type": "boolean"
+                      },
+                      "firstename": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": null
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
     "/user/{id}": {
       "get": {
         "summary": "Returns the user by ID.",
@@ -131,7 +203,7 @@
         "tags": [
           "User"
         ],
-        "description": "User gets registered (User gets account) is for multiple and single account adding. \\n needs to be in an array",
+        "description": "User gets registered (User gets account) is for multiple and single account adding. \\n Needs to be in an array.",
         "requestBody": {
           "required": true,
           "content": {
@@ -147,9 +219,6 @@
                   },
                   "lastname": {
                     "type": "string"
-                  },
-                  "organization": {
-                    "type": "string ObjectId"
                   }
                 }
               }
@@ -168,7 +237,7 @@
     },
     "/user/organization/{id}": {
       "get": {
-        "summary": "Returns the users from a specific organization.",
+        "summary": "Returns the admins from the organization the person is in.",
         "tags": [
           "User"
         ],
@@ -191,42 +260,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "role": {
-                        "type": "string"
-                      },
-                      "organizations": {
-                        "type": "array",
-                        "items": {
-                          "type": "string ObjectId"
-                        }
-                      },
-                      "parking": {
-                        "type": "boolean"
-                      },
-                      "firstename": {
-                        "type": "string"
-                      },
-                      "lastname": {
-                        "type": null
-                      },
-                      "createdAt": {
-                        "type": "string"
-                      },
-                      "updatedAt": {
-                        "type": "string"
-                      },
-                      "__v": {
-                        "type": "string"
-                      }
-                    }
+                    "$ref": "#/paths/~1user/get/responses/200/content/application~1json/schema/items"
                   }
                 }
               }
@@ -706,7 +740,7 @@
                 "type": "object",
                 "properties": {
                   "assignee": {
-                    "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
+                    "$ref": "#/paths/~1user/get/responses/200/content/application~1json/schema/items"
                   },
                   "tag": {
                     "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
@@ -807,7 +841,7 @@
                       "type": "string"
                     },
                     "user": {
-                      "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
+                      "$ref": "#/paths/~1user/get/responses/200/content/application~1json/schema/items"
                     },
                     "comment": {
                       "type": "string"
@@ -861,24 +895,15 @@
         }
       }
     },
-    "/agenda/{from}/{to}/": {
+    "/agenda/{month}/": {
       "get": {
-        "summary": "Returns the Agenda Items in given timeframe.",
+        "summary": "Returns the Agenda Items in given month.",
         "tags": [
           "Agenda"
         ],
         "parameters": [
           {
-            "name": "from",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "minimum": 1
-            }
-          },
-          {
-            "name": "to",
+            "name": "month",
             "required": true,
             "in": "path",
             "schema": {
@@ -890,6 +915,69 @@
         "responses": {
           "200": {
             "description": "Agenda objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agenda does not exists"
+          },
+          "500": {
+            "description": "Error trying to get Agenda"
+          }
+        }
+      }
+    },
+    "/agenda/details/{id}": {
+      "get": {
+        "summary": "Returns the Agenda Item corresponding with the given ID.",
+        "tags": [
+          "Agenda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agenda object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agenda does not exists"
+          },
+          "500": {
+            "description": "Error trying to get Agenda"
+          }
+        }
+      }
+    },
+    "/agenda/next": {
+      "get": {
+        "summary": "Returns the next agenda item from today.",
+        "tags": [
+          "Agenda"
+        ],
+        "responses": {
+          "200": {
+            "description": "next agenda item from today",
             "content": {
               "application/json": {
                 "schema": {
@@ -964,7 +1052,7 @@
                       "type": "Date"
                     },
                     "user": {
-                      "$ref": "#/paths/~1user~1organization~1%7Bid%7D/get/responses/200/content/application~1json/schema/items"
+                      "$ref": "#/paths/~1user/get/responses/200/content/application~1json/schema/items"
                     },
                     "organisation": {
                       "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema/properties/organization"
@@ -985,6 +1073,88 @@
           },
           "400": {
             "description": "validation error"
+          }
+        }
+      }
+    },
+    "/agenda/{id}/": {
+      "put": {
+        "summary": "Updates Agenda item in the database",
+        "tags": [
+          "Agenda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "date": {
+                    "type": "Date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Receiving updated Agenda item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "validation error"
+          }
+        }
+      }
+    },
+    "/agenda/{id}//": {
+      "delete": {
+        "summary": "Deletes the Agenda item by ID.",
+        "tags": [
+          "Agenda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "404": {
+            "description": "Agenda item does not exists"
           }
         }
       }

@@ -1,9 +1,10 @@
+import 'dotenv/config'
 import supertest from 'supertest';
 import should from 'should';
 import { describe, it } from 'mocha';
 
 // This is a reference to where the api is running
-const server = supertest.agent("http://localhost:3000");
+const server = supertest.agent(`http://localhost:${process.env.PORT}`);
 
 // Unit tests
 describe("Login unit test for requests",function(){
@@ -13,7 +14,7 @@ describe("Login unit test for requests",function(){
     // Making a post request to the api
     server
     .post("/login")
-    .send({ email: 'test@test.com', password: 'test' })
+    .send({ email: 'user@test.com', password: 'test' })
     .expect("Content-type",/json/) // Says content type
     .expect(200)
     .end( function(err,res) {

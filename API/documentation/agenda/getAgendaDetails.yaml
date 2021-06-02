@@ -1,9 +1,9 @@
 get:
-  summary: Returns the Agenda Items in given month.
+  summary: Returns the Agenda Item corresponding with the given ID.
   tags:
     - Agenda
   parameters:
-    - name: month
+    - name: id
       required: true
       in: path
       schema:
@@ -11,7 +11,7 @@ get:
         minimum: 1
   responses:
     '200':
-      description: Agenda objects
+      description: Agenda object
       content:
         application/json:
           schema:

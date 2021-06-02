@@ -1,5 +1,5 @@
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
-import {Modal, Pressable, StatusBar, Text, View, StyleSheet} from "react-native";
+import {Modal, StatusBar, View, StyleSheet} from "react-native";
 import React, {useState} from "react";
 import StyledText from "./StyledText";
 import moment from "moment";
