@@ -14,7 +14,7 @@ describe("Login unit test for requests",function(){
     // Making a post request to the api
     server
     .post("/login")
-    .send({ email: 'test@test.com', password: 'test' })
+    .send({ email: 'user@test.com', password: 'test' })
     .expect("Content-type",/json/) // Says content type
     .expect(200)
     .end( function(err,res) {
