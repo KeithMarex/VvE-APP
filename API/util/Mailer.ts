@@ -1,5 +1,6 @@
 import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
+import handlebars from 'handlebars';
 import User from "~/models/User";
 
 export const getHTML = async function(fileName){
