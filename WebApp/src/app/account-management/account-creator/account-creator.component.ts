@@ -17,9 +17,10 @@ export class AccountCreatorComponent implements OnInit {
   }
 
   onCreateUser(form: NgForm) {
+    this.errorMessage = null;
     const formValues = form.value;
 
-    const mailValid = this.validateInput(formValues.email, formValues.confirmEmail);
+    const mailValid = this.validateEmail(formValues.email, formValues.confirmEmail);
 
     if (mailValid) {
       const mForm = new FormData();
@@ -33,8 +34,8 @@ export class AccountCreatorComponent implements OnInit {
     }
   }
 
-  validateInput(input: string, confirmInput: string): boolean {
-    return input == confirmInput;
+  validateEmail(input: string, confirmInput: string): boolean {
+    return input.includes('@') && input == confirmInput;
   }
 
   displayErrorMessage(message: string)
