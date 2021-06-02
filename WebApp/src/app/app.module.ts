@@ -1,5 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,11 +18,9 @@ import { LoginComponent } from './login/login.component';
 import { TicketListComponent } from './ticket-overview/ticket-list/ticket-list.component';
 import { TicketItemComponent } from './ticket-overview/ticket-list/ticket-item/ticket-item.component';
 import { PopupComponent } from './popup/popup.component';
-import { HttpClientModule } from '@angular/common/http';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 import { AuthDao } from 'src/shared/services/auth-dao.service';
-import { FormsModule } from '@angular/forms';
 import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
 import { TagItemComponent } from './tags-overview/tag-list/tag-item/tag-item.component';
@@ -54,7 +57,12 @@ import { CalendarComponent } from './calendar-overview/calendar/calendar.compone
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
     Dao,
