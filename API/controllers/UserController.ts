@@ -87,6 +87,18 @@ export const getUsersOrganization = (req, res: Response) => {
     })
 }
 
+export const deleteUser = (req, res) => {
+    User.deleteOne({ _id: Types.ObjectId(res.locals.user._id) }).select('-password')
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 404;
+        res.status(status).json({message: err})
+    });
+}
+
 // Creates all the user objects and generates a password for them
 const createUsers = async(body: Array<any>) => {
     const passwords = generator.generateMultiple(body.length, {
