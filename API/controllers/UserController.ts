@@ -88,9 +88,9 @@ export const getUsersOrganization = (req, res: Response) => {
 }
 
 export const deleteUser = (req, res) => {
-    User.deleteOne({ _id: Types.ObjectId(res.locals.user._id) }).select('-password')
-    .then(result => {
-        res.status(200).send(result);
+    User.deleteOne({ _id: Types.ObjectId(req.params.id) })
+    .then(() => {
+        res.status(200).send({message: "User deleted succesfully"});
     })
     .catch(err => {
         logger.error(err);
