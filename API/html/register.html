@@ -15,6 +15,7 @@
                 color: #363636;
                 line-height: 24px;
                 letter-spacing: 0.1px;
+                margin: 0;
             }
 
             h1 {
@@ -28,12 +29,14 @@
             }
 
             header {
+                display: inherit;
                 height: 185px;
-                text-align: center;
+                justify-content: center;
+                align-items: center;
             }
 
             article {
-                display: flex;
+                display: inherit;
                 justify-content: center;
                 align-items: center;
                 flex-direction: column;
@@ -47,7 +50,12 @@
                 height: 150px;
                 justify-content: center;
                 align-items: center;
-                display: flex;
+                display: inherit;
+            }
+
+            .icon svg {
+                width: 110px;
+                height: auto;
             }
 
             .information {
@@ -79,6 +87,28 @@
                 color: #A7A7A7;
                 text-align: center;
                 line-height: 22px;
+            }
+
+            @media only screen and (max-width: 500px) {
+                header svg{
+                    width: 280px;
+                    height: auto;
+                }
+
+                article {
+                    width: 100%;
+                }
+
+                .icon {
+                height: 120px;
+                }
+
+                .icon svg {
+                    width: 75px;
+                    height: auto;
+                }
+
+
             }
 
         </style>
