@@ -119,8 +119,8 @@
               }
             }
           },
-          "500": {
-            "description": "Email or password invalid"
+          "400": {
+            "description": "Email or password incorrect"
           }
         }
       }
