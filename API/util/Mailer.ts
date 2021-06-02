@@ -1,15 +1,15 @@
-import { readFileSync, readFile } from "fs";
+import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
 import handlebars from 'handlebars';
 import User from "~/models/User";
 import path from 'path'
 
-export const getHTML = async function(fileName){
+export const getHTML = async (fileName) => {
     const filePath = path.join(__dirname, `../html/${fileName}.html`);
     return readFileSync(filePath, 'utf-8').toString();
 }
 
-export const getAllBoardMemberMails = async function() {
+export const getAllBoardMemberMails = async () => {
     let emailComposition = [];
 
     await User.find({ role: 'admin'}, "email", {}, function(err, docs){ // was async
@@ -21,12 +21,12 @@ export const getAllBoardMemberMails = async function() {
     return emailComposition;
 }
 
-export const getMailFromCreatorObject = async function(creatorObject) {
+export const getMailFromCreatorObject = async (creatorObject) => {
     const usermail = await User.find({_id: creatorObject}, "email");
     return usermail[0]['email'];
 }
 
-export const sendMail = async function(subject, htmlFilePath, emailList) {
+export const sendMail = async (subject, htmlFilePath, emailList) => {
     if(!emailList.length || !process.env.MAIL_USER || !process.env.MAIL_PASS) return;
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
@@ -36,11 +36,11 @@ export const sendMail = async function(subject, htmlFilePath, emailList) {
     });
 }
 
-export const sendMailToBestuur = async function (subject, htmlFilePath) {
+export const sendMailToBestuur = async  (subject, htmlFilePath) => {
     sendMail(subject, htmlFilePath, await getAllBoardMemberMails());
 }
 
-export const sendMailToBewoner = async function (subject, htmlFilePath, bewonerID) {
+export const sendMailToBewoner = async  (subject, htmlFilePath, bewonerID) => {
     sendMail(subject, htmlFilePath, await getMailFromCreatorObject(bewonerID));
 }
 
