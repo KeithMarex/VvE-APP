@@ -11,6 +11,6 @@ router.get('/', isAuth, getUsers);
 router.get('/:id', isAuth, getUser);
 router.get('/organization', isAuth, isAdmin, getUsersOrganization)
 // router.put('/:id', userController.putUser);
-router.delete('/:id', deleteUser);
+router.delete('/:id',isAuth, isAdmin, deleteUser);
 
 export default router;
