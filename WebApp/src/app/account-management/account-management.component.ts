@@ -13,9 +13,17 @@ export class AccountManagementComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAddUser()
-  {
-    console.log("a");
+  onAddUser() {
+    this.creatingUser = true;
+  }
+
+  onClose() {
+    this.creatingUser = false;
+  }
+
+  onCreateUser() {
+    this.creatingUser = false;
+    window.location.reload();
   }
 
 }

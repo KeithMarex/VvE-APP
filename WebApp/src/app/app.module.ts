@@ -29,6 +29,7 @@ import { TicketDetailsComponent } from './ticket-details/ticket-details.componen
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { AccountListComponent } from './account-management/account-list/account-list.component';
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
+import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AccountItemComponent } from './account-management/account-list/account-
     TicketDetailsComponent,
     AccountListComponent,
     AccountItemComponent,
+    AccountCreatorComponent,
   ],
   imports: [
     BrowserModule,
