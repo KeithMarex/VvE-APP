@@ -38,6 +38,8 @@ import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
+import { AccountListComponent } from './account-management/account-list/account-list.component';
+import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
 
 @NgModule({
@@ -59,6 +61,8 @@ import { CalendarComponent } from './calendar-overview/calendar/calendar.compone
     TagItemComponent,
     TagCreatorComponent,
     TicketDetailsComponent,
+    AccountListComponent,
+    AccountItemComponent,
     CalendarComponent,
   ],
   imports: [

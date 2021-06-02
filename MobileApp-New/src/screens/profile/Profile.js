@@ -11,6 +11,7 @@ import { ProfileIcon, MailIcon, PhoneIcon, Logo, NLFlag, ENFlag } from '../../re
 import { SafeAreaView } from 'react-navigation'
 import PageActionButton from '../../components/PageActionButton'
 import StyledText from '../../components/StyledText'
+import PageLogo from "../../components/PageLogo";
 
 const window = Dimensions.get('window')
 
@@ -20,7 +21,7 @@ const Profile = () => {
             <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
                 <ScrollView style={styles.view}>
                     <View style={styles.home}>
-                        <Logo style={styles.logo} width={window.width / 10 * 5}/>
+                        <PageLogo/>
                         <StyledText inputStyle={styles.pageTitle}>Algemeen</StyledText>
                         <PageActionButton icon={'pen'} text={'Wijzigen'}/>
 

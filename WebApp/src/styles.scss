@@ -21,6 +21,13 @@ header {
     }
 }
 
+.content-section {
+    box-sizing: border-box;
+    max-height: 85%;
+    margin: 1rem auto;
+    overflow: auto;
+}
+
 ::-webkit-scrollbar {
     width: 2.5rem;
     background-color: #DEDEDE;
