@@ -932,6 +932,69 @@
         }
       }
     },
+    "/agenda/details/{id}": {
+      "get": {
+        "summary": "Returns the Agenda Item corresponding with the given ID.",
+        "tags": [
+          "Agenda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agenda object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agenda does not exists"
+          },
+          "500": {
+            "description": "Error trying to get Agenda"
+          }
+        }
+      }
+    },
+    "/agenda/next": {
+      "get": {
+        "summary": "Returns the next agenda item from today.",
+        "tags": [
+          "Agenda"
+        ],
+        "responses": {
+          "200": {
+            "description": "next agenda item from today",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agenda does not exists"
+          },
+          "500": {
+            "description": "Error trying to get Agenda"
+          }
+        }
+      }
+    },
     "/agenda/": {
       "post": {
         "summary": "Adds agenda item to the database",
@@ -1092,69 +1155,6 @@
           },
           "404": {
             "description": "Agenda item does not exists"
-          }
-        }
-      }
-    },
-    "/agenda/next": {
-      "get": {
-        "summary": "Returns the next agenda item from today.",
-        "tags": [
-          "Agenda"
-        ],
-        "responses": {
-          "200": {
-            "description": "next agenda item from today",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Agenda does not exists"
-          },
-          "500": {
-            "description": "Error trying to get Agenda"
-          }
-        }
-      }
-    },
-    "/agenda/details/{id}": {
-      "get": {
-        "summary": "Returns the Agenda Item corresponding with the given ID.",
-        "tags": [
-          "Agenda"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "minimum": 1
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Agenda object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Agenda does not exists"
-          },
-          "500": {
-            "description": "Error trying to get Agenda"
           }
         }
       }

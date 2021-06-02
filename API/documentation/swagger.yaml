@@ -45,13 +45,13 @@ paths:
     $ref: ./comment/postComment.yaml
   /agenda/{month}/:
     $ref: ./agenda/getAgenda.yaml
+  /agenda/details/{id}:
+    $ref: ./agenda/getAgendaDetails.yaml
+  /agenda/next:
+    $ref: ./agenda/getAgendaNext.yaml
   /agenda/:
     $ref: ./agenda/postAgenda.yaml
   /agenda/{id}/:
     $ref: ./agenda/putAgenda.yaml
   /agenda/{id}//:
     $ref: ./agenda/deleteAgenda.yaml
-  /agenda/next:
-    $ref: ./agenda/getAgendaNext.yaml
-  /agenda/details/{id}:
-    $ref: ./agenda/getAgendaDetails.yaml
