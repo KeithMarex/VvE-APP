@@ -27,7 +27,15 @@
 
         div {
             margin: auto 2rem;
-            width: 25%;
+            // width: 20rem;
+        }
+
+        .semi-long-field {
+            width: 10rem;
+        }
+        
+        .long-field {
+            width: 20rem;
         }
 
         p {
@@ -38,6 +46,7 @@
             position: relative;
             color: $primary-color;
             font-size: 110%;
+            margin: 1px;
         }
 
         h1:hover .tooltip {

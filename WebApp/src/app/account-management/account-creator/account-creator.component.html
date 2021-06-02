@@ -1,10 +1,14 @@
 <section>
     <form action="" #userForm="ngForm">
         <div class="input-fields">
-            <input type="text" placeholder="Voornaam" name="firstname" required ngModel>
-            <input type="text" placeholder="Achternaam" name="lastname" required ngModel>
-            <input type="text" placeholder="Email adres" name="firstname" required ngModel>
-            <input type="text" placeholder="Confirm email adres" name="firstname" required ngModel>
+            <div class="name-fields">
+                <input type="text" placeholder="Voornaam" name="firstname" required ngModel>
+                <input type="text" placeholder="Achternaam" name="lastname" required ngModel>    
+            </div>
+            <div class="mail-fields">
+                <input type="text" placeholder="Email adres" name="firstname" required ngModel>
+                <input type="text" placeholder="Confirm email adres" name="firstname" required ngModel>    
+            </div>
         </div>
         <div class="error-field">
             <p *ngIf="errorMessage">{{ errorMessage }}</p>
