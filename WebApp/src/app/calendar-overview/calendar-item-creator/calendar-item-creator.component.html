@@ -1,11 +1,26 @@
 <div class="calendar-item-creator">
-  <ngx-daterangepicker-material (choosedDate)="pickedDateTime($event)"
-  [autoApply]="true"
-  [timePicker24Hour]="true"
-  [linkedCalendars]="true"
-  [startDate]="selected?.startDate"
-  [endDate]="selected?.endDate"
-  [timePicker]="true"
-  [locale]="locale"></ngx-daterangepicker-material>
+    <div class="creator-content">
+      <ngx-daterangepicker-material
+        (choosedDate)="pickedDateTime($event)"
+        [autoApply]="true"
+        [timePicker24Hour]="true"
+        [linkedCalendars]="true"
+        [startDate]="selected?.startDate"
+        [endDate]="selected?.endDate"
+        [timePicker]="true"
+        [locale]="locale"
+      ></ngx-daterangepicker-material>
+
+      <div class="item-info-section">
+        <div class="title-field">
+          <input type="text" placeholder="Titel" name="title" required ngModel>
+        </div>
+        <div class="content-field">
+          <textarea name="" id="" cols="30" rows="10" placeholder="Omschrijving" name="description" required ngModel></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button class="createBtn" (click)="onCreateItemClicked()">Aanmaken</button>
 </div>
 

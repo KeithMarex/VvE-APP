@@ -30,6 +30,10 @@ export class CalendarItemCreatorComponent implements OnInit {
     console.log(this.selected)
   }
 
+  onCreateItemClicked() {
+
+  }
+
   pickedDateTime(e) {
     this.dateTime = e;
   }
