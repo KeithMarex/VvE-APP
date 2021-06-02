@@ -15,17 +15,17 @@ export const login = async (req, res) => {
 
         if (isEqual) {
             const [accesstoken, refreshToken] = createTokens(user);
-            res.cookie('access-token', accesstoken, { maxAge: 60 * 60 * 24 * 7 * 1000 , httpOnly: true, secure: false });
-            res.cookie('refresh-token', refreshToken, { maxAge: 60 * 60 * 24 * 7 * 1000, httpOnly: true, secure: false });
+            res.cookie('access-token', accesstoken, { maxAge: 60 * 60 * 24 * 40 * 1000 , httpOnly: true, secure: false });
+            res.cookie('refresh-token', refreshToken, { maxAge: 60 * 60 * 24 * 40 * 1000, httpOnly: true, secure: false });
             user.password = null;
             return res.status(200).json(user);
         } else {
-            return res.status(401).json({ message: 'Password incorrect' });
+            return res.status(400).json({ message: 'Email or password incorrect' });
         }
     })
     .catch(err => {
         logger.error(err);
-        return res.status(500).json({ message: err });
+        return res.status(400).json({ message: "Email or password incorrect" });
     });
 }
 
