@@ -1,8 +1,11 @@
-<ngx-daterangepicker-material (choosedDate)="pickedDateTime($event)"
-                              [autoApply]="true"
-                              [timePicker24Hour]="true"
-                              [linkedCalendars]="true"
-                              [startDate]="selected?.startDate"
-                              [endDate]="selected?.endDate"
-                              [timePicker]="true"
-                              [locale]="locale"></ngx-daterangepicker-material>
+<div class="calendar-item-creator">
+  <ngx-daterangepicker-material (choosedDate)="pickedDateTime($event)"
+  [autoApply]="true"
+  [timePicker24Hour]="true"
+  [linkedCalendars]="true"
+  [startDate]="selected?.startDate"
+  [endDate]="selected?.endDate"
+  [timePicker]="true"
+  [locale]="locale"></ngx-daterangepicker-material>
+</div>
+

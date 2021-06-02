@@ -1,4 +1,4 @@
-@import "../utilities/effects.scss";
+@import "effects.scss";
 
 @mixin section {
     width: 85vw;
@@ -14,4 +14,63 @@
     max-height: 85%;
     margin: 1rem auto;
     overflow: auto;
+}
+
+@mixin date-picker {
+  .md-drppicker {
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+
+    .month {
+      color: $primary-color !important;
+      text-transform: capitalize !important;
+    }
+
+    .week-days {
+      th {
+        text-transform: uppercase !important;
+        font-weight: normal !important;
+        font-size: .7rem !important;
+      }
+    }
+
+    .available:not(.active, .off) {
+      color: $primary-color !important;
+    }
+
+    td.active {
+      background-color: $primary-color !important;
+    }
+
+    .select-item {
+      border-bottom: none !important;
+      background-color: $background-color !important;
+      padding: 10px 10px 10px 0 !important;
+      color: $primary-color !important;
+
+      &::after {
+        display: none !important;
+        color: $secondary-color !important;
+      }
+    }
+    .hourselect {
+      border-radius: 10px 0 0 10px !important;
+    }
+    .minuteselect {
+      border-radius: 0 10px 10px 0 !important;
+    }
+
+    ::-webkit-scrollbar {
+      width: .3rem;
+      border: none;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border: 0;
+      background-clip: padding-box;
+      border-radius: 20px;
+      background-color: $secondary-color;
+    }
+  }
 }
