@@ -1,5 +1,5 @@
 import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions} from "react-native";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {CalendarIcon} from "../../resources";
 import {Calendar} from 'react-native-calendars';
 import StyledText from "../../components/StyledText";
@@ -12,6 +12,9 @@ const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalInfo, setModalInfo] = useState();
     const [calendarData, setCalendarData] = useState({});
+
+    // const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
+    // getDatumElements(nowDateObj)
 
     const getDatumElements = (dateObj) => {
         const date = (dateObj['year']+'-'+dateObj['month']);
@@ -28,8 +31,6 @@ const CalendarScreen = () => {
         })
     };
 
-    const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
-    getDatumElements(nowDateObj)
     const closeModal = () => {
         setModalVisible(false);
     }
