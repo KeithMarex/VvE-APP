@@ -17,10 +17,6 @@ const AgendaSchema = new Schema({
     date: {
         type: Date,
         required: [true, 'A date/time is required for Agenda_item'],
-        // validate: { // Wellicht later toevoegen
-        //     validator: validateDate,
-        //     message: 'Please give a valid date/time'
-        // }
     },
     user: {
         type: Schema.Types.ObjectId,
