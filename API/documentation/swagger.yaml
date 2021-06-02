@@ -43,7 +43,7 @@ paths:
     $ref: ./ticket/deleteTicket.yaml
   /comment/:
     $ref: ./comment/postComment.yaml
-  /agenda/{from}/{to}/:
+  /agenda/{month}/:
     $ref: ./agenda/getAgenda.yaml
   /agenda/:
     $ref: ./agenda/postAgenda.yaml

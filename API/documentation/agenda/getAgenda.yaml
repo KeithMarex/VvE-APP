@@ -1,15 +1,9 @@
 get:
-  summary: Returns the Agenda Items in given timeframe.
+  summary: Returns the Agenda Items in given month.
   tags:
     - Agenda
   parameters:
-    - name: from
-      required: true
-      in: path
-      schema:
-        type: string
-        minimum: 1
-    - name: to
+    - name: month
       required: true
       in: path
       schema:
