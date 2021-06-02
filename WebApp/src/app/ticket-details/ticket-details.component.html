@@ -50,7 +50,7 @@
         <section class="image-section">
             <h1>Bijlagen</h1>
             <div class="ticket-images" *ngIf="ticket.images.length > 0">
-                <img *ngFor="let image of ticket.images" src="../../assets/img/image 1.png" alt="none">
+                <img *ngFor="let image of ticket.images" src="{{ image.image_url }}" alt="none">
             </div>
             <p *ngIf="ticket.images.length == 0">Geen bijlagen</p>
         </section>

@@ -1,8 +1,8 @@
-import { stringify } from '@angular/compiler/src/util';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Ticket } from 'src/shared/models/ticket.model';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 
 @Component({
@@ -13,10 +13,10 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: string;
-  private ticketSubscription: Subscription;
-  private creatorSubscription: Subscription;
+  private ticketIdSub: Subscription;
+  private creatorSub: Subscription;
 
-  constructor(private ticketEditorService: TicketEditorService, private router: Router) { }
+  constructor(private ticketEditorService: TicketEditorService, private router: Router, private ticketDao: TicketDao) { }
 
   ngOnInit(): void {
     this.getActiveTicket();
@@ -32,14 +32,23 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       this.ticket = parsedTicket;
     }
     else {
-      this.ticketSubscription = this.ticketEditorService.selectedTicket.subscribe(ticketToEdit => {
-        if (!ticketToEdit) {
+      this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
+        if (!ticketId) {
           this.router.navigate(['ticket-overview']);
         }
-        this.ticket = ticketToEdit;
-        sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+        else {
+          this.requestTicket(ticketId);
+        }
       })
     }
+  }
+
+  requestTicket(id: string) {
+    this.ticketDao.getTicketById(id)
+    .subscribe(response => {
+      this.ticket = response;
+      sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+    });
   }
 
   getCreatorName() {
@@ -49,7 +58,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       this.ticketCreator = storedCreator;
     }
     else {
-      this.creatorSubscription = this.ticketEditorService.ticketCreator.subscribe(creator => {
+      this.creatorSub = this.ticketEditorService.ticketCreator.subscribe(creator => {
         if (creator) {
           this.ticketCreator = creator;
           sessionStorage.setItem('creator', this.ticketCreator);
@@ -60,13 +69,13 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     sessionStorage.clear();
-    if (this.ticketSubscription)
+    if (this.ticketIdSub)
     {
-      this.ticketSubscription.unsubscribe();
+      this.ticketIdSub.unsubscribe();
     }
 
-    if (this.creatorSubscription) {
-      this.creatorSubscription.unsubscribe();
+    if (this.creatorSub) {
+      this.creatorSub.unsubscribe();
     }
   }
 
