@@ -1,5 +1,5 @@
 get:
-  summary: Returns the admins from the organization the person is in.
+  summary: Returns the users from a certain organization.
   tags:
     - User
   parameters:

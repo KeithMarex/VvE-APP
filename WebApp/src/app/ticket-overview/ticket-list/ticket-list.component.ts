@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Comment } from 'src/shared/models/comment.model';
-import { Image } from 'src/shared/models/image.model';
-import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
 import { Dao } from 'src/shared/services/dao.service';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
@@ -13,15 +10,14 @@ import { TicketDao } from 'src/shared/services/ticket-dao.service';
 })
 export class TicketListComponent implements OnInit {
   tickets: Ticket[] = [];
-  
 
   constructor(
     private ticketDao: TicketDao,
-    private Dao: Dao //TODO remove
+    private dao: Dao // TODO remove
   ) {}
 
   ngOnInit(): void {
-    this.Dao.forceLogin(); //TODO remove
+    this.dao.forceLogin(); // TODO remove
     this.getTickets();
   }
 
@@ -38,11 +34,11 @@ export class TicketListComponent implements OnInit {
           this.checkAssignee(incomingTicket.assignee),
           incomingTicket.status,
           incomingTicket.comments,
-          incomingTicket.tag, //FIXME
+          incomingTicket.tag, // FIXME
           incomingTicket.createdAt,
           incomingTicket.updatedAt
-        ))
-      })
+        ));
+      });
     });
   }
 

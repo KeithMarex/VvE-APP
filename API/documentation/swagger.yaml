@@ -8,8 +8,11 @@ tags:
   - name: Tag
   - name: Ticket
   - name: Comment
+  - name: Agenda
 
 paths:
+  /user:
+    $ref: ./user/getUsers.yaml
   /user/{id}:
     $ref: ./user/getUser.yaml
   /user/login:
@@ -40,3 +43,7 @@ paths:
     $ref: ./ticket/deleteTicket.yaml
   /comment/:
     $ref: ./comment/postComment.yaml
+  /agenda/{month}/:
+    $ref: ./agenda/getAgenda.yaml
+  /agenda/:
+    $ref: ./agenda/postAgenda.yaml

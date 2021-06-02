@@ -3,7 +3,6 @@ import logger from '~/util/Logger';
 import User from '~/models/User';
 import { sendMailToBestuur, sendMailToBewoner } from '~/util/Mailer';
 import { Types } from 'mongoose';
-import { resolve6 } from 'dns';
 
 export const getTickets = async(req, res) => {
     const user = res.locals.user;

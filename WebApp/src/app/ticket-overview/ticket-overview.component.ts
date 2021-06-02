@@ -13,15 +13,15 @@ export class TicketOverviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAdd() {
+  onAdd(): void {
     this.creatingTicket = true;
   }
 
-  onClose() {
+  onClose(): void {
     this.creatingTicket = false;
   }
 
-  onCreateTicket() {
+  onCreateTicket(): void {
     this.creatingTicket = false;
     window.location.reload();
   }

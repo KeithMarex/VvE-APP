@@ -16,7 +16,7 @@ export class NavigationBarComponent implements OnInit {
     this.ticketDao.getAllTickets()
     .subscribe(res => {
       this.ticketCount = res.length;
-    })
+    });
   }
 
 }
