@@ -1,7 +1,6 @@
 @import "../../utilities/effects.scss";
 
 .popup {
-    background-color: rgba($color: #DADADA, $alpha: 0.5);
     padding: 30px;
     top: 0;
     bottom: 0;
@@ -25,6 +24,7 @@
         max-height: 560px;
         border: none;
         border-radius: 15px;
+        z-index: 2;
         box-shadow: $default-box-shadow;
 
         .top-bar {
@@ -56,4 +56,10 @@
 
     }
 
+    .overlay {
+        position: absolute;
+        background-color: rgba($color: #DADADA, $alpha: 0.5);
+        width: 100%;
+        height: 100%;
+    }
 }
