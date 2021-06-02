@@ -203,7 +203,7 @@
         "tags": [
           "User"
         ],
-        "description": "User gets registered (User gets account) is for multiple and single account adding. \\n Needs to be in an array and only the email is required.",
+        "description": "User gets registered (User gets account) is for multiple and single account adding. \\n Needs to be in an array.",
         "requestBody": {
           "required": true,
           "content": {
