@@ -23,51 +23,8 @@ body {
     }
 
     #add-user-button {
-        position: relative;
-
         &::after {
             background: url('../../assets/icons/chevron.svg') no-repeat;
         }
-
-        .button-dropdown {
-            position: absolute;
-            visibility: hidden;
-            color: $primary-color;
-            background-color: #F7F7FC;
-            border: 2px solid $primary-color;
-            border-radius: 1rem;
-            width: inherit;
-            top: 2.7rem;
-
-            p {
-                padding: 0.5rem 1rem;
-                text-align: start;
-                font-size: 80%;
-            }
-
-            p:hover {
-                backdrop-filter: brightness(0.9);
-            }
-
-            .top-option:hover {
-                border-top-left-radius: 0.8rem;
-                border-top-right-radius: 0.8rem;
-            }
-
-            .bottom-option:hover {
-                border-bottom-left-radius: 0.8rem;
-                border-bottom-right-radius: 0.8rem;
-            }
-
-            hr {
-                border: none;
-                border-bottom: 1px solid $primary-color;
-                margin: 0 1rem;
-            }
-        }
-    }
-
-    #add-user-button:hover .button-dropdown {
-        visibility: visible;
     }
 }

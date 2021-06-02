@@ -32,3 +32,48 @@
         background-position: center !important;
     }
 }
+
+.dropdown-button {
+    position: relative;
+
+    .button-dropdown {
+        position: absolute;
+        visibility: hidden;
+        color: $primary-color;
+        background-color: #F7F7FC;
+        border: 2px solid $primary-color;
+        border-radius: 1rem;
+        width: inherit;
+        top: 2.7rem;
+
+        div {
+            padding: 0.5rem 1rem;
+            text-align: start;
+            font-size: 80%;
+        }
+
+        div:hover {
+            backdrop-filter: brightness(0.95);
+        }
+
+        .top-option:hover {
+            border-top-left-radius: 0.8rem;
+            border-top-right-radius: 0.8rem;
+        }
+
+        .bottom-option:hover {
+            border-bottom-left-radius: 0.8rem;
+            border-bottom-right-radius: 0.8rem;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid $primary-color;
+            margin: 0 1rem;
+        }
+    }
+}
+
+.dropdown-button:hover .button-dropdown {
+    visibility: visible;
+}
