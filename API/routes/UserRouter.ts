@@ -6,7 +6,7 @@ import { isAdmin } from '../middleware/IsAdmin';
 const router = Router();
 
 router.post('/login', login);
-router.post('/register', register);
+router.post('/register', isAuth, isAdmin, register);
 router.get('/', isAuth, getUsers);
 router.get('/:id', isAuth, getUser);
 router.get('/organization', isAuth, isAdmin, getUsersOrganization)
