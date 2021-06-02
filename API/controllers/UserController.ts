@@ -47,6 +47,19 @@ export const register = async(req, res) => {
     return res.status(201).json(await removePasswords(users));
 }
 
+export const getUsers = (req, res) => {
+    User.find({
+        "organizations": Types.ObjectId(res.locals.user.organization[0])
+    }).select('-password')
+    .then(result => {
+        res.status(200).json(result)
+    })
+    .catch( err => {
+        logger.error(err);
+        res.status(400).json({message: err})
+    })
+}
+
 export const getUser = (req, res) => {
     const id = req.params.id;
     User.findById(Types.ObjectId(id)).select('-password')
