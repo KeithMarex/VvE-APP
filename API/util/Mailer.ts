@@ -4,7 +4,7 @@ import User from "~/models/User";
 
 export const getHTML = async function(fileName){
     const pathToHtml = "./html/";
-    
+
     return readFileSync(pathToHtml + fileName, 'utf8');;
 }
 
@@ -17,7 +17,7 @@ export const getAllBoardMemberMails = async function() {
             emailComposition.push(user["email"]);
         });
     });
-    return emailComposition;   
+    return emailComposition;
 }
 
 export const getMailFromCreatorObject = async function(creatorObject) {
