@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { deleteAgenda, getAgenda, postAgenda, putAgenda } from '~/controllers/AgendaController';
+import { deleteAgenda, getAgenda, getAgendaNext, postAgenda, putAgenda } from '~/controllers/AgendaController';
 import { isAdmin } from '~/middleware/IsAdmin';
 
 const router = Router();
 
-router.post('/', isAdmin, postAgenda);
+router.get('/next', getAgendaNext);
 router.get('/:month', getAgenda);
+router.post('/', isAdmin, postAgenda);
 router.put('/:id', isAdmin, putAgenda);
 router.delete('/:id', isAdmin, deleteAgenda);
 

@@ -1095,6 +1095,32 @@
           }
         }
       }
+    },
+    "/agenda/next": {
+      "get": {
+        "summary": "Returns the next agenda item from today.",
+        "tags": [
+          "Agenda"
+        ],
+        "responses": {
+          "200": {
+            "description": "next agenda item from today",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1agenda~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Agenda does not exists"
+          },
+          "500": {
+            "description": "Error trying to get Agenda"
+          }
+        }
+      }
     }
   }
 }
