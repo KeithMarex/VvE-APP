@@ -22,7 +22,6 @@ export class TicketCreatorComponent implements OnInit {
   onCreateTicket(form: NgForm) {
     const formValues = form.value;
     const mForm = new FormData();
-    status = 'In afwachting';
 
     mForm.append('title', formValues.title);
     mForm.append('description', formValues.description);
