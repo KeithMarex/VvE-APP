@@ -8,7 +8,7 @@ const router = Router();
 router.post('/login', login);
 router.post('/register', register);
 router.get('/:id', isAuth, getUser);
-router.get('/organization/:id', isAuth, isAdmin, getUsersOrganization)
+router.get('/organization', isAuth, isAdmin, getUsersOrganization)
 // router.put('/:id', userController.putUser);
 // router.delete('/:id', userController.deleteUser);
 
