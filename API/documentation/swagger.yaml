@@ -11,6 +11,8 @@ tags:
   - name: Agenda
 
 paths:
+  /user:
+    $ref: ./user/getUsers.yaml
   /user/{id}:
     $ref: ./user/getUser.yaml
   /user/login:
