@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+        <title>Account aangemaakt</title>
         <style>
             body {
                 font-family: 'Poppins', sans-serif;
@@ -27,6 +28,7 @@
             p {
                 font-weight: 300;
                 font-size: 16px;
+                margin: 5px;
             }
 
             header {
@@ -69,6 +71,43 @@
                 text-align: center;
             }
 
+            #password {
+                text-align: center;
+                padding: 20px;
+                margin: 15px auto 15px auto;
+                background-color: #ECECEC;
+                width: 50%;
+                border-radius: 5px;
+            }
+
+            #password h3{
+                margin: 0;
+                font-style: bold;
+            }
+
+            #download {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            #appstore {
+                display: flex;
+                align-items: center;
+            }
+
+            #appstore img {
+                display: inherit;
+                align-items: center;
+                overflow: hidden;
+                border-radius: 13px;
+            }
+
+            #playstore img{
+                width: 150px;
+                height: auto;
+            }
+
             footer {
                 margin: 25px 0 0 0;
                 width: 80%;
@@ -89,6 +128,7 @@
                 color: #A7A7A7;
                 text-align: center;
                 line-height: 22px;
+                margin: 6px
             }
 
             @media only screen and (max-width: 500px) {
@@ -116,6 +156,19 @@
                 .icon svg {
                     width: 60px;
                     height: auto;
+                }
+
+                #password {
+                    width: 70%;
+                }
+
+                #download {
+                    flex-direction: column;
+                }
+
+                #appstore {
+                    display: inherit;
+                    justify-content: center;
                 }
 
                 footer h1 {
@@ -159,13 +212,32 @@
             </section>
             <section class="information">
                 <div id="information">
-                    <h1>Dit is de titel</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Blandit condimentum tortor.</p>
+                    <h1>Account aangemaakt</h1>
+                    <p>Hallo {{firstname}} {{lastname}}!</p>
+                    <p>Er staat een account voor je klaar met als wachtwoord:<p/>
+                    <div id="password">
+                        <h3>{{password}}</h3>
+                    </div>
+                    <p>Wijzig dit wachtwoord zo snel mogelijk via de app.</p>
+                    <br>
+                    <div id="download">
+                        <a id="playstore" href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>
+                            <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/>
+                        </a>
+                        <a id="appstore" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                            <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1250467200&h=d4c88f091ec0f6af1feeb784ed7adc94" alt="Download on the App Store">
+                        </a>
+                    </div>
                 </div>
             </section>
             <footer>
                 <h1>VvE de Nieuwe Wereld</h1>
-                <p>Deze mail wordt naar u verstuurd, omdat u lid bent van een VvE. Indien u niet lid bent van de VvE vragen wij u een mail te versturen naar: vvedenieuwewereld@gmail.com. De fout wordt dan zo snel mogelijk rechtgezet</p>
+                <p>
+                    Omdat je lid bent van VvE de nieuwe wereld krijg je deze mail. ( Wanneer dit niet het geval is wordt u verzocht dit te melden bij vvedenieuwewereld@gmail.com )
+                    De VvE waarin jij deelneemt heeft namelijk een app voor alle communicatie rondom het gebouw.
+                    Met de app is het mogelijk om klachten, opmerkingen of schade door te geven aan het bestuur en daarvan de status kunnen inzien.
+                    Verder deelt het bestuur informatie over eventuele zaken rondom het gebouw. En dit allemaal op 1 plek!
+                </p>
                 <p>Copyright © 2021</p>
             </footer>
         </article>
