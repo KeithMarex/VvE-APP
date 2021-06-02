@@ -9,10 +9,27 @@ export const getHTML = async (fileName) => {
     return readFileSync(filePath, 'utf-8').toString();
 }
 
-export const getAllBoardMemberMails = async () => {
+export const sendMail = async(subject, info, htlm) => {
+    let source = await getHTML(htlm)
+    if (info) {
+        source = addAttributes(source, info)
+    }
+    mailTransporter.sendMail({
+        from: process.env.MAIL_USER,
+        to: info.email,
+        subject: subject,
+        html: source
+    });
+}
+
+export const sendMailToAdmin = async  (subject, htmlFilePath) => {
+    sendMail(subject, htmlFilePath, await getAdminEmails());
+}
+
+const getAdminEmails = async () => {
     let emailComposition = [];
 
-    await User.find({ role: 'admin'}, "email", {}, function(err, docs){ // was async
+    await User.find({ role: 'admin'}, "email", {}, function(err, docs){
         if (!docs.length) return;
         docs.forEach(function(user) {
             emailComposition.push(user["email"]);
@@ -21,42 +38,15 @@ export const getAllBoardMemberMails = async () => {
     return emailComposition;
 }
 
-export const getMailFromCreatorObject = async (creatorObject) => {
-    const usermail = await User.find({_id: creatorObject}, "email");
+const addAttributes = (source, attributes) => {
+    const template = handlebars.compile(source);
+    source = template(attributes);
+    return source
+}
+
+const getEmail = async (userId) => {
+    const usermail = await User.find({_id: userId}, "email");
     return usermail[0]['email'];
-}
-
-export const sendMail = async (subject, htmlFilePath, emailList) => {
-    if(!emailList.length || !process.env.MAIL_USER || !process.env.MAIL_PASS) return;
-    mailTransporter.sendMail({
-        from: process.env.MAIL_USER,
-        to: emailList,
-        subject: subject,
-        html: await getHTML(htmlFilePath)
-    });
-}
-
-export const sendMailToBestuur = async  (subject, htmlFilePath) => {
-    sendMail(subject, htmlFilePath, await getAllBoardMemberMails());
-}
-
-export const sendMailToBewoner = async  (subject, htmlFilePath, bewonerID) => {
-    sendMail(subject, htmlFilePath, await getMailFromCreatorObject(bewonerID));
-}
-
-export const sendRegisterMail = async(subject, info, htlm) => {
-    let source = await getHTML(htlm)
-    if (info) {
-        const template = handlebars.compile(source);
-        const replacements = info;
-        source = template(replacements);
-    }
-    mailTransporter.sendMail({
-        from: process.env.MAIL_USER,
-        to: info.email,
-        subject: subject,
-        html: source
-    });
 }
 
 const mailTransporter = nodemailer.createTransport({
