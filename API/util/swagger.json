@@ -168,7 +168,7 @@
     },
     "/user/organization/{id}": {
       "get": {
-        "summary": "Returns the users from a specific organization.",
+        "summary": "Returns the admins from the organization the person is in.",
         "tags": [
           "User"
         ],
