@@ -4,6 +4,7 @@ import {
   ViewChild,
   TemplateRef,
 } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import {
   startOfDay,
   endOfDay,
@@ -21,6 +22,7 @@ import {
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
   CalendarView,
+  DAYS_OF_WEEK
 } from 'angular-calendar';
 
 const colors: any = {
@@ -48,6 +50,8 @@ export class CalendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
+
+  locale: string = 'nl';
 
   CalendarView = CalendarView;
 

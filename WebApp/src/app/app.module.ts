@@ -1,11 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
+import {
+  CalendarModule,
+  CalendarDateFormatter,
+  DateAdapter
+} from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import localeNl from '@angular/common/locales/nl';
+registerLocaleData(localeNl);
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,7 +70,7 @@ import { CalendarComponent } from './calendar-overview/calendar/calendar.compone
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory,
+      useFactory: adapterFactory
     }),
   ],
   providers: [
@@ -74,6 +81,10 @@ import { CalendarComponent } from './calendar-overview/calendar/calendar.compone
     AuthDao,
     UserDao,
     TicketEditorService,
+    {
+      provide: LOCALE_ID,
+      useValue: 'nl-NL',
+    }
   ],
   bootstrap: [AppComponent]
 })
