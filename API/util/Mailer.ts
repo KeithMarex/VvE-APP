@@ -5,12 +5,12 @@ import User from "~/models/User";
 import path from 'path'
 import Organization from "~/models/Organization";
 
-export const getHTML = async (fileName) => {
+export const getHTML = async (fileName: String) => {
     const filePath = path.join(__dirname, `../html/${fileName}.html`);
     return readFileSync(filePath, 'utf-8').toString();
 }
 
-export const sendMail = async(subject, info, htlm) => {
+export const sendMail = async(subject: String, info: any, htlm: String) => {
     let source = await getHTML(htlm)
     source = addAttributes(source, info)
     let email = await getEmail(info._id);
@@ -22,7 +22,7 @@ export const sendMail = async(subject, info, htlm) => {
     });
 }
 
-export const sendAdminMail = async(subject, organizationId, htlm) => {
+export const sendAdminMail = async(subject: String, organizationId, htlm: String) => {
     let source = await getHTML(htlm)
     let email = await getAdminEmail(organizationId);
     mailTransporter.sendMail({
