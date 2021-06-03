@@ -29,6 +29,7 @@ import { PopupComponent } from './popup/popup.component';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 import { AuthDao } from 'src/shared/services/auth-dao.service';
+import { CalendarDao } from 'src/shared/services/calendar-dao.service';
 import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
 import { TagItemComponent } from './tags-overview/tag-list/tag-item/tag-item.component';
@@ -87,6 +88,7 @@ import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-
     AuthDao,
     AuthDao,
     UserDao,
+    CalendarDao,
     TicketEditorService,
     {
       provide: LOCALE_ID,

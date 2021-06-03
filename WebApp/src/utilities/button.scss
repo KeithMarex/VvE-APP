@@ -12,6 +12,12 @@
     border-radius: 14px;
     box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
     cursor: pointer;
+    transition: opacity .2s ease-in-out;
+
+    &:disabled {
+        cursor: initial;
+        opacity: .8;
+    }
 }
 
 // TODO replace with mixin
