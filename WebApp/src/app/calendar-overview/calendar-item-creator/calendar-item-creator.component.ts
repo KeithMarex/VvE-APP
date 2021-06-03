@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import moment from 'moment';
 import { DaterangepickerComponent, DaterangepickerDirective } from 'ngx-daterangepicker-material';
 moment.locale('nl')
@@ -30,7 +31,9 @@ export class CalendarItemCreatorComponent implements OnInit {
     console.log(this.selected)
   }
 
-  onCreateItemClicked() {
+  onCreateItem(form: NgForm) {
+    const title = form.value.title;
+    const description = form.value.description;
 
   }
 

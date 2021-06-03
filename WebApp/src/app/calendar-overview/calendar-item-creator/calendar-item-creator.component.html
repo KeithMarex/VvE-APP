@@ -1,4 +1,4 @@
-<div class="calendar-item-creator">
+<form class="calendar-item-form" (ngSubmit)="onCreateItem(form)" #form="ngForm">
     <div class="creator-content">
       <ngx-daterangepicker-material
         (choosedDate)="pickedDateTime($event)"
@@ -15,12 +15,12 @@
         <div class="title-field">
           <input type="text" placeholder="Titel" name="title" required ngModel>
         </div>
-        <div class="content-field">
-          <textarea name="" id="" cols="30" rows="10" placeholder="Omschrijving" name="description" required ngModel></textarea>
+        <div class="description-field">
+          <textarea cols="30" rows="10" placeholder="Omschrijving" name="description" required ngModel></textarea>
         </div>
       </div>
     </div>
 
-    <button class="createBtn" (click)="onCreateItemClicked()">Aanmaken</button>
-</div>
+    <button class="createBtn" type="submit" [disabled]="form.invalid">Aanmaken</button>
+</form>
 
