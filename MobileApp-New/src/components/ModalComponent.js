@@ -6,8 +6,10 @@ import moment from "moment";
 import Button from "./Button";
 
 const ModalComponent = (props) => {
-    React.useEffect(() => { setModalVisible(props.visible);
+    React.useEffect(() => {
+        setModalVisible(props.visible);
         if (props.modalInfo !== undefined){
+            console.log(props.modalInfo);
             setDate(props.modalInfo['dateString']);
         }
     }, [props.visible]);

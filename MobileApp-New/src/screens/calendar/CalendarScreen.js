@@ -12,9 +12,7 @@ const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalInfo, setModalInfo] = useState();
     const [calendarData, setCalendarData] = useState({});
-
-    // const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
-    // getDatumElements(nowDateObj)
+    const [dataLoad, setDataLoad] = useState(true);
 
     const getDatumElements = (dateObj) => {
         const date = (dateObj['year']+'-'+dateObj['month']);
@@ -35,6 +33,12 @@ const CalendarScreen = () => {
         setModalVisible(false);
     }
 
+    if(dataLoad){
+        const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
+        getDatumElements(nowDateObj);
+        setDataLoad(false);
+    }
+
     return (
         <SafeAreaView style={styles.root}>
             <ModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo} />
@@ -53,10 +57,13 @@ const CalendarScreen = () => {
                     </View>
                     <View style={styles.calendarView}>
                         <Calendar style={{width: Dimensions.get('window').width * .7}} theme={{arrowColor: '#451864'}}
-                              markedDates={calendarData} onDayPress={(day) => {
+                              markingType={'custom'}
+                              markedDates={calendarData}
+                              onDayPress={(day) => {
                                   setModalInfo(day)
                                   setModalVisible(true);
                               }}
+                              loadItemsForMonth={() => {getDatumElements({'year': moment().year(), 'month': moment().month() + 1})}}
                               onMonthChange={(month) => {getDatumElements(month)}}
                               enableSwipeMonths={true}
                         />
@@ -75,7 +82,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000aa',
     },
     modalView: {
-        // margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
