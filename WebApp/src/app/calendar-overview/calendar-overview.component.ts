@@ -21,8 +21,8 @@ export class CalendarOverviewComponent implements OnInit {
     this.creatingCalendarItem = false;
   }
 
-  onItemAdded(item: any): void {
-
+  onCalendarItemCreated(calendarItem: any): void {
+    this.creatingCalendarItem = false;
   }
 
 }

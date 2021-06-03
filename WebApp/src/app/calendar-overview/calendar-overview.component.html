@@ -9,6 +9,6 @@
         <app-calendar></app-calendar>
     </section>
     <app-popup *ngIf="creatingCalendarItem" title="Nieuwe afspraak" (closed)="onAddItemPopUpClosed()">
-        <app-calendar-item-creator (itemAdded)="onItemAdded($event)"></app-calendar-item-creator>
+        <app-calendar-item-creator (calendarItemCreated)="onCalendarItemCreated($event)"></app-calendar-item-creator>
     </app-popup>
 </div>

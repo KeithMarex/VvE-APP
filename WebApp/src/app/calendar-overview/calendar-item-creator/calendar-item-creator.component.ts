@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DaterangepickerComponent, DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { CalendarDao } from 'src/shared/services/calendar-dao.service';
@@ -11,6 +11,7 @@ moment.locale('nl')
   styleUrls: ['./calendar-item-creator.component.scss']
 })
 export class CalendarItemCreatorComponent implements OnInit {
+  @Output() calendarItemCreated = new EventEmitter();
   selected: {startDate: moment.Moment, endDate: moment.Moment};
   inlineDate: any;
   dateTime: any;
@@ -29,7 +30,6 @@ export class CalendarItemCreatorComponent implements OnInit {
       monthNames: moment.months(),
       firstDay: moment.localeData().firstDayOfWeek()
     }
-    console.log(this.selected)
   }
 
   onCreateItem(form: NgForm) {
@@ -46,7 +46,7 @@ export class CalendarItemCreatorComponent implements OnInit {
 
     this.calendarDao.createCalendarItem(payload)
       .subscribe(response => {
-        // this.calendarItemCreated.emit();
+        this.calendarItemCreated.emit();
       })
   }
 
