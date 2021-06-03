@@ -1,19 +1,19 @@
 @import "effects.scss";
 
 @mixin section {
-    width: 85vw;
-    height: 80vh;
-    background-color: white;
-    border: 1px solid rgba($color: #000000, $alpha: 0.04);
-    border-radius: 8px;
-    box-shadow: $default-box-shadow;
+  width: 85vw;
+  height: 80vh;
+  background-color: white;
+  border: 1px solid rgba($color: #000000, $alpha: 0.04);
+  border-radius: 8px;
+  box-shadow: $default-box-shadow;
 }
 
 @mixin content-section {
-    box-sizing: border-box;
-    max-height: 85%;
-    margin: 1rem auto;
-    overflow: auto;
+  box-sizing: border-box;
+  max-height: 85%;
+  margin: 1rem auto;
+  overflow: auto;
 }
 
 @mixin date-picker {
@@ -72,5 +72,56 @@
       border-radius: 20px;
       background-color: $secondary-color;
     }
+  }
+}
+
+@mixin calendar {
+  .cal-header {
+    text-transform: capitalize !important;
+    color: #988c8c !important;
+    font-weight: 300 !important;
+    b {
+      font-weight: 300 !important;
+    }
+  }
+
+  .cal-days {
+    border: none !important;
+    margin-top: 10px !important;
+    .cal-today:not(.cal-open) {
+      background-color: rgba($secondary-color, .6) !important;
+      &:hover {
+        background-color: #EDEDED !important;
+      }
+    }
+    .cal-day-badge {
+      background-color: $primary-color;
+    }
+  }
+  .cal-day-cell {
+    border: none !important;
+    border-radius: 10px !important;
+    transition: border-radius .5s ease-in-out !important;
+  }
+  .cal-cell-row {
+    border: none !important;
+  }
+  .cal-open-day-events {
+    box-shadow: none !important;
+    background-color: #EDEDED  !important;
+    color: black !important;
+  }
+  .cal-open {
+    border-radius: 10px 10px 0 0 !important;
+    //background-color: $background-color !important;
+  }
+
+  .cal-day-number {
+    color: $primary-color !important;
+    opacity: 1 !important;
+  }
+
+  .ng-star-inserted {
+    //background-color: red;
   }
 }

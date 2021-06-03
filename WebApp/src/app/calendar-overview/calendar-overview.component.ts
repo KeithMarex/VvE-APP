@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calendar-overview.component.scss']
 })
 export class CalendarOverviewComponent implements OnInit {
-  creatingCalendarItem: boolean = true;
+  creatingCalendarItem: boolean = false;
 
   constructor() { }
 

@@ -46,4 +46,5 @@ header {
     height: auto;
 }
 
-@include date-picker()
+@include date-picker();
+@include calendar();
