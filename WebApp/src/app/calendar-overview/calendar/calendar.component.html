@@ -1,52 +1,60 @@
-<div >
-  <div>
-    <div>
+<div class="calendar-wrapper">
+  <div class="calendar-nav">
+    <div class="calendar-nav-calendar-types">
+      <div
+        (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"
+        class="calendar-type"
+      >
+        Maand
+      </div>
+      <span class="calendar-type-separator">&bull;</span>
+      <div
+        (click)="setView(CalendarView.Week)"
+        [class.active]="view === CalendarView.Week"
+        class="calendar-type"
+      >
+        Week
+      </div>
+      <span class="calendar-type-separator">&bull;</span>
+      <div
+        (click)="setView(CalendarView.Day)"
+        [class.active]="view === CalendarView.Day"
+        class="calendar-type"
+      >
+        Dag
+      </div>
+    </div>
+
+    <div class="calendar-nav-date">
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'nl' }}</h3>
+    </div>
+
+    <div class="calendar-nav-date-navigator">
       <div
         mwlCalendarPreviousView
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
+        class="nav-date-navigator-btn nav-date-navigator-btn-prev"
       >
-        Vorige
+        <img src="../../../assets/icons/chevron.svg" alt="Vorige">
       </div>
       <div
         mwlCalendarToday
         [(viewDate)]="viewDate"
+        class="nav-date-navigator-btn nav-date-navigator-btn-today"
       >
-        Vandaag
+        <img src="../../../assets/icons/circle.svg" alt="Vandaag">
       </div>
       <div
         mwlCalendarNextView
         [view]="view"
         [(viewDate)]="viewDate"
         (viewDateChange)="closeOpenMonthViewDay()"
+        class="nav-date-navigator-btn nav-date-navigator-btn-next"
       >
-        Volgende
-      </div>
-    </div>
-  </div>
-  <div>
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'nl' }}</h3>
-  </div>
-  <div>
-    <div>
-      <div
-        (click)="setView(CalendarView.Month)"
-        [class.active]="view === CalendarView.Month"
-      >
-        Maand
-      </div>
-      <div
-        (click)="setView(CalendarView.Week)"
-        [class.active]="view === CalendarView.Week"
-      >
-        Week
-      </div>
-      <div
-        (click)="setView(CalendarView.Day)"
-        [class.active]="view === CalendarView.Day"
-      >
-        Dag
+        <img src="../../../assets/icons/chevron.svg" alt="Volgende">
       </div>
     </div>
   </div>
