@@ -3,7 +3,8 @@ import { registerLocaleData } from '@angular/common';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
+import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from "./custom-event";
 
 const colors: any = {
   red: {
@@ -31,29 +32,26 @@ export class CalendarComponent {
 
   view: CalendarView = CalendarView.Month;
 
-  locale: string = 'nl';
+  locale = 'nl';
 
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
+  modalEvent: CustomEvent;
 
-  actions: CalendarEventAction[] = [
+  actions: CustomEventAction[] = [
     {
       label: '<span class="calendar-icon calendar-edit-icon"/>',
       a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
+      onClick: ({ event }: { event: CustomEvent }): void => {
         this.handleEvent('Edited', event);
       },
     },
     {
       label: '<span class="calendar-icon calendar-delete-icon"/>',
       a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
+      onClick: ({ event }: { event: CustomEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
         this.handleEvent('Deleted', event);
       },
@@ -62,11 +60,12 @@ export class CalendarComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
+  events: CustomEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
-      title: 'A 3 day event',
+      title: 'VvE pyjama party',
+      description: 'Iedereen is welkom bij dit fantastische pyjama feestje. Trek je mooiste pyjama aan en neem een goed humeur mee.',
       color: colors.red,
       actions: this.actions,
       allDay: true,
@@ -75,10 +74,12 @@ export class CalendarComponent {
         afterEnd: true,
       },
       draggable: true,
+      id: 'abc123'
     },
     {
       start: startOfDay(new Date()),
       title: 'An event with no end date',
+      description: '2',
       color: colors.yellow,
       actions: this.actions,
     },
@@ -86,6 +87,7 @@ export class CalendarComponent {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
+      description: '3',
       color: colors.blue,
       allDay: true,
     },
@@ -93,6 +95,7 @@ export class CalendarComponent {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
+      description: '3',
       color: colors.yellow,
       actions: this.actions,
       resizable: {
@@ -107,7 +110,7 @@ export class CalendarComponent {
 
   constructor(private modal: NgbModal) {}
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -125,7 +128,7 @@ export class CalendarComponent {
                       event,
                       newStart,
                       newEnd,
-                    }: CalendarEventTimesChangedEvent): void {
+                    }: CustomEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -139,9 +142,9 @@ export class CalendarComponent {
     this.handleEvent('Dropped or resized', event);
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+  handleEvent(action: string, event: CustomEvent): void {
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
   addEvent(): void {
@@ -149,6 +152,7 @@ export class CalendarComponent {
       ...this.events,
       {
         title: 'New event',
+        description: 'New',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
         color: colors.red,
@@ -161,7 +165,7 @@ export class CalendarComponent {
     ];
   }
 
-  deleteEvent(eventToDelete: CalendarEvent): void {
+  deleteEvent(eventToDelete: CustomEvent): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
@@ -171,5 +175,13 @@ export class CalendarComponent {
 
   closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
+  }
+
+  showEventPopUp(eventToShow: CustomEvent): void {
+    this.modalEvent = eventToShow;
+  }
+
+  closeEventPopUp(): void {
+    this.modalEvent = null;
   }
 }

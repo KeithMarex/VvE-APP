@@ -69,7 +69,7 @@
     [activeDayIsOpen]="activeDayIsOpen"
     [locale]="locale"
     (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventClicked)="showEventPopUp( $event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-month-view>
@@ -204,3 +204,7 @@
     </button>
   </div>
 </ng-template>
+
+<app-popup *ngIf="modalEvent" title="{{modalEvent.title}}" (closed)="closeEventPopUp()">
+  <p>{{ modalEvent.description }}</p>
+</app-popup>
