@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
       .login(
         values.email,
         values.password,
-        // 'admin@test.com',
-        // 'test'
       )
       .subscribe(
         (user: User) => {
