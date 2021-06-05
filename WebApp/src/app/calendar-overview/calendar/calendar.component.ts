@@ -45,16 +45,15 @@ export class CalendarComponent {
       label: '<span class="calendar-icon calendar-edit-icon"/>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CustomEvent }): void => {
-        this.handleEvent('Edited', event);
+        this.editEvent(event);
       },
     },
     {
       label: '<span class="calendar-icon calendar-delete-icon"/>',
       a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CustomEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
+      onClick: (({ event }: { event: CustomEvent }): void => {
+        this.deleteEvent(event);
+      }),
     },
   ];
 
@@ -108,27 +107,17 @@ export class CalendarComponent {
 
   activeDayIsOpen = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor() {}
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
+      this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0);
       this.viewDate = date;
     }
   }
 
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd,
-                    }: CustomEventTimesChangedEvent): void {
+  eventTimesChanged({ event, newStart, newEnd }: CustomEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -139,7 +128,8 @@ export class CalendarComponent {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
+    // TODO handle change
+    console.log(event);
   }
 
   handleEvent(action: string, event: CustomEvent): void {
@@ -167,6 +157,10 @@ export class CalendarComponent {
 
   deleteEvent(eventToDelete: CustomEvent): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
+  }
+
+  editEvent(eventToEdit: CustomEvent): void {
+    this.modalEvent = eventToEdit;
   }
 
   setView(view: CalendarView): void {
