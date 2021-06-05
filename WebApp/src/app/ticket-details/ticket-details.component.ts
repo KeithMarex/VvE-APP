@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
+import { User } from 'src/shared/models/user.model';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
+import { UserDao } from 'src/shared/services/user-dao.service';
 
 @Component({
   selector: 'app-ticket-details',
@@ -25,7 +27,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   private ticketSubscription: Subscription;
   private creatorSubscription: Subscription;
 
-  constructor(private ticketEditorService: TicketEditorService, private router: Router, private tagDao: TagDao) { }
+  constructor(private ticketEditorService: TicketEditorService, private router: Router, private tagDao: TagDao,
+    private userDao: UserDao) { }
 
   ngOnInit(): void {
     this.getActiveTicket();
@@ -52,7 +55,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
         sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
       })
     }
-    console.log(this.ticket);
   }
 
   getCreatorName() {
@@ -106,10 +108,17 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getAssignees(): void {
-    this.assignees.push("Hicham Ben Yessef");
-    this.assignees.push("Michiel Boere");
-    this.assignees.push("Nog niet toegewezen");
     this.selectedAssignee = "Nog niet toegewezen";
+
+    this.userDao.getUsersByOrganization()
+      .subscribe((incomingUsers: User[]) => {
+        incomingUsers.forEach(incomingUser => {
+          if (incomingUser.role == 'admin') {
+            this.assignees.push(incomingUser.firstname + " " + incomingUser.lastname);
+          }
+        })
+        this.assignees.push("Nog niet toegewezen");
+      });
   }
 
   ngOnDestroy(): void {
