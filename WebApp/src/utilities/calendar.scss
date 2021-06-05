@@ -64,44 +64,90 @@
     text-transform: capitalize !important;
     color: #988c8c !important;
     font-weight: 300 !important;
+
     b {
       font-weight: 300 !important;
     }
   }
 
-  .cal-days {
-    border: none !important;
-    margin-top: 10px !important;
-    .cal-today:not(.cal-open) {
-      background-color: rgba($secondary-color, .6) !important;
-      &:hover {
-        background-color: #EDEDED !important;
+  .cal-event-action {
+    .calendar-icon {
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      background-size: cover;
+      opacity: .5;
+      margin-left: 2px;
+      filter: invert(53%) sepia(0%) saturate(36%) hue-rotate(172deg) brightness(88%) contrast(86%);
+      transition: all .1s ease-in-out;
+
+      &:hover, &:focus {
+        filter: none;
       }
     }
-    .cal-day-badge {
-      background-color: $primary-color !important;
+
+    .calendar-delete-icon {
+      background-image: url(../assets/icons/delete.svg);
+      transform: translateY(2px);
     }
 
-    .cal-day-cell {
+    .calendar-edit-icon {
+      background-image: url(../assets/icons/edit.svg);
+      transform: translateY(3px);
+    }
+  }
+
+  .cal-month-view {
+    .cal-days {
       border: none !important;
-      border-radius: 10px !important;
-      transition: border-radius .5s ease-in-out !important;
-    }
-    .cal-cell-row {
-      border: none !important;
-    }
-    .cal-open-day-events {
-      box-shadow: none !important;
-      background-color: #EDEDED  !important;
-      color: black !important;
-    }
-    .cal-open {
-      border-radius: 10px 10px 0 0 !important;
+      margin-top: 10px !important;
+      .cal-today:not(.cal-open) {
+        background-color: rgba($secondary-color, .6) !important;
+        &:hover {
+          background-color: #EDEDED !important;
+        }
+      }
+      .cal-day-badge {
+        background-color: $primary-color !important;
+      }
+
+      .cal-day-cell {
+        border: none !important;
+        border-radius: 10px !important;
+        transition: border-radius .5s ease-in-out !important;
+      }
+      .cal-cell-row {
+        border: none !important;
+      }
+      .cal-open-day-events {
+        box-shadow: none !important;
+        background-color: #EDEDED  !important;
+        color: black !important;
+      }
+      .cal-open {
+        border-radius: 10px 10px 0 0 !important;
+      }
+
+      .cal-day-number {
+        color: $primary-color !important;
+        opacity: 1 !important;
+      }
     }
 
-    .cal-day-number {
-      color: $primary-color !important;
-      opacity: 1 !important;
+    .cal-event-action {
+      .calendar-icon {
+        width: 17px;
+        height: 17px;
+        margin-left: 7px;
+
+        .calendar-delete-icon {
+          transform: translateY(3px);
+        }
+
+        .calendar-edit-icon {
+          transform: translateY(4px);
+        }
+      }
     }
   }
 
