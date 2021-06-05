@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import supertest from 'supertest';
 import should from 'should';
 import { describe, it } from 'mocha';
@@ -5,7 +6,7 @@ import { describe, it } from 'mocha';
 // https://codeforgeek.com/unit-testing-nodejs-application-using-mocha/
 
 // This is a reference to where the api is running
-const server = supertest.agent("http://localhost:3000");
+const server = supertest.agent(`http://localhost:${process.env.PORT}`);
 
 // Unit tests
 

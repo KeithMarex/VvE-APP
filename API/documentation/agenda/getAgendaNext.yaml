@@ -1,17 +1,10 @@
 get:
-  summary: Returns the Agenda Items in given month.
+  summary: Returns the next agenda item from today.
   tags:
     - Agenda
-  parameters:
-    - name: month
-      required: true
-      in: path
-      schema:
-        type: string
-        minimum: 1
   responses:
     '200':
-      description: Agenda objects
+      description: next agenda item from today
       content:
         application/json:
           schema:

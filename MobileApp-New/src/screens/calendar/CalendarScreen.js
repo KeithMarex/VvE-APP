@@ -1,13 +1,43 @@
 import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions} from "react-native";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {CalendarIcon} from "../../resources";
 import {Calendar} from 'react-native-calendars';
 import StyledText from "../../components/StyledText";
 import PageLogo from "../../components/PageLogo";
+import ModalComponent from "../../components/ModalComponent";
+import ApiHelper from "../../util/ApiHelper";
+import moment from "moment";
 
 const CalendarScreen = () => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalInfo, setModalInfo] = useState();
+    const [calendarData, setCalendarData] = useState({});
+
+    // const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
+    // getDatumElements(nowDateObj)
+
+    const getDatumElements = (dateObj) => {
+        const date = (dateObj['year']+'-'+dateObj['month']);
+
+        ApiHelper.get(`/agenda/${date}`).then(res => {
+            const dates = {};
+            if (res['data'].length !== 0 ){
+                res['data'].forEach(val => {
+                    const dateVal = val['date'].split('T', 1);
+                    dates[dateVal] = {marked: true, dotColor: '#451864', id: val['_id']};
+                })
+            }
+            setCalendarData(dates);
+        })
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+
     return (
         <SafeAreaView style={styles.root}>
+            <ModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo} />
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
                     <PageLogo/>
@@ -23,9 +53,12 @@ const CalendarScreen = () => {
                     </View>
                     <View style={styles.calendarView}>
                         <Calendar style={{width: Dimensions.get('window').width * .7}} theme={{arrowColor: '#451864'}}
-                              markedDates={{
-                                  '2021-06-19': {marked: true, dotColor: '#451864'},
+                              markedDates={calendarData} onDayPress={(day) => {
+                                  setModalInfo(day)
+                                  setModalVisible(true);
                               }}
+                              onMonthChange={(month) => {getDatumElements(month)}}
+                              enableSwipeMonths={true}
                         />
                     </View>
                 </View>
@@ -35,6 +68,47 @@ const CalendarScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: '#000000aa',
+    },
+    modalView: {
+        // margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
     informatie: {
         flex: 1,
         color: '#6E7191',

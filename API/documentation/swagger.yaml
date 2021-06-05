@@ -11,6 +11,8 @@ tags:
   - name: Agenda
 
 paths:
+  /user:
+    $ref: ./user/getUsers.yaml
   /user/{id}:
     $ref: ./user/getUser.yaml
   /user/login:
@@ -41,7 +43,15 @@ paths:
     $ref: ./ticket/deleteTicket.yaml
   /comment/:
     $ref: ./comment/postComment.yaml
-  /agenda/{from}/{to}/:
+  /agenda/{month}/:
     $ref: ./agenda/getAgenda.yaml
+  /agenda/details/{id}:
+    $ref: ./agenda/getAgendaDetails.yaml
+  /agenda/next:
+    $ref: ./agenda/getAgendaNext.yaml
   /agenda/:
     $ref: ./agenda/postAgenda.yaml
+  /agenda/{id}/:
+    $ref: ./agenda/putAgenda.yaml
+  /agenda/{id}//:
+    $ref: ./agenda/deleteAgenda.yaml
