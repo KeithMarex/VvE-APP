@@ -7,7 +7,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {
   CalendarModule,
   CalendarDateFormatter,
-  DateAdapter
+  DateAdapter, CalendarNativeDateFormatter, DateFormatterParams
 } from 'angular-calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -44,6 +44,15 @@ import { AccountItemComponent } from './account-management/account-list/account-
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
 
+class CustomDateFormatter extends CalendarNativeDateFormatter {
+  public dayViewHour({ date, locale }: DateFormatterParams): string {
+    return new Intl.DateTimeFormat('ca', {
+      hour: 'numeric',
+      minute: 'numeric'
+    }).format(date);
+  }
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +87,11 @@ import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
+    }, {
+      dateFormatter: {
+        provide: CalendarDateFormatter,
+        useClass: CustomDateFormatter
+      }
     }),
     NgxDaterangepickerMd.forRoot()
   ],

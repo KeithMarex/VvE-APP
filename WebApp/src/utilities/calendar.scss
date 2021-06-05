@@ -1,0 +1,122 @@
+@import "colors.scss";
+
+@mixin date-picker {
+  .md-drppicker {
+    font-family: 'Inter', sans-serif !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+
+    .month {
+      color: $primary-color !important;
+      text-transform: capitalize !important;
+    }
+
+    .week-days {
+      th {
+        text-transform: uppercase !important;
+        font-weight: normal !important;
+        font-size: .7rem !important;
+      }
+    }
+
+    .available:not(.active, .off) {
+      color: $primary-color !important;
+    }
+
+    td.active {
+      background-color: $primary-color !important;
+    }
+
+    .select-item {
+      border-bottom: none !important;
+      background-color: $background-color !important;
+      padding: 10px 10px 10px 0 !important;
+      color: $primary-color !important;
+
+      &::after {
+        display: none !important;
+        color: $secondary-color !important;
+      }
+    }
+    .hourselect {
+      border-radius: 10px 0 0 10px !important;
+    }
+    .minuteselect {
+      border-radius: 0 10px 10px 0 !important;
+    }
+
+    ::-webkit-scrollbar {
+      width: .3rem;
+      border: none;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border: 0;
+      background-clip: padding-box;
+      border-radius: 20px;
+      background-color: $secondary-color;
+    }
+  }
+}
+
+@mixin calendar {
+  .cal-header {
+    text-transform: capitalize !important;
+    color: #988c8c !important;
+    font-weight: 300 !important;
+    b {
+      font-weight: 300 !important;
+    }
+  }
+
+  .cal-days {
+    border: none !important;
+    margin-top: 10px !important;
+    .cal-today:not(.cal-open) {
+      background-color: rgba($secondary-color, .6) !important;
+      &:hover {
+        background-color: #EDEDED !important;
+      }
+    }
+    .cal-day-badge {
+      background-color: $primary-color !important;
+    }
+
+    .cal-day-cell {
+      border: none !important;
+      border-radius: 10px !important;
+      transition: border-radius .5s ease-in-out !important;
+    }
+    .cal-cell-row {
+      border: none !important;
+    }
+    .cal-open-day-events {
+      box-shadow: none !important;
+      background-color: #EDEDED  !important;
+      color: black !important;
+    }
+    .cal-open {
+      border-radius: 10px 10px 0 0 !important;
+    }
+
+    .cal-day-number {
+      color: $primary-color !important;
+      opacity: 1 !important;
+    }
+  }
+
+  .cal-week-view {
+    .cal-day-headers {
+      .cal-today {
+        background-color: rgba($secondary-color, .7) !important;
+        color: black !important;
+      }
+
+      .cal-weekend {
+        span {
+          //color: $primary-color !important;
+        }
+      }
+    }
+  }
+}
