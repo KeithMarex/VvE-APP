@@ -79,7 +79,7 @@
     [events]="events"
     [refresh]="refresh"
     [locale]="locale"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventClicked)="showEventPopUp( $event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-week-view>
@@ -89,7 +89,7 @@
     [events]="events"
     [refresh]="refresh"
     [locale]="locale"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
+    (eventClicked)="showEventPopUp( $event.event)"
     (eventTimesChanged)="eventTimesChanged($event)"
   >
   </mwl-calendar-day-view>
