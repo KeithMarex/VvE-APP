@@ -20,20 +20,18 @@ export class TagListComponent implements OnInit {
   }
 
   getTags(): void {
-      this.tags.push(new Tag('1', 'prachtige tag', '#C40000', new Date(), new Date()));
-      this.tags.push(new Tag('2', 'leuke tag', '#14FF01', new Date(), new Date()));
-    // this.tagDao.getAllTags()
-    // .subscribe((incomingtags: Tag[]) => {
-    //   incomingtags.forEach(incomingTag => {
-    //     this.tags.push(new Tag(
-    //       incomingTag._id,
-    //       incomingTag.name,
-    //       incomingTag.color,
-    //       incomingTag.createdAt,
-    //       incomingTag.updatedAt
-    //     ))
-    //   })
-    // });
+    this.tagDao.getAllTags()
+    .subscribe((incomingtags: Tag[]) => {
+      incomingtags.forEach(incomingTag => {
+        this.tags.push(new Tag(
+          incomingTag._id,
+          incomingTag.name,
+          incomingTag.color,
+          incomingTag.createdAt,
+          incomingTag.updatedAt
+        ))
+      })
+    });
       console.log(this.tags);
   }
 
