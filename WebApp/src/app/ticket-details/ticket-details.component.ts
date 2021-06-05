@@ -2,7 +2,9 @@ import { stringify } from '@angular/compiler/src/util';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
+import { TagDao } from 'src/shared/services/tag-dao.service';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 
 @Component({
@@ -13,14 +15,24 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: string;
+  selectedStatus: string;
+  statuses: string[] = ["PENDING", "HANDLING", "HANDLED"];
+  selectedTag: Tag;
+  tags: Tag[] = [];
+  selectedAssignee: string;
+  assignees: string[] = [];
+
   private ticketSubscription: Subscription;
   private creatorSubscription: Subscription;
 
-  constructor(private ticketEditorService: TicketEditorService, private router: Router) { }
+  constructor(private ticketEditorService: TicketEditorService, private router: Router, private tagDao: TagDao) { }
 
   ngOnInit(): void {
     this.getActiveTicket();
     this.getCreatorName();
+    this.getTags();
+    this.getSelectedStatus();
+    this.getAssignees();
   }
 
   getActiveTicket() {
@@ -40,6 +52,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
         sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
       })
     }
+    console.log(this.ticket);
   }
 
   getCreatorName() {
@@ -56,6 +69,47 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
         }
       })
     }
+  }
+
+  getTags(): void {
+    this.tagDao.getAllTags()
+    .subscribe((incomingtags: Tag[]) => {
+      incomingtags.forEach(incomingTag => {
+        this.tags.push(new Tag(
+          incomingTag._id,
+          incomingTag.name,
+          incomingTag.color,
+          incomingTag.createdAt,
+          incomingTag.updatedAt
+        ))
+      })
+      this.getSelectedTag();
+    });
+  }
+
+  getSelectedTag(): void {
+    if (this.ticket.tag) {
+      this.selectedTag = this.ticket.tag;
+    }
+    else {
+      this.selectedTag = this.tags[0];
+    }
+  }
+
+  getSelectedStatus(): void {
+    if (this.ticket.status) {
+      this.selectedStatus = this.ticket.status;
+    }
+    else {
+      this.selectedStatus = this.statuses[0];
+    }
+  }
+
+  getAssignees(): void {
+    this.assignees.push("Hicham Ben Yessef");
+    this.assignees.push("Michiel Boere");
+    this.assignees.push("Nog niet toegewezen");
+    this.selectedAssignee = "Nog niet toegewezen";
   }
 
   ngOnDestroy(): void {

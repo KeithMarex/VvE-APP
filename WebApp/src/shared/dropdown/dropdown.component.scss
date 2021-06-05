@@ -1,13 +1,12 @@
-@import "/src/app/shared/variables";
+@import "../../utilities/colors.scss";
+
 
 .dropdown-container {
     position: relative;
 
     .dropdown {
-        padding: 10px 20px;
-        background-color: $color-gray-100;
-        border-radius: $border-radius;
-        border: 1px solid $color-gray-200;
+        padding: 2px 10px;
+        border-radius: 10px;
         display: flex;
         position: relative;
         cursor: pointer;
@@ -22,29 +21,25 @@
             margin-left: auto;
             width: 40px;
             height: calc(100% + 2px);
-            background-color: $color-primary;
             display: block;
             position: absolute;
             right: -1px;
             top: -1px;
-            border-top-right-radius: $border-radius;
-            border-bottom-right-radius: $border-radius;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-
-            fa-icon {
-                font-size: 13px;
-            }
         }
     }
 
     .options {
-        width: 100%;
+        border: 1px solid $primary-color;
+        width: 80%;
         padding: 0 20px;
-        background-color: $color-white;
-        border-radius: $border-radius;
-        box-shadow: $shadow-dark;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
         position: absolute;
         top: 100%;
         left: 0;
@@ -58,7 +53,7 @@
 
         li {
             padding: 13px 0;
-            border-bottom: 1px solid $color-gray-300;
+            border-bottom: 1px solid $primary-color;
             cursor: pointer;
 
             &::ng-deep p {
