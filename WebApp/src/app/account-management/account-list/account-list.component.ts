@@ -13,10 +13,10 @@ export class AccountListComponent implements OnInit {
   constructor(private userDao: UserDao) {}
 
   ngOnInit(): void {
-    this.fetchOrganizationUsers();
+    this.getOrganizationUsers();
   }
 
-  fetchOrganizationUsers() {
+  getOrganizationUsers() {
     this.userDao.getUsersByOrganization()
     .subscribe(responseUsers => {
       this.users = responseUsers;

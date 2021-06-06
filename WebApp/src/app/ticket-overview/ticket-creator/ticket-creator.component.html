@@ -33,6 +33,7 @@
                     <option value="Afgehandeld">Afgehandeld</option>
                 </select>
             </div>
+            <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
             <button type="submit" [disabled]="form.invalid">Aanmaken</button>
         </div>
     </form>

@@ -23,7 +23,12 @@ export class AccountCreatorComponent implements OnInit {
     const mailValid = this.validateEmail(formValues.email, formValues.confirmEmail);
 
     if (mailValid) {
-      this.userDao.registerUser(formValues.email, formValues.firstname, formValues.lastname).subscribe();
+      this.userDao.registerUser(formValues.email, formValues.firstname, formValues.lastname).subscribe(
+        res => {},
+        errorRes => {
+          this.errorMessage = errorRes.error.message;
+        }
+      );
     }
     else {
       this.displayErrorMessage('Controleer of uw email op beide plekken correct is ingevoerd.');

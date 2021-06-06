@@ -12,11 +12,12 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 export class TicketCreatorComponent implements OnInit {
   @Output() ticketCreated = new EventEmitter();
   organizationMembers: User[];
+  errorMessage: string;
 
   constructor(private ticketDao: TicketDao, private userDao: UserDao) { }
 
   ngOnInit(): void {
-    this.fetchOrganizationUsers();
+    this.getOrganizationUsers();
   }
 
   onCreateTicket(form: NgForm) {
@@ -31,9 +32,14 @@ export class TicketCreatorComponent implements OnInit {
     mForm.append('status', this.formatStatus(formValues.status));
 
     this.ticketDao.createTicket(mForm)
-    .subscribe(response => {
+    .subscribe(
+      res => {
       this.ticketCreated.emit();
-    })
+      }, 
+      errorRes => {
+        this.errorMessage = errorRes.error.message;
+      }
+    );
   }
 
   formatStatus(status: string): string {
@@ -53,7 +59,7 @@ export class TicketCreatorComponent implements OnInit {
     }
   }
 
-  fetchOrganizationUsers() {
+  getOrganizationUsers() {
     this.userDao.getUsersByOrganization()
     .subscribe(responseUsers => {
       this.organizationMembers = responseUsers;
