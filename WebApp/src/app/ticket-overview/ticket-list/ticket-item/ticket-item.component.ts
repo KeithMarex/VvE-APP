@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/shared/models/ticket.model';
 import { User } from 'src/shared/models/user.model';
@@ -44,7 +44,7 @@ export class TicketItemComponent implements OnInit {
   }
 
   onEdit() {
-    this.ticketEditorService.selectedTicket.next(this.ticket);
+    this.ticketEditorService.selectedTicketId.next(this.ticket._id);
     this.ticketEditorService.ticketCreator.next(this.creator); //FIXME pass on full User
     this.router.navigate(['ticket-details/' + this.ticket._id]);
   }

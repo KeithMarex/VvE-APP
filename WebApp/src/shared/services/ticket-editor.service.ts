@@ -5,6 +5,6 @@ import { User } from "../models/user.model";
 
 @Injectable()
 export class TicketEditorService {
-    selectedTicket = new BehaviorSubject<Ticket>(null);
+    selectedTicketId = new BehaviorSubject<string>(null);
     ticketCreator = new BehaviorSubject<User>(null);
 }

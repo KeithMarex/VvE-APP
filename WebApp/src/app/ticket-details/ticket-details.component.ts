@@ -14,7 +14,7 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: User;
-  private ticketSub: Subscription;
+  private ticketIdSub: Subscription;
   private creatorSub: Subscription;
 
   constructor(private ticketEditorService: TicketEditorService, private router: Router, private ticketDao: TicketDao) { }
@@ -31,13 +31,18 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       this.ticket =  JSON.parse(storedTicket);
     }
     else {
-      this.ticketSub = this.ticketEditorService.selectedTicket.subscribe(ticket => {
-        if (!ticket) {
+      this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
+        if (!ticketId) {
           this.router.navigate(['ticket-overview']);
         }
         else {
-          this.ticket = ticket;
-          sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+          this.ticketDao.getTicketById(ticketId)
+          .subscribe(ticketRes => 
+            {
+              this.ticket = ticketRes;
+              sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+            }
+          );
         }
       })
     }
@@ -61,9 +66,9 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     sessionStorage.clear();
-    if (this.ticketSub)
+    if (this.ticketIdSub)
     {
-      this.ticketSub.unsubscribe();
+      this.ticketIdSub.unsubscribe();
     }
 
     if (this.creatorSub) {
