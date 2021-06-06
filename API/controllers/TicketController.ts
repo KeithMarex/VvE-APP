@@ -34,7 +34,7 @@ export const getTicket = (req, res) => {
             path: 'images',
             model: 'Image'
         }
-    })//.populate('comments').populate("comments.images")
+    })
     .then(result => {
         res.status(200).send(result);
     })
