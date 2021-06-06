@@ -26,6 +26,7 @@ import { Dao } from 'src/shared/services/dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { TicketCommentComponent } from './ticket-details/ticket-comment/ticket-comment.component';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { AccountListComponent } from './account-management/account-list/account-list.component';
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
@@ -52,11 +53,12 @@ import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.dir
     TagItemComponent,
     TagCreatorComponent,
     TicketDetailsComponent,
+    TicketCommentComponent,
     AccountListComponent,
     AccountItemComponent,
     DropdownComponent,
     DropdownSelectedDirective,
-    DropdownOptionDirective
+    DropdownOptionDirective,
   ],
   imports: [
     BrowserModule,

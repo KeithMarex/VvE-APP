@@ -1,0 +1,16 @@
+@import "../../../utilities/colors.scss";
+@import "../../../utilities/effects.scss";
+
+.comment-container {
+    width: 80%;
+    padding-top: 0px;
+
+    .comment {
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0px;
+        border-radius: 32px;
+        box-shadow: $default-box-shadow;
+    }
+}
