@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { validateEndDate } from '~/validators/DateValidator';
 // Aanmaken datum validator en importen -> use
 
 const Schema = mongoose.Schema;
@@ -17,6 +18,11 @@ const AgendaSchema = new Schema({
     date: {
         type: Date,
         required: [true, 'A date/time is required for Agenda_item'],
+    },
+    enddate: {
+        type: Date,
+        validate: [validateEndDate, 'Start date must be less or equal to end date'],
+        default: null
     },
     user: {
         type: Schema.Types.ObjectId,
