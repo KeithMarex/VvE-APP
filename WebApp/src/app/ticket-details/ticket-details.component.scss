@@ -74,11 +74,13 @@ body {
             display: flex;
             flex-direction: row;
             align-self: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
     
-            img {
-                margin-right: 1.5rem;
-                width: 10rem;
-                height: 10rem;
+            p > a > img {
+                max-width: 13rem;
+                max-height: 13rem;
+                cursor: pointer;
             }
         }
     }
