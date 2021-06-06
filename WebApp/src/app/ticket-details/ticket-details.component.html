@@ -4,7 +4,7 @@
         <h1>{{ 'Ticket: ' + ticket.title }}</h1>
         <div class="name-date-field">
             <object data="../../../../assets/icons/members.svg" type=""></object>
-            <h1>{{ ticketCreator ? ticketCreator : ticket.creator }}</h1>
+            <h1>{{ ticketCreator ? ticketCreator.firstname + ' ' + ticketCreator.lastname : ticket.creator }}</h1>
             <div class="dates">
                 <p>Aangemaakt op: {{ ticket.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
                 <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
