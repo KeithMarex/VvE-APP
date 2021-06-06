@@ -11,22 +11,17 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 })
 export class TicketItemComponent implements OnInit {
   @Input() ticket: Ticket;
-  shortDesc = '';
   creatorName = '';
   assigneeName = '';
 
   constructor(private userDao: UserDao, private router: Router, private ticketEditorService: TicketEditorService) { }
 
   ngOnInit(): void {
-    if (this.ticket.description.length > 180) {
-      this.shortDesc = this.ticket.description.slice(0, 180);
-    }
-
-    this.getTicketUsername();
-    // this.getTicketAssignee();
+    this.getTicketCreator();
+    this.getTicketAssignee();
   }
 
-  getTicketUsername(): void {
+  getTicketCreator(): void {
     this.userDao.getUserById(this.ticket.creator)
     .subscribe(user => {
       this.creatorName = user.firstname;
@@ -34,10 +29,14 @@ export class TicketItemComponent implements OnInit {
   }
 
   getTicketAssignee(): void { // TODO remove, not DRY
-    this.userDao.getUserById(this.ticket.assignee)
-    .subscribe(user => {
-      this.assigneeName = user.firstname;
-    });
+    if (this.ticket.assignee) {
+      this.userDao.getUserById(this.ticket.assignee)
+      .subscribe(user => {
+        if (user) {
+          this.assigneeName = user.firstname;
+        }
+      });
+    }
   }
 
   onEdit() {

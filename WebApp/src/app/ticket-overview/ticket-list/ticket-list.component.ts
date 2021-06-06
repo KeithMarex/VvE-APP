@@ -28,7 +28,7 @@ export class TicketListComponent implements OnInit {
           incomingTicket.description,
           incomingTicket.images,
           incomingTicket.creator,
-          this.checkAssignee(incomingTicket.assignee),
+          incomingTicket.assignee,
           incomingTicket.status,
           incomingTicket.comments,
           incomingTicket.tag,
@@ -37,15 +37,6 @@ export class TicketListComponent implements OnInit {
         ));
       });
     });
-  }
-
-  checkAssignee(assignee: string): string {
-    if (assignee) {
-      return assignee;
-    }
-    else {
-      return 'Niet toegewezen';
-    }
   }
 
 }
