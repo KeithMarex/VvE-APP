@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Tag } from 'src/shared/models/tag.model';
 import { User } from 'src/shared/models/user.model';
+import { TagDao } from 'src/shared/services/tag-dao.service';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 
@@ -12,12 +14,14 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 export class TicketCreatorComponent implements OnInit {
   @Output() ticketCreated = new EventEmitter();
   organizationMembers: User[];
+  organizationTags: Tag[];
   errorMessage: string;
 
-  constructor(private ticketDao: TicketDao, private userDao: UserDao) { }
+  constructor(private ticketDao: TicketDao, private userDao: UserDao, private tagDao: TagDao) { }
 
   ngOnInit(): void {
     this.getOrganizationUsers();
+    this.getOrganizationTags();
   }
 
   onCreateTicket(form: NgForm) {
@@ -26,7 +30,7 @@ export class TicketCreatorComponent implements OnInit {
 
     mForm.append('title', formValues.title);
     mForm.append('description', formValues.description);
-    if (formValues.assignee != 'unassigned') {
+    if (formValues.assignee) {
       mForm.append('assignee', formValues.assignee);
     }
     mForm.append('status', this.formatStatus(formValues.status));
@@ -37,7 +41,12 @@ export class TicketCreatorComponent implements OnInit {
       this.ticketCreated.emit();
       }, 
       errorRes => {
-        this.errorMessage = errorRes.error.message;
+        let incomingErrorMessage = errorRes.error.message;
+        if (incomingErrorMessage) {
+          this.errorMessage = errorRes.error.message;
+        } else {
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        }
       }
     );
   }
@@ -63,6 +72,13 @@ export class TicketCreatorComponent implements OnInit {
     this.userDao.getUsersByOrganization()
     .subscribe(responseUsers => {
       this.organizationMembers = responseUsers;
+    })
+  }
+
+  getOrganizationTags() {
+    this.tagDao.getAllTags()
+    .subscribe(responseTags => {
+      this.organizationTags = responseTags;
     })
   }
 
