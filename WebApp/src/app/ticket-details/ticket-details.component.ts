@@ -95,7 +95,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getSelectedTag(): void {
-    if (this.ticket.tag) {
+    if (this.ticket && this.ticket.tag) {
       this.selectedTag = this.ticket.tag;
     }
     else {
@@ -104,7 +104,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getSelectedStatus(): void {
-    if (this.ticket.status) {
+    if (this.ticket && this.ticket.status) {
       this.selectedStatus = this.ticket.status;
     }
     else {
