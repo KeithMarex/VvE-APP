@@ -146,4 +146,54 @@ body {
             }
         }
     }
+
+    .comment-section {
+
+        h1 {
+            padding-bottom: 10px;
+        }
+        
+        .comments {
+            height: 150px;
+            width: 70%;
+            overflow: auto;
+        }
+
+        .comment-form {
+            width: 65%;
+            display: flex;
+            flex-direction: row;
+            border-radius: 10px;
+            box-shadow: $default-box-shadow;
+            padding-left: 10px;
+            position: relative; top: 10px;
+            background-color: white;
+
+            .textfield {
+                width: 90%;
+                border: none;
+                background-color: white;
+            }
+
+            .send-logo {
+                padding-top: 7px;
+                background-color: white;
+            }
+
+            .image-select-button {
+                width: 0px;
+            }
+
+            .submit-comment-button {
+                display: inline-block;
+                border: none;
+                padding-left: 10px;
+                padding-top: 4px;
+            }
+        }
+    }
+
+    .input-image-name{
+        position: relative; top: 15px;
+    }
 }

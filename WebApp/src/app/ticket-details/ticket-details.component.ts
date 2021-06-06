@@ -8,6 +8,9 @@ import { User } from 'src/shared/models/user.model';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
+import { Comment } from 'src/shared/models/comment.model';
+import { Image } from 'src/shared/models/image.model';
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-ticket-details',
@@ -23,6 +26,10 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   tags: Tag[] = [];
   selectedAssignee: string;
   assignees: string[] = [];
+  inputCommentText: string;
+  inputCommentImage: File;
+  commentImages: File[];
+  comments: Comment[];
 
   private ticketSubscription: Subscription;
   private creatorSubscription: Subscription;
@@ -55,6 +62,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
         sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
       })
     }
+    this.comments = this.ticket.comments;
+    console.log(this.ticket);
   }
 
   getCreatorName() {
@@ -120,6 +129,17 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
         this.assignees.push("Nog niet toegewezen");
       });
   }
+
+  submitComment(form: NgForm): void {
+    this.inputCommentText = form.value.inputCommentText;
+    // console.log(this.inputCommentText);
+  }
+
+  handleFileInput(target: any): void {
+
+		this.inputCommentImage = target.files;
+    console.log(this.inputCommentImage);
+	}
 
   ngOnDestroy(): void {
     sessionStorage.clear();
