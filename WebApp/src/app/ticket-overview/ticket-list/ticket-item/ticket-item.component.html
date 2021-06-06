@@ -2,7 +2,7 @@
     <section class="left-block">
         <div class="top-section">
             <object data="../../../../assets/icons/members.svg" type=""></object>
-            <h1>{{ creatorName }}</h1>
+            <h1>{{ creator ? creator.firstname + ' ' + creator.lastname : 'Maker kan niet geladen worden' }}</h1>
             <h1 id="comment-count">{{ ticket.comments.length }}</h1>
             <object id="comment-symbol" data="../../../../assets/icons/comment.svg" type=""></object>
         </div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="right-block-column">
                     <p class="colored-text">{{ ticket.status }}</p>
-                    <p class="colored-text">{{ assigneeName == '' ? 'Niet toegewezen' : assigneeName }}</p>
+                    <p class="colored-text">{{ assignee ? assignee.firstname + ' ' + assignee.lastname : 'Niet toegewezen' }}</p>
                 </div>
             </div>
     

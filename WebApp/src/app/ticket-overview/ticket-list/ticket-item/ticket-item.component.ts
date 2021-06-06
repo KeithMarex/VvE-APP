@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/shared/models/ticket.model';
+import { User } from 'src/shared/models/user.model';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 
@@ -11,37 +12,40 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 })
 export class TicketItemComponent implements OnInit {
   @Input() ticket: Ticket;
-  creatorName = '';
-  assigneeName = '';
+  creator: User;
+  assignee: User;
 
   constructor(private userDao: UserDao, private router: Router, private ticketEditorService: TicketEditorService) { }
 
   ngOnInit(): void {
-    this.getTicketCreator();
-    this.getTicketAssignee();
+    this.getUsers();
   }
 
-  getTicketCreator(): void {
-    this.userDao.getUserById(this.ticket.creator)
-    .subscribe(user => {
-      this.creatorName = user.firstname;
-    });
-  }
+  getUsers(): void {
+    var creatorId = this.ticket.creator;
+    var assigneeId = this.ticket.assignee;
 
-  getTicketAssignee(): void { // TODO remove, not DRY
-    if (this.ticket.assignee) {
-      this.userDao.getUserById(this.ticket.assignee)
-      .subscribe(user => {
-        if (user) {
-          this.assigneeName = user.firstname;
+    if (creatorId) {
+      this.userDao.getUserById(creatorId)
+      .subscribe(userRes => 
+        { 
+          this.creator = userRes 
         }
-      });
+      );
+    }
+    if (assigneeId) {
+      this.userDao.getUserById(assigneeId)
+      .subscribe(userRes => 
+        {
+          this.assignee = userRes;
+        }
+      )
     }
   }
 
   onEdit() {
     this.ticketEditorService.selectedTicketId.next(this.ticket._id);
-    this.ticketEditorService.ticketCreator.next(this.creatorName);
+    this.ticketEditorService.ticketCreator.next(this.creator.firstname); //FIXME pass on full User
     this.router.navigate(['ticket-details/' + this.ticket._id]);
   }
 }
