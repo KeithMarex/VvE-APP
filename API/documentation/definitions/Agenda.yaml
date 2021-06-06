@@ -8,6 +8,8 @@ properties:
     type: string
   date:
     type: Date
+  enddate:
+    type: Date
   user:
     $ref: './User.yaml'
   organisation:

@@ -22,6 +22,8 @@ put:
               type: string
             date:
               type: Date
+            enddate:
+              type: Date
   responses:
     '200':
       description: Receiving updated Agenda item
