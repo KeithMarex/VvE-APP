@@ -27,7 +27,14 @@ export const getTickets = async(req, res) => {
 
 export const getTicket = (req, res) => {
     const id = req.params.id;
-    Ticket.findById(id).populate('images')
+    Ticket.findById(id).populate('images').populate({
+        path: 'comments',
+        model: 'Comment',
+        populate: {
+            path: 'images',
+            model: 'Image'
+        }
+    })//.populate('comments').populate("comments.images")
     .then(result => {
         res.status(200).send(result);
     })
