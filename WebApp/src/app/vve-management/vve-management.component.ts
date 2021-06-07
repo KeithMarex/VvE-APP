@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vve-management.component.scss']
 })
 export class VveManagementComponent implements OnInit {
+  primaryColor = '#451864';
 
   constructor() { }
 
