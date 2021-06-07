@@ -34,6 +34,7 @@ import { AccountItemComponent } from './account-management/account-list/account-
 import { DropdownComponent } from 'src/shared/dropdown/dropdown.component';
 import { DropdownSelectedDirective } from 'src/shared/dropdown/dropdown-selected.directive';
 import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive'
+import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.dir
     DropdownComponent,
     DropdownSelectedDirective,
     DropdownOptionDirective,
+    AccountCreatorComponent,
   ],
   imports: [
     BrowserModule,

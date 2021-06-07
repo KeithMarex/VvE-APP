@@ -10,6 +10,7 @@ body {
     border: 1px solid rgba($color: #000000, $alpha: 0.04);
     border-radius: 8px;
     box-shadow: $default-box-shadow;
+    overflow: hidden;
 
     .button-section {
         display: flex;
@@ -21,7 +22,6 @@ body {
             @include button;
 
             &::after {
-                margin-top: 0.3rem;
                 background: url('../../assets/icons/chevron.svg') no-repeat;
             }
         }

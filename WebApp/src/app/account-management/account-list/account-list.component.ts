@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/shared/models/user.model';
+import { UserDao } from 'src/shared/services/user-dao.service';
 
 @Component({
   selector: 'app-account-list',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-list.component.scss']
 })
 export class AccountListComponent implements OnInit {
+  users: User[];
 
-  constructor() { }
+  constructor(private userDao: UserDao) {}
 
   ngOnInit(): void {
+    this.getOrganizationUsers();
+  }
+
+  getOrganizationUsers() {
+    this.userDao.getUsersByOrganization()
+    .subscribe(responseUsers => {
+      this.users = responseUsers;
+    })
   }
 
 }
