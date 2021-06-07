@@ -6,7 +6,7 @@ import { DataStorageService } from 'src/shared/services/data-storage.service';
 })
 export class ColoringDirective implements OnInit {
   @Input() colorStyle: string; // Option to add different styles to element
-  @Input() colorElement: string = 'color'; // Property of element that needs to be colored, e.g. color/background-color
+  @Input() colorElement: string = 'color'; // Property of element that needs to be colored, default is set to color
 
   private primaryColor = this.dataStorageService.getPrimaryColor();
   private secondaryColor =this.dataStorageService.getSecondaryColor();
@@ -20,7 +20,7 @@ export class ColoringDirective implements OnInit {
       chosenColor = this.secondaryColor;
     }
 
-    this.renderer.setStyle(this.elRef.nativeElement, this.colorElement, chosenColor); //FIXME use colorStyle
+    this.renderer.setStyle(this.elRef.nativeElement, this.colorElement, chosenColor);
   }
 
 }

@@ -1,27 +1,29 @@
-<header>
-    <h1>Uw VvE</h1>
-</header>
-<body>
-    <section class="personalization">
-        <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
-            <div class="color-picker">
-                <p>Primarire kleur</p>
-                <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
-                <label for="primary-color">{{ primaryColor }}</label>
-            </div>
-            <div class="color-picker">
-                <p>Secundaire kleur</p>
-                <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
-                <label for="secondary-color">{{ secondaryColor }}</label>
-            </div>
-            <br>
-            <button [ngStyle]="{backgroundColor: primaryColor}">Primary preview</button>
-            <button [ngStyle]="{backgroundColor: secondaryColor}">Secondary preview</button>
-            <br>
-            <button appColoring colorElement="backgroundColor">Primary knop</button>
-            <button appColoring colorElement="backgroundColor" colorStyle="secondary">Secondary knop</button>
-            <br>
-            <button type="submit">Update styling</button>
-        </form>
-    </section>
-</body>
+<div appColoring>
+    <header>
+        <h1>Uw VvE</h1>
+    </header>
+    <body>
+        <section class="personalization">
+            <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
+                <div class="color-picker">
+                    <p>Primarire kleur</p>
+                    <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
+                    <label for="primary-color">{{ primaryColor }}</label>
+                </div>
+                <div class="color-picker">
+                    <p>Secundaire kleur</p>
+                    <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
+                    <label for="secondary-color">{{ secondaryColor }}</label>
+                </div>
+                <br>
+                <button type="button" [ngStyle]="{backgroundColor: primaryColor}">Primary preview</button>
+                <button type="button" [ngStyle]="{backgroundColor: secondaryColor}">Secondary preview</button>
+                <br>
+                <button type="button" appColoring colorElement="backgroundColor">Primary knop</button>
+                <button type="button" appColoring colorElement="backgroundColor" colorStyle="secondary">Secondary knop</button>
+                <br>
+                <button type="submit" appColoring colorElement="backgroundColor">Update styling</button>
+            </form>
+        </section>
+    </body>
+</div>

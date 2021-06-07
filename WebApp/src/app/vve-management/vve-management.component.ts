@@ -21,6 +21,8 @@ export class VveManagementComponent implements OnInit {
 
     this.dataStorageService.setPrimaryColor(formValues.primaryColor);
     this.dataStorageService.setSecondaryColor(formValues.secondaryColor);
+
+    window.location.reload();
   }
 
 }
