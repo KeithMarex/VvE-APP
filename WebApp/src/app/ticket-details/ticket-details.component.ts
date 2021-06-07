@@ -27,8 +27,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   selectedAssignee: string;
   assignees: string[] = [];
   inputCommentText: string;
-  inputCommentImage: File;
-  commentImages: File[];
+  inputCommentImage: Image;
+  commentImages: Image[] = [];
   comments: Comment[];
 
   private ticketSubscription: Subscription;
@@ -85,17 +85,9 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   getTags(): void {
     this.tagDao.getAllTags()
     .subscribe((incomingtags: Tag[]) => {
-      incomingtags.forEach(incomingTag => {
-        this.tags.push(new Tag(
-          incomingTag._id,
-          incomingTag.name,
-          incomingTag.color,
-          incomingTag.createdAt,
-          incomingTag.updatedAt
-        ))
+      this.tags = incomingtags;
       })
       this.getSelectedTag();
-    });
   }
 
   getSelectedTag(): void {
@@ -136,9 +128,10 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   handleFileInput(target: any): void {
-
-		this.inputCommentImage = target.files;
+		this.inputCommentImage = target.files.item(0);
     console.log(this.inputCommentImage);
+    this.commentImages.push(this.inputCommentImage);
+    console.log(this.commentImages);
 	}
 
   ngOnDestroy(): void {
