@@ -1,1 +1,14 @@
-<p>vve-management works!</p>
+<header>
+    <h1>Uw VvE</h1>
+</header>
+<body>
+    <section class="personalization">
+        <div class="color-picker">
+            <p>Primarire kleur</p>
+            <input type="color" id="primary-color" [(ngModel)]="primaryColor">
+            <label for="primary-color">Test</label>
+        </div>
+        <br>
+        <button [ngStyle]="{backgroundColor: primaryColor}">Voorbeeld knop</button>
+    </section>
+</body>
