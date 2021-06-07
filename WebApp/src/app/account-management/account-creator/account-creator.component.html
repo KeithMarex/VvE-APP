@@ -2,13 +2,23 @@
     <form (ngSubmit)="onCreateUser(userForm)" #userForm="ngForm">
         <div></div>
         <div class="input-fields">
-            <div class="name-fields">
+            <div class="icon-field">
+                <object data="../../../assets/icons/Profile 2.svg" type=""></object>
                 <input type="text" placeholder="Voornaam" name="firstname" required ngModel>
+            </div>
+            <div class="icon-field">
+                <object data="../../../assets/icons/Profile 2.svg" type=""></object>
                 <input type="text" placeholder="Achternaam" name="lastname" required ngModel>    
             </div>
             <div class="mail-fields">
-                <input type="text" placeholder="Email adres" name="email" required ngModel>
-                <input type="text" placeholder="Confirm email adres" name="confirmEmail" required ngModel>    
+                <div class="icon-field">
+                    <object data="../../../assets/icons/Mail.svg" type=""></object>
+                    <input type="text" placeholder="Email adres" name="email" required ngModel>
+                </div>
+                <div class="icon-field">
+                    <object data="../../../assets/icons/Mail.svg" type=""></object>
+                    <input type="text" placeholder="Confirm email adres" name="confirmEmail" required ngModel>
+                </div> 
             </div>
             <div class="error-field">
                 <p *ngIf="errorMessage">{{ errorMessage }}</p>
