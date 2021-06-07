@@ -55,8 +55,9 @@
     .right-block {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-self: center;
+        min-width: 20%;
 
         .information-block {
             display: flex;

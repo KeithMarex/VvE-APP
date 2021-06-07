@@ -1,11 +1,11 @@
-import { stringify } from '@angular/compiler/src/util';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
 import { User } from 'src/shared/models/user.model';
 import { TagDao } from 'src/shared/services/tag-dao.service';
+import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 
@@ -16,7 +16,7 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 })
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
-  ticketCreator: string;
+  ticketCreator: User;
   selectedStatus: string;
   statuses: string[] = ["PENDING", "HANDLING", "HANDLED"];
   selectedTag: Tag;
@@ -24,15 +24,15 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   selectedAssignee: string;
   assignees: string[] = [];
 
-  private ticketSubscription: Subscription;
-  private creatorSubscription: Subscription;
+  private ticketIdSub: Subscription;
+  private creatorSub: Subscription;
 
   constructor(private ticketEditorService: TicketEditorService, private router: Router, private tagDao: TagDao,
-    private userDao: UserDao) { }
+    private userDao: UserDao, private ticketDao: TicketDao) { }
 
   ngOnInit(): void {
     this.getActiveTicket();
-    this.getCreatorName();
+    this.getTicketCreator();
     this.getTags();
     this.getSelectedStatus();
     this.getAssignees();
@@ -42,32 +42,37 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     const storedTicket = sessionStorage.getItem('ticket');
 
     if (storedTicket) {
-      const parsedTicket: Ticket =  JSON.parse(storedTicket)
-
-      this.ticket = parsedTicket;
+      this.ticket =  JSON.parse(storedTicket);
     }
     else {
-      this.ticketSubscription = this.ticketEditorService.selectedTicket.subscribe(ticketToEdit => {
-        if (!ticketToEdit) {
+      this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
+        if (!ticketId) {
           this.router.navigate(['ticket-overview']);
         }
-        this.ticket = ticketToEdit;
-        sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+        else {
+          this.ticketDao.getTicketById(ticketId)
+          .subscribe(ticketRes => 
+            {
+              this.ticket = ticketRes;
+              sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+            }
+          );
+        }
       })
     }
   }
 
-  getCreatorName() {
+  getTicketCreator() {
     const storedCreator = sessionStorage.getItem('creator');
 
     if (storedCreator) {
-      this.ticketCreator = storedCreator;
+      this.ticketCreator = JSON.parse(storedCreator);
     }
     else {
-      this.creatorSubscription = this.ticketEditorService.ticketCreator.subscribe(creator => {
+      this.creatorSub = this.ticketEditorService.ticketCreator.subscribe(creator => {
         if (creator) {
           this.ticketCreator = creator;
-          sessionStorage.setItem('creator', this.ticketCreator);
+          sessionStorage.setItem('creator', JSON.stringify(this.ticketCreator));
         }
       })
     }
@@ -90,7 +95,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getSelectedTag(): void {
-    if (this.ticket.tag) {
+    if (this.ticket && this.ticket.tag) {
       this.selectedTag = this.ticket.tag;
     }
     else {
@@ -99,7 +104,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getSelectedStatus(): void {
-    if (this.ticket.status) {
+    if (this.ticket && this.ticket.status) {
       this.selectedStatus = this.ticket.status;
     }
     else {
@@ -123,13 +128,13 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     sessionStorage.clear();
-    if (this.ticketSubscription)
+    if (this.ticketIdSub)
     {
-      this.ticketSubscription.unsubscribe();
+      this.ticketIdSub.unsubscribe();
     }
 
-    if (this.creatorSubscription) {
-      this.creatorSubscription.unsubscribe();
+    if (this.creatorSub) {
+      this.creatorSub.unsubscribe();
     }
   }
 

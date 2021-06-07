@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import "../../../../utilities/colors.scss";
+@import "../../../../utilities/button.scss";
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F7F7FC;
+    margin: 15px 25px;
+    padding: 1rem 1.5rem;
+    border-radius: 32px;
+    font-family: 'Poppins', sans-serif;
+
+    h1 {
+        color: $default-text-color;
+        font-size: 100%;
+        font-weight: 500;
+    }
+
+    .user-info {
+        width: 60%;
+        display: flex;
+        // justify-content: space-between;
+        flex-wrap: wrap;
+        margin: auto 0;
+        gap: 1rem 0;
+
+        div {
+            margin: auto 2rem;
+            // width: 20rem;
+        }
+
+        .semi-long-field {
+            width: 10rem;
+        }
+        
+        .long-field {
+            width: 20rem;
+        }
+
+        p {
+            font-size: 70%;
+        }
+
+        h1 {
+            position: relative;
+            color: $primary-color;
+            font-size: 110%;
+            margin: 1px;
+        }
+
+        h1:hover .tooltip {
+            visibility: visible;
+        }
+
+        h1 .tooltip {
+            position: absolute;
+            white-space: nowrap;
+            z-index: 1;
+            visibility: hidden;
+            background-color: #F7F7FC;
+            padding: 0.2rem 1rem;
+            border: 1px solid $primary-color;
+            border-radius: 0.5rem;
+            bottom: 0;
+            left: 0;
+        }
+        
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        button {
+            @include button;
+            width: 13rem;
+            font-size: 100%;
+        }
+
+        #role-button {
+            background-color: $secondary-color;
+            
+            &::after {
+                background: url('../../../../assets/icons/Profile.svg') no-repeat !important;
+                background-position: center !important;
+            }
+        }
+
+        #delete-button {
+
+            &::after {
+                background: url('../../../../assets/icons/delete.svg') no-repeat !important;
+                background-position: center !important;
+            }
+        }
+    }
+}

@@ -20,10 +20,17 @@ export const getAgenda = (req, res) => {
     let [from, to] = getMonthTimeFrame(req.params.month);
 
     Agenda_item.find({
-        date: {
-            $gte: from,
-            $lte: to
-    }})
+        $or: [{
+            date: {
+                $gte: from,
+                $lte: to
+            }},
+            {
+            $and: [{date: {$lte: from}}, {enddate: {$gte: from}}]
+            }
+        ],
+        organisation: res.locals.user.organizations[0]
+    })
     .then(result => {
         res.status(201).send(result);
     })
@@ -40,7 +47,8 @@ export const putAgenda = (req, res) => {
     Agenda_item.updateOne({_id: id}, {
         title: newAgenda.title,
         description: newAgenda.description,
-        date: newAgenda.date
+        date: newAgenda.date,
+        enddate: newAgenda.enddate
     })
     .then(result => {
         res.status(200).send(result);
