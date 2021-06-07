@@ -34,6 +34,7 @@ import { DropdownSelectedDirective } from 'src/shared/dropdown/dropdown-selected
 import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive'
 import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
 import { ColoringDirective } from 'src/shared/directives/primary-color/coloring.directive';
+import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { ColoringDirective } from 'src/shared/directives/primary-color/coloring.
     AuthDao,
     UserDao,
     TicketEditorService,
+    DataStorageService
   ],
   bootstrap: [AppComponent]
 })
