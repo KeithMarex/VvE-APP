@@ -3,14 +3,25 @@
 </header>
 <body>
     <section class="personalization">
-        <div class="color-picker">
-            <p>Primarire kleur</p>
-            <input type="color" id="primary-color" [(ngModel)]="primaryColor">
-            <label for="primary-color">{{ primaryColor }}</label>
-        </div>
-        <br>
-        <button [ngStyle]="{backgroundColor: primaryColor}">Voorbeeld knop</button>
-        <button appColoring colorElement="backgroundColor">Directive knop</button>
-        <button appColoring colorElement="backgroundColor" colorStyle="secondary">Secondary knop</button>
+        <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
+            <div class="color-picker">
+                <p>Primarire kleur</p>
+                <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
+                <label for="primary-color">{{ primaryColor }}</label>
+            </div>
+            <div class="color-picker">
+                <p>Secundaire kleur</p>
+                <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
+                <label for="secondary-color">{{ secondaryColor }}</label>
+            </div>
+            <br>
+            <button [ngStyle]="{backgroundColor: primaryColor}">Primary preview</button>
+            <button [ngStyle]="{backgroundColor: secondaryColor}">Secondary preview</button>
+            <br>
+            <button appColoring colorElement="backgroundColor">Primary knop</button>
+            <button appColoring colorElement="backgroundColor" colorStyle="secondary">Secondary knop</button>
+            <br>
+            <button type="submit">Update styling</button>
+        </form>
     </section>
 </body>

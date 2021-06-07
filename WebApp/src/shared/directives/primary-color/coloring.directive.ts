@@ -5,8 +5,8 @@ import { DataStorageService } from 'src/shared/services/data-storage.service';
   selector: '[appColoring]'
 })
 export class ColoringDirective implements OnInit {
-  @Input() colorStyle: string; // Primary or secondary color
-  @Input() colorElement: string = 'color'; // Color or background-color
+  @Input() colorStyle: string; // Option to add different styles to element
+  @Input() colorElement: string = 'color'; // Property of element that needs to be colored, e.g. color/background-color
 
   private primaryColor = this.dataStorageService.getPrimaryColor();
   private secondaryColor =this.dataStorageService.getSecondaryColor();
@@ -15,7 +15,6 @@ export class ColoringDirective implements OnInit {
 
   ngOnInit() {
     var chosenColor = this.primaryColor; // Default set to primary color, other values can be added below
-    console.log(this.colorStyle);
     if (this.colorStyle == 'secondary')
     {
       chosenColor = this.secondaryColor;
