@@ -813,17 +813,17 @@
                   "comment": {
                     "type": "string"
                   },
-                  "user": {
-                    "type": "string ObjectId"
-                  },
                   "images": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "ticketID": {
+                    "type": "string ObjectId"
                   }
                 },
                 "required": [
                   "comment",
-                  "user"
+                  "ticketID"
                 ]
               }
             }
