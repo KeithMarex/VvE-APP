@@ -2,6 +2,7 @@ import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from
 
 export interface CustomEvent extends CalendarEvent {
   description: string;
+  id: string;
 }
 
 export interface CustomEventAction extends CalendarEventAction {

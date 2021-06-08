@@ -5,6 +5,7 @@ import {CalendarView} from 'angular-calendar';
 import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from './custom-event';
 import {CalendarDao} from '../../../shared/services/calendar-dao.service';
 import {AgendaItem} from '../../../shared/models/agenda-item';
+import {CalendarService} from "./calendar.service";
 
 const colors: any = {
   red: {
@@ -111,14 +112,21 @@ export class CalendarComponent implements OnInit {
 
   activeDayIsOpen = true;
 
-  constructor(private calendarDao: CalendarDao) {}
+  constructor(private calendarDao: CalendarDao, private calendarService: CalendarService) {}
 
   ngOnInit(): void {
-    this.calendarDao.getCalendarItems('2021-6')
-      .subscribe(responseCalItems => {
-        this.parseCalendarItems(responseCalItems);
+    this.calendarService.calendarItems
+      .subscribe((calendarItems) => {
+        this.parseCalendarItems(calendarItems);
         this.refresh.next();
       });
+
+    if (this.calendarService.calendarItemsIsEmpty()) {
+      this.calendarDao.getCalendarItems('2021-6')
+        .subscribe(responseCalItems => {
+          this.calendarService.setCalendarItems(responseCalItems);
+        });
+    }
   }
 
   parseCalendarItems(calItems: AgendaItem[]): void {
@@ -138,14 +146,15 @@ export class CalendarComponent implements OnInit {
         end: endDate,
         title: calItem.title,
         description: calItem.description,
+        id: calItem._id,
         color: colors.blue,
         allDay: !!calItem.endDate,
+        actions: this.actions,
         resizable: {
           beforeStart: true,
           afterEnd: true,
         },
         draggable: true,
-        id: calItem._id
       });
     });
 
@@ -200,6 +209,7 @@ export class CalendarComponent implements OnInit {
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
         color: colors.red,
+        id: 'a',
         draggable: true,
         resizable: {
           beforeStart: true,
@@ -210,7 +220,13 @@ export class CalendarComponent implements OnInit {
   }
 
   deleteEvent(eventToDelete: CustomEvent): void {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+    this.calendarDao.deleteCalendarItem(eventToDelete.id)
+      .subscribe((res) => {
+        if (res.status !== 200) {
+          return alert('Agendapunt kon niet verwijderd worden.');
+        }
+        this.events = this.events.filter((event) => event !== eventToDelete);
+      });
   }
 
   editEvent(eventToEdit: CustomEvent): void {

@@ -45,7 +45,7 @@ export class CalendarItemCreatorComponent implements OnInit {
     };
 
     this.calendarDao.createCalendarItem(payload)
-      .subscribe(response => {
+      .subscribe((res) => {
         this.calendarItemCreated.emit();
       });
   }

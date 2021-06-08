@@ -43,6 +43,7 @@ import { AccountListComponent } from './account-management/account-list/account-
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
+import { CalendarService } from './calendar-overview/calendar/calendar.service';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -105,6 +106,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     UserDao,
     CalendarDao,
     TicketEditorService,
+    CalendarService,
     {
       provide: LOCALE_ID,
       useValue: 'nl-NL',

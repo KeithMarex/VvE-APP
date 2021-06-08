@@ -104,7 +104,7 @@
       .cal-today:not(.cal-open) {
         background-color: rgba($secondary-color, .6) !important;
         &:hover {
-          background-color: #EDEDED !important;
+          background-color: $calendar-selected-color !important;
         }
       }
       .cal-day-badge {
@@ -121,11 +121,12 @@
       }
       .cal-open-day-events {
         box-shadow: none !important;
-        background-color: #EDEDED  !important;
+        background-color: $calendar-selected-color  !important;
         color: black !important;
       }
       .cal-open {
         border-radius: 10px 10px 0 0 !important;
+        background-color: $calendar-selected-color !important;
       }
 
       .cal-day-number {

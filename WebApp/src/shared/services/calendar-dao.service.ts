@@ -9,7 +9,7 @@ export class CalendarDao {
 
     constructor(private dao: Dao) {}
 
-    createCalendarItem(calendarItemData: object): Observable<any> {
+    createCalendarItem(calendarItemData: object): Observable<AgendaItem> {
       return this.dao.sendPostRequest('agenda/', calendarItemData);
     }
 
@@ -18,5 +18,9 @@ export class CalendarDao {
         .pipe(map((response: AgendaItem[]) => {
           return response;
         }));
+    }
+
+    deleteCalendarItem(calendarItemId: string): Observable<any> {
+      return this.dao.sendDeleteRequest('agenda/' + calendarItemId);
     }
 }
