@@ -50,6 +50,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
     if (storedTicket) {
       this.ticket =  JSON.parse(storedTicket);
+      this.comments = this.ticket.comments;
     }
     else {
       this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
@@ -62,13 +63,12 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
             {
               this.ticket = ticketRes;
               sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+              this.comments = this.ticket.comments;
             }
           );
         }
       })
     }
-    this.comments = this.ticket.comments;
-    console.log(this.ticket);
   }
 
   getTicketCreator() {
@@ -130,6 +130,10 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   submitComment(form: NgForm): void {
     this.inputCommentText = form.value.inputCommentText;
     // console.log(this.inputCommentText);
+    console.log(this.inputCommentText);
+    if (this.inputCommentImage) {
+      console.log(this.commentImages)
+    }
   }
 
   handleFileInput(target: any): void {

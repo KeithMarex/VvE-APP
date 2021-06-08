@@ -139,8 +139,10 @@
                     </button>
                 </div>
             </form>
-            <div class="input-image-name" *ngIf="inputCommentImage">
-                {{ inputCommentImage.name }}
+            <div class="input-image-name" >
+                <div *ngFor="let image of commentImages">
+                    {{ image.name }}
+                </div>
             </div>
         </section>
     </body>
