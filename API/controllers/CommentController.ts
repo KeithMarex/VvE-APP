@@ -27,16 +27,13 @@ const createComment = (req, res) => {
 }
 
 const pushCommentToTicket = (req, res, commentObject) => {
-    Ticket.updateOne(
+    Ticket.findOneAndUpdate(
         { _id: req.fields.ticketID },
         { $push: { comments: commentObject._id }}
     )
-    .then( () => {
-        //Bestuurder mail
-        sendAdminMail("Er is een nieuw bericht op een ticket",res.locals.user.organizations[0], "bericht_bestuurder");
-
-        //Bewoner mail
-        sendMail("[VvE] U heeft een bericht geplaatst", res.locals.user, "bericht_bewoner");
+    .then( result => {
+        sendAdminMail("Er is een nieuw bericht op een ticket",{ organization: res.locals.user.organizations[0], ticketTitle: result["title"], comment: commentObject.comment }, "comment");
+        sendMail("Er is een nieuw bericht op een ticket", { _id: res.locals.user._id, ticketTitle: result["title"], comment: commentObject.comment }, "comment");
 
         res.status(200).send(commentObject);
     })
