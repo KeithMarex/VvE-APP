@@ -12,12 +12,19 @@ export class CalendarService {
     this.calendarItems.next(calendarItems);
   }
 
-  calendarItemsIsEmpty(): boolean {
-    return this.calendarItems.value.length <= 0;
-  }
-
   addCalendarItem(calendarItem: AgendaItem): void {
     this.calendarItems.next(this.calendarItems.getValue().concat([calendarItem]));
   }
 
+  deleteCalendarItem(calendarItemId: string): void {
+    this.calendarItems.next(
+      this.calendarItems.getValue().filter((calendarItem) => {
+          return calendarItem._id !== calendarItemId;
+        }
+      ));
+  }
+
+  calendarItemsIsEmpty(): boolean {
+    return this.calendarItems.value.length <= 0;
+  }
 }

@@ -222,10 +222,7 @@ export class CalendarComponent implements OnInit {
   deleteEvent(eventToDelete: CustomEvent): void {
     this.calendarDao.deleteCalendarItem(eventToDelete.id)
       .subscribe((res) => {
-        if (res.status !== 200) {
-          return alert('Agendapunt kon niet verwijderd worden.');
-        }
-        this.events = this.events.filter((event) => event !== eventToDelete);
+        this.calendarService.deleteCalendarItem(eventToDelete.id);
       });
   }
 
