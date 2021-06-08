@@ -1,5 +1,6 @@
 post:
   summary: Adds comment to the database and ticket
+  description: ticketID is required for the API to push the comment onto the right ticket object. If no ticketID is sent, the api cannot attach the comment to a ticket.
   tags:
     - Comment
   requestBody:
