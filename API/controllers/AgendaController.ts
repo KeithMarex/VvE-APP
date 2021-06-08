@@ -3,7 +3,7 @@ import logger from "~/util/Logger";
 
 
 export const postAgenda = (req, res) => {
-    const item = new Agenda_item(req.body);
+    const item = createAgenda(req, res);
 
     item.save()
     .then(result => {
@@ -20,10 +20,17 @@ export const getAgenda = (req, res) => {
     let [from, to] = getMonthTimeFrame(req.params.month);
 
     Agenda_item.find({
-        date: {
-            $gte: from,
-            $lte: to
-    }})
+        $or: [{
+            date: {
+                $gte: from,
+                $lte: to
+            }},
+            {
+            $and: [{date: {$lte: from}}, {enddate: {$gte: from}}]
+            }
+        ],
+        organisation: res.locals.user.organizations[0]
+    })
     .then(result => {
         res.status(201).send(result);
     })
@@ -40,7 +47,8 @@ export const putAgenda = (req, res) => {
     Agenda_item.updateOne({_id: id}, {
         title: newAgenda.title,
         description: newAgenda.description,
-        date: newAgenda.date
+        date: newAgenda.date,
+        enddate: newAgenda.enddate
     })
     .then(result => {
         res.status(200).send(result);
@@ -97,6 +105,12 @@ export const getAgendaDetails = (req, res) => {
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
+}
+
+const createAgenda = (req, res) => {
+    req.body.organisation = res.locals.user.organizations[0]
+
+    return new Agenda_item(req.body);
 }
 
 const getMonthTimeFrame = (monthString) => { // YYYY-MM

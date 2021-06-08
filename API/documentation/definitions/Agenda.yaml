@@ -8,10 +8,12 @@ properties:
     type: string
   date:
     type: Date
+  enddate:
+    type: Date
   user:
     $ref: './User.yaml'
   organisation:
-    $ref: './Organization.yaml'
+    type: Organization
   createdAt:
     type: string
   updatedAt:
