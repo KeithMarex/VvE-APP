@@ -95,11 +95,13 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getSelectedTag(): void {
+    let unnamedTag: Tag = { name: "Nog niet toegewezen" }
+    this.tags.push(unnamedTag);
     if (this.ticket && this.ticket.tag) {
       this.selectedTag = this.ticket.tag;
     }
     else {
-      this.selectedTag = this.tags[0];
+      this.selectedTag = unnamedTag
     }
   }
 

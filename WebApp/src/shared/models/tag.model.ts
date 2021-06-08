@@ -1,9 +1,9 @@
 export class Tag {
-    _id: string;
+    _id?: string;
     name: string;
-    color: string;
-    createdAt: Date;
-    updatedAt: Date;
+    color?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 
     constructor(_id: string, name: string, color: string, createdAt: Date, updatedAt: Date) {
         this._id = _id;
