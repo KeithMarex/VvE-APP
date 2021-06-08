@@ -141,7 +141,13 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     console.log(this.inputCommentImage);
     this.commentImages.push(this.inputCommentImage);
     console.log(this.commentImages);
+    this.inputCommentImage = undefined;
+    console.log(this.inputCommentImage);
 	}
+
+  deleteImage(Image): void {
+    this.commentImages.splice(this.commentImages.indexOf(Image),1);
+  }
 
   ngOnDestroy(): void {
     sessionStorage.clear();

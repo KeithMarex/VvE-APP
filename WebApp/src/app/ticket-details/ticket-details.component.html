@@ -123,25 +123,29 @@
         </section>
 
         <section class="comment-section">
-            <h1>Opmerkingen</h1>
-            <div class="comments">
-                <app-ticket-comment *ngFor="let comment of comments" [comment]="comment"></app-ticket-comment>
-            </div>
-            <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
-                <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
-                <label class="file-input">
-                    <img class="send-logo" src="assets\icons\Plus.svg">
-                    <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)" multiple>
-                </label>
-                <div class="submit-button">
-                    <button [disabled]="formForm.invalid" class="submit-comment-button">
-                        <img class="send-logo" src="assets\icons\Send.svg">
-                    </button>
+            <div class="left-section">
+                <div>
+                    <h1>Opmerkingen</h1>
+                    <div class="comments">
+                        <app-ticket-comment *ngFor="let comment of comments" [comment]="comment"></app-ticket-comment>
+                    </div>
+                    <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
+                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
+                        <label class="file-input">
+                            <img class="send-logo" src="assets\icons\Plus.svg">
+                            <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)" multiple>
+                        </label>
+                        <div class="submit-button">
+                            <button [disabled]="formForm.invalid" class="submit-comment-button">
+                                <img class="send-logo" src="assets\icons\Send.svg">
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
             <div class="input-image-name" >
                 <div *ngFor="let image of commentImages">
-                    {{ image.name }}
+                    <button class="remove-button" (click)="deleteImage(image)">{{ image.name}}</button>
                 </div>
             </div>
         </section>

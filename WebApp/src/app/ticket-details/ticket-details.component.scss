@@ -1,5 +1,6 @@
 @import "../../utilities/colors.scss";
 @import "../../utilities/effects.scss";
+@import "../../utilities/button.scss";
 
 
 .details-page {
@@ -150,54 +151,95 @@ body {
     }
 
     .comment-section {
+        display: flex;
+        flex-direction: row;
 
-        h1 {
-            padding-bottom: 10px;
-        }
-        
-        .comments {
-            height: 150px;
+        .left-section {
             width: 70%;
-            overflow: auto;
-        }
 
-        .comment-form {
-            width: 65%;
-            display: flex;
-            flex-direction: row;
-            border-radius: 10px;
-            box-shadow: $default-box-shadow;
-            padding-left: 10px;
-            position: relative; top: 10px;
-            background-color: white;
-
-            .textfield {
-                width: 90%;
-                border: none;
-                background-color: white;
+            h1 {
+                width: 100%;
+                padding-bottom: 10px;
             }
-
-            .send-logo {
-                padding-top: 7px;
-                background-color: white;
+            
+            .comments {
+                height: 150px;
+                min-width: 100%;
+                overflow: auto;
             }
-
-            .image-select-button {
-                width: 0px;
-            }
-
-            .submit-comment-button {
-                display: inline-block;
-                border: none;
+    
+            .comment-form {
+                width: 95%;
+                display: flex;
+                flex-direction: row;
+                border-radius: 10px;
+                box-shadow: $default-box-shadow;
                 padding-left: 10px;
-                padding-top: 4px;
+                position: relative; top: 10px;
+                background-color: white;
+    
+                .textfield {
+                    width: 90%;
+                    border: none;
+                    background-color: white;
+                }
+    
+                .send-logo {
+                    padding-top: 7px;
+                    background-color: white;
+                }
+    
+                .image-select-button {
+                    width: 0px;
+                }
+    
+                .submit-comment-button {
+                    display: inline-block;
+                    border: none;
+                    padding-left: 10px;
+                    padding-top: 4px;
+                }
             }
+        
+        
         }
-    }
 
-    .input-image-name{
-        position: relative; top: 15px;
-        width: 60px;
-        height:60px;
+        .input-image-name {
+            width: 25%;
+            height: 70%;
+            margin: 30px;
+            border-radius: 32px;
+            box-shadow: $default-box-shadow;
+            overflow: auto;
+
+            .remove-button {
+                height: 25px;
+                width: 80%px;
+                margin: 10px;
+                background-color: lightgray;
+                font-family: 'Inter', sans-serif;
+                font-size: 110%;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+                cursor: pointer;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                &::before {
+                    content: '';
+                }
+            
+                &::after {
+                    display: flex;
+                    // margin-right: 0.6rem;
+                    content: '';
+                    height: 100%;
+                    width: 1.5rem;
+                    background-position: center !important;
+                }
+            }        
+        }
     }
 }

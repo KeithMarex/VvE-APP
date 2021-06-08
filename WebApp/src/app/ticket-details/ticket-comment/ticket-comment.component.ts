@@ -24,7 +24,7 @@ export class TicketCommentComponent implements OnInit, OnDestroy {
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    // console.log(this.comment);
+    console.log(this.comment);
   }
 
   ngOnDestroy(): void {
