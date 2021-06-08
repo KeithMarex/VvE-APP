@@ -1,5 +1,7 @@
 <div class="comment-container">
     <div class="comment">
-        <p>{{comment}}</p>
+        <h1>Gebruiker</h1>
+        <p class="comment-text">{{comment.comment}}</p>
+        <div class="date">{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm' }}</div>
     </div>
 </div>
