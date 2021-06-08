@@ -2,9 +2,8 @@ import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@ang
 import { registerLocaleData } from '@angular/common';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
-import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from "./custom-event";
+import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from './custom-event';
 
 const colors: any = {
   red: {
