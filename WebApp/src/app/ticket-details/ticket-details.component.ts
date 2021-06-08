@@ -131,18 +131,16 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.inputCommentText = form.value.inputCommentText;
     // console.log(this.inputCommentText);
     console.log(this.inputCommentText);
-    if (this.inputCommentImage) {
+    if (this.commentImages.length > 0) {
       console.log(this.commentImages)
     }
   }
 
   handleFileInput(target: any): void {
 		this.inputCommentImage = target.files.item(0);
-    console.log(this.inputCommentImage);
     this.commentImages.push(this.inputCommentImage);
-    console.log(this.commentImages);
     this.inputCommentImage = undefined;
-    console.log(this.inputCommentImage);
+    // console.log(target.files);
 	}
 
   deleteImage(Image): void {

@@ -132,8 +132,8 @@
                     <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
                         <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
                         <label class="file-input">
-                            <img class="send-logo" src="assets\icons\Plus.svg">
-                            <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)" multiple>
+                            <img class="image-select-logo" src="assets\icons\Plus.svg">
+                            <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">
                         </label>
                         <div class="submit-button">
                             <button [disabled]="formForm.invalid" class="submit-comment-button">
