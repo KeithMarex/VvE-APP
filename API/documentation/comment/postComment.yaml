@@ -11,14 +11,14 @@ post:
           properties:
             comment:
               type: string
-            user:
-              type: string ObjectId
             images:
               type: string
               format: binary
+            ticketID:
+              type: string ObjectId
           required:
             - comment
-            - user
+            - ticketID
   responses:
     '201':
       description: Receiving created comment

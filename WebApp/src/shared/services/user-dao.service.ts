@@ -22,4 +22,15 @@ export class UserDao {
         return response;
       }))
     }
+
+    registerUser(email: string, firstname: string, lastname: string): Observable<any> {
+      const body = 
+      [{
+        "email": email,
+        "firstname": firstname,
+        "lastname": lastname
+      }];
+
+      return this.dao.sendPostRequest('user/register', body);
+    }
 }

@@ -27,9 +27,19 @@ export const getTickets = async(req, res) => {
 
 export const getTicket = (req, res) => {
     const id = req.params.id;
-    Ticket.findById(id).populate('images')
+    Ticket.findById(id).populate('images').populate({
+        path: 'comments',
+        model: 'Comment',
+        populate: [{
+            path: 'images',
+            model: 'Image'
+        },{
+            path: 'user',
+            model: 'User'
+        }]
+    })
     .then(result => {
-        res.status(200).send(result);
+        res.status(200).send(removePasswordFromCommentUser(result));
     })
     .catch(err => {
         logger.error(err);
@@ -111,4 +121,12 @@ const createTicket = (req, res) => {
         req.fields.images = res.locals.images;
     }
     return new Ticket(req.fields);
+}
+
+const removePasswordFromCommentUser = (data) => {
+    data.comments.forEach(comment => {
+        if(comment.user)
+            comment.user.password = null;
+    });
+    return data;
 }

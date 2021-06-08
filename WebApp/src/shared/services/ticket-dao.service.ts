@@ -24,7 +24,7 @@ export class TicketDao {
       }));
   };
 
-    createTicket(ticketData): Observable<any> {
+    createTicket(ticketData: FormData): Observable<any> {
       return this.dao.sendPostRequestForm('ticket/', ticketData);
     }
 }

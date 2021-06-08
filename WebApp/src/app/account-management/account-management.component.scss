@@ -19,11 +19,12 @@ body {
 
         button {
             @include button;
+        }
+    }
 
-            &::after {
-                margin-top: 0.3rem;
-                background: url('../../assets/icons/chevron.svg') no-repeat;
-            }
+    #add-user-button {
+        &::after {
+            background: url('../../assets/icons/chevron.svg') no-repeat;
         }
     }
 }
