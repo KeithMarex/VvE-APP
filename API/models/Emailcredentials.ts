@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
+import beautifyUnique from 'mongoose-beautiful-unique-validation';
 import { validateEmail } from '~/validators/EmailValidator';
 
 const Schema = mongoose.Schema;
 
-const Emailcredentials = new Schema({
+const EmailcredentialsSchema = new Schema({
     email: {
         type: String,
         required: [true, 'Email is required'],
@@ -29,4 +30,6 @@ const Emailcredentials = new Schema({
     }
 }, { timestamps: true });
 
-export default mongoose.model('Emailcredentials', Emailcredentials);
+EmailcredentialsSchema.plugin(beautifyUnique);
+
+export default mongoose.model('Emailcredentials', EmailcredentialsSchema);

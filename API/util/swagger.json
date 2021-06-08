@@ -209,16 +209,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "firstname": {
-                    "type": "string"
-                  },
-                  "lastname": {
-                    "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "firstname": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -235,7 +238,7 @@
         }
       }
     },
-    "/user/organization/{id}": {
+    "/user/organization/": {
       "get": {
         "summary": "Returns the admins from the organization the person is in.",
         "tags": [
