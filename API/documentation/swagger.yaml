@@ -19,7 +19,7 @@ paths:
     $ref: ./user/login.yaml
   /user/register:
     $ref: ./user/register.yaml
-  /user/organization/{id}:
+  /user/organization/:
     $ref: ./user/getUserOrganization.yaml
   /tag:
     $ref: ./tag/getTags.yaml
