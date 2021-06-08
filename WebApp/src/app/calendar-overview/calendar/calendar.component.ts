@@ -1,9 +1,11 @@
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit} from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
 import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from './custom-event';
+import {CalendarDao} from "../../../shared/services/calendar-dao.service";
+import {AgendaItem} from "../../../shared/models/agenda-item";
 
 const colors: any = {
   red: {
@@ -26,7 +28,7 @@ const colors: any = {
   styleUrls: ['calendar.component.scss'],
   templateUrl: 'calendar.component.html',
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -106,7 +108,35 @@ export class CalendarComponent {
 
   activeDayIsOpen = true;
 
-  constructor() {}
+  constructor(private calendarDao: CalendarDao) {}
+
+  ngOnInit(): void {
+    this.calendarDao.getCalendarItems('2021-6')
+      .subscribe(responseCalItems => {
+        this.parseCalendarItems(responseCalItems);
+      });
+  }
+
+  parseCalendarItems(calItems: AgendaItem[]): void {
+    console.log();
+
+    const parsedEvents: CustomEvent[] = [];
+    calItems.forEach((calItem) => {
+      parsedEvents.push({
+        start: new Date(calItem.date),
+        end: calItem.endDate ? new Date(calItem.endDate) : new Date(calItem.date),
+        title: calItem.title,
+        description: calItem.description,
+        color: colors.blue
+      });
+    });
+
+    this.events = parsedEvents;
+
+    console.log(subDays(startOfDay(new Date()), 1));
+    console.log(new Date(calItems[0].date));
+    console.log(this.events);
+  }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

@@ -40,7 +40,7 @@ export class CalendarItemCreatorComponent implements OnInit {
     const payload = {
       title,
       description,
-      startdate: startDate,
+      date: startDate,
       enddate: endDate
     };
 

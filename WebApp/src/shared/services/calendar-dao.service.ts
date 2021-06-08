@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Image } from '../models/image.model';
-import { Ticket } from '../models/ticket.model';
 import { Dao } from './dao.service';
+import { AgendaItem } from '../models/agenda-item';
 
 @Injectable()
 export class CalendarDao {
@@ -12,5 +11,12 @@ export class CalendarDao {
 
     createCalendarItem(calendarItemData: object): Observable<any> {
       return this.dao.sendPostRequest('agenda/', calendarItemData);
+    }
+
+    getCalendarItems(month: string): Observable<AgendaItem[]> {
+      return this.dao.sendGetRequest('agenda/' + month)
+        .pipe(map((response: AgendaItem[]) => {
+          return response;
+        }));
     }
 }
