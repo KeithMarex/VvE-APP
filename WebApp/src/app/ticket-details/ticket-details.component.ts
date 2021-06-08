@@ -126,6 +126,12 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
+  submitInformation(): void {
+    console.log(this.selectedAssignee);
+    console.log(this.selectedStatus);
+    console.log(this.selectedTag);
+  }
+
   ngOnDestroy(): void {
     sessionStorage.clear();
     if (this.ticketIdSub)

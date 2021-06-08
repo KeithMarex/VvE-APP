@@ -92,19 +92,24 @@
                         </div>
                     </div>
                     <div class="second-row">
-                        <h1>Toegewezen persoon</h1>
-                        <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
-                            <ng-template dropdownSelected let-selected>
-                                <div class="dropdown-item">
-                                    <p class="dropdown-text">{{ selected }}</p>
-                                </div>
-                            </ng-template>
-                            <ng-template dropdownOption let-option>
-                                <div class="dropdown-item">
-                                    <p class="dropdown-text">{{ option }}</p>
-                                </div>
-                            </ng-template>
-                        </app-dropdown>
+                        <div class="selected-assignee">
+                            <h1>Toegewezen persoon</h1>
+                            <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
+                                <ng-template dropdownSelected let-selected>
+                                    <div class="dropdown-item">
+                                        <p class="dropdown-text">{{ selected }}</p>
+                                    </div>
+                                </ng-template>
+                                <ng-template dropdownOption let-option>
+                                    <div class="dropdown-item">
+                                        <p class="dropdown-text">{{ option }}</p>
+                                    </div>
+                                </ng-template>
+                            </app-dropdown>
+                        </div>
+                        <section class="submit-information-button">
+                            <button (click)="submitInformation()">Opslaan</button>
+                        </section>
                     </div>
                 </div>
             </div>

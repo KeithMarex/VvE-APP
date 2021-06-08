@@ -1,5 +1,6 @@
 @import "../../utilities/colors.scss";
 @import "../../utilities/effects.scss";
+@import "../../utilities/button.scss";
 
 
 .details-page {
@@ -135,6 +136,14 @@ body {
 
         .second-row {
             width: 250px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            h1 {
+                font-size: 110%;
+                padding-bottom: 5px;
+            }
 
             .dropdown {
                 .dropdown-text{
@@ -144,6 +153,25 @@ body {
                 .dropdown-item {
                     display: flex;
                     flex-direction: row;
+                }
+            }
+
+            .submit-information-button {
+                display: flex;
+                justify-content: flex-end;
+                border-bottom: 1px solid #DEDEDE;
+                margin: 0 15px;
+                height: 1px;
+                width: 1px;
+        
+                button {
+                    @include button;
+                    height: 25px;
+                    width: 80px;
+        
+                    &::after {
+                        margin-top: 0.3rem;
+                    }
                 }
             }
         }
