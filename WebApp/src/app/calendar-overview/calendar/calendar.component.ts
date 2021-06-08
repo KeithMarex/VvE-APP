@@ -5,7 +5,7 @@ import {CalendarView} from 'angular-calendar';
 import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from './custom-event';
 import {CalendarDao} from '../../../shared/services/calendar-dao.service';
 import {AgendaItem} from '../../../shared/models/agenda-item';
-import {CalendarService} from "./calendar.service";
+import {CalendarService} from './calendar.service';
 
 const colors: any = {
   red: {
@@ -123,8 +123,8 @@ export class CalendarComponent implements OnInit {
 
     if (this.calendarService.calendarItemsIsEmpty()) {
       this.calendarDao.getCalendarItems('2021-6')
-        .subscribe(responseCalItems => {
-          this.calendarService.setCalendarItems(responseCalItems);
+        .subscribe(resCalItems => {
+          this.calendarService.setCalendarItems(resCalItems);
         });
     }
   }
@@ -180,43 +180,23 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({ event, newStart, newEnd }: CustomEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    // TODO handle change
-    console.log(event);
+  calendarItemTimesChanged({ event, newStart, newEnd }: CustomEventTimesChangedEvent): void {
+    const editedCalendarItem = new AgendaItem(
+      event.id,
+      event.title,
+      event.description,
+      newStart,
+      newEnd
+    );
+    this.calendarDao.updateCalendarItem(editedCalendarItem)
+      .subscribe(() => {
+        this.calendarService.updateCalendarItem(editedCalendarItem);
+      });
   }
 
   handleEvent(action: string, event: CustomEvent): void {
     // this.modalData = { event, action };
     // this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        description: 'New',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        id: 'a',
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
   }
 
   deleteEvent(eventToDelete: CustomEvent): void {
@@ -238,7 +218,7 @@ export class CalendarComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  showEventPopUp(eventToShow: CustomEvent): void {
+  showCalendarItemPopUp(eventToShow: CustomEvent): void {
     this.modalEvent = eventToShow;
   }
 

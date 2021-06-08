@@ -16,6 +16,14 @@ export class CalendarService {
     this.calendarItems.next(this.calendarItems.getValue().concat([calendarItem]));
   }
 
+  updateCalendarItem(calendarItem: AgendaItem): void {
+    const calendarItems = this.calendarItems.getValue();
+    const updatedCalendarItemIndex = calendarItems.findIndex((item) => item._id === calendarItem._id);
+    calendarItems[updatedCalendarItemIndex] = calendarItem;
+
+    this.calendarItems.next(calendarItems);
+  }
+
   deleteCalendarItem(calendarItemId: string): void {
     this.calendarItems.next(
       this.calendarItems.getValue().filter((calendarItem) => {

@@ -69,8 +69,8 @@
     [activeDayIsOpen]="activeDayIsOpen"
     [locale]="locale"
     (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="showEventPopUp( $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
+    (eventClicked)="showCalendarItemPopUp( $event.event)"
+    (eventTimesChanged)="calendarItemTimesChanged($event)"
   >
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
@@ -79,8 +79,8 @@
     [events]="events"
     [refresh]="refresh"
     [locale]="locale"
-    (eventClicked)="showEventPopUp( $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
+    (eventClicked)="showCalendarItemPopUp( $event.event)"
+    (eventTimesChanged)="calendarItemTimesChanged($event)"
   >
   </mwl-calendar-week-view>
   <mwl-calendar-day-view
@@ -89,8 +89,8 @@
     [events]="events"
     [refresh]="refresh"
     [locale]="locale"
-    (eventClicked)="showEventPopUp( $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
+    (eventClicked)="showCalendarItemPopUp( $event.event)"
+    (eventTimesChanged)="calendarItemTimesChanged($event)"
   >
   </mwl-calendar-day-view>
 </div>
@@ -101,9 +101,6 @@
 
 <h3>
   Edit events
-  <button (click)="addEvent()">
-    Add new
-  </button>
   <div></div>
 </h3>
 

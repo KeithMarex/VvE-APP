@@ -7,20 +7,24 @@ import { AgendaItem } from '../models/agenda-item';
 @Injectable()
 export class CalendarDao {
 
-    constructor(private dao: Dao) {}
+  constructor(private dao: Dao) {}
 
-    createCalendarItem(calendarItemData: object): Observable<AgendaItem> {
-      return this.dao.sendPostRequest('agenda/', calendarItemData);
-    }
+  getCalendarItems(month: string): Observable<AgendaItem[]> {
+    return this.dao.sendGetRequest('agenda/' + month)
+      .pipe(map((response: AgendaItem[]) => {
+        return response;
+      }));
+  }
 
-    getCalendarItems(month: string): Observable<AgendaItem[]> {
-      return this.dao.sendGetRequest('agenda/' + month)
-        .pipe(map((response: AgendaItem[]) => {
-          return response;
-        }));
-    }
+  createCalendarItem(calendarItemData: object): Observable<AgendaItem> {
+    return this.dao.sendPostRequest('agenda/', calendarItemData);
+  }
 
-    deleteCalendarItem(calendarItemId: string): Observable<any> {
-      return this.dao.sendDeleteRequest('agenda/' + calendarItemId);
-    }
+  updateCalendarItem(calendarItemData: AgendaItem): Observable<AgendaItem> {
+    return this.dao.sendPutRequest('agenda/' + calendarItemData._id, calendarItemData);
+  }
+
+  deleteCalendarItem(calendarItemId: string): Observable<any> {
+    return this.dao.sendDeleteRequest('agenda/' + calendarItemId);
+  }
 }
