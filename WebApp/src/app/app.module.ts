@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -44,6 +44,7 @@ import { AccountItemComponent } from './account-management/account-list/account-
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
 
+@Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
   public dayViewHour({ date, locale }: DateFormatterParams): string {
     return new Intl.DateTimeFormat('ca', {
