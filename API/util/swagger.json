@@ -1019,16 +1019,12 @@
                   },
                   "enddate": {
                     "type": "Date"
-                  },
-                  "organisation": {
-                    "type": "string ObjectId"
                   }
                 },
                 "required": [
                   "title",
                   "description",
-                  "date",
-                  "organisation"
+                  "date"
                 ]
               }
             }

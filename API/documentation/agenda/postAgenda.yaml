@@ -17,13 +17,10 @@ post:
               type: Date
             enddate:
               type: Date
-            organisation:
-              type: string ObjectId
           required:
             - title
             - description
             - date
-            - organisation
   responses:
     '201':
       description: Receiving created Agenda Item

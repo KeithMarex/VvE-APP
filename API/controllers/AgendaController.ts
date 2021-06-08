@@ -3,7 +3,7 @@ import logger from "~/util/Logger";
 
 
 export const postAgenda = (req, res) => {
-    const item = new Agenda_item(req.body);
+    const item = createAgenda(req, res);//new Agenda_item(req.body);
 
     item.save()
     .then(result => {
@@ -105,6 +105,12 @@ export const getAgendaDetails = (req, res) => {
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
+}
+
+const createAgenda = (req, res) => {
+    req.body.organisation = res.locals.user.organizations[0]
+
+    return new Agenda_item(req.body);
 }
 
 const getMonthTimeFrame = (monthString) => { // YYYY-MM
