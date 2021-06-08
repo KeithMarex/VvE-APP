@@ -17,7 +17,7 @@ export const getHTML = async (fileName: String) => {
 export const sendMail = async(subject: String, info: any, htlm: String) => {
     let source = await getHTML(htlm);
     source = addAttributes(source, info);
-    let email = await getEmail(info._id);
+    let email = info.email || await getEmail(info._id);
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
         to: email,
