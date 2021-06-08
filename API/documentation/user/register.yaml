@@ -8,14 +8,16 @@ post:
     content:
       application/json:
         schema:
-          type: object
-          properties:
-            email:
-              type: string
-            firstname:
-              type: string
-            lastname:
-              type: string
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+              firstname:
+                type: string
+              lastname:
+                type: string
   responses:
     '201':
       description: Users (accounts) have been registerd (created) succesfully

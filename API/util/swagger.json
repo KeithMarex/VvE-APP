@@ -209,16 +209,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "firstname": {
-                    "type": "string"
-                  },
-                  "lastname": {
-                    "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "firstname": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -235,7 +238,7 @@
         }
       }
     },
-    "/user/organization/{id}": {
+    "/user/organization/": {
       "get": {
         "summary": "Returns the admins from the organization the person is in.",
         "tags": [
@@ -800,6 +803,7 @@
     "/comment/": {
       "post": {
         "summary": "Adds comment to the database and ticket",
+        "description": "ticketID is required for the API to push the comment onto the right ticket object. If no ticketID is sent, the api cannot attach the comment to a ticket.",
         "tags": [
           "Comment"
         ],
@@ -813,17 +817,17 @@
                   "comment": {
                     "type": "string"
                   },
-                  "user": {
-                    "type": "string ObjectId"
-                  },
                   "images": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "ticketID": {
+                    "type": "string ObjectId"
                   }
                 },
                 "required": [
                   "comment",
-                  "user"
+                  "ticketID"
                 ]
               }
             }
@@ -898,6 +902,7 @@
     "/agenda/{month}/": {
       "get": {
         "summary": "Returns the Agenda Items in given month.",
+        "description": "The parameter should be given in YYYY-MM. Example /2021-06",
         "tags": [
           "Agenda"
         ],
@@ -998,6 +1003,7 @@
     "/agenda/": {
       "post": {
         "summary": "Adds agenda item to the database",
+        "description": "enddate is optional, only used for appointments that last longer than a day and require such a notation",
         "tags": [
           "Agenda"
         ],
@@ -1019,16 +1025,12 @@
                   },
                   "enddate": {
                     "type": "Date"
-                  },
-                  "organisation": {
-                    "type": "string ObjectId"
                   }
                 },
                 "required": [
                   "title",
                   "description",
-                  "date",
-                  "organisation"
+                  "date"
                 ]
               }
             }
@@ -1061,7 +1063,7 @@
                       "$ref": "#/paths/~1user/get/responses/200/content/application~1json/schema/items"
                     },
                     "organisation": {
-                      "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema/properties/organization"
+                      "type": "Organization"
                     },
                     "createdAt": {
                       "type": "string"
