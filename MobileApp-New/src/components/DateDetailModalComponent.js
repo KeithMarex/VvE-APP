@@ -5,29 +5,40 @@ import StyledText from "./StyledText";
 import moment from "moment";
 import Button from "./Button";
 
-const ModalComponent = (props) => {
+const DateDetailModalComponent = (props) => {
     React.useEffect(() => {
+        setModalInfo(props.modalInfo);
         setModalVisible(props.visible);
-        if (props.modalInfo !== undefined){
-            setDate(props.modalInfo['dateString']);
-        }
     }, [props.visible]);
     const [modalVisible, setModalVisible] = useState(false);
-    const [date, setDate] = useState('');
+    const [modalInfo, setModalInfo] = useState();
+
+    const getText = () => {
+        if (modalInfo !== undefined || modalInfo !== ''){
+            const date = moment(modalInfo['date'].split('T', 1), "YYYY-MM-DD").format("DD-MMMM-YYYY").split('-');
+            const time = modalInfo['date'].split('T', 2)[1].split('.', 1)[0].split(':');
+            return(`${date[0]} ${date[1]} ${date[2]} om ${time[0]}:${time[1]}`);
+        } else {
+            return 'geen data';
+        }
+    }
 
     function handleClose(){
-        props.onClose(false);
+        props.onClose();
     }
 
     return (
         <Modal animationType="fade" transparent={true} statusBarTranslucent={true} deviceHeight={Platform.OS === "ios" ? useWindowDimensions().height : useWindowDimensions().height + StatusBar.currentHeight * 2} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
             <View style={styles.centeredView}>
+                {(modalInfo !== undefined) ?
                 <View style={styles.modalView}>
                     <StyledText theme={'pageTitle'}>Afspraak</StyledText>
-                    <StyledText inputStyle={styles.informatie}>{moment(date, "YYYY-MM-DD").format("DD-MMMM-YYYY")} </StyledText>
-                    <StyledText inputStyle={{color: '#6E7191', fontSize: 13, marginBottom: 10}}>Lorem ipsum soler dol er set amt</StyledText>
+                    <StyledText inputStyle={styles.informatie}>{modalInfo.title}</StyledText>
+                    <StyledText inputStyle={styles.informatie}>{getText()}</StyledText>
+                    <StyledText inputStyle={{color: '#6E7191', fontSize: 13, marginBottom: 10}}>{modalInfo.description}</StyledText>
                     <Button pressAction={handleClose}>Sluiten</Button>
-                </View>
+                </View>: null
+                }
             </View>
         </Modal>
     )
@@ -81,4 +92,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ModalComponent;
+export default DateDetailModalComponent;

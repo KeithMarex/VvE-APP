@@ -22,7 +22,7 @@ const UpcomingAppointment = () => {
             <StyledText>Eerst volgende nieuwe afspraak</StyledText>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 10}}>
                 <CalendarIcon stroke={'#451864'}/>
-                <StyledText inputStyle={styles.informatie}>{upcomingApp}</StyledText>
+                <StyledText inputStyle={styles.information}>{upcomingApp}</StyledText>
             </View>
         </View>
     </View>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
     },
-    informatie: {
+    information: {
         paddingLeft: 10
     }
 
