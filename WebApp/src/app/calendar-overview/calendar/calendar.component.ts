@@ -1,11 +1,10 @@
-import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit} from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
-import { Subject } from 'rxjs';
-import { CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
+import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {eachDayOfInterval, endOfDay, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
+import {Subject} from 'rxjs';
+import {CalendarView} from 'angular-calendar';
 import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from './custom-event';
-import {CalendarDao} from "../../../shared/services/calendar-dao.service";
-import {AgendaItem} from "../../../shared/models/agenda-item";
+import {CalendarDao} from '../../../shared/services/calendar-dao.service';
+import {AgendaItem} from '../../../shared/models/agenda-item';
 
 const colors: any = {
   red: {
@@ -27,6 +26,7 @@ const colors: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['calendar.component.scss'],
   templateUrl: 'calendar.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
@@ -40,6 +40,8 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
 
   modalEvent: CustomEvent;
+
+  isEventsToday: boolean;
 
   actions: CustomEventAction[] = [
     {
@@ -60,51 +62,52 @@ export class CalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CustomEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'VvE pyjama party',
-      description: 'Iedereen is welkom bij dit fantastische pyjama feestje. Trek je mooiste pyjama aan en neem een goed humeur mee.',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-      id: 'abc123'
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      description: '2',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      description: '3',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      description: '3',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CustomEvent[] = [];
+  // events: CustomEvent[] = [
+  //   {
+  //     start: subDays(startOfDay(new Date()), 1),
+  //     end: addDays(new Date(), 1),
+  //     title: 'VvE pyjama party',
+  //     description: 'Iedereen is welkom bij dit fantastische pyjama feestje. Trek je mooiste pyjama aan en neem een goed humeur mee.',
+  //     color: colors.red,
+  //     actions: this.actions,
+  //     allDay: true,
+  //     resizable: {
+  //       beforeStart: true,
+  //       afterEnd: true,
+  //     },
+  //     draggable: true,
+  //     id: 'abc123'
+  //   },
+  //   {
+  //     start: startOfDay(new Date()),
+  //     title: 'An event with no end date',
+  //     description: '2',
+  //     color: colors.yellow,
+  //     actions: this.actions,
+  //   },
+  //   {
+  //     start: subDays(endOfMonth(new Date()), 3),
+  //     end: addDays(endOfMonth(new Date()), 3),
+  //     title: 'A long event that spans 2 months',
+  //     description: '3',
+  //     color: colors.blue,
+  //     allDay: true,
+  //   },
+  //   {
+  //     start: addHours(startOfDay(new Date()), 2),
+  //     end: addHours(new Date(), 2),
+  //     title: 'A draggable and resizable event',
+  //     description: '3',
+  //     color: colors.yellow,
+  //     actions: this.actions,
+  //     resizable: {
+  //       beforeStart: true,
+  //       afterEnd: true,
+  //     },
+  //     draggable: true,
+  //   },
+  // ];
 
   activeDayIsOpen = true;
 
@@ -114,28 +117,50 @@ export class CalendarComponent implements OnInit {
     this.calendarDao.getCalendarItems('2021-6')
       .subscribe(responseCalItems => {
         this.parseCalendarItems(responseCalItems);
+        this.refresh.next();
       });
   }
 
   parseCalendarItems(calItems: AgendaItem[]): void {
-    console.log();
-
     const parsedEvents: CustomEvent[] = [];
+    const now = new Date();
+
     calItems.forEach((calItem) => {
+      const startDate = new Date(calItem.date);
+      const endDate = calItem.endDate ? new Date(calItem.endDate) : undefined;
+
+      if (!this.isEventsToday && this.eventIsToday(now, startDate, endDate)) {
+        this.isEventsToday = true;
+      }
+
       parsedEvents.push({
-        start: new Date(calItem.date),
-        end: calItem.endDate ? new Date(calItem.endDate) : new Date(calItem.date),
+        start: startDate,
+        end: endDate,
         title: calItem.title,
         description: calItem.description,
-        color: colors.blue
+        color: colors.blue,
+        allDay: !!calItem.endDate,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+        draggable: true,
+        id: calItem._id
       });
     });
 
     this.events = parsedEvents;
+  }
 
-    console.log(subDays(startOfDay(new Date()), 1));
-    console.log(new Date(calItems[0].date));
-    console.log(this.events);
+  eventIsToday(now: Date, startDate: Date, endDate: Date): boolean {
+    const dayRange =
+      endDate ? eachDayOfInterval({start: startDate, end: endDate}) : [startDate];
+    dayRange.forEach((day) => {
+      if (isSameDay(now, day)) {
+        return true;
+      }
+    });
+    return false;
   }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
