@@ -33,7 +33,7 @@ const pushCommentToTicket = (req, res, commentObject) => {
     )
     .then( () => {
         //Bestuurder mail
-        sendAdminMail("[VvE] Er is een nieuw bericht op een ticket",res.locals.user.organizations[0], "bericht_bestuurder.html");
+        sendAdminMail("Er is een nieuw bericht op een ticket",res.locals.user.organizations[0], "bericht_bestuurder");
 
         //Bewoner mail
         sendMail("[VvE] U heeft een bericht geplaatst", res.locals.user, "bericht_bewoner");

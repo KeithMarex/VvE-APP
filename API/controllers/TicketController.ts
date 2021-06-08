@@ -43,7 +43,7 @@ export const postTicket = (req, res) => {
     ticket.save()
     .then(result => {
         //Bestuurder mail
-        sendAdminMail("[VvE] Er is een nieuwe ticket aangemaakt", res.locals.user.organizations[0], "ticket_bestuurder");
+        sendAdminMail("Er is een nieuwe ticket aangemaakt", res.locals.user.organizations[0], "ticket_bestuurder");
 
         //Bewoner mail
         sendMail("Ticket aangemaakt", res.locals.user , "ticket_aangemaakt_bewoner");
