@@ -1,3 +1,4 @@
+import Emailcredentials from '~/models/Emailcredentials';
 import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
 import handlebars from 'handlebars';
@@ -5,14 +6,17 @@ import User from "~/models/User";
 import path from 'path'
 import Organization from "~/models/Organization";
 
+// Needed to initialize the model
+Emailcredentials.count();
+
 export const getHTML = async (fileName: String) => {
     const filePath = path.join(__dirname, `../html/${fileName}.html`);
     return readFileSync(filePath, 'utf-8').toString();
 }
 
 export const sendMail = async(subject: String, info: any, htlm: String) => {
-    let source = await getHTML(htlm)
-    source = addAttributes(source, info)
+    let source = await getHTML(htlm);
+    source = addAttributes(source, info);
     let email = await getEmail(info._id);
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
@@ -23,7 +27,7 @@ export const sendMail = async(subject: String, info: any, htlm: String) => {
 }
 
 export const sendAdminMail = async(subject: String, organizationId, htlm: String) => {
-    let source = await getHTML(htlm)
+    let source = await getHTML(htlm);
     let email = await getAdminEmail(organizationId);
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
@@ -36,7 +40,7 @@ export const sendAdminMail = async(subject: String, organizationId, htlm: String
 const addAttributes = (source, attributes) => {
     const template = handlebars.compile(source);
     source = template(attributes);
-    return source
+    return source;
 }
 
 const getEmail = async (userId) => {
@@ -45,8 +49,8 @@ const getEmail = async (userId) => {
 }
 
 const getAdminEmail = async (organizationId) => {
-    const email = await Organization.findOne({_id: organizationId}).populate('emailCredentials');
-    return email["email"];
+    const email = await Organization.findById(organizationId).populate("emailcredentials");
+    return email["emailcredentials"]["email"];
 }
 
 const mailTransporter = nodemailer.createTransport({
