@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { DaterangepickerComponent, DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { CalendarDao } from 'src/shared/services/calendar-dao.service';
 import moment from 'moment';
-moment.locale('nl')
+moment.locale('nl');
 
 @Component({
   selector: 'app-calendar-item-creator',
@@ -20,19 +20,19 @@ export class CalendarItemCreatorComponent implements OnInit {
 
   constructor(private calendarDao: CalendarDao) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.selected = {
       startDate: moment().startOf('day'),
       endDate: moment().startOf('day')
-    }
+    };
     this.locale = {
       daysOfWeek: moment.weekdaysMin(),
       monthNames: moment.months(),
       firstDay: moment.localeData().firstDayOfWeek()
-    }
+    };
   }
 
-  onCreateItem(form: NgForm) {
+  onCreateItem(form: NgForm): void {
     const { title, description } = form.value;
     const endDate = this.selected.endDate.toDate();
     const startDate = this.selected.startDate.toDate();
@@ -42,15 +42,15 @@ export class CalendarItemCreatorComponent implements OnInit {
       description,
       startDate,
       endDate
-    }
+    };
 
     this.calendarDao.createCalendarItem(payload)
       .subscribe(response => {
         this.calendarItemCreated.emit();
-      })
+      });
   }
 
-  pickedDateTime(e) {
+  pickedDateTime(e): void {
     this.dateTime = e;
   }
 }
