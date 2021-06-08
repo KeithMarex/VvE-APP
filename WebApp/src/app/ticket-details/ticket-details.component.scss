@@ -135,7 +135,7 @@ body {
         }
 
         .second-row {
-            width: 250px;
+            position: relative;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -163,11 +163,16 @@ body {
                 margin: 0 15px;
                 height: 1px;
                 width: 1px;
+                position: absolute;
+                right: 0;
+                left: 85%;
         
                 button {
                     @include button;
                     height: 25px;
-                    width: 80px;
+                    width: 200px;
+                    padding-left: 10px;
+                    padding-right: 10px;
         
                     &::after {
                         margin-top: 0.3rem;
