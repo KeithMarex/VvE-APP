@@ -3,7 +3,7 @@ import logger from "~/util/Logger";
 
 
 export const postAgenda = (req, res) => {
-    const item = createAgenda(req, res);//new Agenda_item(req.body);
+    const item = createAgenda(req, res);
 
     item.save()
     .then(result => {
