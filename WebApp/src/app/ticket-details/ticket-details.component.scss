@@ -94,7 +94,9 @@ body {
 
         h1 {
             font-size: 110%;
+            padding-bottom: 5px;
         }
+        
 
         .first-row {
             display: flex;
@@ -102,10 +104,46 @@ body {
             justify-content: space-between;
             margin-bottom: 1rem;
 
+            .dropdown {
+                .dropdown-text{
+                    padding-left: 10px;
+                }
+
+                .dot {
+                    height: 15px;
+                    width: 15px;
+                    border-radius: 50%;
+                    display: inline-block;
+                }
+                .dropdown-item {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+
             .status {
                 padding-right: 6rem;
+                width: 250px;
             }
             
+            .tag {
+                width: 175px;
+            }
+        }
+
+        .second-row {
+            width: 250px;
+
+            .dropdown {
+                .dropdown-text{
+                    padding-left: 10px;
+                }
+
+                .dropdown-item {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
         }
     }
 }
