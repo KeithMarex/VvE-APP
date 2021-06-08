@@ -53,8 +53,10 @@ const CalendarScreen = () => {
                               markingType={'custom'}
                               markedDates={calendarData}
                               onDayPress={(day) => {
-                                  setModalInfo(day)
-                                  setModalVisible(true);
+                                  if (day.dateString in calendarData){
+                                      setModalInfo(day)
+                                      setModalVisible(true);
+                                  }
                               }}
                               loadItemsForMonth={() => {getDatumElements({'year': moment().year(), 'month': moment().month() + 1})}}
                               onMonthChange={(month) => {getDatumElements(month)}}

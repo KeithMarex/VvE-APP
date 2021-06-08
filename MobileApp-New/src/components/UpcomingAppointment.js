@@ -6,11 +6,13 @@ import ApiHelper from "../util/ApiHelper";
 import moment from "moment";
 
 const UpcomingAppointment = () => {
-    const [upcomingApp, setUpcomingApp] = useState({});
+    const [upcomingApp, setUpcomingApp] = useState('');
     useEffect(() => {
         // Function to get API Data
         ApiHelper.get('/agenda/next').then(val => {
-            setUpcomingApp(val);
+            const date = moment(val['data']['date'].split('T', 1), "YYYY-MM-DD").format("DD-MMMM-YYYY").split('-');
+            const time = val['data']['date'].split('T', 2)[1].split('.', 1)[0].split(':');
+            setUpcomingApp(`${date[0]} ${date[1]} ${date[2]} om ${time[0]}:${time[1]}`);
         })
     });
 
@@ -20,7 +22,7 @@ const UpcomingAppointment = () => {
             <StyledText>Eerst volgende nieuwe afspraak</StyledText>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 10}}>
                 <CalendarIcon stroke={'#451864'}/>
-                <StyledText inputStyle={styles.informatie}>{moment(upcomingApp['date'].split('T', 1), "YYYY-MM-DD").format("DD-MMMM-YYYY")}</StyledText>
+                <StyledText inputStyle={styles.informatie}>{upcomingApp}</StyledText>
             </View>
         </View>
     </View>
@@ -36,7 +38,11 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
+    },
+    informatie: {
+        paddingLeft: 10
     }
+
 });
 
 export default UpcomingAppointment;
