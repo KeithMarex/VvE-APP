@@ -12,16 +12,15 @@ moment.locale('nl');
 })
 export class CalendarItemCreatorComponent implements OnInit {
   @Output() calendarItemCreated = new EventEmitter();
-  selected: {startDate: moment.Moment, endDate: moment.Moment};
+  selectedDateTime: {startDate: moment.Moment, endDate: moment.Moment};
   inlineDate: any;
-  dateTime: any;
   picker: DaterangepickerComponent;
   locale: {};
 
   constructor(private calendarDao: CalendarDao) { }
 
   ngOnInit(): void {
-    this.selected = {
+    this.selectedDateTime = {
       startDate: moment().startOf('day'),
       endDate: moment().startOf('day')
     };
@@ -34,14 +33,15 @@ export class CalendarItemCreatorComponent implements OnInit {
 
   onCreateItem(form: NgForm): void {
     const { title, description } = form.value;
-    const endDate = this.selected.endDate.toDate();
-    const startDate = this.selected.startDate.toDate();
+
+    const startDate = this.selectedDateTime.startDate.toDate();
+    const endDate = this.selectedDateTime.endDate.toDate();
 
     const payload = {
       title,
       description,
-      startDate,
-      endDate
+      startdate: startDate,
+      enddate: endDate
     };
 
     this.calendarDao.createCalendarItem(payload)
@@ -51,6 +51,6 @@ export class CalendarItemCreatorComponent implements OnInit {
   }
 
   pickedDateTime(e): void {
-    this.dateTime = e;
+    this.selectedDateTime = e;
   }
 }
