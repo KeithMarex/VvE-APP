@@ -24,7 +24,7 @@ export class TicketCommentComponent implements OnInit, OnDestroy {
   constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    console.log(this.comment);
+    // console.log(this.comment.images[0].image_url);
   }
 
   ngOnDestroy(): void {

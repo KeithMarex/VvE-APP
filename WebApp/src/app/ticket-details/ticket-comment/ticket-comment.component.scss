@@ -37,6 +37,23 @@
             color: #6E7191;
             font-size: 60%;
             font-weight: 1000;
-          }
+        }
+    }
+
+    .image-section {
+
+        .comment-images {
+            display: flex;
+            flex-direction: row;
+            align-self: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+    
+            p > a > img {
+                max-width: 3rem;
+                max-height: 3rem;
+                cursor: pointer;
+            }
+        }
     }
 }
