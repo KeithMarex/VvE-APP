@@ -21,7 +21,7 @@ export class CalendarItemDetailsComponent implements OnInit {
   createDateString(): void {
     let parsedDate = '';
     const startDate = this.calendarItem.date;
-    const endDate = this.calendarItem.endDate;
+    const endDate = this.calendarItem.enddate;
 
     const parsedStartDate = this.parseDate(startDate);
     const parsedEndDate = this.parseDate(endDate);

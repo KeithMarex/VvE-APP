@@ -10,10 +10,7 @@ export class CalendarDao {
   constructor(private dao: Dao) {}
 
   getCalendarItems(month: string): Observable<CalendarItem[]> {
-    return this.dao.sendGetRequest('agenda/' + month)
-      .pipe(map((response: CalendarItem[]) => {
-        return response;
-      }));
+    return this.dao.sendGetRequest('agenda/' + month);
   }
 
   createCalendarItem(calendarItemData: object): Observable<CalendarItem> {

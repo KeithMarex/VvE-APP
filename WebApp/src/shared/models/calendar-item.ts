@@ -3,13 +3,13 @@ export class CalendarItem {
     title: string;
     description: string;
     date: Date;
-    endDate: Date;
+    enddate: Date;
 
-    constructor(_id: string, title: string, description: string, date: Date, endDate: Date) {
+    constructor(_id: string, title: string, description: string, date: Date, enddate: Date) {
         this._id = _id;
         this.title = title;
         this.description = description;
         this.date = date;
-        this.endDate = endDate;
+        this.enddate = enddate;
     }
 }

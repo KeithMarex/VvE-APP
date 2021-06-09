@@ -60,7 +60,8 @@ export class CalendarComponent implements OnInit {
 
     if (!this.calendarService.calendarItemsIsEmpty()) { return; }
     const now = new Date();
-    this.calendarDao.getCalendarItems(now.getFullYear() + '-' + (now.getMonth() + 1))
+    const monthToFetch = now.getFullYear() + '-' + (now.getMonth() + 1);
+    this.calendarDao.getCalendarItems(monthToFetch)
       .subscribe(resCalItems => {
         this.calendarService.setCalendarItems(resCalItems);
       });
@@ -87,9 +88,9 @@ export class CalendarComponent implements OnInit {
 
   calendarItemTimesChanged({ event, newStart, newEnd }: CustomEventTimesChangedEvent): void {
     event.start = newStart;
-    event.end = newEnd;
-
-    console.log(event);
+    if (newEnd) {
+      event.end = newEnd;
+    }
 
     const editedCalendarItem = this.calendarService.customEventToCalendarItem(event);
     this.calendarDao.updateCalendarItem(editedCalendarItem)

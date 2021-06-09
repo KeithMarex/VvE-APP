@@ -31,7 +31,7 @@ export class CalendarService {
 
   calendarItemToCustomEvent(calItem: CalendarItem, actions): CustomEvent {
     const startDate = new Date(calItem.date);
-    const endDate = calItem.endDate ? new Date(calItem.endDate) : undefined;
+    const endDate = calItem.enddate ? new Date(calItem.enddate) : undefined;
 
     const customEvent: CustomEvent[] = [];
     customEvent.push({
@@ -41,7 +41,7 @@ export class CalendarService {
       description: calItem.description,
       id: calItem._id,
       color: this.colors.primary,
-      allDay: !!calItem.endDate,
+      allDay: !calItem.enddate,
       actions,
       resizable: {
         beforeStart: true,

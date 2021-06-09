@@ -61,7 +61,7 @@ export class CalendarItemCreatorComponent implements OnInit {
     this.description = this.calendarItemToEdit.description;
     this.selectedDateTime = {
       startDate: moment(this.calendarItemToEdit.date),
-      endDate: moment(this.calendarItemToEdit.endDate)
+      endDate: moment(this.calendarItemToEdit.enddate)
     };
   }
 
@@ -87,7 +87,7 @@ export class CalendarItemCreatorComponent implements OnInit {
     editedItem.title = payload.title;
     editedItem.description = payload.description;
     editedItem.date = payload.date;
-    editedItem.endDate = payload.enddate;
+    editedItem.enddate = payload.enddate;
 
     this.calendarDao.updateCalendarItem(editedItem)
       .subscribe(() => {
