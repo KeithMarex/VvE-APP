@@ -24,6 +24,8 @@ paths:
     $ref: ./organization/getOrganizationAdminUsers.yaml
   /organization/theme:
     $ref: ./organization/getOrganizationTheme.yaml
+  /organization/theme/:
+    $ref: ./organization/putOrganizationTheme.yaml
   /tag:
     $ref: ./tag/getTags.yaml
   /tag/{id}:
