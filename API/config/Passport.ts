@@ -1,4 +1,4 @@
-require('dotenv').config({ path: `~/.env.${process.env.NODE_ENV}` })
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
 import { ExtractJwt, JwtStrategy } from 'passport-jwt'
 
 import User from '../models/User';

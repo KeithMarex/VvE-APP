@@ -1,4 +1,4 @@
-require('dotenv').config({ path: `~/.env.${process.env.NODE_ENV}` })
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
 
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
