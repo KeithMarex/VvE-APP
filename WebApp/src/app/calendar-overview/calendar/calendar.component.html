@@ -89,119 +89,20 @@
     [events]="events"
     [refresh]="refresh"
     [locale]="locale"
-    (eventClicked)="showCalendarItemPopUp( $event.event)"
+    (eventClicked)="showCalendarItemPopUp($event.event)"
     (eventTimesChanged)="calendarItemTimesChanged($event)"
   >
   </mwl-calendar-day-view>
 </div>
 
-<!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+<app-popup *ngIf="selectedCalendarItemToShow" title="{{selectedCalendarItemToShow.title}}" (closed)="closeCalendarItemPopUps()">
+  <p>{{ selectedCalendarItemToShow.description }}</p>
+</app-popup>
 
-<br /><br /><br />
-
-<h3>
-  Edit events
-  <div></div>
-</h3>
-
-<div>
-  <table>
-    <thead>
-    <tr>
-      <th>Title</th>
-      <th>Primary color</th>
-      <th>Secondary color</th>
-      <th>Starts at</th>
-      <th>Ends at</th>
-      <th>Remove</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr *ngFor="let event of events">
-      <td>
-        <input
-          type="text"
-          [(ngModel)]="event.title"
-          (keyup)="refresh.next()"
-        />
-      </td>
-      <td>
-        <input
-          type="color"
-          [(ngModel)]="event.color.primary"
-          (change)="refresh.next()"
-        />
-      </td>
-      <td>
-        <input
-          type="color"
-          [(ngModel)]="event.color.secondary"
-          (change)="refresh.next()"
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          mwlFlatpickr
-          [(ngModel)]="event.start"
-          (ngModelChange)="refresh.next()"
-          [altInput]="true"
-          [convertModelValue]="true"
-          [enableTime]="true"
-          dateFormat="Y-m-dTH:i"
-          altFormat="F j, Y H:i"
-          placeholder="Not set"
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          mwlFlatpickr
-          [(ngModel)]="event.end"
-          (ngModelChange)="refresh.next()"
-          [altInput]="true"
-          [convertModelValue]="true"
-          [enableTime]="true"
-          dateFormat="Y-m-dTH:i"
-          altFormat="F j, Y H:i"
-          placeholder="Not set"
-        />
-      </td>
-      <td>
-        <button (click)="deleteEvent(event)">
-          Delete
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-<ng-template #modalContent let-close="close">
-  <div>
-    <h5>Event action occurred</h5>
-    <button type="button" (click)="close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div>
-    <div>
-      Action:
-      <pre>{{ modalData?.action }}</pre>
-    </div>
-    <div>
-      Event:
-      <pre>{{ modalData?.event | json }}</pre>
-    </div>
-  </div>
-  <div>
-    <button type="button" (click)="close()">
-      OK
-    </button>
-  </div>
-</ng-template>
-
-<app-popup *ngIf="modalEvent" title="{{modalEvent.title}}" (closed)="closeEventPopUp()">
-  <p>{{ modalEvent.description }}</p>
+<app-popup *ngIf="selectedCalendarItemToEdit" title="Afspraak wijzigen" (closed)="closeCalendarItemPopUps()">
+  <app-calendar-item-creator
+    [isEditing]="true"
+    [calendarItemToEdit]="selectedCalendarItemToEdit"
+    (calendarItemSaved)="closeCalendarItemPopUps()">
+  </app-calendar-item-creator>
 </app-popup>

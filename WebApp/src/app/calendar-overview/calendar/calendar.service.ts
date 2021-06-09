@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import { AgendaItem } from '../../../shared/models/agenda-item';
 import {CustomEvent} from './custom-event';
 
@@ -66,7 +66,9 @@ export class CalendarService {
 
   updateCalendarItem(calendarItem: AgendaItem): void {
     const calendarItems = this.calendarItems.getValue();
-    const updatedCalendarItemIndex = calendarItems.findIndex((item) => item._id === calendarItem._id);
+    const updatedCalendarItemIndex = calendarItems.findIndex(
+      (item) => item._id === calendarItem._id
+    );
     calendarItems[updatedCalendarItemIndex] = calendarItem;
 
     this.calendarItems.next(calendarItems);

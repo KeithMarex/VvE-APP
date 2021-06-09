@@ -13,7 +13,7 @@ moment.locale('nl');
   styleUrls: ['./calendar-item-creator.component.scss']
 })
 export class CalendarItemCreatorComponent implements OnInit {
-  @Output() calendarItemCreated: EventEmitter<void> = new EventEmitter();
+  @Output() calendarItemSaved: EventEmitter<void> = new EventEmitter();
   @Input() isEditing: boolean;
   @Input() calendarItemToEdit: CustomEvent;
   selectedDateTime: {startDate: moment.Moment, endDate: moment.Moment};
@@ -63,13 +63,24 @@ export class CalendarItemCreatorComponent implements OnInit {
     };
 
     if (this.isEditing) {
-      // this.calendarDao.updateCalendarItem(this.calendarItemToEdit);
+      const updatedItem = this.calendarService.customEventToCalendarItem(this.calendarItemToEdit);
+      updatedItem.title = title;
+      updatedItem.description = description;
+      updatedItem.date = startDate;
+      updatedItem.endDate = endDate;
+
+      this.calendarDao.updateCalendarItem(updatedItem)
+        .subscribe((updatedCalendarItem) => {
+          this.calendarService.updateCalendarItem(updatedCalendarItem);
+          this.calendarItemSaved.emit();
+        });
       return;
     }
+
     this.calendarDao.createCalendarItem(payload)
       .subscribe((newCalendarItem) => {
         this.calendarService.addCalendarItem(newCalendarItem);
-        this.calendarItemCreated.emit();
+        this.calendarItemSaved.emit();
       });
   }
 

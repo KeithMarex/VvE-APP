@@ -20,9 +20,4 @@ export class CalendarOverviewComponent implements OnInit {
   onAddItemPopUpClosed(): void {
     this.creatingCalendarItem = false;
   }
-
-  onCalendarItemCreated(calendarItem: any): void {
-    this.creatingCalendarItem = false;
-  }
-
 }
