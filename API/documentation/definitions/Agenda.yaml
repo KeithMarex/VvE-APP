@@ -13,7 +13,7 @@ properties:
   user:
     $ref: './User.yaml'
   organisation:
-    $ref: './Organization.yaml'
+    type: Organization
   createdAt:
     type: string
   updatedAt:

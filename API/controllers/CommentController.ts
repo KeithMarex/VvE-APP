@@ -1,14 +1,14 @@
 import Comment from "~/models/Comment"
 import Ticket from "~/models/Ticket";
 import logger from "~/util/Logger";
-import { sendMailToBestuur, sendMailToBewoner } from "~/util/Mailer";
+import { sendAdminMail, sendMail } from "~/util/Mailer";
 
 export const postComment = async(req, res) => {
     const comment = createComment(req, res);
-    
+
     comment.save()
     .then(result => {
-        // Comment aangemaakt, nu toevoegen aan ticket.
+        // Created comment is added to the ticket.
         pushCommentToTicket(req, res, result);
     })
     .catch(err => {
@@ -27,17 +27,14 @@ const createComment = (req, res) => {
 }
 
 const pushCommentToTicket = (req, res, commentObject) => {
-    Ticket.updateOne(
+    Ticket.findOneAndUpdate(
         { _id: req.fields.ticketID },
         { $push: { comments: commentObject._id }}
     )
-    .then( () => {
-        //Bestuurder mail
-        sendMailToBestuur("[VvE] Er is een nieuw bericht op een ticket", "bericht_bestuurder.html");
+    .then( result => {
+        sendAdminMail("Er is een nieuw bericht op een ticket",{ organization: res.locals.user.organizations[0], ticketTitle: result["title"], comment: commentObject.comment }, "comment");
+        sendMail("Er is een nieuw bericht op een ticket", { _id: res.locals.user._id, ticketTitle: result["title"], comment: commentObject.comment }, "comment");
 
-        //Bewoner mail
-        sendMailToBewoner("[VvE] U heeft een bericht geplaatst", "bericht_bewoner.html", res.locals.user._id);
-    
         res.status(200).send(commentObject);
     })
     .catch(err => {
