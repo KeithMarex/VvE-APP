@@ -152,6 +152,12 @@
     }
   }
 
+  .cal-week-view, .cal-day-view {
+    .cal-event-title {
+      color: black !important;
+    }
+  }
+
   .cal-week-view {
     .cal-day-headers {
       .cal-today {

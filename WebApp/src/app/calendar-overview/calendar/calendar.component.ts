@@ -25,8 +25,8 @@ export class CalendarComponent implements OnInit {
   refresh: Subject<any> = new Subject();
   viewDate: Date = new Date();
   locale = 'nl';
-  selectedCalendarItemToShow: CustomEvent;
-  selectedCalendarItemToEdit: CustomEvent;
+  selectedCalendarItemToShow: CalendarItem;
+  selectedCalendarItemToEdit: CalendarItem;
   events: CustomEvent[] = [];
   activeDayIsOpen = true;
   actions: CustomEventAction[] = [
@@ -89,6 +89,8 @@ export class CalendarComponent implements OnInit {
     event.start = newStart;
     event.end = newEnd;
 
+    console.log(event);
+
     const editedCalendarItem = this.calendarService.customEventToCalendarItem(event);
     this.calendarDao.updateCalendarItem(editedCalendarItem)
       .subscribe(() => {
@@ -104,7 +106,8 @@ export class CalendarComponent implements OnInit {
   }
 
   editCalendarItem(calendarItemToEdit: CustomEvent): void {
-    this.selectedCalendarItemToEdit = calendarItemToEdit;
+    this.selectedCalendarItemToEdit =
+      this.calendarService.customEventToCalendarItem(calendarItemToEdit);
   }
 
   setView(view: CalendarView): void {
@@ -116,7 +119,8 @@ export class CalendarComponent implements OnInit {
   }
 
   showCalendarItemPopUp(calendarItemToShow: CustomEvent): void {
-    this.selectedCalendarItemToShow = calendarItemToShow;
+    this.selectedCalendarItemToShow =
+      this.calendarService.customEventToCalendarItem(calendarItemToShow);
   }
 
   closeCalendarItemPopUps(): void {

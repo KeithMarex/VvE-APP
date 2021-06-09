@@ -4,18 +4,19 @@ import { NgForm } from '@angular/forms';
 import { DaterangepickerComponent } from 'ngx-daterangepicker-material';
 import { CalendarDao } from 'src/shared/services/calendar-dao.service';
 import { CalendarService } from '../calendar/calendar.service';
-import { CustomEvent } from '../calendar/custom-event';
+import { CalendarItem } from '../../../shared/models/calendar-item';
 moment.locale('nl');
 
-/**
- * Component for creating and editing calendar items
- */
 interface CalendarItemPayload {
   title: string;
   description: string;
   date: Date;
   enddate: Date;
 }
+
+/**
+ * Component for creating and editing calendar items
+ */
 
 @Component({
   selector: 'app-calendar-item-creator',
@@ -25,7 +26,7 @@ interface CalendarItemPayload {
 export class CalendarItemCreatorComponent implements OnInit {
   @Output() calendarItemSaved: EventEmitter<void> = new EventEmitter();
   @Input() isEditing: boolean;
-  @Input() calendarItemToEdit: CustomEvent;
+  @Input() calendarItemToEdit: CalendarItem;
   selectedDateTime: {startDate: moment.Moment, endDate: moment.Moment};
   inlineDate: any;
   picker: DaterangepickerComponent;
@@ -59,8 +60,8 @@ export class CalendarItemCreatorComponent implements OnInit {
     this.title = this.calendarItemToEdit.title;
     this.description = this.calendarItemToEdit.description;
     this.selectedDateTime = {
-      startDate: moment(this.calendarItemToEdit.start),
-      endDate: moment(this.calendarItemToEdit.end)
+      startDate: moment(this.calendarItemToEdit.date),
+      endDate: moment(this.calendarItemToEdit.endDate)
     };
   }
 
@@ -82,7 +83,7 @@ export class CalendarItemCreatorComponent implements OnInit {
   }
 
   updateCalendarItem(payload: CalendarItemPayload): void {
-    const editedItem = this.calendarService.customEventToCalendarItem(this.calendarItemToEdit);
+    const editedItem = this.calendarItemToEdit;
     editedItem.title = payload.title;
     editedItem.description = payload.description;
     editedItem.date = payload.date;
