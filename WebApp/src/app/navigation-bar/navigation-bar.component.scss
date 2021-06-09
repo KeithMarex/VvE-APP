@@ -42,20 +42,25 @@ body {
 
         .ticket-count {
             position: absolute;
+            font-size: 90%;
             text-align: center;
             right: -1.3rem;
             bottom: -1.9rem;
-            height: 1.3rem;
-            width: 1.3rem;
+            height: 1.2rem;
+            width: 1.2rem;
             text-align: center;
             border-radius: 50%;
             color: white;
         }
     }
 
-    .svg-component.active { //FIXME
-        stroke: fill;
-        fill: stroke;
+    .svg-element {
+        stroke: currentColor;
+    }
+
+    .active-link {
+        stroke: white;
+        fill: currentColor;
     }
 
     .bottom-section {

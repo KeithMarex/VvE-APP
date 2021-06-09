@@ -1,0 +1,14 @@
+@import "../../utilities/index.scss";
+
+.calendar {
+  @include section;
+}
+
+.button-section {
+  @include button-section;
+}
+
+.content-section {
+  @include content-section;
+  max-height: 100%;
+}

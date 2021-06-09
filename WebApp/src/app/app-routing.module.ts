@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountManagementComponent } from './account-management/account-management.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarOverviewComponent } from './calendar-overview/calendar-overview.component';
 import { LoginComponent } from './login/login.component';
 import { NewsOverviewComponent } from './news-overview/news-overview.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   { path: 'account-management', component: AccountManagementComponent },
-  { path: 'calendar', component: CalendarComponent },
+  { path: 'calendar', component: CalendarOverviewComponent },
   { path: 'news-overview', component: NewsOverviewComponent },
   { path: 'ticket-overview', component: TicketOverviewComponent },
   { path: 'vve-management', component: VveManagementComponent },

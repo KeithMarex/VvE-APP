@@ -5,32 +5,32 @@
                 <img src="../../assets/icons/logod 1.svg" alt="">
             </div>
     
-            <section class="navigation-buttons" appColoring colorElement="stroke">
+            <section class="navigation-buttons">
                 <ul>
                     <li>
                         <a routerLink="/vve-management">
-                            <div class="svg-element" [inlineSVG]="'../../assets/icons/vves.svg'"></div>
+                            <div appColoring routerLinkActive="active-link" class="svg-element" [inlineSVG]="'../../assets/icons/vves.svg'"></div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/ticket-overview">
-                            <div class="svg-element" [inlineSVG]="'../../assets/icons/bell.svg'"></div>
+                            <div appColoring routerLinkActive="active-link" class="svg-element" [inlineSVG]="'../../assets/icons/bell.svg'"></div>
                             <div appColoring colorElement="backgroundColor" colorStyle="secondary" class="ticket-count">{{ ticketCount > 9 ? '9+' : ticketCount }}</div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/news-overview">
-                            <div class="svg-element" [inlineSVG]="'../../assets/icons/news.svg'"></div>
+                            <div appColoring routerLinkActive="active-link" class="svg-element" [inlineSVG]="'../../assets/icons/news.svg'"></div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/calendar">
-                            <div class="svg-element" [inlineSVG]="'../../assets/icons/calendar.svg'"></div>
+                            <div appColoring routerLinkActive="active-link" class="svg-element" [inlineSVG]="'../../assets/icons/calendar.svg'"></div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/account-management">
-                            <div class="svg-element" [inlineSVG]="'../../assets/icons/members.svg'"></div>    
+                            <div appColoring routerLinkActive="active-link" class="svg-element" [inlineSVG]="'../../assets/icons/members.svg'"></div>    
                         </a>
                     </li>
                 </ul>
@@ -39,7 +39,7 @@
 
         <section class="bottom-section">
             <!-- Call logout function -->
-            <img src="../../assets/icons/logout.svg" alt="">
+            <div appColoring colorElement="fill" class="svg-element" [inlineSVG]="'../../assets/icons/logout.svg'"></div>
         </section>
     </section>
 </body>

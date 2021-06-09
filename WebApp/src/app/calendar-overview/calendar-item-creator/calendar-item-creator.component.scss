@@ -1,0 +1,39 @@
+@import "../../../utilities/index.scss";
+
+.calendar-item-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+
+  .creator-content {
+    display: flex;
+    margin-bottom: auto;
+
+    .item-info-section {
+      input, textarea {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: none;
+        border-bottom: 1px solid #C6C6C8;
+        font-family: inherit;
+        font-size: 110%;
+        color: black;
+        resize: none;
+        outline: none;
+      }
+
+      ::placeholder {
+        color: $grayscale-color;
+      }
+    }
+  }
+
+  .createBtn {
+    @include button;
+    margin: auto 0 0;
+    align-self: flex-end;
+  }
+}
