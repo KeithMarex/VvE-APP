@@ -34,7 +34,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(passport.initialize());
 //ROUTES
 app.use(cors(corsOptions));
-app.use('/user' ,UserRouter);
+app.use('/user' , UserRouter);
 app.use('/tag', isAuth, TagRouter);
 app.use('/ticket' ,isAuth, TicketRouter);
 app.use('/comment', isAuth, CommentRouter);
