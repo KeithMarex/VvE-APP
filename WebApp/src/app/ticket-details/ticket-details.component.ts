@@ -18,11 +18,15 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: User;
   selectedStatus: string;
+  originalStatus: string;
   statuses: string[] = ["PENDING", "HANDLING", "HANDLED"];
   selectedTag: Tag;
+  originalTag: Tag;
   tags: Tag[] = [];
-  selectedAssignee: string;
-  assignees: string[] = [];
+  selectedAssignee: User;
+  originalAssignee: User;
+  assignees: User[] = [];
+  errorMessage: string;
 
   private ticketIdSub: Subscription;
   private creatorSub: Subscription;
@@ -36,6 +40,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.getTags();
     this.getSelectedStatus();
     this.getAssignees();
+    this.getSelectedAssignee();
   }
 
   getActiveTicket() {
@@ -99,39 +104,83 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.tags.push(unnamedTag);
     if (this.ticket && this.ticket.tag) {
       this.selectedTag = this.ticket.tag;
+      this.originalTag = this.ticket.tag;
     }
     else {
-      this.selectedTag = unnamedTag
+      this.selectedTag = unnamedTag;
+      this.originalTag = unnamedTag;
     }
   }
 
   getSelectedStatus(): void {
     if (this.ticket && this.ticket.status) {
       this.selectedStatus = this.ticket.status;
+      this.originalStatus = this.ticket.status;
     }
     else {
       this.selectedStatus = this.statuses[0];
+      this.originalStatus = this.statuses[0];
     }
   }
 
   getAssignees(): void {
-    this.selectedAssignee = "Nog niet toegewezen";
+    let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
 
     this.userDao.getUsersByOrganization()
       .subscribe((incomingUsers: User[]) => {
         incomingUsers.forEach(incomingUser => {
           if (incomingUser.role == 'admin') {
-            this.assignees.push(incomingUser.firstname + " " + incomingUser.lastname);
+            this.assignees.push(incomingUser);
           }
         })
-        this.assignees.push("Nog niet toegewezen");
+        this.assignees.push(unnamedAssignee);
       });
   }
 
+  getSelectedAssignee(): void {
+    let assignedUserId: string;
+    let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
+    if (this.ticket && this.ticket.assignee) {
+      this.userDao.getUserById(this.ticket.assignee).subscribe(Response => {
+        this.selectedAssignee = Response;
+        this.originalAssignee = Response;
+      });
+    }
+    else {
+      this.selectedAssignee = unnamedAssignee;
+      this.originalAssignee = unnamedAssignee;
+    }
+  }
+
   submitInformation(): void {
-    console.log(this.selectedAssignee);
-    console.log(this.selectedStatus);
-    console.log(this.selectedTag);
+    const mForm = new FormData();
+
+    if (this.selectedStatus != this.originalStatus) {
+      mForm.append('status', this.selectedStatus);
+    }
+    if (this.selectedTag != this.originalTag) {
+      mForm.append('assignee', this.selectedTag._id);
+    }
+    if (this.selectedAssignee != this.originalAssignee) {
+      mForm.append('assignee', this.selectedAssignee._id);
+    }
+    
+    // this.ticketDao.updateTicket(this.ticket._id, mForm)
+    // .subscribe(
+    //   res => {
+    //     this.originalAssignee = this.selectedAssignee;
+    //     this.originalStatus = this.selectedStatus;
+    //     this.originalTag = this.selectedTag;
+    //   }, 
+    //   errorRes => {
+    //     let incomingErrorMessage = errorRes.error.message;
+    //     if (incomingErrorMessage) {
+    //       this.errorMessage = errorRes.error.message;
+    //     } else {
+    //       this.errorMessage = 'Er is een onbekende error opgetreden';
+    //     }
+    //   }
+    // );
   }
 
   ngOnDestroy(): void {

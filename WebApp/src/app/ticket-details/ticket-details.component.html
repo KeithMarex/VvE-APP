@@ -97,12 +97,12 @@
                             <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
                                 <ng-template dropdownSelected let-selected>
                                     <div class="dropdown-item">
-                                        <p class="dropdown-text">{{ selected }}</p>
+                                        <p class="dropdown-text">{{ selected.firstname + ' ' + selected.lastname }}</p>
                                     </div>
                                 </ng-template>
                                 <ng-template dropdownOption let-option>
                                     <div class="dropdown-item">
-                                        <p class="dropdown-text">{{ option }}</p>
+                                        <p class="dropdown-text">{{ option.firstname + ' ' + option.lastname }}</p>
                                     </div>
                                 </ng-template>
                             </app-dropdown>
