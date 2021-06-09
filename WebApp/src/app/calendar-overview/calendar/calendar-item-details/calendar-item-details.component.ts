@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import moment from 'moment';
 import { isSameDay, isSameMinute } from 'date-fns';
 import { CalendarItem } from '../../../../shared/models/calendar-item';
+import { CalendarDao } from '../../../../shared/services/calendar-dao.service';
+import {CalendarService} from "../calendar.service";
 
 interface ParsedDate {
   weekDay: string;
@@ -15,13 +17,30 @@ interface ParsedDate {
   styleUrls: ['./calendar-item-details.component.scss']
 })
 export class CalendarItemDetailsComponent implements OnInit {
+  @Output() editClicked: EventEmitter<void> = new EventEmitter();
+  @Output() closeDetails: EventEmitter<void> = new EventEmitter();
   @Input() calendarItem: CalendarItem;
   dateStrings: string[];
 
-  constructor() { }
+  constructor(
+    private calendarDao: CalendarDao,
+    private calendarService: CalendarService
+  ) {}
 
   ngOnInit(): void {
     this.dateStrings = this.createDateStrings();
+  }
+
+  editCalendarItem(): void {
+    this.editClicked.emit();
+  }
+
+  deleteCalendarItem(): void {
+    this.calendarDao.deleteCalendarItem(this.calendarItem._id)
+      .subscribe(() => {
+        this.calendarService.deleteCalendarItem(this.calendarItem._id);
+        this.closeDetails.emit();
+      });
   }
 
   createDateStrings(): string[] {

@@ -8,10 +8,10 @@
     <p class="description">{{ calendarItem.description ? calendarItem.description : 'Dit evenement heeft geen beschrijving.' }}</p>
   </div>
   <div class="details-buttons">
-    <button class="delete-btn">
+    <button class="delete-btn" (click)="deleteCalendarItem()">
       Verwijder
     </button>
-    <button class="edit-btn">
+    <button class="edit-btn" (click)="editCalendarItem()">
       Pas aan
     </button>
   </div>

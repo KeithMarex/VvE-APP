@@ -35,7 +35,7 @@ export class CalendarComponent implements OnInit {
       label: '<span class="calendar-icon calendar-edit-icon"/>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CustomEvent }): void => {
-        this.editCalendarItem(event);
+        this.editCalendarItemFromEvent(event);
       },
     },
     {
@@ -133,9 +133,14 @@ export class CalendarComponent implements OnInit {
       });
   }
 
-  editCalendarItem(calendarItemToEdit: CustomEvent): void {
+  editCalendarItemFromEvent(calendarItemToEdit: CustomEvent): void {
     this.selectedCalendarItemToEdit =
       this.calendarService.customEventToCalendarItem(calendarItemToEdit);
+  }
+
+  editCalendarItemFromDetails(calendarItemToEdit: CalendarItem): void {
+    this.closeCalendarItemPopUps();
+    this.selectedCalendarItemToEdit = calendarItemToEdit;
   }
 
   setCalendarViewType(view: CalendarView): void {

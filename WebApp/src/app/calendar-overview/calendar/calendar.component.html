@@ -97,7 +97,11 @@
 </div>
 
 <app-popup *ngIf="selectedCalendarItemToShow" title="{{selectedCalendarItemToShow.title}}" (closed)="closeCalendarItemPopUps()" [fitContent]="true" [small]="true">
-  <app-calendar-item-details [calendarItem]="selectedCalendarItemToShow"></app-calendar-item-details>
+  <app-calendar-item-details
+    [calendarItem]="selectedCalendarItemToShow"
+    (editClicked)="editCalendarItemFromDetails(selectedCalendarItemToShow)"
+    (closeDetails)="closeCalendarItemPopUps()"
+  ></app-calendar-item-details>
 </app-popup>
 
 <app-popup *ngIf="selectedCalendarItemToEdit" title="Afspraak wijzigen" (closed)="closeCalendarItemPopUps()">
