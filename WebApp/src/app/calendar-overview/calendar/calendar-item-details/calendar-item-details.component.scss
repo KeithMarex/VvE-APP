@@ -1,0 +1,11 @@
+.calendar-item-details {
+    .description {
+
+    }
+
+    .date {
+        &::first-letter {
+            text-transform: capitalize;
+        }
+    }
+}
