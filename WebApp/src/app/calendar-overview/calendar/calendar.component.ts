@@ -58,12 +58,12 @@ export class CalendarComponent implements OnInit {
         this.refresh.next();
       });
 
-    if (this.calendarService.calendarItemsIsEmpty()) {
-      this.calendarDao.getCalendarItems('2021-6') // TODO get current month
-        .subscribe(resCalItems => {
-          this.calendarService.setCalendarItems(resCalItems);
-        });
-    }
+    if (!this.calendarService.calendarItemsIsEmpty()) { return; }
+    const now = new Date();
+    this.calendarDao.getCalendarItems(now.getFullYear() + '-' + (now.getMonth() + 1))
+      .subscribe(resCalItems => {
+        this.calendarService.setCalendarItems(resCalItems);
+      });
   }
 
   parseCalendarItems(calItems: CalendarItem[]): void {
