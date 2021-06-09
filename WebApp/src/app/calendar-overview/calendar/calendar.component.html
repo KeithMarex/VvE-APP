@@ -2,7 +2,7 @@
   <div class="calendar-nav">
     <div class="calendar-nav-calendar-types">
       <div
-        (click)="setView(CalendarView.Month)"
+        (click)="setCalendarViewType(CalendarView.Month)"
         [class.active]="currentView === CalendarView.Month"
         class="calendar-type"
       >
@@ -10,7 +10,7 @@
       </div>
       <span class="calendar-type-separator">&bull;</span>
       <div
-        (click)="setView(CalendarView.Week)"
+        (click)="setCalendarViewType(CalendarView.Week)"
         [class.active]="currentView === CalendarView.Week"
         class="calendar-type"
       >
@@ -18,7 +18,7 @@
       </div>
       <span class="calendar-type-separator">&bull;</span>
       <div
-        (click)="setView(CalendarView.Day)"
+        (click)="setCalendarViewType(CalendarView.Day)"
         [class.active]="currentView === CalendarView.Day"
         class="calendar-type"
       >
@@ -35,7 +35,7 @@
         mwlCalendarPreviousView
         [view]="currentView"
         [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
+        (viewDateChange)="onCalendarDateChanged($event)"
         class="nav-date-navigator-btn nav-date-navigator-btn-prev"
       >
         <img src="../../../assets/icons/chevron.svg" alt="Vorige">
@@ -43,6 +43,7 @@
       <div
         mwlCalendarToday
         [(viewDate)]="viewDate"
+        (viewDateChange)="onCalendarDateChanged($event)"
         class="nav-date-navigator-btn nav-date-navigator-btn-today"
       >
         <img src="../../../assets/icons/circle.svg" alt="Vandaag">
@@ -51,7 +52,7 @@
         mwlCalendarNextView
         [view]="currentView"
         [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
+        (viewDateChange)="onCalendarDateChanged($event)"
         class="nav-date-navigator-btn nav-date-navigator-btn-next"
       >
         <img src="../../../assets/icons/chevron.svg" alt="Volgende">

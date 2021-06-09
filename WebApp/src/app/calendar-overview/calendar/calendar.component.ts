@@ -29,6 +29,7 @@ export class CalendarComponent implements OnInit {
   selectedCalendarItemToEdit: CalendarItem;
   events: CustomEvent[] = [];
   activeDayIsOpen = true;
+  currentMonth: Date;
   actions: CustomEventAction[] = [
     {
       label: '<span class="calendar-icon calendar-edit-icon"/>',
@@ -58,13 +59,18 @@ export class CalendarComponent implements OnInit {
         this.refresh.next();
       });
 
-    if (!this.calendarService.calendarItemsIsEmpty()) { return; }
     const now = new Date();
-    const monthToFetch = now.getFullYear() + '-' + (now.getMonth() + 1);
-    this.calendarDao.getCalendarItems(monthToFetch)
+    this.fetchMonthItems(now);
+  }
+
+  fetchMonthItems(date: Date): void {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    this.calendarDao.getCalendarItems(year + '-' + month)
       .subscribe(resCalItems => {
         this.calendarService.setCalendarItems(resCalItems);
       });
+    this.currentMonth = date;
   }
 
   parseCalendarItems(calItems: CalendarItem[]): void {
@@ -111,11 +117,14 @@ export class CalendarComponent implements OnInit {
       this.calendarService.customEventToCalendarItem(calendarItemToEdit);
   }
 
-  setView(view: CalendarView): void {
+  setCalendarViewType(view: CalendarView): void {
     this.currentView = view;
   }
 
-  closeOpenMonthViewDay(): void {
+  onCalendarDateChanged(newDate: any): void {
+    if (!isSameMonth(newDate, this.currentMonth)) {
+      this.fetchMonthItems(newDate);
+    }
     this.activeDayIsOpen = false;
   }
 

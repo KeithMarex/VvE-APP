@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { isSameMinute } from 'date-fns';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CustomEvent } from './custom-event';
-import {isSameMinute} from "date-fns";
 
 /**
  * Manages a local array of calendar items
@@ -81,9 +81,5 @@ export class CalendarService {
     this.calendarItems.next(
       this.calendarItems.getValue().concat([calendarItem])
     );
-  }
-
-  calendarItemsIsEmpty(): boolean {
-    return this.calendarItems.value.length <= 0;
   }
 }
