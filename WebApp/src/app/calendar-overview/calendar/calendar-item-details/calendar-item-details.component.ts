@@ -56,7 +56,7 @@ export class CalendarItemDetailsComponent implements OnInit {
     }
     return [
       `${this.createDayStringWithoutTime(parsedStartDate)} - ${parsedStartDate.time}`,
-      `${this.createDayStringWithoutTime(parsedStartDate)} - ${parsedStartDate.time}`
+      `${this.createDayStringWithoutTime(parsedEndDate)} - ${parsedEndDate.time}`
     ];
   }
 
