@@ -4,7 +4,7 @@ get:
     - Agenda
   responses:
     '200':
-      description: next agenda item from today
+      description: Next agenda item from today
       content:
         application/json:
           schema:

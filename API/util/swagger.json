@@ -517,7 +517,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Array with ticket objects that are requested are returned. \\n The user role is taken from the tokens and from there the correct tickets are send. \\n So when an admin asks for tickets he will receive all tickets connected to his organizations.",
+            "description": "An array with ticket objects that are requested are returned. <br>\nThe user role is taken from the jwt tokens and from there the correct tickets are send. <br>\nSo when an admin asks for tickets he will receive all tickets connected to his organizations.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -797,7 +797,7 @@
     "/comment/": {
       "post": {
         "summary": "Adds comment to the database and ticket",
-        "description": "ticketID is required for the API to push the comment onto the right ticket object. If no ticketID is sent, the api cannot attach the comment to a ticket.",
+        "description": "__ticketID__ is required for the API to push the comment onto the right ticket object. <br>\nIf no __ticketID__ is sent, the api cannot attach the comment to a ticket. <br>\nBe sure to send correct naming __ticketID__\n",
         "tags": [
           "Comment"
         ],
@@ -896,7 +896,7 @@
     "/agenda/{month}/": {
       "get": {
         "summary": "Returns the Agenda Items in given month.",
-        "description": "The parameter should be given in YYYY-MM. Example /2021-06",
+        "description": "The parameter should be given in __YYYY-MM__. <br>\nExample /2021-06\n",
         "tags": [
           "Agenda"
         ],
@@ -976,7 +976,7 @@
         ],
         "responses": {
           "200": {
-            "description": "next agenda item from today",
+            "description": "Next agenda item from today",
             "content": {
               "application/json": {
                 "schema": {
@@ -997,7 +997,7 @@
     "/agenda/": {
       "post": {
         "summary": "Adds agenda item to the database",
-        "description": "enddate is optional, only used for appointments that last longer than a day and require such a notation",
+        "description": "__enddate__ is optional, only used for appointments that last longer than a day and require such a notation.\n",
         "tags": [
           "Agenda"
         ],
