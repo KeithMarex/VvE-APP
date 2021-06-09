@@ -75,8 +75,8 @@ export const putTicket = (req, res) => {
     const id = req.params.id;
     const body = validateBodyPutTicket(req.body);
     Ticket.updateOne({ _id: id }, body)
-    .then(result => {
-        res.status(200).send(result);
+    .then(() => {
+        res.status(200);
     })
     .catch(err => {
         logger.error(err);

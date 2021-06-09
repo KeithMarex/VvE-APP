@@ -1,0 +1,24 @@
+put:
+  summary: Updates the theme of the organization the user is in.
+  description: |
+    This request __doesn't require both__ primarycolor and secondary its still possible but not required. <br>
+    Its ofcourse required to be logged in and authenticated with a jwt token also an admin role is required. <br>
+    Organization will be collected from the jwt token so not necessary to be send in body
+  tags:
+    - Organization
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            primarycolor:
+              type: string
+            secondarycolor:
+              type: string
+  responses:
+    '200':
+      description: Successfull
+    '500':
+      description: Error trying to update the theme
