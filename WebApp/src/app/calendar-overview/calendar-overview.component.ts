@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Parent component for the calendar
+ */
+
 @Component({
   selector: 'app-calendar-overview',
   templateUrl: './calendar-overview.component.html',
   styleUrls: ['./calendar-overview.component.scss']
 })
-export class CalendarOverviewComponent implements OnInit {
-  creatingCalendarItem: boolean = false;
+export class CalendarOverviewComponent {
+  creatingCalendarItem: boolean;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onAddItemClicked(): void {
     this.creatingCalendarItem = true;

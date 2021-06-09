@@ -1,11 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import moment from 'moment';
 import { NgForm } from '@angular/forms';
 import { DaterangepickerComponent } from 'ngx-daterangepicker-material';
 import { CalendarDao } from 'src/shared/services/calendar-dao.service';
 import { CalendarService } from '../calendar/calendar.service';
-import moment from 'moment';
 import { CustomEvent } from '../calendar/custom-event';
 moment.locale('nl');
+
+/**
+ * Component for creating and editing calendar items
+ */
+interface CalendarItemPayload {
+  title: string;
+  description: string;
+  date: Date;
+  enddate: Date;
+}
 
 @Component({
   selector: 'app-calendar-item-creator',
@@ -23,7 +33,10 @@ export class CalendarItemCreatorComponent implements OnInit {
   title: string;
   description: string;
 
-  constructor(private calendarDao: CalendarDao, private calendarService: CalendarService) { }
+  constructor(
+    private calendarDao: CalendarDao,
+    private calendarService: CalendarService
+  ) { }
 
   ngOnInit(): void {
     this.locale = {
@@ -55,7 +68,7 @@ export class CalendarItemCreatorComponent implements OnInit {
     const { title, description } = form.value;
     const startDate = this.selectedDateTime.startDate.toDate();
     const endDate = this.selectedDateTime.endDate.toDate();
-    const payload = {
+    const payload: CalendarItemPayload = {
       title,
       description,
       date: startDate,
@@ -63,20 +76,26 @@ export class CalendarItemCreatorComponent implements OnInit {
     };
 
     if (this.isEditing) {
-      const editedItem = this.calendarService.customEventToCalendarItem(this.calendarItemToEdit);
-      editedItem.title = title;
-      editedItem.description = description;
-      editedItem.date = startDate;
-      editedItem.endDate = endDate;
-
-      this.calendarDao.updateCalendarItem(editedItem)
-        .subscribe(() => {
-          this.calendarService.updateCalendarItem(editedItem);
-          this.calendarItemSaved.emit();
-        });
-      return;
+      this.updateCalendarItem(payload);
     }
+    this.createCalendarItem(payload);
+  }
 
+  updateCalendarItem(payload: CalendarItemPayload): void {
+    const editedItem = this.calendarService.customEventToCalendarItem(this.calendarItemToEdit);
+    editedItem.title = payload.title;
+    editedItem.description = payload.description;
+    editedItem.date = payload.date;
+    editedItem.endDate = payload.enddate;
+
+    this.calendarDao.updateCalendarItem(editedItem)
+      .subscribe(() => {
+        this.calendarService.updateCalendarItem(editedItem);
+        this.calendarItemSaved.emit();
+      });
+  }
+
+  createCalendarItem(payload: CalendarItemPayload): void {
     this.calendarDao.createCalendarItem(payload)
       .subscribe((newCalendarItem) => {
         this.calendarService.addCalendarItem(newCalendarItem);

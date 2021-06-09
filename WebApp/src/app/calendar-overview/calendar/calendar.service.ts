@@ -13,7 +13,7 @@ export class CalendarService {
   colors: any = {
     primary: {
       primary: '#441C62',
-      secondary: '#441C62',
+      secondary: '#441C6226', // Primary with 15% opacity (hex+26)
     },
   };
 
