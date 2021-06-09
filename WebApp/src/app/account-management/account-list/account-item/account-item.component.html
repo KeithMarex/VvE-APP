@@ -1,4 +1,4 @@
-<div class="container">
+<div appColoring class="container">
     <section class="user-info">
         <div class="name">
             <p>Naam</p>
@@ -9,7 +9,7 @@
         <div class="email">
             <p>Email</p>
             <h1 class="long-field">{{ user.email.length > 33 ? user.email.slice(0, 33) + '...' : user.email }}
-                <span class="tooltip">{{ user.email }}</span>
+                <span class="tooltip" appColoring colorElement="borderColor">{{ user.email }}</span>
             </h1>
         </div>
         <div class="role">
@@ -19,7 +19,7 @@
     </section>
 
     <section class="controls">
-        <button class="icon-button" id="role-button">TODO</button>
-        <button class="icon-button" id="delete-button">Account verwijderen</button>
+        <button appColoring colorElement="backgroundColor" colorStyle="secondary" class="icon-button" id="role-button">TODO</button>
+        <button appColoring colorElement="backgroundColor" class="icon-button" id="delete-button">Account verwijderen</button>
     </section>
 </div>

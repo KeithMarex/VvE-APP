@@ -5,65 +5,32 @@
                 <img src="../../assets/icons/logod 1.svg" alt="">
             </div>
     
-            <section class="navigation-buttons">
+            <section class="navigation-buttons" appColoring colorElement="stroke">
                 <ul>
                     <li>
                         <a routerLink="/vve-management">
-                            <div class="test">
-                                <svg routerLinkActive="active" width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11 9.20168C11 8.25321 11.4485 7.3606 12.2096 6.79454L20 1L27.7904 6.79454C28.5515 7.3606 29 8.25321 29 9.20168V18.5C29 19.8807 27.8807 21 26.5 21H23.7C23.1477 21 22.7 20.5523 22.7 20V14.6818C22.7 14.4057 22.4761 14.1818 22.2 14.1818H17.8C17.5239 14.1818 17.3 14.4057 17.3 14.6818V20C17.3 20.5523 16.8523 21 16.3 21H13.5C12.1193 21 11 19.8807 11 18.5V9.20168Z" stroke="#451864" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M1 15.895C1 14.9354 1.45902 14.0338 2.23491 13.4692L12.5 6L22.7651 13.4692C23.541 14.0338 24 14.9354 24 15.895V28.5C24 29.8807 22.8807 31 21.5 31H16.95C16.3977 31 15.95 30.5523 15.95 30V22.9773C15.95 22.7011 15.7261 22.4773 15.45 22.4773H9.55C9.27386 22.4773 9.05 22.7011 9.05 22.9773V30C9.05 30.5523 8.60228 31 8.05 31H3.5C2.11929 31 1 29.8807 1 28.5V15.895Z" fill="white" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>   
-                            </div>
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/vves.svg'"></div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/ticket-overview">
-                            <svg routerLinkActive="active" width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.3333 8.01449C20.3333 6.15413 19.5607 4.36997 18.1855 3.0545C16.8102 1.73902 14.9449 1 13 1C11.0551 1 9.18982 1.73902 7.81455 3.0545C6.43928 4.36997 5.66667 6.15413 5.66667 8.01449C5.66667 13.9484 3.21304 16.809 1.86406 17.9333C1.6615 18.1021 1.79337 18.5362 2.05706 18.5362H8.52214C8.6391 18.5362 8.74073 18.6154 8.77521 18.7271C8.99911 19.4529 9.99866 22 13 22C16.0013 22 17.0009 19.4529 17.2248 18.7271C17.2593 18.6154 17.3609 18.5362 17.4779 18.5362H23.9429C24.2066 18.5362 24.3385 18.1021 24.1359 17.9333C22.787 16.809 20.3333 13.9484 20.3333 8.01449Z" stroke="#FCFCFC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>   
-                            <div class="ticket-count">{{ ticketCount > 9 ? '9+' : ticketCount }}</div>
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/bell.svg'"></div>
+                            <div appColoring colorElement="backgroundColor" colorStyle="secondary" class="ticket-count">{{ ticketCount > 9 ? '9+' : ticketCount }}</div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/news-overview">
-                            <svg routerLinkActive="active" width="28" height="35" viewBox="0 0 28 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 3C1 1.89543 1.89543 1 3 1H16.2105H25C26.1046 1 27 1.89543 27 3V14V31.2222C27 32.3268 26.1046 33.2222 25 33.2222H3C1.89543 33.2222 1 32.3268 1 31.2222V3Z" fill="#FCFCFC" stroke="#451864" stroke-width="2"/>
-                                <path d="M13.65 15.7777C13.65 15.5844 13.8067 15.4277 14 15.4277H18.4035H21.3333C21.5266 15.4277 21.6833 15.5844 21.6833 15.7777V18.5959V23.1111C21.6833 23.3044 21.5266 23.4611 21.3333 23.4611H14C13.8067 23.4611 13.65 23.3044 13.65 23.1111V15.7777Z" stroke="#451864" stroke-width="1.3"/>
-                                <path d="M15.5557 21.7778L18.6466 19.4727C19.2999 18.9855 20.1833 18.9434 20.8799 19.3662L21.7779 19.9111" stroke="#451864"/>
-                                <path d="M6.22266 11.6666H21.7782" stroke="#451864" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M6.22266 7H21.7782" stroke="#451864" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M6.22266 28H21.7782" stroke="#451864" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M6.22266 17.1111H10.8893" stroke="#451864" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M6.22266 21.7778H10.8893" stroke="#451864" stroke-width="2" stroke-linecap="round"/>
-                                <circle r="0.311111" transform="matrix(-1 0 0 1 17.1117 17.7332)" fill="#451864" stroke="#451864" stroke-width="0.5"/>
-                            </svg>
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/news.svg'"></div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/calendar">
-                            <svg routerLinkActive="active" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g opacity="1">
-                                    <rect x="2" y="3" stroke="#451864" width="20" height="19" rx="3" stroke-width="2"/>
-                                    <path d="M7 1V3" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M17 1V3" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M2 8H22" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6.5 13H7.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M11.5 13H12.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.5 13H17.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6.5 17H7.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M11.5 17H12.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.5 17H17.5" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </g>
-                            </svg>
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/calendar.svg'"></div>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/account-management">
-                            <svg routerLinkActive="active" width="36" height="38" viewBox="0 0 36 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 36.2204L1.50031 33.6953C1.77553 32.3062 2.7621 31.1681 4.12729 30.7921C6.97473 30.0077 12.273 28.8055 18 28.8055C23.727 28.8055 29.0253 30.0077 31.8727 30.7921C33.2379 31.1681 34.2245 32.3062 34.4997 33.6953L35 36.2204" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M18 19.537C22.9706 19.537 27 15.3874 27 10.2685C27 5.14965 22.9706 1 18 1C13.0294 1 9 5.14965 9 10.2685C9 15.3874 13.0294 19.537 18 19.537Z" fill="white" stroke="#451864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>      
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/members.svg'"></div>    
                         </a>
                     </li>
                 </ul>
