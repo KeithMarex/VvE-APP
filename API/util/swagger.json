@@ -545,14 +545,7 @@
         },
         "responses": {
           "200": {
-            "description": "Receiving updated tag",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
-                }
-              }
-            }
+            "description": "Successfull"
           },
           "400": {
             "description": "validation error"
