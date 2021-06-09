@@ -158,12 +158,12 @@
         background-color: rgba($secondary-color, .7) !important;
         color: black !important;
       }
+    }
+  }
 
-      .cal-weekend {
-        span {
-          //color: $primary-color !important;
-        }
-      }
+  .cal-day-view {
+    .cal-current-time-marker {
+      background-color: $primary-color;
     }
   }
 }
