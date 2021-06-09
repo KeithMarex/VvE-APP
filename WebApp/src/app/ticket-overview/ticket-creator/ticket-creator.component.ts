@@ -33,6 +33,9 @@ export class TicketCreatorComponent implements OnInit {
     if (formValues.assignee) {
       mForm.append('assignee', formValues.assignee);
     }
+    if (formValues.tag) {
+      mForm.append('tag', formValues.tag);
+    }
     mForm.append('status', this.formatStatus(formValues.status));
 
     this.ticketDao.createTicket(mForm)

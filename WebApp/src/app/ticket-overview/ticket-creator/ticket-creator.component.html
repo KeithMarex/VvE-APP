@@ -21,7 +21,7 @@
             </div>
             <div class="tag-field">
                 <h1>Tag toewijzen</h1>
-                <select name="tag" id="tag" ngModel>
+                <select name="tag" ngModel>
                     <option value="">Geen tag</option>
                     <option *ngFor="let tag of organizationTags" [ngValue]="tag._id">{{ tag.name }}</option>
                 </select>
