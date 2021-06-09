@@ -26,9 +26,10 @@ export const sendMail = async(subject: String, info: any, htlm: String) => {
     });
 }
 
-export const sendAdminMail = async(subject: String, organizationId, htlm: String) => {
+export const sendAdminMail = async(subject: String, info: any, htlm: String) => {
     let source = await getHTML(htlm);
-    let email = await getAdminEmail(organizationId);
+    source = addAttributes(source, info);
+    let email = await getAdminEmail(info.organization);
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
         to: email,

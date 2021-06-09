@@ -71,18 +71,17 @@
                 text-align: center;
             }
 
-            #password {
+            #comment {
                 text-align: center;
                 padding: 20px;
                 margin: 15px auto 15px auto;
                 background-color: #ECECEC;
-                width: 50%;
+                width: 60%;
                 border-radius: 5px;
             }
 
-            #password h3{
+            #comment h3{
                 margin: 0;
-                font-style: bold;
             }
 
             #download {
@@ -155,8 +154,8 @@
                     height: auto;
                 }
 
-                #password {
-                    width: 70%;
+                #comment {
+                    width: 80%;
                 }
 
                 #download {
@@ -187,17 +186,18 @@
         </header>
         <article>
             <section class="icon">
-                <img src="https://i.imgur.com/Kwt4w7I.png" alt="Image of a lock">
+                <img src="https://i.ibb.co/3sj2PPq/Notification.png" alt="Image of a notification bell">
             </section>
             <section class="information">
                 <div id="information">
-                    <h1>Account aangemaakt</h1>
-                    <p>Hallo {{ firstname }} {{ lastname }}!</p>
-                    <p>Er staat een account voor je klaar met als wachtwoord:<p/>
-                    <div id="password">
-                        <h3>{{ password }}</h3>
+                    <h1>Nieuwe melding</h1>
+                    <p>Er is een nieuwe melding aangemaakt</p>
+                    <div id="comment">
+                        <h3>{{ ticketTitle }}</h3>
+                        <h3>{{ firstname }} {{ lastname }}</h3>
+                        <h3>{{ ticketDescription }}</h3>
                     </div>
-                    <p>Wijzig dit wachtwoord zo snel mogelijk via de app.</p>
+                    <p>Je kunt via de app hierop reageren en meer informatie inzien.</p>
                     <br>
                     <div id="download">
                         <a id="playstore" href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>

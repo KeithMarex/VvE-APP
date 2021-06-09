@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs';
 import logger from '~/util/Logger';
 import generator from 'generate-password';
 import { Types } from 'mongoose';
-import { Response } from 'express';
 import { sendMail } from '~/util/Mailer';
 
 export const login = async (req, res) => {
@@ -71,20 +70,6 @@ export const getUser = (req, res) => {
         const status = err.statusCode || 500;
         res.status(status).json({message: err})
     });
-}
-
-export const getUsersOrganization = (req, res: Response) => {
-    User.find({
-        "organizations": Types.ObjectId(res.locals.user.organizations[0]),
-        "role": "admin"
-    }).select('-password')
-    .then(result => {
-        res.status(200).json(result)
-    })
-    .catch( err => {
-        logger.error(err);
-        res.status(400).json({message: err})
-    })
 }
 
 export const deleteUser = (req, res) => {

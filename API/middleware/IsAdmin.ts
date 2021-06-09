@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 
-export const isAdmin = async (req, res: Response, next: NextFunction) => {
+export const isAdmin = (req, res: Response, next: NextFunction) => {
     if (res.locals.user.role === "admin") {
         return next();
     }
