@@ -7,7 +7,7 @@ const TicketImages = (props) => {
 
     return (
         <SafeAreaView style={styles.root}>
-            <ScrollView style={styles.scrollView}>
+            <ScrollView style={styles.scrollView} horizontal={true}>
 
             </ScrollView>
         </SafeAreaView>

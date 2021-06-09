@@ -32,14 +32,16 @@ const TicketDetails = (props) => {
                         </StyledText>
                     </View>
 
+                    {ticket.images.length !== 0 &&
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
                             Uw afbeeldingen
                         </StyledText>
-                        <Button>
+                        <Button pressAction={() => {props.navigation.navigate('ShowImages', {ticket})}}>
                             Afbeeldingen inzien
                         </Button>
                     </View>
+                    }
 
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
