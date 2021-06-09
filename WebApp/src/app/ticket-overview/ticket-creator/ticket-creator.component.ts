@@ -20,7 +20,7 @@ export class TicketCreatorComponent implements OnInit {
   constructor(private ticketDao: TicketDao, private userDao: UserDao, private tagDao: TagDao) { }
 
   ngOnInit(): void {
-    this.getOrganizationUsers();
+    this.getOrganizationAdmins();
     this.getOrganizationTags();
   }
 
@@ -68,8 +68,8 @@ export class TicketCreatorComponent implements OnInit {
     }
   }
 
-  getOrganizationUsers() {
-    this.userDao.getUsersByOrganization()
+  getOrganizationAdmins() {
+    this.userDao.getAdminsByOrganization()
     .subscribe(responseUsers => {
       this.organizationMembers = responseUsers;
     })

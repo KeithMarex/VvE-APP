@@ -23,6 +23,13 @@ export class UserDao {
       }))
     }
 
+    getAdminsByOrganization(): Observable<User[]> {
+      return this.dao.sendGetRequest('organization/users')
+      .pipe(map((response: User[]) => {
+        return response;
+      }))
+    }
+
     registerUser(email: string, firstname: string, lastname: string): Observable<any> {
       const body = 
       [{
