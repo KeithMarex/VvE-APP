@@ -37,6 +37,7 @@ import { ColoringDirective } from 'src/shared/directives/coloring.directive';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { SvgLoaderComponent } from './svg-loader/svg-loader.component';
 import { SvgColoringDirective } from 'src/shared/directives/svg-coloring.directive';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { SvgColoringDirective } from 'src/shared/directives/svg-coloring.directi
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    InlineSVGModule,
   ],
   providers: [
     Dao,
