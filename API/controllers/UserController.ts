@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs';
 import logger from '~/util/Logger';
 import generator from 'generate-password';
 import { Types } from 'mongoose';
-import { Response } from 'express';
 import { sendMail } from '~/util/Mailer';
 
 export const login = async (req, res) => {
@@ -33,7 +32,6 @@ export const login = async (req, res) => {
 // Creating a new users and generate password
 export const register = async(req, res) => {
     const users = await createUsers(req.body, res.locals.user);
-
     let i: number;
     try {
         for (i=0; i < users.length; i++) {
@@ -74,20 +72,6 @@ export const getUser = (req, res) => {
     });
 }
 
-export const getUsersOrganization = (req, res: Response) => {
-    User.find({
-        "organizations": Types.ObjectId(res.locals.user.organizations[0]),
-        "role": "admin"
-    }).select('-password')
-    .then(result => {
-        res.status(200).json(result)
-    })
-    .catch( err => {
-        logger.error(err);
-        res.status(400).json({message: err})
-    })
-}
-
 export const deleteUser = (req, res) => {
     User.deleteOne({ _id: Types.ObjectId(req.params.id) })
     .then(() => {
@@ -113,7 +97,11 @@ const createUsers = async(body: Array<any>, user) => {
         body[i].password = await bcrypt.hash(passwords[i], 12);
         body[i].organizations = [user.organizations[0]]
         users.push(new User(body[i]));
-        // sendMail("Account created", "../html/", body[i].email);
+        sendMail("Account has been created", {
+            firstname: body[i].firstname,
+            lastname: body[i].lastname,
+            password: passwords[i],
+            email: body[i].email}, "register");
     }
 
     return users;

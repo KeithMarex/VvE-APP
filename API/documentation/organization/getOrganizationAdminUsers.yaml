@@ -1,7 +1,7 @@
 get:
   summary: Returns the admins from the organization the person is in.
   tags:
-    - User
+    - Organization
   parameters:
     - name: id
       in: path
