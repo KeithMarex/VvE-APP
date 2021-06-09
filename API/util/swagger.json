@@ -20,6 +20,9 @@
     },
     {
       "name": "Agenda"
+    },
+    {
+      "name": "Organization"
     }
   ],
   "paths": {
@@ -238,11 +241,11 @@
         }
       }
     },
-    "/user/organization/": {
+    "/organization/users": {
       "get": {
         "summary": "Returns the admins from the organization the person is in.",
         "tags": [
-          "User"
+          "Organization"
         ],
         "parameters": [
           {
