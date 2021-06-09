@@ -5,6 +5,6 @@ import { isAdmin } from '../middleware/IsAdmin';
 const router = Router();
 
 router.get('/users', isAdmin, getUsersOrganization);
-router.get('/theme', isAdmin, getOrganizationTheme)
+router.get('/theme', getOrganizationTheme)
 
 export default router;
