@@ -128,19 +128,28 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   submitComment(form: NgForm): void {
+    const formData = new FormData();
     this.inputCommentText = form.value.inputCommentText;
     // console.log(this.inputCommentText);
     console.log(this.inputCommentText);
     if (this.commentImages.length > 0) {
-      console.log(this.commentImages)
+    //   this.commentImages.forEach((res, index) => {formData.append(`file${index+1}` , {
+    //     name: res.getName(),
+    //     type: 'image/png',
+    //     uri: res.getImageUrl(),
+    // });
     }
+    // )}
+    formData.append("comment", this.inputCommentText);
+
   }
 
   handleFileInput(target: any): void {
 		this.inputCommentImage = target.files.item(0);
     this.commentImages.push(this.inputCommentImage);
     this.inputCommentImage = undefined;
-    // console.log(target.files);
+    target.value = "";
+    console.log(target.files)
 	}
 
   deleteImage(Image): void {

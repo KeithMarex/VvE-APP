@@ -10,7 +10,7 @@ export class CommentDao {
 
     constructor(private dao: Dao) {}
 
-    createTicket(commentData): Observable<any> {
+    createComment(commentData: FormData): Observable<any> {
       return this.dao.sendPostRequestForm('comment/', commentData);
     }
 }
