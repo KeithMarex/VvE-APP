@@ -44,7 +44,7 @@ import { AccountListComponent } from './account-management/account-list/account-
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
 import { DropdownComponent } from 'src/shared/dropdown/dropdown.component';
 import { DropdownSelectedDirective } from 'src/shared/dropdown/dropdown-selected.directive';
-import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive'
+import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive';
 import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
 import { ColoringDirective } from 'src/shared/directives/coloring.directive';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
