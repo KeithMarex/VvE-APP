@@ -166,6 +166,10 @@ body {
                 height: 150px;
                 min-width: 100%;
                 overflow: auto;
+
+                .user-comment {
+                    float: right;
+                }
             }
     
             .comment-form {

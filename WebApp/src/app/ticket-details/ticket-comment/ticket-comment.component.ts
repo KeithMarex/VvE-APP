@@ -12,6 +12,7 @@ import { Comment } from 'src/shared/models/comment.model';
 import { Image } from 'src/shared/models/image.model';
 import { NgForm } from "@angular/forms";
 import { DomSanitizer } from '@angular/platform-browser';
+import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @Component({
   selector: 'app-ticket-comment',
@@ -21,7 +22,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class TicketCommentComponent implements OnInit, OnDestroy {
     @Input() comment: Comment;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor() { }
 
   ngOnInit(): void {
     // console.log(this.comment.images[0].image_url);

@@ -127,6 +127,14 @@
                 <div>
                     <h1>Opmerkingen</h1>
                     <div class="comments">
+                        <div *ngFor="let comment of comments">
+                            <div *ngIf="!commentIsFromUser(comment)" class="different-user-comment">
+                                <app-ticket-comment [comment]="comment"></app-ticket-comment>
+                            </div>
+                            <div *ngIf="commentIsFromUser(comment)" class="user-comment">
+                                <app-logged-in-user-ticket-comment [comment]="comment"></app-logged-in-user-ticket-comment>
+                            </div>
+                        </div>
                         <app-ticket-comment *ngFor="let comment of comments" [comment]="comment"></app-ticket-comment>
                     </div>
                     <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
