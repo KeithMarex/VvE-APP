@@ -1,4 +1,18 @@
 <div class="calendar-item-details">
-  <p class="description">{{ calendarItem.description }}</p>
-  <p class="date">{{ dateString }}</p>
+  <div class="details-content">
+    <ul class="dates">
+      <li *ngFor="let date of dateStrings">
+        <p>{{ date }}</p>
+      </li>
+    </ul>
+    <p class="description">{{ calendarItem.description ? calendarItem.description : 'Dit evenement heeft geen beschrijving.' }}</p>
+  </div>
+  <div class="details-buttons">
+    <button class="delete-btn">
+      Verwijder
+    </button>
+    <button class="edit-btn">
+      Pas aan
+    </button>
+  </div>
 </div>

@@ -1,11 +1,50 @@
+@import "../../../../utilities/index.scss";
+
 .calendar-item-details {
+  padding: 0 20px 20px;
+  width: fit-content;
+
+  .details-content {
     .description {
-
+      text-align: center;
+      margin: 1rem 0 2rem;
     }
 
-    .date {
-        &::first-letter {
-            text-transform: capitalize;
+    .dates {
+      list-style: none;
+      li {
+        p {
+          color: $grayscale-color;
+          text-align: center;
+          margin-top: 5px;
         }
+      }
     }
+  }
+
+  .details-buttons {
+    display: flex;
+    justify-content: center;
+
+    .delete-btn, .edit-btn {
+      @include button;
+      font-size: 16px;
+      width: fit-content;
+      min-width: 110px;
+      padding: 0 15px;
+      margin: auto 0 0 8px;
+    }
+
+    .delete-btn {
+      background: none;
+      color: black;
+      border: 1px rgba(black, .3) solid;
+      box-shadow: none;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        border-color: rgba(black, .6);
+      }
+    }
+  }
 }

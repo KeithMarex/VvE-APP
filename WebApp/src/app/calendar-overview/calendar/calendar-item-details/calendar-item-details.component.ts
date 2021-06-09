@@ -1,7 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import moment from 'moment';
-import { isSameDay } from 'date-fns';
+import { isSameDay, isSameMinute } from 'date-fns';
 import { CalendarItem } from '../../../../shared/models/calendar-item';
+
+interface ParsedDate {
+  weekDay: string;
+  monthDate: string;
+  time: string;
+}
 
 @Component({
   selector: 'app-calendar-item-details',
@@ -10,36 +16,49 @@ import { CalendarItem } from '../../../../shared/models/calendar-item';
 })
 export class CalendarItemDetailsComponent implements OnInit {
   @Input() calendarItem: CalendarItem;
-  dateString: string;
+  dateStrings: string[];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.createDateString();
+    this.dateStrings = this.createDateStrings();
   }
 
-  createDateString(): void {
-    let parsedDate = '';
+  createDateStrings(): string[] {
     const startDate = this.calendarItem.date;
     const endDate = this.calendarItem.enddate;
-
     const parsedStartDate = this.parseDate(startDate);
     const parsedEndDate = this.parseDate(endDate);
 
-    console.log(startDate);
-    console.log(endDate);
     if (isSameDay(startDate, endDate)) {
-      parsedDate = `${parsedStartDate.weekDay} ${parsedStartDate.monthDate} - ${parsedStartDate.time} / ${ parsedEndDate.time}`;
+      return [
+        this.createSameDayString(parsedStartDate, parsedEndDate, isSameMinute(startDate, endDate))
+      ];
     }
-    // parsedDate = startWeekDay + ' ' + startMonthDay + ' - ' + startTime;
-    this.dateString = parsedDate;
+    return [
+      `${this.createDayStringWithoutTime(parsedStartDate)} - ${parsedStartDate.time}`,
+      `${this.createDayStringWithoutTime(parsedStartDate)} - ${parsedStartDate.time}`
+    ];
   }
 
-  parseDate(date: Date): { weekDay, monthDate, time } {
+  parseDate(date: Date): ParsedDate {
+    let weekDay = moment(date).format('dddd');
+    weekDay = weekDay.charAt(0).toUpperCase() + weekDay.slice(1);
     return {
-      weekDay: moment(date).format('dddd'),
+      weekDay,
       monthDate: moment(date).format('D MMMM'),
       time: moment(date).format('LT')
     };
+  }
+
+  createSameDayString(parsedStartDate: ParsedDate, parsedEndDate: ParsedDate, isAllDay: boolean): string {
+    const parsedHourRange = isAllDay
+      ? 'Hele dag'
+      : `${parsedStartDate.time} /  ${ parsedEndDate.time}`;
+    return `${this.createDayStringWithoutTime(parsedStartDate)} - ${parsedHourRange}`;
+  }
+
+  createDayStringWithoutTime(parsedDate: ParsedDate): string {
+    return `${parsedDate.weekDay} ${parsedDate.monthDate}`;
   }
 }

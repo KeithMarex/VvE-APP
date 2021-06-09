@@ -96,7 +96,7 @@
   </mwl-calendar-day-view>
 </div>
 
-<app-popup *ngIf="selectedCalendarItemToShow" title="{{selectedCalendarItemToShow.title}}" (closed)="closeCalendarItemPopUps()" [fitContent]="true">
+<app-popup *ngIf="selectedCalendarItemToShow" title="{{selectedCalendarItemToShow.title}}" (closed)="closeCalendarItemPopUps()" [fitContent]="true" [small]="true">
   <app-calendar-item-details [calendarItem]="selectedCalendarItemToShow"></app-calendar-item-details>
 </app-popup>
 

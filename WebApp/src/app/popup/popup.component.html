@@ -1,4 +1,7 @@
-<div class="{{'popup' + (fitContent ? ' popup-fit-content' : ' popup-fixed')}}">
+<div class="{{
+    'popup' + (fitContent ? ' popup-fit-content' : ' popup-fixed') + ' '
+    + (small ? 'popup-small' : undefined)
+}}">
     <div class="container">
         <div class="top-bar">
             <h2>{{ title }}</h2>
