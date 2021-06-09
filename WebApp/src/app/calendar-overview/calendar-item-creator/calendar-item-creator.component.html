@@ -1,4 +1,4 @@
-<form class="calendar-item-form" (ngSubmit)="onCreateItem(form)" #form="ngForm">
+<form class="calendar-item-form" (ngSubmit)="onSave(form)" #form="ngForm">
     <div class="creator-content">
       <ngx-daterangepicker-material
         (choosedDate)="pickedDateTime($event)"
@@ -13,14 +13,14 @@
 
       <div class="item-info-section">
         <div class="title-field">
-          <input type="text" placeholder="Titel" name="title" required ngModel>
+          <input type="text" placeholder="Titel" name="title" required [(ngModel)]="title">
         </div>
         <div class="description-field">
-          <textarea cols="30" rows="10" placeholder="Omschrijving" name="description" required ngModel></textarea>
+          <textarea cols="30" rows="10" placeholder="Omschrijving" name="description" required [(ngModel)]="description"></textarea>
         </div>
       </div>
     </div>
 
-    <button class="createBtn" type="submit" [disabled]="form.invalid">Aanmaken</button>
+    <button class="createBtn" type="submit" [disabled]="form.invalid">{{ isEditing ? 'Wijzigen' : 'Aanmaken' }}</button>
 </form>
 
