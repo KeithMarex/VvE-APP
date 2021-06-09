@@ -36,7 +36,7 @@
                 </select>
             </div>
             <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
-            <button type="submit" [disabled]="form.invalid">Aanmaken</button>
+            <button appColoring colorElement="backgroundColor" type="submit" [disabled]="form.invalid">Aanmaken</button>
         </div>
     </form>
 </section>

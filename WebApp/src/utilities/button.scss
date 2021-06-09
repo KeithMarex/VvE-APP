@@ -12,6 +12,10 @@
     border-radius: 14px;
     box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
     cursor: pointer;
+
+    &:disabled {
+        filter:opacity(30%);
+    }
 }
 
 .icon-button {
