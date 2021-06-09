@@ -278,6 +278,46 @@
         }
       }
     },
+    "/organization/theme": {
+      "get": {
+        "summary": "Returns the theme of the organization the user is in.",
+        "description": "This request doesn't require any information to get the organization theme. <br>\nIts ofcourse required to be logged in and authenticated with a jwt token.\n",
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "Theme object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "theme": {
+                      "type": "object",
+                      "properties": {
+                        "primarycolor": {
+                          "type": "string"
+                        },
+                        "secondarycolor": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error trying to get the theme"
+          }
+        }
+      }
+    },
     "/tag": {
       "get": {
         "summary": "Returns all the tags of organization.",
