@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CustomEvent } from './custom-event';
+import {isSameMinute} from "date-fns";
 
 /**
  * Manages a local array of calendar items
@@ -32,6 +33,7 @@ export class CalendarService {
   calendarItemToCustomEvent(calItem: CalendarItem, actions): CustomEvent {
     const startDate = new Date(calItem.date);
     const endDate = calItem.enddate ? new Date(calItem.enddate) : undefined;
+    const allDay = isSameMinute(startDate, endDate);
 
     const customEvent: CustomEvent[] = [];
     customEvent.push({
@@ -41,7 +43,7 @@ export class CalendarService {
       description: calItem.description,
       id: calItem._id,
       color: this.colors.primary,
-      allDay: !calItem.enddate,
+      allDay,
       actions,
       resizable: {
         beforeStart: true,
