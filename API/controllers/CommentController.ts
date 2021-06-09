@@ -19,7 +19,7 @@ export const postComment = async(req, res) => {
 }
 
 const createComment = (req, res) => {
-    req.fields.creator = res.locals.user._id;
+    req.fields.user = res.locals.user._id;
     if (res.locals.images) {
         req.fields.images = res.locals.images;
     }
