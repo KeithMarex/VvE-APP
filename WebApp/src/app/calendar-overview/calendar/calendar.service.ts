@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { isSameMinute } from 'date-fns';
+import {isSameMinute, isSameMonth} from 'date-fns';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CustomEvent } from './custom-event';
 
-/**
+interface FetchedMonth {
+  month: Date;
+  calendarItems: CalendarItem[];
+}
+
+/*
  * Manages a local array of calendar items
  */
 
 @Injectable()
 export class CalendarService {
   calendarItems = new BehaviorSubject<CalendarItem[]>([]);
+  fetchedMonths: FetchedMonth[] = []; // For storing months that have already been fetched
   colors: any = {
     primary: {
       primary: '#441C62',
@@ -81,5 +87,31 @@ export class CalendarService {
     this.calendarItems.next(
       this.calendarItems.getValue().concat([calendarItem])
     );
+  }
+
+  findFetchedCalendarItems(month: Date): any {
+    let foundItems = null;
+    this.fetchedMonths.forEach((fetchedMonth) => {
+      if (isSameMonth(fetchedMonth.month, month)) {
+        foundItems = fetchedMonth.calendarItems;
+        return;
+      }
+    });
+    return foundItems;
+  }
+
+  storeFetchedMonth(month: Date): void {
+    let monthIsStored = false;
+    this.fetchedMonths.forEach((fetchedMonth) => {
+      if (isSameMonth(fetchedMonth.month, month)) {
+        monthIsStored = true;
+      }
+    });
+    if (!monthIsStored) {
+      this.fetchedMonths.push({
+        month,
+        calendarItems: this.calendarItems.getValue()
+      });
+    }
   }
 }

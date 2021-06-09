@@ -7,7 +7,7 @@ import { CalendarDao } from '../../../shared/services/calendar-dao.service';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CalendarService } from './calendar.service';
 
-/**
+/*
  * Component with main calendar logic
  */
 
@@ -60,17 +60,29 @@ export class CalendarComponent implements OnInit {
       });
 
     const now = new Date();
-    this.fetchMonthItems(now);
+    this.currentMonth = now;
+    this.fetchMonthItems(now, null);
   }
 
-  fetchMonthItems(date: Date): void {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
+  fetchMonthItems(newDate: Date, oldDate: Date): void {
+    if (oldDate) { // If it is not the first fetch
+      if (this.events.length > 0) {
+        this.calendarService.storeFetchedMonth(this.currentMonth);
+      }
+      const foundFetchedCalendarItems =
+        this.calendarService.findFetchedCalendarItems(newDate);
+      if (foundFetchedCalendarItems) {
+        return this.calendarService.setCalendarItems(foundFetchedCalendarItems);
+      }
+    }
+
+    const year = newDate.getFullYear();
+    const month = newDate.getMonth() + 1;
     this.calendarDao.getCalendarItems(year + '-' + month)
       .subscribe(resCalItems => {
         this.calendarService.setCalendarItems(resCalItems);
       });
-    this.currentMonth = date;
+    this.currentMonth = newDate;
   }
 
   parseCalendarItems(calItems: CalendarItem[]): void {
@@ -121,9 +133,10 @@ export class CalendarComponent implements OnInit {
     this.currentView = view;
   }
 
-  onCalendarDateChanged(newDate: any): void {
-    if (!isSameMonth(newDate, this.currentMonth)) {
-      this.fetchMonthItems(newDate);
+  onCalendarDateChanged(newDate: Date): void {
+    const oldDate = this.currentMonth;
+    if (!isSameMonth(newDate, oldDate)) {
+      this.fetchMonthItems(newDate, oldDate);
     }
     this.activeDayIsOpen = false;
   }
