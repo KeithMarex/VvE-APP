@@ -721,6 +721,7 @@
     "/ticket/{id}/": {
       "put": {
         "summary": "Updates ticket in the database",
+        "description": "Updates only the status, tag or person on the ticket. <br>\nOther information __cannot__ be modified through this route. <br>\nStatus needs to be:\n\n  * __PENDING__\n  * __HANDLING__\n  * __HANDLED__\n\nWhen the status is different, it will respond with status 400.\n",
         "tags": [
           "Ticket"
         ],
@@ -743,13 +744,13 @@
                 "type": "object",
                 "properties": {
                   "assignee": {
-                    "$ref": "#/paths/~1user/get/responses/200/content/application~1json/schema/items"
+                    "type": "string ObjectId"
                   },
                   "tag": {
-                    "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                    "type": "string ObjectId"
                   },
                   "status": {
-                    "type": "status"
+                    "type": "string"
                   }
                 }
               }
@@ -758,14 +759,7 @@
         },
         "responses": {
           "200": {
-            "description": "Receiving updated ticket",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/paths/~1ticket~1/post/responses/201/content/application~1json/schema"
-                }
-              }
-            }
+            "description": "Ticket has been updated successfully"
           },
           "400": {
             "description": "validation error"
