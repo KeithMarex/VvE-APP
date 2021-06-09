@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AgendaItem } from '../../../shared/models/agenda-item';
-import {CustomEvent} from './custom-event';
+import { CustomEvent } from './custom-event';
+
+/**
+ * Manages a local array of calendar items
+ */
 
 @Injectable()
 export class CalendarService {
   calendarItems = new BehaviorSubject<AgendaItem[]>([]);
   colors: any = {
-    red: {
-      primary: '#ad2121',
-      secondary: '#FAE3E3',
-    },
-    blue: {
-      primary: '#1e90ff',
-      secondary: '#D1E8FF',
-    },
-    yellow: {
-      primary: '#e3bc08',
-      secondary: '#FDF1BA',
+    primary: {
+      primary: '#441C62',
+      secondary: '#441C62',
     },
   };
 
@@ -44,7 +40,7 @@ export class CalendarService {
       title: calItem.title,
       description: calItem.description,
       id: calItem._id,
-      color: this.colors.blue,
+      color: this.colors.primary,
       allDay: !!calItem.endDate,
       actions,
       resizable: {
@@ -53,15 +49,8 @@ export class CalendarService {
       },
       draggable: true,
     });
+
     return customEvent[0];
-  }
-
-  setCalendarItems(calendarItems: AgendaItem[]): void {
-    this.calendarItems.next(calendarItems);
-  }
-
-  addCalendarItem(calendarItem: AgendaItem): void {
-    this.calendarItems.next(this.calendarItems.getValue().concat([calendarItem]));
   }
 
   updateCalendarItem(calendarItem: AgendaItem): void {
@@ -80,6 +69,16 @@ export class CalendarService {
           return calendarItem._id !== calendarItemId;
         }
       ));
+  }
+
+  setCalendarItems(calendarItems: AgendaItem[]): void {
+    this.calendarItems.next(calendarItems);
+  }
+
+  addCalendarItem(calendarItem: AgendaItem): void {
+    this.calendarItems.next(
+      this.calendarItems.getValue().concat([calendarItem])
+    );
   }
 
   calendarItemsIsEmpty(): boolean {

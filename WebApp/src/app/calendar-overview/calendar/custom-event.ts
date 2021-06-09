@@ -1,4 +1,8 @@
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+
+/**
+ * Overrides angular-calendar's event interfaces to add custom attributes
+ */
 
 export interface CustomEvent extends CalendarEvent {
   description: string;

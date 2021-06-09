@@ -1,11 +1,15 @@
-import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {isSameDay, isSameMonth} from 'date-fns';
-import {Subject} from 'rxjs';
-import {CalendarView} from 'angular-calendar';
-import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from './custom-event';
-import {CalendarDao} from '../../../shared/services/calendar-dao.service';
-import {AgendaItem} from '../../../shared/models/agenda-item';
-import {CalendarService} from './calendar.service';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {isSameDay, isSameMonth } from 'date-fns';
+import { Subject } from 'rxjs';
+import { CalendarView } from 'angular-calendar';
+import { CustomEvent, CustomEventAction, CustomEventTimesChangedEvent } from './custom-event';
+import { CalendarDao } from '../../../shared/services/calendar-dao.service';
+import { AgendaItem } from '../../../shared/models/agenda-item';
+import { CalendarService } from './calendar.service';
+
+/**
+ * Component with main calendar logic
+ */
 
 @Component({
   selector: 'app-calendar',
@@ -16,20 +20,15 @@ import {CalendarService} from './calendar.service';
 })
 export class CalendarComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
-  view: CalendarView = CalendarView.Month;
-
-  locale = 'nl';
-
+  currentView: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
-
+  refresh: Subject<any> = new Subject();
   viewDate: Date = new Date();
-
+  locale = 'nl';
   selectedCalendarItemToShow: CustomEvent;
   selectedCalendarItemToEdit: CustomEvent;
-
-  isEventsToday: boolean;
-
+  events: CustomEvent[] = [];
+  activeDayIsOpen = true;
   actions: CustomEventAction[] = [
     {
       label: '<span class="calendar-icon calendar-edit-icon"/>',
@@ -47,13 +46,10 @@ export class CalendarComponent implements OnInit {
     },
   ];
 
-  refresh: Subject<any> = new Subject();
-
-  events: CustomEvent[] = [];
-
-  activeDayIsOpen = true;
-
-  constructor(private calendarDao: CalendarDao, private calendarService: CalendarService) {}
+  constructor(
+    private calendarDao: CalendarDao,
+    private calendarService: CalendarService
+  ) {}
 
   ngOnInit(): void {
     this.calendarService.calendarItems
@@ -63,7 +59,7 @@ export class CalendarComponent implements OnInit {
       });
 
     if (this.calendarService.calendarItemsIsEmpty()) {
-      this.calendarDao.getCalendarItems('2021-6')
+      this.calendarDao.getCalendarItems('2021-6') // TODO get current month
         .subscribe(resCalItems => {
           this.calendarService.setCalendarItems(resCalItems);
         });
@@ -78,7 +74,6 @@ export class CalendarComponent implements OnInit {
         this.calendarService.calendarItemToCustomEvent(calItem, this.actions)
       );
     });
-
     this.events = parsedEvents;
   }
 
@@ -93,6 +88,7 @@ export class CalendarComponent implements OnInit {
   calendarItemTimesChanged({ event, newStart, newEnd }: CustomEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
+
     const editedCalendarItem = this.calendarService.customEventToCalendarItem(event);
     this.calendarDao.updateCalendarItem(editedCalendarItem)
       .subscribe(() => {
@@ -100,27 +96,27 @@ export class CalendarComponent implements OnInit {
       });
   }
 
-  deleteCalendarItem(eventToDelete: CustomEvent): void {
-    this.calendarDao.deleteCalendarItem(eventToDelete.id)
+  deleteCalendarItem(calendarItemToDelete: CustomEvent): void {
+    this.calendarDao.deleteCalendarItem(calendarItemToDelete.id)
       .subscribe(() => {
-        this.calendarService.deleteCalendarItem(eventToDelete.id);
+        this.calendarService.deleteCalendarItem(calendarItemToDelete.id);
       });
   }
 
-  editCalendarItem(eventToEdit: CustomEvent): void {
-    this.selectedCalendarItemToEdit = eventToEdit;
+  editCalendarItem(calendarItemToEdit: CustomEvent): void {
+    this.selectedCalendarItemToEdit = calendarItemToEdit;
   }
 
   setView(view: CalendarView): void {
-    this.view = view;
+    this.currentView = view;
   }
 
   closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
   }
 
-  showCalendarItemPopUp(eventToShow: CustomEvent): void {
-    this.selectedCalendarItemToShow = eventToShow;
+  showCalendarItemPopUp(calendarItemToShow: CustomEvent): void {
+    this.selectedCalendarItemToShow = calendarItemToShow;
   }
 
   closeCalendarItemPopUps(): void {
