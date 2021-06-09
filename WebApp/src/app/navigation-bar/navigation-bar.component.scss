@@ -42,34 +42,20 @@ body {
 
         .ticket-count {
             position: absolute;
-            right: -0.5rem;
-            bottom: -0.2rem;
-            height: 1.2rem;
-            width: 1.2rem;
+            text-align: center;
+            right: -1.3rem;
+            bottom: -1.9rem;
+            height: 1.3rem;
+            width: 1.3rem;
             text-align: center;
             border-radius: 50%;
-            background-color: $secondary-color;
             color: white;
         }
     }
 
-    svg {
-        stroke: $primary-color;
-
-        path {
-            stroke: $primary-color;
-        }
-    }
-
-    svg.active {
-        filter: drop-shadow(0 4px 4px rgba($color: #000000, $alpha: 0.25));
-        fill: $primary-color;
-        stroke: $primary-color;
-
-        path {
-            fill: $primary-color;
-            stroke: $highlight-color;
-        }
+    .svg-component.active { //FIXME
+        stroke: fill;
+        fill: stroke;
     }
 
     .bottom-section {

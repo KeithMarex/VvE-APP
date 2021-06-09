@@ -35,8 +35,6 @@ import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.dir
 import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
 import { ColoringDirective } from 'src/shared/directives/coloring.directive';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
-import { SvgLoaderComponent } from './svg-loader/svg-loader.component';
-import { SvgColoringDirective } from 'src/shared/directives/svg-coloring.directive';
 import { InlineSVGModule } from 'ng-inline-svg';
 
 @NgModule({
@@ -65,8 +63,6 @@ import { InlineSVGModule } from 'ng-inline-svg';
     DropdownOptionDirective,
     AccountCreatorComponent,
     ColoringDirective,
-    SvgColoringDirective,
-    SvgLoaderComponent,
   ],
   imports: [
     BrowserModule,
