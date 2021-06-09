@@ -1,3 +1,4 @@
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
 import Emailcredentials from '~/models/Emailcredentials';
 import { readFileSync } from "fs";
 import nodemailer from "nodemailer";

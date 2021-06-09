@@ -278,6 +278,81 @@
         }
       }
     },
+    "/organization/theme": {
+      "get": {
+        "summary": "Returns the theme of the organization the user is in.",
+        "description": "This request doesn't require any information to get the organization theme. <br>\nIts ofcourse required to be logged in and authenticated with a jwt token.\n",
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "Theme object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Theme": {
+                      "type": "object",
+                      "properties": {
+                        "primarycolor": {
+                          "type": "string"
+                        },
+                        "secondarycolor": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error trying to get the theme"
+          }
+        }
+      }
+    },
+    "/organization/theme/": {
+      "put": {
+        "summary": "Updates the theme of the organization the user is in.",
+        "description": "This request __doesn't require both__ primarycolor and secondary its still possible but not required. <br>\nIts ofcourse required to be logged in and authenticated with a jwt token also an admin role is required. <br>\nOrganization will be collected from the jwt token so not necessary to be send in body\n",
+        "tags": [
+          "Organization"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "primarycolor": {
+                    "type": "string"
+                  },
+                  "secondarycolor": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfull"
+          },
+          "500": {
+            "description": "Error trying to update the theme"
+          }
+        }
+      }
+    },
     "/tag": {
       "get": {
         "summary": "Returns all the tags of organization.",
@@ -470,14 +545,7 @@
         },
         "responses": {
           "200": {
-            "description": "Receiving updated tag",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
-                }
-              }
-            }
+            "description": "Successfull"
           },
           "400": {
             "description": "validation error"
