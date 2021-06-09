@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 
-export const statusConverter = (req, res: Response, next: NextFunction) => {
+export const statusValidate = (req, res: Response, next: NextFunction) => {
     if (!req.body.status) {
         return next();
     }
