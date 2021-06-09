@@ -65,14 +65,11 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchMonthItems(newDate: Date, oldDate: Date): void {
-    if (oldDate) { // If it is not the first fetch
-      if (this.events.length > 0) {
-        this.calendarService.storeFetchedMonth(this.currentMonth);
-      }
-      const foundFetchedCalendarItems =
-        this.calendarService.findFetchedCalendarItems(newDate);
-      if (foundFetchedCalendarItems) {
-        return this.calendarService.setCalendarItems(foundFetchedCalendarItems);
+    if (oldDate) {
+      const foundCalendarItems = this.findStoredCalendarItems(newDate);
+      if (foundCalendarItems) {
+        this.calendarService.setCalendarItems(foundCalendarItems);
+        return;
       }
     }
 
@@ -83,6 +80,18 @@ export class CalendarComponent implements OnInit {
         this.calendarService.setCalendarItems(resCalItems);
       });
     this.currentMonth = newDate;
+  }
+
+  findStoredCalendarItems(date: Date): CalendarItem[] {
+    if (this.events.length > 0) {
+      this.calendarService.storeFetchedMonth(this.currentMonth);
+    }
+    const foundFetchedCalendarItems =
+      this.calendarService.findFetchedCalendarItems(date);
+    if (foundFetchedCalendarItems) {
+      return foundFetchedCalendarItems;
+    }
+    return null;
   }
 
   parseCalendarItems(calItems: CalendarItem[]): void {
@@ -97,11 +106,12 @@ export class CalendarComponent implements OnInit {
   }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0);
-      this.viewDate = date;
+    if (!isSameMonth(date, this.viewDate)) {
+      return;
     }
+    this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+      events.length === 0);
+    this.viewDate = date;
   }
 
   calendarItemTimesChanged({ event, newStart, newEnd }: CustomEventTimesChangedEvent): void {
@@ -109,7 +119,6 @@ export class CalendarComponent implements OnInit {
     if (newEnd) {
       event.end = newEnd;
     }
-
     const editedCalendarItem = this.calendarService.customEventToCalendarItem(event);
     this.calendarDao.updateCalendarItem(editedCalendarItem)
       .subscribe(() => {
