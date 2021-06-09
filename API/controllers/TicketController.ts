@@ -52,11 +52,14 @@ export const postTicket = (req, res) => {
     const ticket = createTicket(req, res);
     ticket.save()
     .then(result => {
-        //Bestuurder mail
-        sendAdminMail("Er is een nieuwe ticket aangemaakt", res.locals.user.organizations[0], "ticket_bestuurder");
 
-        //Bewoner mail
-        sendMail("Ticket aangemaakt", res.locals.user , "ticket_aangemaakt_bewoner");
+        sendAdminMail("Er is een nieuwe ticket aangemaakt", {
+            organization: res.locals.user.organizations[0],
+            ticketTitle: result["title"],
+            ticketDescription: result["description"],
+            firstname: res.locals.user.firstname,
+            lastname: res.locals.user.lastname }
+        , "ticket");
 
         res.status(201).send(result);
     })

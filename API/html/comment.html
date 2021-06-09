@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
-        <title>Account aangemaakt</title>
+        <title>Nieuwe opmerking</title>
         <style>
             body {
                 font-family: 'Poppins', sans-serif;
@@ -32,10 +32,8 @@
             }
 
             header {
-                display: inherit;
                 height: 185px;
-                justify-content: center;
-                align-items: center;
+                text-align: center;
             }
 
             article {
@@ -51,14 +49,18 @@
                 background-color: #DAD1E0;
                 width: 100%;
                 height: 100px;
-                justify-content: center;
-                align-items: center;
-                display: inherit;
+                position: relative;
             }
 
             .icon img {
                 width: 80px;
                 height: auto;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
             }
 
             .information {
@@ -71,18 +73,17 @@
                 text-align: center;
             }
 
-            #password {
+            #comment {
                 text-align: center;
                 padding: 20px;
                 margin: 15px auto 15px auto;
                 background-color: #ECECEC;
-                width: 50%;
+                width: 60%;
                 border-radius: 5px;
             }
 
-            #password h3{
+            #comment h3{
                 margin: 0;
-                font-style: bold;
             }
 
             #download {
@@ -155,8 +156,8 @@
                     height: auto;
                 }
 
-                #password {
-                    width: 70%;
+                #comment {
+                    width: 80%;
                 }
 
                 #download {
@@ -187,17 +188,16 @@
         </header>
         <article>
             <section class="icon">
-                <img src="https://i.imgur.com/Kwt4w7I.png" alt="Image of a lock">
+                <img src="https://i.ibb.co/3sj2PPq/Notification.png" alt="Image of a notification bell">
             </section>
             <section class="information">
                 <div id="information">
-                    <h1>Account aangemaakt</h1>
-                    <p>Hallo {{ firstname }} {{ lastname }}!</p>
-                    <p>Er staat een account voor je klaar met als wachtwoord:<p/>
-                    <div id="password">
-                        <h3>{{ password }}</h3>
+                    <h1>Nieuwe opmerking</h1>
+                    <p>Je hebt een nieuwe opmerking op je melding: {{ ticketTitle }}</p>
+                    <div id="comment">
+                        <h3>{{ comment }}</h3>
                     </div>
-                    <p>Wijzig dit wachtwoord zo snel mogelijk via de app.</p>
+                    <p>Je kunt via de app hierop reageren en meer informatie inzien.</p>
                     <br>
                     <div id="download">
                         <a id="playstore" href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>
