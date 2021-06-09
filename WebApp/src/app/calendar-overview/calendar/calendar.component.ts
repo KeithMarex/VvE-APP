@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { CalendarView } from 'angular-calendar';
 import { CustomEvent, CustomEventAction, CustomEventTimesChangedEvent } from './custom-event';
 import { CalendarDao } from '../../../shared/services/calendar-dao.service';
-import { AgendaItem } from '../../../shared/models/agenda-item';
+import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CalendarService } from './calendar.service';
 
 /**
@@ -66,7 +66,7 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  parseCalendarItems(calItems: AgendaItem[]): void {
+  parseCalendarItems(calItems: CalendarItem[]): void {
     const parsedEvents: CustomEvent[] = [];
 
     calItems.forEach((calItem) => {

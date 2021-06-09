@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AgendaItem } from '../../../shared/models/agenda-item';
+import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CustomEvent } from './custom-event';
 
 /**
@@ -9,7 +9,7 @@ import { CustomEvent } from './custom-event';
 
 @Injectable()
 export class CalendarService {
-  calendarItems = new BehaviorSubject<AgendaItem[]>([]);
+  calendarItems = new BehaviorSubject<CalendarItem[]>([]);
   colors: any = {
     primary: {
       primary: '#441C62',
@@ -19,8 +19,8 @@ export class CalendarService {
 
   constructor() { }
 
-  customEventToCalendarItem(event: CustomEvent): AgendaItem {
-    return new AgendaItem(
+  customEventToCalendarItem(event: CustomEvent): CalendarItem {
+    return new CalendarItem(
       event.id,
       event.title,
       event.description,
@@ -29,7 +29,7 @@ export class CalendarService {
     );
   }
 
-  calendarItemToCustomEvent(calItem: AgendaItem, actions): CustomEvent {
+  calendarItemToCustomEvent(calItem: CalendarItem, actions): CustomEvent {
     const startDate = new Date(calItem.date);
     const endDate = calItem.endDate ? new Date(calItem.endDate) : undefined;
 
@@ -53,7 +53,7 @@ export class CalendarService {
     return customEvent[0];
   }
 
-  updateCalendarItem(calendarItem: AgendaItem): void {
+  updateCalendarItem(calendarItem: CalendarItem): void {
     const calendarItems = this.calendarItems.getValue();
     const updatedCalendarItemIndex = calendarItems.findIndex(
       (item) => item._id === calendarItem._id
@@ -71,11 +71,11 @@ export class CalendarService {
       ));
   }
 
-  setCalendarItems(calendarItems: AgendaItem[]): void {
+  setCalendarItems(calendarItems: CalendarItem[]): void {
     this.calendarItems.next(calendarItems);
   }
 
-  addCalendarItem(calendarItem: AgendaItem): void {
+  addCalendarItem(calendarItem: CalendarItem): void {
     this.calendarItems.next(
       this.calendarItems.getValue().concat([calendarItem])
     );
