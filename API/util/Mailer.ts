@@ -24,8 +24,6 @@ export const sendMail = async(subject: String, info: any, htlm: String) => {
         to: email,
         subject: subject,
         html: source
-    }, (err, info) => {
-        console.log(info);
     });
 }
 
