@@ -6,6 +6,10 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+
+    p {
+        color: $default-text-color;
+    }
 }
 
 header {
@@ -47,7 +51,6 @@ body {
     width: 85vw;
     
     h1 {
-        color: $primary-color;
         font-size: 150%;
     }
 
