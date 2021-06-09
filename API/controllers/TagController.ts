@@ -48,8 +48,8 @@ export const putTag = async (req, res) => {
         name: tag.name,
         color: tag.color,
      })
-    .then(result => {
-        res.status(200).send(result);
+    .then(() => {
+        res.status(200);
     })
     .catch(err => {
         logger.error(err);

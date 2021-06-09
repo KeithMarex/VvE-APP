@@ -20,7 +20,7 @@ export class TicketCreatorComponent implements OnInit {
   constructor(private ticketDao: TicketDao, private userDao: UserDao, private tagDao: TagDao) { }
 
   ngOnInit(): void {
-    this.getOrganizationUsers();
+    this.getOrganizationAdmins();
     this.getOrganizationTags();
   }
 
@@ -32,6 +32,9 @@ export class TicketCreatorComponent implements OnInit {
     mForm.append('description', formValues.description);
     if (formValues.assignee) {
       mForm.append('assignee', formValues.assignee);
+    }
+    if (formValues.tag) {
+      mForm.append('tag', formValues.tag);
     }
     mForm.append('status', this.formatStatus(formValues.status));
 
@@ -68,8 +71,8 @@ export class TicketCreatorComponent implements OnInit {
     }
   }
 
-  getOrganizationUsers() {
-    this.userDao.getUsersByOrganization()
+  getOrganizationAdmins() {
+    this.userDao.getAdminsByOrganization()
     .subscribe(responseUsers => {
       this.organizationMembers = responseUsers;
     })

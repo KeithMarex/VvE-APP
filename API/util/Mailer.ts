@@ -1,3 +1,4 @@
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
 import Emailcredentials from '~/models/Emailcredentials';
 import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
@@ -54,7 +55,7 @@ const getAdminEmail = async (organizationId) => {
     return email["emailcredentials"]["email"];
 }
 
-const mailTransporter = nodemailer.createTransport({
+export const mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.MAIL_USER,

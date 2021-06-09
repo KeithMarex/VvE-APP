@@ -1,5 +1,5 @@
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
 import jwt from "jsonwebtoken";
-import 'dotenv/config'
 import { refreshTokens } from "../util/Auth";
 
 export const isAuth = async (req, res, next) => {

@@ -14,7 +14,6 @@ html {
 
 header {
     h1 {
-        color: $primary-color;
         font-size: 200%;
         font-weight: 700;
         margin-bottom: 10px !important;
@@ -44,6 +43,11 @@ header {
 
 :host app-popup {
     height: auto;
+}
+
+.svg-element {
+    stroke: currentColor;
+    fill: white;
 }
 
 @include date-picker();

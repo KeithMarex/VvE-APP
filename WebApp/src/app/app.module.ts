@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {
   CalendarModule,
@@ -41,6 +42,12 @@ import { TicketDetailsComponent } from './ticket-details/ticket-details.componen
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { AccountListComponent } from './account-management/account-list/account-list.component';
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
+import { DropdownComponent } from 'src/shared/dropdown/dropdown.component';
+import { DropdownSelectedDirective } from 'src/shared/dropdown/dropdown-selected.directive';
+import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive'
+import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
+import { ColoringDirective } from 'src/shared/directives/coloring.directive';
+import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
 import { CalendarService } from './calendar-overview/calendar/calendar.service';
@@ -77,6 +84,11 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TicketDetailsComponent,
     AccountListComponent,
     AccountItemComponent,
+    DropdownComponent,
+    DropdownSelectedDirective,
+    DropdownOptionDirective,
+    AccountCreatorComponent,
+    ColoringDirective,
     CalendarComponent,
     CalendarItemCreatorComponent,
     CalendarItemDetailsComponent,
@@ -86,6 +98,8 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     AppRoutingModule,
     CommonModule,
     HttpClientModule,
+    FormsModule,
+    InlineSVGModule,
     FormsModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
@@ -108,6 +122,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     UserDao,
     CalendarDao,
     TicketEditorService,
+    DataStorageService,
     CalendarService,
     {
       provide: LOCALE_ID,

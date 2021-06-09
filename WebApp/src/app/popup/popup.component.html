@@ -1,12 +1,11 @@
 <div class="{{
     'popup' + (fitContent ? ' popup-fit-content' : ' popup-fixed') + ' '
     + (small ? 'popup-small' : undefined)
-}}">
+}}" appColoring>
     <div class="container">
-        <div class="top-bar">
+        <div appColoring colorElement="border-color" colorStyle="secondary" class="top-bar">
             <h2>{{ title }}</h2>
             <button id="close-button" (click)="onClose()"></button>
-            <!-- <object data="../../assets/icons/Close.svg" type="" (click)="onClose()"></object> -->
         </div>
         <div class="content-container">
             <ng-content></ng-content>

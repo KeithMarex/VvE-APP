@@ -16,7 +16,7 @@
 
     &:disabled {
         cursor: initial;
-        opacity: .8;
+        filter:opacity(30%);
     }
 }
 
@@ -46,9 +46,8 @@
     .button-dropdown {
         position: absolute;
         visibility: hidden;
-        color: $primary-color;
         background-color: #F7F7FC;
-        border: 2px solid $primary-color;
+        border: 2px solid;
         border-radius: 1rem;
         width: inherit;
         top: 2.75rem;
@@ -75,7 +74,7 @@
 
         hr {
             border: none;
-            border-bottom: 1px solid $primary-color;
+            border-bottom: 1px solid;
             margin: 0 1rem;
         }
     }
