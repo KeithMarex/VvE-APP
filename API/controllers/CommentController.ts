@@ -8,7 +8,7 @@ export const postComment = async(req, res) => {
 
     comment.save()
     .then(result => {
-        // Comment aangemaakt, nu toevoegen aan ticket.
+        // Created comment is added to the ticket.
         pushCommentToTicket(req, res, result);
     })
     .catch(err => {
