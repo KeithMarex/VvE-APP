@@ -2,11 +2,11 @@ import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @Directive({
-  selector: '[appColoring]'
+  selector: '[appSvgColoring]'
 })
-export class ColoringDirective implements OnInit {
+export class SvgColoringDirective implements OnInit {
   @Input() colorStyle: string; // Option to add different styles to element. Styles are defined in dataStorageService.
-  @Input() colorElement: string = 'color'; // Property of element that needs to be colored, default is set to color
+  @Input() colorAttribute: string = 'stroke'; // Property of element that needs to be colored, default is set to color
 
   private primaryColor = this.dataStorageService.getPrimaryColor();
   private secondaryColor =this.dataStorageService.getSecondaryColor();
@@ -20,7 +20,7 @@ export class ColoringDirective implements OnInit {
       chosenColor = this.secondaryColor;
     }
 
-    this.renderer.setStyle(this.elRef.nativeElement, this.colorElement, chosenColor);
+    this.renderer.setStyle(this.elRef.nativeElement, this.colorAttribute, chosenColor);
   }
 
 }

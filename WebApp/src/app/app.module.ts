@@ -36,7 +36,7 @@ import { AccountCreatorComponent } from './account-management/account-creator/ac
 import { ColoringDirective } from 'src/shared/directives/coloring.directive';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { SvgLoaderComponent } from './svg-loader/svg-loader.component';
-import { TestSvgComponent } from './test-svg/test-svg.component'; //TODO remove
+import { SvgColoringDirective } from 'src/shared/directives/svg-coloring.directive';
 
 @NgModule({
   declarations: [
@@ -64,8 +64,8 @@ import { TestSvgComponent } from './test-svg/test-svg.component'; //TODO remove
     DropdownOptionDirective,
     AccountCreatorComponent,
     ColoringDirective,
+    SvgColoringDirective,
     SvgLoaderComponent,
-    TestSvgComponent //TODO remove
   ],
   imports: [
     BrowserModule,
