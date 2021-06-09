@@ -28,6 +28,7 @@ import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { TicketCommentComponent } from './ticket-details/ticket-comment/ticket-comment.component';
+import { LoggedInUserTicketCommentComponent } from './ticket-details/logged-in-user-ticket-comment/logged-in-user-ticket-comment.component';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { AccountListComponent } from './account-management/account-list/account-list.component';
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
@@ -59,6 +60,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
     TagCreatorComponent,
     TicketDetailsComponent,
     TicketCommentComponent,
+    LoggedInUserTicketCommentComponent,
     AccountListComponent,
     AccountItemComponent,
     DropdownComponent,
