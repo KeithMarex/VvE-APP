@@ -33,7 +33,9 @@ import { DropdownComponent } from 'src/shared/dropdown/dropdown.component';
 import { DropdownSelectedDirective } from 'src/shared/dropdown/dropdown-selected.directive';
 import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive'
 import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
-import { ColoringDirective } from 'src/shared/directives/primary-color/coloring.directive';
+import { ColoringDirective } from 'src/shared/directives/coloring.directive';
+import { DataStorageService } from 'src/shared/services/data-storage.service';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { ColoringDirective } from 'src/shared/directives/primary-color/coloring.
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    InlineSVGModule,
   ],
   providers: [
     Dao,
@@ -76,6 +79,7 @@ import { ColoringDirective } from 'src/shared/directives/primary-color/coloring.
     AuthDao,
     UserDao,
     TicketEditorService,
+    DataStorageService
   ],
   bootstrap: [AppComponent]
 })

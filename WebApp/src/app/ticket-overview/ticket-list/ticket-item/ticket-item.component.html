@@ -1,10 +1,10 @@
 <div class="container">
     <section class="left-block">
         <div class="top-section">
-            <object data="../../../../assets/icons/members.svg" type=""></object>
+            <div class="svg-element" appColoring colorElement="stroke" [inlineSVG]="'../../../../assets/icons/members.svg'"></div>
             <h1>{{ creator ? creator.firstname + ' ' + creator.lastname : 'Maker kan niet geladen worden' }}</h1>
             <h1 id="comment-count">{{ ticket.comments.length }}</h1>
-            <object id="comment-symbol" data="../../../../assets/icons/comment.svg" type=""></object>
+            <div class="svg-element" appColoring colorElement="stroke" [inlineSVG]="'../../../../assets/icons/comment.svg'"></div>
         </div>
         <div class="title">
             <h1>{{ ticket.title.length > 180 ? ticket.title.slice(0, 180) + '...' : ticket.title }}</h1>
