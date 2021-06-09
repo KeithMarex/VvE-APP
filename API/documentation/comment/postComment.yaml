@@ -1,6 +1,9 @@
 post:
   summary: Adds comment to the database and ticket
-  description: ticketID is required for the API to push the comment onto the right ticket object. If no ticketID is sent, the api cannot attach the comment to a ticket.
+  description: |
+    __ticketID__ is required for the API to push the comment onto the right ticket object. <br>
+    If no __ticketID__ is sent, the api cannot attach the comment to a ticket. <br>
+    Be sure to send correct naming __ticketID__
   tags:
     - Comment
   requestBody:

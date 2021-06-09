@@ -1,6 +1,7 @@
 post:
   summary: Adds agenda item to the database
-  description: enddate is optional, only used for appointments that last longer than a day and require such a notation
+  description: |
+    __enddate__ is optional, only used for appointments that last longer than a day and require such a notation.
   tags:
     - Agenda
   requestBody:

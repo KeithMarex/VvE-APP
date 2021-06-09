@@ -1,5 +1,15 @@
 put:
   summary: Updates ticket in the database
+  description: |
+    Updates only the status, tag or person on the ticket. <br>
+    Other information __cannot__ be modified through this route. <br>
+    Status needs to be:
+
+      * __PENDING__
+      * __HANDLING__
+      * __HANDLED__
+
+    When the status is different, it will respond with status 400.
   tags:
     - Ticket
   parameters:
@@ -17,17 +27,13 @@ put:
           type: object
           properties:
             assignee:
-              $ref: ../definitions/User.yaml
+              type: string ObjectId
             tag:
-              $ref: ../definitions/Tag.yaml
+              type: string ObjectId
             status:
-              type: status
+              type: string
   responses:
     '200':
-      description: Receiving updated ticket
-      content:
-        application/json:
-          schema:
-            $ref: ../definitions/Ticket.yaml
+      description: Ticket has been updated successfully
     '400':
       description: validation error

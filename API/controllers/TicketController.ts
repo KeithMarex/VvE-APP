@@ -2,6 +2,7 @@ import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
 import { sendAdminMail, sendMail } from '~/util/Mailer';
+import { validateBodyPutTicket } from '~/validators/TicketPutValidator';
 import { Types } from 'mongoose';
 
 export const getTickets = async(req, res) => {
@@ -72,20 +73,15 @@ export const postTicket = (req, res) => {
 
 export const putTicket = (req, res) => {
     const id = req.params.id;
-    const ticket: any = new Ticket(req.body);
-    Ticket.updateOne({ _id: id }, {
-        assignee: ticket.assignee,
-        status: ticket.status,
-        comments: ticket.comments,
-        tag: ticket.tag
-     })
+    const body = validateBodyPutTicket(req.body);
+    Ticket.updateOne({ _id: id }, body)
     .then(result => {
         res.status(200).send(result);
     })
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status).json({message: err})
+        res.status(status).json( { message: err } )
     });
 }
 
