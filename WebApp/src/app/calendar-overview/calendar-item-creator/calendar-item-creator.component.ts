@@ -63,15 +63,15 @@ export class CalendarItemCreatorComponent implements OnInit {
     };
 
     if (this.isEditing) {
-      const updatedItem = this.calendarService.customEventToCalendarItem(this.calendarItemToEdit);
-      updatedItem.title = title;
-      updatedItem.description = description;
-      updatedItem.date = startDate;
-      updatedItem.endDate = endDate;
+      const editedItem = this.calendarService.customEventToCalendarItem(this.calendarItemToEdit);
+      editedItem.title = title;
+      editedItem.description = description;
+      editedItem.date = startDate;
+      editedItem.endDate = endDate;
 
-      this.calendarDao.updateCalendarItem(updatedItem)
-        .subscribe((updatedCalendarItem) => {
-          this.calendarService.updateCalendarItem(updatedCalendarItem);
+      this.calendarDao.updateCalendarItem(editedItem)
+        .subscribe(() => {
+          this.calendarService.updateCalendarItem(editedItem);
           this.calendarItemSaved.emit();
         });
       return;

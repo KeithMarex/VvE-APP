@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
-import {eachDayOfInterval, isSameDay, isSameMonth} from 'date-fns';
+import {isSameDay, isSameMonth} from 'date-fns';
 import {Subject} from 'rxjs';
 import {CalendarView} from 'angular-calendar';
 import {CustomEvent, CustomEventAction, CustomEventTimesChangedEvent} from './custom-event';
@@ -72,33 +72,14 @@ export class CalendarComponent implements OnInit {
 
   parseCalendarItems(calItems: AgendaItem[]): void {
     const parsedEvents: CustomEvent[] = [];
-    const now = new Date();
 
     calItems.forEach((calItem) => {
-      const startDate = new Date(calItem.date);
-      const endDate = calItem.endDate ? new Date(calItem.endDate) : undefined;
-
-      if (!this.isEventsToday && this.calendarItemIsToday(now, startDate, endDate)) {
-        this.isEventsToday = true;
-      }
-
       parsedEvents.push(
         this.calendarService.calendarItemToCustomEvent(calItem, this.actions)
       );
     });
 
     this.events = parsedEvents;
-  }
-
-  calendarItemIsToday(now: Date, startDate: Date, endDate: Date): boolean {
-    const dayRange =
-      endDate ? eachDayOfInterval({start: startDate, end: endDate}) : [startDate];
-    dayRange.forEach((day) => {
-      if (isSameDay(now, day)) {
-        return true;
-      }
-    });
-    return false;
   }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
