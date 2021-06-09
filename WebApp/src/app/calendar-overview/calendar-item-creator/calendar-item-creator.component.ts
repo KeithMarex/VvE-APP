@@ -77,7 +77,7 @@ export class CalendarItemCreatorComponent implements OnInit {
     };
 
     if (this.isEditing) {
-      this.updateCalendarItem(payload);
+      return this.updateCalendarItem(payload);
     }
     this.createCalendarItem(payload);
   }

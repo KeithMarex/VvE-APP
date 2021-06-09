@@ -96,7 +96,6 @@
 </div>
 
 <app-popup *ngIf="selectedCalendarItemToShow" title="{{selectedCalendarItemToShow.title}}" (closed)="closeCalendarItemPopUps()">
-  <p>{{ selectedCalendarItemToShow.description }}</p>
   <app-calendar-item-details [calendarItem]="selectedCalendarItemToShow"></app-calendar-item-details>
 </app-popup>
 
