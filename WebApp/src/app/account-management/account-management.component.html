@@ -1,17 +1,17 @@
-<div appColoring>
+<div>
     <header>
         <h1>Accounts</h1>
     </header>
     <body>
         <section class="button-section">
-            <button id="add-user-button" class="icon-button dropdown-button" appColoring colorElement="backgroundColor">Toevoegen
-                <span class="button-dropdown" appColoring colorElement="border-color">
+            <button appColoring colorElement="backgroundColor" id="add-user-button" class="icon-button dropdown-button">Toevoegen
+                <span class="button-dropdown" appColoring>
                     <div class="top-option">
-                        <p appColoring colorElement="color">CSV importeren</p>
+                        <p>CSV importeren</p>
                     </div>
-                    <hr appColoring colorElement="color">
+                    <hr>
                     <div class="bottom-option" (click)="onAddUser()">
-                        <p appColoring colorElement="color">Gebruiker toevoegen</p>
+                        <p>Gebruiker toevoegen</p>
                     </div>
                 </span>
             </button>
