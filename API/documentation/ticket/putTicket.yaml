@@ -2,6 +2,8 @@ put:
   summary: Updates ticket in the database
   description: |
     Updates only the status, tag or person on the ticket. <br>
+    You can send everything indiviual or mixed like you please <br>
+    Only send atributes that need to be changed! <br>
     Other information __cannot__ be modified through this route. <br>
     Status needs to be:
 

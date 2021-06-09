@@ -721,7 +721,7 @@
     "/ticket/{id}/": {
       "put": {
         "summary": "Updates ticket in the database",
-        "description": "Updates only the status, tag or person on the ticket. <br>\nOther information __cannot__ be modified through this route. <br>\nStatus needs to be:\n\n  * __PENDING__\n  * __HANDLING__\n  * __HANDLED__\n\nWhen the status is different, it will respond with status 400.\n",
+        "description": "Updates only the status, tag or person on the ticket. <br>\nYou can send everything indiviual or mixed like you please <br>\nOnly send atributes that need to be changed! <br>\nOther information __cannot__ be modified through this route. <br>\nStatus needs to be:\n\n  * __PENDING__\n  * __HANDLING__\n  * __HANDLED__\n\nWhen the status is different, it will respond with status 400.\n",
         "tags": [
           "Ticket"
         ],
