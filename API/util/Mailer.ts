@@ -24,6 +24,8 @@ export const sendMail = async(subject: String, info: any, htlm: String) => {
         to: email,
         subject: subject,
         html: source
+    }, (err, info) => {
+        console.log(info);
     });
 }
 
@@ -55,7 +57,7 @@ const getAdminEmail = async (organizationId) => {
     return email["emailcredentials"]["email"];
 }
 
-const mailTransporter = nodemailer.createTransport({
+export const mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.MAIL_USER,
