@@ -14,4 +14,13 @@ export class Image {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    getName(): string {
+        return this.name;
+    }
+
+    getImageUrl(): string {
+        return this.image_url;
+    }
+
 }
