@@ -1,5 +1,4 @@
-import { Types } from 'mongoose';
-import 'dotenv/config'
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
 
 import jwt from 'jsonwebtoken';
 import User from '../models/User';

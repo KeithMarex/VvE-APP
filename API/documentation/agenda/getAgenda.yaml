@@ -1,5 +1,8 @@
 get:
   summary: Returns the Agenda Items in given month.
+  description: |
+    The parameter should be given in __YYYY-MM__. <br>
+    Example /2021-06
   tags:
     - Agenda
   parameters:

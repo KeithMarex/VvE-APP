@@ -1,0 +1,26 @@
+get:
+  summary: Returns the theme of the organization the user is in.
+  description: |
+    This request doesn't require any information to get the organization theme. <br>
+    Its ofcourse required to be logged in and authenticated with a jwt token.
+  tags:
+    - Organization
+  responses:
+    '200':
+      description: Theme object
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              Theme:
+                type: object
+                properties:
+                  primarycolor:
+                    type: string
+                  secondarycolor:
+                    type: string
+              _id:
+                type: string
+    '500':
+      description: Error trying to get the theme

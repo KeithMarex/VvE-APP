@@ -1,0 +1,14 @@
+<header>
+    <h1>Calendar</h1>
+</header>
+<div class="calendar">
+    <section class="button-section">
+        <button (click)="onAddItemClicked()">Nieuw</button>
+    </section>
+    <section class="content-section">
+        <app-calendar></app-calendar>
+    </section>
+    <app-popup *ngIf="creatingCalendarItem" title="Nieuwe afspraak" (closed)="onAddItemPopUpClosed()">
+        <app-calendar-item-creator (calendarItemSaved)="onAddItemPopUpClosed()"></app-calendar-item-creator>
+    </app-popup>
+</div>

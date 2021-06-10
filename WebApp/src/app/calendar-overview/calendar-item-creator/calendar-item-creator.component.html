@@ -1,0 +1,28 @@
+<form class="calendar-item-form" (ngSubmit)="onSave(form)" #form="ngForm">
+    <div class="creator-content">
+      <ngx-daterangepicker-material
+        (choosedDate)="pickedDateTime($event)"
+        [autoApply]="true"
+        [timePicker24Hour]="true"
+        [linkedCalendars]="true"
+        [startDate]="selectedDateTime?.startDate"
+        [endDate]="selectedDateTime?.endDate"
+        [timePicker]="true"
+        [locale]="locale"
+      ></ngx-daterangepicker-material>
+
+      <div class="item-info-section">
+        <div class="title-field">
+          <input type="text" placeholder="Titel" name="title" required [(ngModel)]="title">
+        </div>
+        <div class="description-field">
+          <textarea cols="30" rows="10" placeholder="Omschrijving" name="description" required [(ngModel)]="description"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button class="createBtn" type="submit" [disabled]="form.invalid">
+      {{ isEditing ? 'Wijzigen' : 'Aanmaken' }}
+    </button>
+</form>
+

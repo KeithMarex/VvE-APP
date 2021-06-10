@@ -4,23 +4,27 @@ import {CalendarIcon} from "../../resources";
 import {Calendar} from 'react-native-calendars';
 import StyledText from "../../components/StyledText";
 import PageLogo from "../../components/PageLogo";
-import ModalComponent from "../../components/ModalComponent";
+import DateDetailModalComponent from "../../components/DateDetailModalComponent";
 import ApiHelper from "../../util/ApiHelper";
 import moment from "moment";
+import UpcomingAppointment from "../../components/UpcomingAppointment";
+import DateChooseModalComponent from "../../components/DateChooseModalComponent";
 
 const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalDetailVisible, setModalDetailVisible] = useState(false);
     const [modalInfo, setModalInfo] = useState();
     const [calendarData, setCalendarData] = useState({});
-
-    // const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
-    // getDatumElements(nowDateObj)
+    const [dataLoad, setDataLoad] = useState(true);
+    const [rawData, setRawData] = useState({});
+    const [currAppData, setCurrAppData] = useState();
 
     const getDatumElements = (dateObj) => {
         const date = (dateObj['year']+'-'+dateObj['month']);
 
         ApiHelper.get(`/agenda/${date}`).then(res => {
             const dates = {};
+            setRawData(res.data);
             if (res['data'].length !== 0 ){
                 res['data'].forEach(val => {
                     const dateVal = val['date'].split('T', 1);
@@ -33,30 +37,66 @@ const CalendarScreen = () => {
 
     const closeModal = () => {
         setModalVisible(false);
+        setModalDetailVisible(false);
+    }
+
+    if(dataLoad){
+        const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
+        getDatumElements(nowDateObj);
+        setDataLoad(false);
+    }
+
+    const openDetailModal = (data) => {
+        setCurrAppData(data);
+        setModalDetailVisible(false);
+        setModalInfo(data)
+        setModalVisible(true);
     }
 
     return (
         <SafeAreaView style={styles.root}>
-            <ModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo} />
+            <DateDetailModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo}/>
+            <DateChooseModalComponent visible={modalDetailVisible} onClose={closeModal} modalInfo={modalInfo} openDetailModal={openDetailModal}/>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.home}>
                     <PageLogo/>
                     <StyledText inputStyle={styles.header} theme={'pageTitle'}>Agenda</StyledText>
-                    <View style={styles.upcomingAppointment}>
-                        <View style={{width: Dimensions.get('window').width * .7,}}>
-                            <StyledText>Eerst volgende nieuwe afspraak</StyledText>
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 10}}>
-                                <CalendarIcon stroke={'#451864'}/>
-                                <StyledText inputStyle={styles.informatie}>Zaterdag 19 Juni 16:00 - 17:30</StyledText>
-                            </View>
-                        </View>
-                    </View>
+                    <UpcomingAppointment/>
                     <View style={styles.calendarView}>
                         <Calendar style={{width: Dimensions.get('window').width * .7}} theme={{arrowColor: '#451864'}}
-                              markedDates={calendarData} onDayPress={(day) => {
-                                  setModalInfo(day)
-                                  setModalVisible(true);
+                              markingType={'custom'}
+                              markedDates={calendarData}
+                              onDayPress={(day) => {
+                                  if (day.dateString in calendarData){
+                                      let count = 0;
+                                      rawData.forEach(res => {
+                                          if ((res['date'].split('T', 1)[0]) === day.dateString){
+                                              count++;
+                                          }
+                                      })
+                                      if (count === 1){
+                                          let todayObject = [];
+                                          rawData.forEach(res => {
+                                              if ((res['date'].split('T', 1)[0]) === day.dateString){
+                                                  todayObject.push(res);
+                                              }
+                                          })
+                                          setModalInfo(todayObject[0])
+                                          setModalVisible(true);
+                                      } else if (count > 1){
+                                          let todayObject = [];
+                                          rawData.forEach(res => {
+                                              if ((res['date'].split('T', 1)[0]) === day.dateString){
+                                                  todayObject.push(res);
+                                              }
+                                          })
+
+                                          setModalInfo(todayObject);
+                                          setModalDetailVisible(true);
+                                      }
+                                  }
                               }}
+                              loadItemsForMonth={() => {getDatumElements({'year': moment().year(), 'month': moment().month() + 1})}}
                               onMonthChange={(month) => {getDatumElements(month)}}
                               enableSwipeMonths={true}
                         />
@@ -75,7 +115,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000aa',
     },
     modalView: {
-        // margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
@@ -115,15 +154,6 @@ const styles = StyleSheet.create({
         fontSize: 13,
         marginBottom: 10,
         justifyContent: 'flex-end',
-    },
-    upcomingAppointment: {
-        backgroundColor: 'white',
-        borderRadius: 15,
-        paddingBottom: 10,
-        marginBottom: 20,
-        paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
     },
     header: {
         marginBottom: Dimensions.get('window').height / 40,

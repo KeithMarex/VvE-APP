@@ -9,6 +9,7 @@ tags:
   - name: Ticket
   - name: Comment
   - name: Agenda
+  - name: Organization
 
 paths:
   /user:
@@ -19,8 +20,12 @@ paths:
     $ref: ./user/login.yaml
   /user/register:
     $ref: ./user/register.yaml
-  /user/organization/{id}:
-    $ref: ./user/getUserOrganization.yaml
+  /organization/users:
+    $ref: ./organization/getOrganizationAdminUsers.yaml
+  /organization/theme:
+    $ref: ./organization/getOrganizationTheme.yaml
+  /organization/theme/:
+    $ref: ./organization/putOrganizationTheme.yaml
   /tag:
     $ref: ./tag/getTags.yaml
   /tag/{id}:

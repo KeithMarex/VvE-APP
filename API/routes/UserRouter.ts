@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { login, register, getUsers, getUser, getUsersOrganization, deleteUser } from '../controllers/UserController';
+import { login, register, getUsers, getUser, deleteUser } from '../controllers/UserController';
 import { isAuth } from '../middleware/IsAuth';
 import { isAdmin } from '../middleware/IsAdmin';
 
@@ -9,7 +9,6 @@ router.post('/login', login);
 router.post('/register', isAuth, isAdmin, register);
 router.get('/', isAuth, getUsers);
 router.get('/:id', isAuth, getUser);
-router.get('/organization', isAuth, isAdmin, getUsersOrganization)
 // router.put('/:id', userController.putUser);
 router.delete('/:id',isAuth, isAdmin, deleteUser);
 

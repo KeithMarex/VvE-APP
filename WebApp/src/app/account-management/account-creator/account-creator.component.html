@@ -4,26 +4,26 @@
         <div class="input-fields">
             <div class="icon-field">
                 <object data="../../../assets/icons/Profile 2.svg" type=""></object>
-                <input type="text" placeholder="Voornaam" name="firstname" required ngModel>
+                <input appColoring colorStyle="secondary" type="text" placeholder="Voornaam" name="firstname" required ngModel>
             </div>
             <div class="icon-field">
                 <object data="../../../assets/icons/Profile 2.svg" type=""></object>
-                <input type="text" placeholder="Achternaam" name="lastname" required ngModel>    
+                <input appColoring colorStyle="secondary" type="text" placeholder="Achternaam" name="lastname" required ngModel>    
             </div>
             <div class="mail-fields">
                 <div class="icon-field">
                     <object data="../../../assets/icons/Mail.svg" type=""></object>
-                    <input type="text" placeholder="Email adres" name="email" required ngModel>
+                    <input appColoring colorStyle="secondary" type="text" placeholder="Email adres" name="email" required ngModel>
                 </div>
                 <div class="icon-field">
                     <object data="../../../assets/icons/Mail.svg" type=""></object>
-                    <input type="text" placeholder="Confirm email adres" name="confirmEmail" required ngModel>
+                    <input appColoring colorStyle="secondary" type="text" placeholder="Confirm email adres" name="confirmEmail" required ngModel>
                 </div> 
             </div>
             <div class="error-field">
                 <p *ngIf="errorMessage">{{ errorMessage }}</p>
             </div>
         </div>
-        <button type="submit" [disabled]="userForm.invalid">Aanmaken</button>
+        <button appColoring colorElement="backgroundColor" type="submit" [disabled]="userForm.invalid">Aanmaken</button>
     </form>
 </section>

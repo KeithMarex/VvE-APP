@@ -1,4 +1,4 @@
-import 'dotenv/config'
+require('dotenv').config({ path: `./.env.${process.env.NODE_ENV}` })
 import './config/Passport';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -15,6 +15,7 @@ import TicketRouter from './routes/TicketRouter';
 import TagRouter from './routes/TagRouter';
 import CommentRouter from './routes/CommentRouter';
 import AgendaRouter from './routes/Agenda_itemRouter';
+import OrganizationRouter from './routes/OrganizationRouter';
 
 const corsOptions = {
     origin: `http://localhost:${process.env.APP_PORT}`,
@@ -34,7 +35,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(passport.initialize());
 //ROUTES
 app.use(cors(corsOptions));
-app.use('/user' ,UserRouter);
+app.use('/user', UserRouter);
+app.use('/organization', isAuth, OrganizationRouter);
 app.use('/tag', isAuth, TagRouter);
 app.use('/ticket' ,isAuth, TicketRouter);
 app.use('/comment', isAuth, CommentRouter);
