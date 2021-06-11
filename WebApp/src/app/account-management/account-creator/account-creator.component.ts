@@ -24,7 +24,9 @@ export class AccountCreatorComponent implements OnInit {
 
     if (mailValid) {
       this.userDao.registerUser(formValues.email, formValues.firstname, formValues.lastname).subscribe(
-        res => {},
+        res => {
+          this.userCreated.emit();
+        },
         errorRes => {
           this.errorMessage = errorRes.error.message;
         }

@@ -21,7 +21,7 @@
             <app-account-list></app-account-list>
         </section>
         <app-popup *ngIf="creatingUser" title="Account toevoegen" (closed)="onClose()">
-            <app-account-creator></app-account-creator>
+            <app-account-creator (userCreated)="onCreateUser($event)"></app-account-creator>
         </app-popup>
     </body>
 </div>
