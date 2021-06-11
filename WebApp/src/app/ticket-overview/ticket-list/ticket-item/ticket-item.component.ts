@@ -45,7 +45,7 @@ export class TicketItemComponent implements OnInit {
 
   onEdit() {
     this.ticketEditorService.selectedTicketId.next(this.ticket._id);
-    this.ticketEditorService.ticketCreator.next(this.creator); //FIXME pass on full User
+    this.ticketEditorService.ticketCreator.next(this.creator);
     this.router.navigate(['ticket-details/' + this.ticket._id]);
   }
 }
