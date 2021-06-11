@@ -1,0 +1,59 @@
+@import "../../../utilities/colors.scss";
+@import "../../../utilities/effects.scss";
+
+.comment-container {
+    max-width: 80%;
+    margin: 5px;
+
+    .comment {
+        position: relative;
+        padding-top: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 10px;
+        background-color: white;
+        // display: flex;
+        justify-content: space-between;
+        margin: 15px 0px;
+        border-radius: 32px;
+        box-shadow: $default-box-shadow;
+
+        h1 {
+            color: $primary-color;
+            font-size: 80%;
+            font-weight: 1000;
+            padding-bottom: 5px;
+        }
+
+        .comment-text {
+            max-width: 80%;
+        }
+
+        .date {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding-right: 20px;
+            color: #6E7191;
+            font-size: 60%;
+            font-weight: 1000;
+        }
+    }
+
+    .image-section {
+
+        .comment-images {
+            display: flex;
+            flex-direction: row;
+            align-self: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+    
+            p > a > img {
+                max-width: 3rem;
+                max-height: 3rem;
+                cursor: pointer;
+            }
+        }
+    }
+}

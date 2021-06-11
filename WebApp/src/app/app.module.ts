@@ -30,6 +30,7 @@ import { PopupComponent } from './popup/popup.component';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 import { AuthDao } from 'src/shared/services/auth-dao.service';
+import { CommentDao } from 'src/shared/services/comment-dao.service';
 import { CalendarDao } from 'src/shared/services/calendar-dao.service';
 import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
@@ -39,6 +40,8 @@ import { Dao } from 'src/shared/services/dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { TicketCommentComponent } from './ticket-details/ticket-comment/ticket-comment.component';
+import { LoggedInUserTicketCommentComponent } from './ticket-details/logged-in-user-ticket-comment/logged-in-user-ticket-comment.component';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { AccountListComponent } from './account-management/account-list/account-list.component';
 import { AccountItemComponent } from './account-management/account-list/account-item/account-item.component';
@@ -82,6 +85,8 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TagItemComponent,
     TagCreatorComponent,
     TicketDetailsComponent,
+    TicketCommentComponent,
+    LoggedInUserTicketCommentComponent,
     AccountListComponent,
     AccountItemComponent,
     DropdownComponent,
@@ -120,6 +125,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     AuthDao,
     AuthDao,
     UserDao,
+    CommentDao,
     CalendarDao,
     TicketEditorService,
     DataStorageService,
