@@ -13,3 +13,26 @@ body {
 button {
     @include button;
 }
+
+.color-picker {
+    display: flex;
+    align-items: center;
+    color: black;
+
+    input {
+        border: none;
+        outline: none;
+        height: 1.8rem;
+        width: 2.5rem;
+        margin-right: 0.5rem;
+    }
+
+    input::-webkit-color-swatch {
+        border: none;
+        border-radius: 3rem;
+    }
+
+    label {
+        color: #A0A3BD;
+    }
+}

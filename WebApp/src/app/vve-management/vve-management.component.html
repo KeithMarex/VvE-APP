@@ -5,15 +5,19 @@
     <body>
         <section class="personalization">
             <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
-                <div class="color-picker">
+                <div class="color-picker-container">
                     <p>Primaire kleur</p>
-                    <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
-                    <label for="primary-color">{{ primaryColor }}</label>
+                    <div class="color-picker">
+                        <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
+                        <label for="primary-color">{{ primaryColor }}</label>
+                    </div>
                 </div>
-                <div class="color-picker">
+                <div class="color-picker-container">
                     <p>Secundaire kleur</p>
-                    <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
-                    <label for="secondary-color">{{ secondaryColor }}</label>
+                    <div class="color-picker">
+                        <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
+                        <label for="secondary-color">{{ secondaryColor }}</label>
+                    </div>
                 </div>
                 <br>
                 <button type="button" [ngStyle]="{backgroundColor: primaryColor}">Primair preview</button>
