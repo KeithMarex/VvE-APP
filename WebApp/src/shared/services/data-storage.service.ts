@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Theme } from "../models/theme.model";
 import { JsonParserService } from "./json-parser.service";
 import { ThemeDao } from "./theme-dao.service";
@@ -6,13 +6,17 @@ import { ThemeDao } from "./theme-dao.service";
 @Injectable({
     providedIn: 'root'
 })
-export class DataStorageService {
+export class DataStorageService implements OnInit {
     private theme: Theme = this.getTheme() || new Theme('#451864', '#A0CAE8'); // Default theme in case access token is unavailable
     private primaryColor: string = this.theme.primarycolor;
     private secondaryColor: string = this.theme.secondarycolor;
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private themeDao: ThemeDao) {}
+
+    ngOnInit(): void {
+        this.theme = this.getTheme();
+    }
 
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
@@ -41,6 +45,8 @@ export class DataStorageService {
     setLoggedInUserId(user: string): void {
         this.loggedInUserId = user;
         localStorage.setItem('userId', user);
+        
+        this.getTheme();
     }
 
     getTheme(): Theme {
@@ -70,6 +76,7 @@ export class DataStorageService {
         this.themeDao.getTheme()
         .subscribe(res => {
             this.setTheme(res);
+
             location.reload();
         }, 
         () => {

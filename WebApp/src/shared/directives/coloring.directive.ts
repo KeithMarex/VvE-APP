@@ -1,5 +1,4 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @Directive({
