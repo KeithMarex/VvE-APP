@@ -5,8 +5,8 @@ import { isAdmin } from '~/middleware/IsAdmin';
 const router = Router();
 
 router.get('/next', getAgendaNext);
-router.get('/:month', getAgenda);
 router.get('/details/:id', getAgendaDetails);
+router.get('/:month', getAgenda);
 router.post('/', isAdmin, postAgenda);
 router.put('/:id', isAdmin, putAgenda);
 router.delete('/:id', isAdmin, deleteAgenda);

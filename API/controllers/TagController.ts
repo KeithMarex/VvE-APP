@@ -49,7 +49,7 @@ export const putTag = async (req, res) => {
         color: tag.color,
      })
     .then(() => {
-        res.status(200);
+        res.sendStatus(200);
     })
     .catch(err => {
         logger.error(err);

@@ -72,6 +72,22 @@ export const getUser = (req, res) => {
     });
 }
 
+export const putUser = (req, res) => {
+    const id = req.params.id;
+    User.findOneAndUpdate({ _id: req.params.id },
+        buildUpdateQuery(req, res),
+        {new: true})
+    .select("-password")
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json( { message: err } )
+    });
+}
+
 export const deleteUser = (req, res) => {
     User.deleteOne({ _id: Types.ObjectId(req.params.id) })
     .then(() => {
@@ -113,4 +129,14 @@ const removePasswords = async(users: Array<any>) => {
     }
 
     return users;
+}
+
+const buildUpdateQuery = (req, res) => {
+    let query = {}
+
+    if(req.body.role) {
+        query["role"] = req.body.role;
+    }
+
+    return query;
 }

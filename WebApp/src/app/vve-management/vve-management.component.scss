@@ -2,14 +2,68 @@
 @import "../../utilities/button.scss";
 
 body {
-    width: 85vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 80vh;
     background-color: white;
     border: 1px solid rgba($color: #000000, $alpha: 0.04);
     border-radius: 8px;
     box-shadow: $default-box-shadow;
+    color: black;
+    margin-bottom: 1rem;
+
+    div {
+        min-width: 30%;
+    }
+}
+
+h2 {
+    margin-bottom: 2rem;
 }
 
 button {
     @include button;
+}
+
+.personalization {
+
+    .input-fields {
+
+        p {
+            margin-bottom: 0.2rem;
+        }
+
+        input {
+            height: 2rem;
+            border: none;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .color-picker {
+        display: flex;
+        align-items: center;
+    
+        input {
+            border: none;
+            outline: none;
+            height: 1.8rem;
+            width: 2.5rem;
+            margin-right: 0.5rem;
+        }
+    
+        input::-webkit-color-swatch {
+            border: none;
+            border-radius: 3rem;
+        }
+    
+        label {
+            color: #A0A3BD;
+        }
+    }
 }

@@ -5,8 +5,10 @@ import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
 import ApiHelper from '../../util/ApiHelper'
 import UserModel from '../../models/user.model'
+import translations from '../../config/languages/translations.json'
 
 const ss = Dimensions.get('window')
+const tr = translations['nl'];
 
 const LoginScreen = (props) => {
     const [username, onChangeName] = React.useState("")
@@ -19,6 +21,7 @@ const LoginScreen = (props) => {
             const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
             props.navigation.navigate('homeNavigation', { user });
         }).catch(error => {
+            console.log(error);
             if (error.response.status === 401){
                 Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
             }

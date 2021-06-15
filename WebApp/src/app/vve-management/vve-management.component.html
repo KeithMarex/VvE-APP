@@ -4,16 +4,29 @@
     </header>
     <body>
         <section class="personalization">
+            <h2>Personalisatie</h2>
             <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
-                <div class="color-picker">
-                    <p>Primaire kleur</p>
-                    <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
-                    <label for="primary-color">{{ primaryColor }}</label>
+                <div class="input-fields">
+                    <p>Naam</p>
+                    <input type="text">
+                    <p>Logo</p>
+                    <input type="text">
                 </div>
-                <div class="color-picker">
-                    <p>Secundaire kleur</p>
-                    <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
-                    <label for="secondary-color">{{ secondaryColor }}</label>
+                <div class="color-fields">
+                    <div class="color-picker-container">
+                        <p>Primaire kleur</p>
+                        <div class="color-picker">
+                            <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
+                            <label for="primary-color">{{ primaryColor }}</label>
+                        </div>
+                    </div>
+                    <div class="color-picker-container">
+                        <p>Secundaire kleur</p>
+                        <div class="color-picker">
+                            <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
+                            <label for="secondary-color">{{ secondaryColor }}</label>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <button type="button" [ngStyle]="{backgroundColor: primaryColor}">Primair preview</button>
@@ -21,6 +34,9 @@
                 <br>
                 <button type="submit" appColoring colorElement="backgroundColor">Update styling</button>
             </form>
+        </section>
+        <section class="Information">
+            <h2>Woninginformatie</h2>
         </section>
     </body>
 </div>
