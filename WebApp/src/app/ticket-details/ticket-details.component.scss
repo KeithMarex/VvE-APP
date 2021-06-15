@@ -12,6 +12,15 @@
     p {
         color: $default-text-color;
     }
+
+    .svg-element {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-right: 0.5rem;
+    }
 }
 
 header {

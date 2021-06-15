@@ -56,6 +56,7 @@ import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-
 import { CalendarService } from './calendar-overview/calendar/calendar.service';
 import { CalendarItemDetailsComponent } from './calendar-overview/calendar/calendar-item-details/calendar-item-details.component';
 import { NewsCreateComponent } from './news-create/news-create.component';
+import { ThemeDao } from 'src/shared/services/theme-dao.service';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -132,6 +133,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TicketEditorService,
     DataStorageService,
     CalendarService,
+    ThemeDao,
     {
       provide: LOCALE_ID,
       useValue: 'nl-NL',

@@ -6,6 +6,7 @@ import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 import { CommentIcon, CalendarIcon, Logo } from '../../resources'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
+import UpcomingAppointment from "../../components/UpcomingAppointment";
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
@@ -32,13 +33,7 @@ const HomeScreen = (props) => {
 
                     <View style={styles.homeSectionWrapper}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Binnenkort</StyledText>
-                        <View style={[styles.homeSection, styles.agenda]}>
-                            <StyledText inputStyle={styles.agendaItemName}>Maandelijkse vergadering</StyledText>
-                            <View style={styles.agendaItemDate}>
-                                <CalendarIcon style={styles.agendaItemDateIcon} stroke={'#451864'} width={19} height={19} />
-                                <StyledText inputStyle={styles.agendaItemDateText}>Za. 11 maart 16:00 - 17:30</StyledText>
-                            </View>
-                        </View>
+                        <UpcomingAppointment/>
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
