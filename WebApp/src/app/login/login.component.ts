@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(private authDao: AuthDao, private router: Router, private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
+    console.log(this.authDao.isLoggedIn());
   }
 
   login(form: NgForm): void {
