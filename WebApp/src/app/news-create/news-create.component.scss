@@ -1,5 +1,4 @@
-@import "../utilities/colors.scss";
-@import "../utilities/button.scss";
+@import "../../utilities/button.scss";
 
 button {
     @include button;
