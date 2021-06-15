@@ -14,15 +14,17 @@ import { User } from 'src/shared/models/user.model';
 
 export class LoginComponent implements OnInit {
   isLoading: boolean;
-  userName: string;
+  isNotAnAdmin: boolean;
+  isError: boolean;
 
   constructor(private authDao: AuthDao, private router: Router, private dataStorageService: DataStorageService) { }
 
-  ngOnInit(): void {
-    console.log(this.authDao.isLoggedIn());
-  }
+  ngOnInit(): void {}
 
   login(form: NgForm): void {
+    this.isError = false;
+    this.isNotAnAdmin = false;
+    this.isLoading = true;
     if (form.invalid) { return; }
 
     const values: {
@@ -43,11 +45,13 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/ticket-overview']);
           }
           else {
-            console.log('geen admin');
+            this.isNotAnAdmin = true;
+            this.isLoading = false;
           }
         },
         (error: HttpErrorResponse) => {
-          console.log('mislukt!');
+          this.isError = true;
+          this.isLoading = false;
         }
       );
   }
