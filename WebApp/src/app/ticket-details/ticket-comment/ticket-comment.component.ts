@@ -25,7 +25,7 @@ export class TicketCommentComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    // console.log(this.comment.images[0].image_url);
+    // console.log(this.comment);
   }
 
   ngOnDestroy(): void {

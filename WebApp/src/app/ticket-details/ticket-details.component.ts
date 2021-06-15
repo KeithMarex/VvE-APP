@@ -168,22 +168,22 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       mForm.append('assignee', this.selectedAssignee._id);
     }
     
-    // this.ticketDao.updateTicket(this.ticket._id, mForm)
-    // .subscribe(
-    //   res => {
-    //     this.originalAssignee = this.selectedAssignee;
-    //     this.originalStatus = this.selectedStatus;
-    //     this.originalTag = this.selectedTag;
-    //   }, 
-    //   errorRes => {
-    //     let incomingErrorMessage = errorRes.error.message;
-    //     if (incomingErrorMessage) {
-    //       this.errorMessage = errorRes.error.message;
-    //     } else {
-    //       this.errorMessage = 'Er is een onbekende error opgetreden';
-    //     }
-    //   }
-    // );
+    this.ticketDao.updateTicket(this.ticket._id, mForm)
+    .subscribe(
+      res => {
+        this.originalAssignee = this.selectedAssignee;
+        this.originalStatus = this.selectedStatus;
+        this.originalTag = this.selectedTag;
+      }, 
+      errorRes => {
+        let incomingErrorMessage = errorRes.error.message;
+        if (incomingErrorMessage) {
+          this.errorMessage = errorRes.error.message;
+        } else {
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        }
+      }
+    );
   }
 
   submitComment(form: NgForm): void {
