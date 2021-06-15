@@ -2,10 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-import { QuillModule } from 'ngx-quill';
+import { NgxEditorModule } from 'ngx-editor';
 import {
   CalendarModule,
   CalendarDateFormatter,
@@ -108,6 +108,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CommonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     InlineSVGModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -121,7 +122,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       }
     }),
     NgxDaterangepickerMd.forRoot(),
-    QuillModule.forRoot()
+    NgxEditorModule
   ],
   providers: [
     Dao,

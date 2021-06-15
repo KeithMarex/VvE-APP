@@ -1,7 +1,12 @@
 <div appColoring>
     <h1>Titel van nieuws :potlood:</h1>
     <article>
-        <quill-editor></quill-editor>
+        <form [formGroup]="form">
+        <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+            <ngx-editor [editor]="editor" formControlName="editorContent"> </ngx-editor>
+        </div>
+        </form>
     </article>
     <article>
         <h1>Details</h1>
