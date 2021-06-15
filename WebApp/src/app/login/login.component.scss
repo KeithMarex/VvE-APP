@@ -4,37 +4,34 @@
 main {
     position: fixed;
     top: 50%;
-    // bottom: 50%;
     left: 50%;
-    // right: 50%;
     transform: translate(-50%, -50%);
     border-radius: 3px;
     box-shadow: 2px 2px 8px #aaaaaa;
     width: 50%;
-    height: 85%;
-    // margin: auto;
+    height: 70%;
     padding-top: 2rem;
     overflow: auto;
     background-color: #f8f8f8;
 }
 
 .logo {
+    display: flex;
     margin:auto;
     background-color: #f8f8f8;
-    width: 401px;
-    padding: 0 3rem;
+    width: 40%;
+    justify-content: center;
 }
 
 .login-container {
     margin: 1rem;
     width: 100%;
     height: 90%;
-    // height: 818px;
     text-align: center;
 }
 
 .line1 {
-    width: 647px;
+    width: 70%;
     margin: auto;
     padding-top: 1px;
     border-radius: 10px;
@@ -42,7 +39,7 @@ main {
 }
 
 .line2 {
-    width: 575px;
+    width: 60%;
     margin: auto;
     padding-top: 1px;
     border-radius: 10px;
@@ -50,7 +47,7 @@ main {
 }
 
 .line3 {
-    width: 575px;
+    width: 65%;
     margin: auto;
     padding-top: 1px;
     border-radius: 10px;
@@ -59,7 +56,7 @@ main {
 
 
 h1 {
-    width: 722px;
+    width: 100%;
     color:$primary-color;
     margin: auto;
     padding-top: 25px;
@@ -113,16 +110,18 @@ h1 {
 }
 
 
-.form-group button {
-    @include button;
-    margin: auto;
-    margin: 2rem 0;
-    &:disabled {
-        background-color: #666666;
-    }
-    &::after {
-        background:url("../../assets/icons/Forward-white.svg")no-repeat;
-        height: 17px;
+.form-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    button {
+        @include button;
+        margin: 2rem 0;
+
+        &:disabled {
+            background-color: #666666;
+        }
     }
 }
 
@@ -134,16 +133,6 @@ h1 {
     color: #666666;
     margin: auto;
 }
-
-button {
-
-    app-spinner {
-      justify-self: center;
-      justify-content: center;
-      align-self: center;
-      align-content: center;
-    }
-  }
 
 ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {
     color: inherit;
