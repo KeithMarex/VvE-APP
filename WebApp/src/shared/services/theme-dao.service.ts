@@ -16,7 +16,13 @@ export class ThemeDao {
         }));
     };
 
-    updateTheme(theme: any): Observable<any> {
-        return this.dao.sendPutRequest('organization/theme', theme);
+    updateTheme(theme: Theme): Observable<any> {
+        var body = 
+        {
+            "primarycolor": theme.primarycolor,
+            "secondarycolor": theme.secondarycolor
+        }
+        
+        return this.dao.sendPutRequest('organization/theme', body);
     }
 }

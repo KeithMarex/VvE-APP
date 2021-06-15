@@ -6,16 +6,13 @@ import { ThemeDao } from "./theme-dao.service";
     providedIn: 'root'
 })
 export class DataStorageService {
-    private theme: Theme;
-    private primaryColor: string = '#451864'; // Default color value
-    private secondaryColor: string = '#A0CAE8'; // Default color value
+    private theme: Theme = this.getTheme();
+    private primaryColor: string = this.theme ? this.theme.primarycolor : '#451864'; // Default color value
+    private secondaryColor: string = this.theme? this.theme.secondarycolor : '#A0CAE8'; // Default color value
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
-    constructor(private themeDao: ThemeDao) {
-        this.checkThemeAvailability();
-    }
+    constructor(private themeDao: ThemeDao) {}
 
-    // Get a value from local storage
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
 
@@ -39,15 +36,29 @@ export class DataStorageService {
         localStorage.setItem('userId', user);
     }
 
-    checkThemeAvailability() {
-        this.theme = JSON.parse(localStorage.getItem('theme'));
-        
-        if (!this.theme) {
+    getTheme(): any {
+        var theme = this.getThemeFromStorage();
+
+        if (!theme) {
             this.themeDao.getTheme()
             .subscribe(res => {
+                console.log('fetching theme from db');
                 this.setTheme(res);
-            });
+            })
         }
+        else {
+            this.setTheme(theme);
+        }
+    }
+
+    getThemeFromStorage(): any {
+        var storedTheme = this.getValueFromStorage('theme');
+
+        if (storedTheme) {
+            storedTheme = JSON.parse(storedTheme);
+        }
+
+        return storedTheme;
     }
 
     setTheme(theme: Theme) {
@@ -57,7 +68,7 @@ export class DataStorageService {
     }
 
     setColors() {
-        this.primaryColor = this.theme.primaryColor;
-        this.secondaryColor = this.theme.secondaryColor;
+        this.primaryColor = this.theme.primarycolor;
+        this.secondaryColor = this.theme.secondarycolor;
     }
 }

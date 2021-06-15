@@ -34,7 +34,7 @@ export const putOrganizationTheme = (req, res: Response ) => {
     const body = validateTheme(req.body);
     Organization.updateOne({ _id: res.locals.user.organizations[0] }, body)
     .then ( () => {
-        res.sendStatus(200);
+        res.status(200).json({ message: "success" })
     })
     .catch( err => {
         logger.error(err);
