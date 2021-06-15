@@ -12,7 +12,7 @@ export const postAgenda = (req, res) => {
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status.json({message: err}));
+        res.status(status).json({ message: err });
     })
 }
 
@@ -37,7 +37,7 @@ export const getAgenda = (req, res) => {
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status.json({message: err}));
+        res.status(status).json({ message: err });
     });
 }
 
@@ -56,7 +56,7 @@ export const putAgenda = (req, res) => {
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status).json({message: err})
+        res.status(status).json({ message: err })
     });
 }
 
@@ -69,7 +69,7 @@ export const deleteAgenda = (req, res) => {
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status).json({message: err})
+        res.status(status).json({ message: err })
     });
 }
 
@@ -89,7 +89,7 @@ export const getAgendaNext = (req, res) => {
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status).json({message: err})
+        res.status(status).json({ message: err })
     });
 }
 
@@ -103,7 +103,7 @@ export const getAgendaDetails = (req, res) => {
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status).json({message: err})
+        res.status(status).json({ message: err })
     });
 }
 
