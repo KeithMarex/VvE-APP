@@ -41,28 +41,35 @@ export class DataStorageService {
         var theme = this.getThemeFromStorage();
 
         if (!theme) {
-            this.themeDao.getTheme()
-            .subscribe(res => {
-                this.setTheme(res);
-                return;
-            })
+            theme = this.getThemeFromDao();
         }
 
         return theme;
     }
 
-    getThemeFromStorage(): any {
+    getThemeFromStorage(): Theme {
         var storedJsonTheme = this.getValueFromStorage('Theme');
-        var storedTheme = new Theme('#000000', '#000000')
+        var storedTheme;
 
         if (storedJsonTheme) {
-
-            storedTheme = JsonParserService.toObjectInstance(storedTheme, storedJsonTheme);
-
-            console.log(storedTheme.primarycolor);
+            storedTheme = JsonParserService.toObjectInstance(new Theme('#000000', '#000000'), storedJsonTheme);
         }
 
         return storedTheme;
+    }
+
+    getThemeFromDao(): Theme {
+        var theme;
+
+        this.themeDao.getTheme()
+        .subscribe(res => {
+            theme = res;
+        }, 
+        () => {
+            return;
+        });
+
+        return theme;
     }
 
     setTheme(theme: Theme) {

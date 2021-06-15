@@ -29,9 +29,9 @@ export class VveManagementComponent implements OnInit {
     this.themeDao.updateTheme(newTheme)
     .subscribe(() => {
       this.dataStorageService.setTheme(newTheme);
-    });
 
-    // window.location.reload();
+      window.location.reload();
+    });
   }
 
 
