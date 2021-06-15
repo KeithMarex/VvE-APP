@@ -6,18 +6,26 @@
         <section class="personalization">
             <h2>Personalisatie</h2>
             <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
-                <div class="color-picker-container">
-                    <p>Primaire kleur</p>
-                    <div class="color-picker">
-                        <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
-                        <label for="primary-color">{{ primaryColor }}</label>
-                    </div>
+                <div class="input-fields">
+                    <p>Naam</p>
+                    <input type="text">
+                    <p>Logo</p>
+                    <input type="text">
                 </div>
-                <div class="color-picker-container">
-                    <p>Secundaire kleur</p>
-                    <div class="color-picker">
-                        <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
-                        <label for="secondary-color">{{ secondaryColor }}</label>
+                <div class="color-fields">
+                    <div class="color-picker-container">
+                        <p>Primaire kleur</p>
+                        <div class="color-picker">
+                            <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
+                            <label for="primary-color">{{ primaryColor }}</label>
+                        </div>
+                    </div>
+                    <div class="color-picker-container">
+                        <p>Secundaire kleur</p>
+                        <div class="color-picker">
+                            <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
+                            <label for="secondary-color">{{ secondaryColor }}</label>
+                        </div>
                     </div>
                 </div>
                 <br>
