@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @Component({
@@ -6,11 +6,16 @@ import { DataStorageService } from 'src/shared/services/data-storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   title = 'WebApp';
 
   constructor(private dataStorageService: DataStorageService) { }
+
+  ngOnInit()
+  {
+    this.dataStorageService.getTheme();
+  }
 
 
   UserIsLoggedIn(): boolean {

@@ -16,10 +16,7 @@ body {
     box-shadow: $default-box-shadow;
     color: black;
     margin-bottom: 1rem;
-
-    div {
-        min-width: 30%;
-    }
+    overflow: auto;
 }
 
 h2 {

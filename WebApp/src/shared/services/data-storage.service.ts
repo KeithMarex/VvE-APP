@@ -6,17 +6,13 @@ import { ThemeDao } from "./theme-dao.service";
 @Injectable({
     providedIn: 'root'
 })
-export class DataStorageService implements OnInit {
+export class DataStorageService {
     private theme: Theme = this.getTheme() || new Theme('#451864', '#A0CAE8'); // Default theme in case access token is unavailable
     private primaryColor: string = this.theme.primarycolor;
     private secondaryColor: string = this.theme.secondarycolor;
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private themeDao: ThemeDao) {}
-
-    ngOnInit(): void {
-        this.theme = this.getTheme();
-    }
 
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
