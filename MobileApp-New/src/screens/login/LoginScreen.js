@@ -5,8 +5,10 @@ import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
 import ApiHelper from '../../util/ApiHelper'
 import UserModel from '../../models/user.model'
+import translations from '../../config/languages/translations.json'
 
 const ss = Dimensions.get('window')
+const tr = translations['nl'];
 
 const LoginScreen = (props) => {
     const [username, onChangeName] = React.useState("")
