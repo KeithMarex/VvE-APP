@@ -6,7 +6,7 @@
         alt="">
     </div>
     <div class="news-content">
-      <h3 class="news-title">
+      <h3 appColoring colorStyle="primary" class="news-title">
         Ouderen blij met komst van nieuwe moestuin
       </h3>
       <p class="news-description">
@@ -17,8 +17,14 @@
       </p>
     </div>
     <div class="news-buttons">
-      <button class="secondary-btn">Wijzigen</button>
-      <button class="primary-btn">Verwijderen</button>
+      <button class="secondary-btn" appColoring colorStyle="secondary" colorElement="background">
+        Wijzigen
+        <object data="../../../assets/icons/edit-white.svg"></object>
+      </button>
+      <button class="primary-btn" appColoring colorStyle="primary" colorElement="background">
+        Verwijderen
+        <object data="../../../assets/icons/delete.svg"></object>
+      </button>
     </div>
   </li>
 </ul>

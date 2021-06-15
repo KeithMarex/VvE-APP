@@ -1,6 +1,7 @@
 @import "../../../utilities/index.scss";
 
 .news-item-list {
+  padding: 0 25px;
 
   .news-item {
     background-color: #F5F5F5;
@@ -35,7 +36,6 @@
 
       .news-title {
         font-size: 24px;
-        color: $primary-color;
         margin-bottom: 20px;
       }
 
@@ -66,13 +66,20 @@
 
       .secondary-btn {
         @include button();
-        background-color: $secondary-color;
         margin: 12px 0 0;
       }
 
       .secondary-btn, .primary-btn {
-        padding: 0 25px;
+        padding: 0 20px 0 25px;
         width: fit-content;
+        display: flex;
+        align-items: center;
+
+        object {
+          margin-left: 10px;
+          width: 22px;
+          pointer-events: none;
+        }
       }
     }
   }
