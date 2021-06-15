@@ -7,9 +7,9 @@ import { ThemeDao } from "./theme-dao.service";
     providedIn: 'root'
 })
 export class DataStorageService {
-    private theme: Theme = this.getTheme();
-    private primaryColor: string = this.theme ? this.theme.primarycolor : '#451864'; // Default color value
-    private secondaryColor: string = this.theme? this.theme.secondarycolor : '#A0CAE8'; // Default color value
+    private theme: Theme = this.getTheme() || new Theme('#451864', '#A0CAE8'); // Default theme in case access token is unavailable
+    private primaryColor: string = this.theme.primarycolor;
+    private secondaryColor: string = this.theme.secondarycolor;
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private themeDao: ThemeDao) {}
@@ -17,7 +17,13 @@ export class DataStorageService {
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
 
-        return storageValue ? storageValue : null;
+        return storageValue || null;
+    }
+
+    getValueFromSessionStorage(key: string): string {
+        var storageValue = sessionStorage.getItem(key);
+
+        return storageValue || null;
     }
 
     getPrimaryColor(): string {
@@ -38,17 +44,19 @@ export class DataStorageService {
     }
 
     getTheme(): Theme {
+        // Attempt to fetch theme from session storage to prevent unnecessary requests
         var theme = this.getThemeFromStorage();
+        var loggedIn = this.getValueFromStorage('userId') != null;
 
-        if (!theme) {
-            theme = this.getThemeFromDao();
+        if (!theme && loggedIn) {
+            this.getThemeFromDao();
         }
 
         return theme;
     }
 
     getThemeFromStorage(): Theme {
-        var storedJsonTheme = this.getValueFromStorage('Theme');
+        var storedJsonTheme = this.getValueFromSessionStorage('Theme');
         var storedTheme;
 
         if (storedJsonTheme) {
@@ -58,23 +66,20 @@ export class DataStorageService {
         return storedTheme;
     }
 
-    getThemeFromDao(): Theme {
-        var theme;
-
+    getThemeFromDao() {
         this.themeDao.getTheme()
         .subscribe(res => {
-            theme = res;
+            this.setTheme(res);
+            location.reload();
         }, 
         () => {
             return;
         });
-
-        return theme;
     }
 
     setTheme(theme: Theme) {
         this.theme = theme;
-        localStorage.setItem('Theme', JSON.stringify(this.theme));
+        sessionStorage.setItem('Theme', JSON.stringify(this.theme));
         this.setColors();
     }
 
@@ -82,4 +87,5 @@ export class DataStorageService {
         this.primaryColor = this.theme.primarycolor;
         this.secondaryColor = this.theme.secondarycolor;
     }
+
 }
