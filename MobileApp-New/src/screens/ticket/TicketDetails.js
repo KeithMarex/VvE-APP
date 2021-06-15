@@ -4,11 +4,16 @@ import StyledText from '../../components/StyledText'
 import PageLogo from '../../components/PageLogo'
 import Button from '../../components/Button'
 import TicketCommentBox from '../../components/TicketCommentBox'
+import ApiHelper from "../../util/ApiHelper";
 
 const window = Dimensions.get('window')
 
 const TicketDetails = (props) => {
     const { ticket } = props.route.params
+
+    const showImages = () => {
+        props.navigation.navigate('ShowImages', { ticket });
+    }
 
     return (
         <SafeAreaView style={styles.root}>
@@ -32,14 +37,16 @@ const TicketDetails = (props) => {
                         </StyledText>
                     </View>
 
+                    {ticket.images.length !== 0 &&
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
                             Uw afbeeldingen
                         </StyledText>
-                        <Button>
+                        <Button pressAction={() => {showImages()}}>
                             Afbeeldingen inzien
                         </Button>
                     </View>
+                    }
 
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>

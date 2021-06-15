@@ -3,12 +3,14 @@
 @import "../../utilities/effects.scss";
 
 body {
-    width: 85vw;
+    width: 100%;
     height: 80vh;
     background-color: white;
     border: 1px solid rgba($color: #000000, $alpha: 0.04);
     border-radius: 8px;
     box-shadow: $default-box-shadow;
+    overflow: hidden;
+    margin-bottom: 1rem;
 
     .button-section {
         display: flex;

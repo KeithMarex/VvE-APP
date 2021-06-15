@@ -1,0 +1,12 @@
+{
+  "en": {
+    "login": {
+      "pass_forget": "Retrieve password"
+    }
+  },
+  "nl": {
+    "login": {
+      "pass_forget": "Wachtwoord herstellen"
+    }
+  }
+}

@@ -7,7 +7,12 @@ import { User } from 'src/shared/models/user.model';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
+import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
+import { Comment } from 'src/shared/models/comment.model';
+import { Image } from 'src/shared/models/image.model';
+import { NgForm } from "@angular/forms";
+import { CommentDao } from 'src/shared/services/comment-dao.service';
 
 @Component({
   selector: 'app-ticket-details',
@@ -23,12 +28,16 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   tags: Tag[] = [];
   selectedAssignee: string;
   assignees: string[] = [];
+  inputCommentText: string;
+  inputCommentImage: Blob;
+  commentImages: Blob[] = [];
+  comments: Comment[];
 
   private ticketIdSub: Subscription;
   private creatorSub: Subscription;
 
   constructor(private ticketEditorService: TicketEditorService, private router: Router, private tagDao: TagDao,
-    private userDao: UserDao, private ticketDao: TicketDao) { }
+    private userDao: UserDao, private ticketDao: TicketDao, private dataStorageService: DataStorageService, private commentDao: CommentDao) { }
 
   ngOnInit(): void {
     this.getActiveTicket();
@@ -43,6 +52,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
     if (storedTicket) {
       this.ticket =  JSON.parse(storedTicket);
+      this.comments = this.ticket.comments;
     }
     else {
       this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
@@ -55,6 +65,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
             {
               this.ticket = ticketRes;
               sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+              this.comments = this.ticket.comments;
             }
           );
         }
@@ -81,17 +92,9 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   getTags(): void {
     this.tagDao.getAllTags()
     .subscribe((incomingtags: Tag[]) => {
-      incomingtags.forEach(incomingTag => {
-        this.tags.push(new Tag(
-          incomingTag._id,
-          incomingTag.name,
-          incomingTag.color,
-          incomingTag.createdAt,
-          incomingTag.updatedAt
-        ))
+      this.tags = incomingtags;
       })
       this.getSelectedTag();
-    });
   }
 
   getSelectedTag(): void {
@@ -124,6 +127,42 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
         })
         this.assignees.push("Nog niet toegewezen");
       });
+  }
+
+  submitComment(form: NgForm): void {
+    const formData = new FormData();
+    this.inputCommentText = form.value.inputCommentText;
+    console.log(this.inputCommentText);
+    // console.log(this.inputCommentText);
+    
+    this.commentImages.forEach((image, index) => { 
+      // let imgBlob = new Blob()
+      formData.append(`file${index + 1}`, image);
+    });
+    formData.append("comment", this.inputCommentText);
+    formData.append("ticketID", this.ticket._id);
+
+    this.commentDao.createComment(formData).subscribe(Response => console.log(Response));
+  }
+
+  handleFileInput(target: any): void {
+		this.inputCommentImage = target.files.item(0);
+    this.commentImages.push(this.inputCommentImage);
+    this.inputCommentImage = undefined;
+    target.value = "";
+	}
+
+  deleteImage(Image): void {
+    this.commentImages.splice(this.commentImages.indexOf(Image),1);
+  }
+
+  commentIsFromUser(comment: Comment): boolean {
+    if (comment.user) {
+      return comment.user._id == this.dataStorageService.getLoggedInUserId();
+    }
+    else {
+      return false;
+    }
   }
 
   ngOnDestroy(): void {

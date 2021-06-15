@@ -1,4 +1,4 @@
-<div class="details-page" *ngIf="ticket">
+<div class="details-page" *ngIf="ticket" appColoring>
     <header>
         <!-- <h1>{{ ticket ? 'Ticket:' + ticket.title : 'Geen ticket ingeladen' }}</h1> -->
         <h1>{{ 'Ticket: ' + ticket.title }}</h1>
@@ -122,10 +122,40 @@
             <p *ngIf="ticket.images.length == 0">Geen bijlagen</p>
         </section>
 
-        <section>
-            <h1>Opmerkingen</h1>
-            <p>TODO opmerkingen component</p>
-            <!-- TODO Hier ticket comments component -->
+        <section class="comment-section">
+            <div class="left-section">
+                <div>
+                    <h1>Opmerkingen</h1>
+                    <div class="comments">
+                        <div *ngFor="let comment of comments">
+                            <div *ngIf="!commentIsFromUser(comment)" class="different-user-comment">
+                                <app-ticket-comment [comment]="comment"></app-ticket-comment>
+                            </div>
+                            <div *ngIf="commentIsFromUser(comment)" class="user-comment">
+                                <app-logged-in-user-ticket-comment [comment]="comment"></app-logged-in-user-ticket-comment>
+                            </div>
+                        </div>
+                        <app-ticket-comment *ngFor="let comment of comments" [comment]="comment"></app-ticket-comment>
+                    </div>
+                    <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
+                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
+                        <label class="file-input">
+                            <img class="image-select-logo" src="assets\icons\Plus.svg">
+                            <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">
+                        </label>
+                        <div class="submit-button">
+                            <button [disabled]="formForm.invalid" class="submit-comment-button">
+                                <img class="send-logo" src="assets\icons\Send.svg">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="input-image-name" >
+                <div *ngFor="let image of commentImages">
+                    <button class="remove-button" (click)="deleteImage(image)">{{ image.name}}</button>
+                </div>
+            </div>
         </section>
     </body>
     

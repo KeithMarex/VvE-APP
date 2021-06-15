@@ -1,10 +1,14 @@
 <html>
     <body>
         <section class="content">
-            <app-navigation-bar></app-navigation-bar>
+            <div *ngIf="!UserIsLoggedIn()">
+                <app-navigation-bar></app-navigation-bar>
+            </div>
             <!-- TODO Add ngIf to check if user is logged in and add add navigation bar accordingly -->
             <div class="main-section">
-                <router-outlet></router-outlet>
+                <div class="main-content">
+                    <router-outlet></router-outlet>
+                </div>
             </div>
         </section>
     </body>

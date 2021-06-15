@@ -1,13 +1,22 @@
 import { Injectable } from "@angular/core";
+import { Theme } from "../models/theme.model";
+import { ThemeDao } from "./theme-dao.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataStorageService {
-    private primaryColor: string = this.getColorFromStorage('primaryColor') || '#451864';
-    private secondaryColor: string = this.getColorFromStorage('secondaryColor') || '#A0CAE8';
+    private theme: Theme;
+    private primaryColor: string = '#451864'; // Default color value
+    private secondaryColor: string = '#A0CAE8'; // Default color value
+    private loggedInUserId: string = this.getValueFromStorage('userId');
 
-    getColorFromStorage(key: string): string {
+    constructor(private themeDao: ThemeDao) {
+        this.checkThemeAvailability();
+    }
+
+    // Get a value from local storage
+    getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
 
         return storageValue ? storageValue : null;
@@ -17,17 +26,38 @@ export class DataStorageService {
         return this.primaryColor;
     }
 
-    setPrimaryColor(color: string): void {
-        this.primaryColor = color;
-        localStorage.setItem('primaryColor', color);
-    }
-
     getSecondaryColor(): string {
         return this.secondaryColor;
     }
 
-    setSecondaryColor(color: string): void {
-        this.secondaryColor = color;
-        localStorage.setItem('secondaryColor', color);
+    getLoggedInUserId(): string {
+        return this.loggedInUserId;
+    }
+
+    setLoggedInUserId(user: string): void {
+        this.loggedInUserId = user;
+        localStorage.setItem('userId', user);
+    }
+
+    checkThemeAvailability() {
+        this.theme = JSON.parse(localStorage.getItem('theme'));
+        
+        if (!this.theme) {
+            this.themeDao.getTheme()
+            .subscribe(res => {
+                this.setTheme(res);
+            });
+        }
+    }
+
+    setTheme(theme: Theme) {
+        this.theme = theme;
+        localStorage.setItem('theme', JSON.stringify(this.theme));
+        this.setColors();
+    }
+
+    setColors() {
+        this.primaryColor = this.theme.primaryColor;
+        this.secondaryColor = this.theme.secondaryColor;
     }
 }

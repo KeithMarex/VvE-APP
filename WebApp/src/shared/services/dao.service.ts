@@ -17,7 +17,7 @@ export class Dao {
       return this.http.post<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }
 
-    sendPostRequestForm(urlPath: string, body: unknown): Observable<any> { // TODO rewrite
+    sendPostRequestForm(urlPath: string, body: unknown): Observable<any> {
       return this.http.post<any>(this.dbAddress + urlPath, body, { withCredentials: true });
     }
 
