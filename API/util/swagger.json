@@ -241,6 +241,49 @@
         }
       }
     },
+    "/user/{id}/": {
+      "put": {
+        "summary": "Updates user in the database",
+        "description": "Updates only the attributes that it receives. All attributes are optional.\n",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User has been updated successfully"
+          },
+          "500": {
+            "description": "Error occured while updating"
+          }
+        }
+      }
+    },
     "/organization/users": {
       "get": {
         "summary": "Returns the admins from the organization the person is in.",

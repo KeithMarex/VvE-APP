@@ -19,6 +19,7 @@ const LoginScreen = (props) => {
             const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
             props.navigation.navigate('homeNavigation', { user });
         }).catch(error => {
+            console.log(error);
             if (error.response.status === 401){
                 Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
             }
