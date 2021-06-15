@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { QuillModule } from 'ngx-quill';
 import {
   CalendarModule,
   CalendarDateFormatter,
@@ -119,7 +120,8 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
         useClass: CustomDateFormatter
       }
     }),
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
+    QuillModule.forRoot()
   ],
   providers: [
     Dao,
