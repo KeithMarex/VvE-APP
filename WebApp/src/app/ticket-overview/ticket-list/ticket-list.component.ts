@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Comment } from 'src/shared/models/comment.model';
-import { Image } from 'src/shared/models/image.model';
-import { Tag } from 'src/shared/models/tag.model';
 import { Ticket } from 'src/shared/models/ticket.model';
-import { Dao } from 'src/shared/services/dao.service';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 
 @Component({
@@ -13,15 +9,12 @@ import { TicketDao } from 'src/shared/services/ticket-dao.service';
 })
 export class TicketListComponent implements OnInit {
   tickets: Ticket[] = [];
-  
 
   constructor(
     private ticketDao: TicketDao,
-    private Dao: Dao //TODO remove
   ) {}
 
   ngOnInit(): void {
-    this.Dao.forceLogin(); //TODO remove
     this.getTickets();
   }
 
@@ -35,24 +28,15 @@ export class TicketListComponent implements OnInit {
           incomingTicket.description,
           incomingTicket.images,
           incomingTicket.creator,
-          this.checkAssignee(incomingTicket.assignee),
+          incomingTicket.assignee,
           incomingTicket.status,
           incomingTicket.comments,
-          incomingTicket.tag, //FIXME
+          incomingTicket.tag,
           incomingTicket.createdAt,
           incomingTicket.updatedAt
-        ))
-      })
+        ));
+      });
     });
-  }
-
-  checkAssignee(assignee: string): string {
-    if (assignee) {
-      return assignee;
-    }
-    else {
-      return 'Niet toegewezen';
-    }
   }
 
 }

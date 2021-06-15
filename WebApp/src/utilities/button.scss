@@ -11,11 +11,19 @@
     border: none;
     border-radius: 14px;
     box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+    cursor: pointer;
+    transition: opacity .2s ease-in-out;
+
+    &:disabled {
+        cursor: initial;
+        filter:opacity(30%);
+    }
 }
 
+// TODO replace with mixin
 .icon-button {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     &::before {
@@ -26,7 +34,88 @@
         justify-self: auto;
         margin-right: 0.6rem;
         content: '';
-        height: 14px;
-        width: 14px;
+        height: 100%;
+        width: 1.5rem;
+        background-position: center !important;
     }
+}
+
+.dropdown-button {
+    position: relative;
+
+    .button-dropdown {
+        position: absolute;
+        visibility: hidden;
+        background-color: #F7F7FC;
+        border: 2px solid;
+        border-radius: 1rem;
+        width: inherit;
+        top: 2.75rem;
+
+        div {
+            padding: 0.5rem 1rem;
+            text-align: start;
+            font-size: 80%;
+        }
+
+        div:hover {
+            backdrop-filter: brightness(0.95);
+        }
+
+        .top-option:hover {
+            border-top-left-radius: 0.8rem;
+            border-top-right-radius: 0.8rem;
+        }
+
+        .bottom-option:hover {
+            border-bottom-left-radius: 0.8rem;
+            border-bottom-right-radius: 0.8rem;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid;
+            margin: 0 1rem;
+        }
+    }
+}
+
+@mixin icon-button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &::before {
+    content: '';
+  }
+
+  &::after {
+    justify-self: auto;
+    margin-right: 0.6rem;
+    content: '';
+    height: 100%;
+    width: 1.5rem;
+    background-position: center !important;
+  }
+}
+
+@mixin button-section {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid #DEDEDE;
+  margin: 0 15px;
+
+  button {
+    @include button;
+
+    &::after {
+      margin-top: 0.3rem;
+      background: url('../assets/icons/chevron.svg') no-repeat;
+    }
+  }
+}
+
+
+.dropdown-button:hover .button-dropdown {
+    visibility: visible;
 }

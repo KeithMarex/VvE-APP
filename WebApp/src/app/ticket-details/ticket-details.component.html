@@ -1,10 +1,10 @@
-<div class="details-page">
+<div class="details-page" *ngIf="ticket" appColoring>
     <header>
         <!-- <h1>{{ ticket ? 'Ticket:' + ticket.title : 'Geen ticket ingeladen' }}</h1> -->
         <h1>{{ 'Ticket: ' + ticket.title }}</h1>
         <div class="name-date-field">
-            <object data="../../../../assets/icons/members.svg" type=""></object>
-            <h1>{{ ticketCreator ? ticketCreator : ticket.creator }}</h1>
+            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/members.svg'"></div>
+            <h1>{{ ticketCreator ? ticketCreator.firstname + ' ' + ticketCreator.lastname : ticket.creator }}</h1>
             <div class="dates">
                 <p>Aangemaakt op: {{ ticket.createdAt | date: 'dd/MM/yyyy HH:mm' }}</p>
                 <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
@@ -22,26 +22,89 @@
                     <div class="first-row">
                         <div class="status">
                             <h1>Status</h1>
-                            <select name="status" id="">
-                                <option value="PENDING" [selected]="ticket.status == 'PENDING'">In afwachting</option>
-                                <option value="HANDLING" [selected]="ticket.status == 'HANDLING'">In afhandeling</option>
-                                <option value="HANDLED" [selected]="ticket.status == 'HANDLED'">Afgehandeld</option>
-                            </select>
+                            <app-dropdown class="dropdown" [(ngModel)]="selectedStatus" name="selectedStatus" id="selectedStatus" ngDefaultControl required [options]="statuses">
+                                <ng-template dropdownSelected let-selected>
+                                    <div>
+                                        <div [ngSwitch]="selected">
+                                            <div *ngSwitchCase="'PENDING'">
+                                                <div class="dropdown-item">
+                                                    <div class="dot" [ngStyle]="{'background-color':'#FF3B30'}"></div>
+                                                    <p class="dropdown-text">In afwachting</p>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="'HANDLING'">
+                                                <div class="dropdown-item">
+                                                    <div class="dot" [ngStyle]="{'background-color':'#FED977'}"></div>
+                                                    <p class="dropdown-text">In behandeling</p>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="'HANDLED'">
+                                                <div class="dropdown-item">
+                                                    <div class="dot" [ngStyle]="{'background-color':'#00ff00'}"></div>
+                                                    <p class="dropdown-text">Afgehandeld</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template dropdownOption let-option>
+                                    <div>
+                                        <div [ngSwitch]="option">
+                                            <div *ngSwitchCase="'PENDING'">
+                                                <div class="dropdown-item">
+                                                    <div class="dot" [ngStyle]="{'background-color':'#FF3B30'}"></div>
+                                                    <p class="dropdown-text">In afwachting</p>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="'HANDLING'">
+                                                <div class="dropdown-item">
+                                                    <div class="dot" [ngStyle]="{'background-color':'#FED977'}"></div>
+                                                    <p class="dropdown-text">In behandeling</p>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="'HANDLED'">
+                                                <div class="dropdown-item">
+                                                    <div class="dot" [ngStyle]="{'background-color':'#00ff00'}"></div>
+                                                    <p class="dropdown-text">Afgehandeld</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </app-dropdown>
                         </div>
                         <div class="tag">
                             <h1>Tag</h1>
-                            <select name="tag" id="">
-                                <!-- Tag options toevoegen -->
-                                <option value="">Belangrijk</option>
-                            </select>
+                                <app-dropdown class="dropdown" [(ngModel)]="selectedTag" name="selectedTag" id="selectedTag" ngDefaultControl required [options]="tags">
+                                    <ng-template dropdownSelected let-selected>
+                                        <div class="dropdown-item">
+                                            <div class="dot" [ngStyle]="{'background-color':selected.color}"></div>
+                                            <p class="dropdown-text">{{ selected.name }}</p>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template dropdownOption let-option>
+                                        <div class="dropdown-item">
+                                            <div class="dot" [ngStyle]="{'background-color':option.color}"></div>
+                                            <p class="dropdown-text">{{ option.name }}</p>
+                                        </div>
+                                    </ng-template>
+                                </app-dropdown>
                         </div>
                     </div>
                     <div class="second-row">
                         <h1>Toegewezen persoon</h1>
-                        <select name="assignee" id="">
-                            <!-- Assignee options toevoegen -->
-                            <option value="">Niet toegewezen</option>
-                        </select>
+                        <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
+                            <ng-template dropdownSelected let-selected>
+                                <div class="dropdown-item">
+                                    <p class="dropdown-text">{{ selected }}</p>
+                                </div>
+                            </ng-template>
+                            <ng-template dropdownOption let-option>
+                                <div class="dropdown-item">
+                                    <p class="dropdown-text">{{ option }}</p>
+                                </div>
+                            </ng-template>
+                        </app-dropdown>
                     </div>
                 </div>
             </div>
@@ -50,15 +113,49 @@
         <section class="image-section">
             <h1>Bijlagen</h1>
             <div class="ticket-images" *ngIf="ticket.images.length > 0">
-                <img *ngFor="let image of ticket.images" src="../../assets/img/image 1.png" alt="none">
+                <p *ngFor="let image of ticket.images">
+                    <a href="{{ image.image_url }}" target="_blank">
+                        <img src="{{ image.image_url }}" alt="none">
+                    </a>
+                </p>
             </div>
             <p *ngIf="ticket.images.length == 0">Geen bijlagen</p>
         </section>
 
-        <section>
-            <h1>Opmerkingen</h1>
-            <p>TODO opmerkingen component</p>
-            <!-- TODO Hier ticket comments component -->
+        <section class="comment-section">
+            <div class="left-section">
+                <div>
+                    <h1>Opmerkingen</h1>
+                    <div class="comments">
+                        <div *ngFor="let comment of comments">
+                            <div *ngIf="!commentIsFromUser(comment)" class="different-user-comment">
+                                <app-ticket-comment [comment]="comment"></app-ticket-comment>
+                            </div>
+                            <div *ngIf="commentIsFromUser(comment)" class="user-comment">
+                                <app-logged-in-user-ticket-comment [comment]="comment"></app-logged-in-user-ticket-comment>
+                            </div>
+                        </div>
+                        <app-ticket-comment *ngFor="let comment of comments" [comment]="comment"></app-ticket-comment>
+                    </div>
+                    <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
+                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
+                        <label class="file-input">
+                            <img class="image-select-logo" src="assets\icons\Plus.svg">
+                            <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">
+                        </label>
+                        <div class="submit-button">
+                            <button [disabled]="formForm.invalid" class="submit-comment-button">
+                                <img class="send-logo" src="assets\icons\Send.svg">
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="input-image-name" >
+                <div *ngFor="let image of commentImages">
+                    <button class="remove-button" (click)="deleteImage(image)">{{ image.name}}</button>
+                </div>
+            </div>
         </section>
     </body>
     

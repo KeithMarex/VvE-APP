@@ -1,11 +1,17 @@
 @import "../../utilities/colors.scss";
 @import "../../utilities/effects.scss";
+@import "../../utilities/button.scss";
 
 
 .details-page {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow: auto;
+
+    p {
+        color: $default-text-color;
+    }
 }
 
 header {
@@ -47,7 +53,6 @@ body {
     width: 85vw;
     
     h1 {
-        color: $primary-color;
         font-size: 150%;
     }
 
@@ -74,11 +79,13 @@ body {
             display: flex;
             flex-direction: row;
             align-self: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
     
-            img {
-                margin-right: 1.5rem;
-                width: 10rem;
-                height: 10rem;
+            p > a > img {
+                max-width: 13rem;
+                max-height: 13rem;
+                cursor: pointer;
             }
         }
     }
@@ -94,7 +101,9 @@ body {
 
         h1 {
             font-size: 110%;
+            padding-bottom: 5px;
         }
+        
 
         .first-row {
             display: flex;
@@ -102,10 +111,152 @@ body {
             justify-content: space-between;
             margin-bottom: 1rem;
 
+            .dropdown {
+                .dropdown-text{
+                    padding-left: 10px;
+                }
+
+                .dot {
+                    height: 15px;
+                    width: 15px;
+                    border-radius: 50%;
+                    display: inline-block;
+                }
+                .dropdown-item {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+
             .status {
                 padding-right: 6rem;
+                width: 250px;
             }
             
+            .tag {
+                width: 175px;
+            }
+        }
+
+        .second-row {
+            width: 250px;
+
+            .dropdown {
+                .dropdown-text{
+                    padding-left: 10px;
+                }
+
+                .dropdown-item {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+        }
+    }
+
+    .comment-section {
+        display: flex;
+        flex-direction: row;
+
+        .left-section {
+            width: 70%;
+
+            h1 {
+                width: 100%;
+                padding-bottom: 10px;
+            }
+            
+            .comments {
+                height: 150px;
+                min-width: 100%;
+                overflow: auto;
+
+                .user-comment {
+                    float: right;
+                }
+            }
+    
+            .comment-form {
+                width: 95%;
+                display: flex;
+                flex-direction: row;
+                border-radius: 10px;
+                box-shadow: $default-box-shadow;
+                padding-left: 10px;
+                position: relative; top: 10px;
+                background-color: white;
+    
+                .textfield {
+                    width: 90%;
+                    border: none;
+                    background-color: white;
+                }
+    
+                .image-select-logo {
+                    margin-top: 7px;
+                    margin-left: 2px;
+                    background-color: white;
+                }
+    
+                .image-select-button {
+                    width: 0px;
+                }
+
+                .send-logo {
+                    margin-top: 7px;
+                    background-color: white;
+                }
+    
+                .submit-comment-button {
+                    display: inline-block;
+                    border: none;
+                    padding-left: 10px;
+                    padding-top: 4px;
+                    background-color: white;
+                }
+            }
+        
+        
+        }
+
+        .input-image-name {
+            width: 25%;
+            height: 70%;
+            margin: 30px;
+            border-radius: 32px;
+            box-shadow: $default-box-shadow;
+            overflow: auto;
+
+            .remove-button {
+                height: 25px;
+                width: 80%px;
+                margin: 10px;
+                background-color: lightgray;
+                font-family: 'Inter', sans-serif;
+                font-size: 110%;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+                cursor: pointer;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                &::before {
+                    content: '';
+                }
+            
+                &::after {
+                    display: flex;
+                    margin-left: 0.6rem;
+                    margin-right: 0.6rem;
+                    content: '';
+                    height: 100%;
+                    width: 1.5rem;
+                    background-position: center !important;
+                    background: url('../../assets/icons/Close.svg') no-repeat;
+                }
+            }        
         }
     }
 }

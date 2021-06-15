@@ -1,0 +1,113 @@
+<div class="calendar-wrapper">
+  <div class="calendar-nav">
+    <div class="calendar-nav-calendar-types">
+      <div
+        (click)="setCalendarViewType(CalendarView.Month)"
+        [class.active]="currentView === CalendarView.Month"
+        class="calendar-type"
+      >
+        Maand
+      </div>
+      <span class="calendar-type-separator">&bull;</span>
+      <div
+        (click)="setCalendarViewType(CalendarView.Week)"
+        [class.active]="currentView === CalendarView.Week"
+        class="calendar-type"
+      >
+        Week
+      </div>
+      <span class="calendar-type-separator">&bull;</span>
+      <div
+        (click)="setCalendarViewType(CalendarView.Day)"
+        [class.active]="currentView === CalendarView.Day"
+        class="calendar-type"
+      >
+        Dag
+      </div>
+    </div>
+
+    <div class="calendar-nav-date">
+      <h3>{{ viewDate | calendarDate:(currentView + 'ViewTitle'):'nl' }}</h3>
+    </div>
+
+    <div class="calendar-nav-date-navigator">
+      <div
+        mwlCalendarPreviousView
+        [view]="currentView"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="onCalendarDateChanged($event)"
+        class="nav-date-navigator-btn nav-date-navigator-btn-prev"
+      >
+        <img src="../../../assets/icons/chevron-black.svg" alt="Vorige">
+      </div>
+      <div
+        mwlCalendarToday
+        [(viewDate)]="viewDate"
+        (viewDateChange)="onCalendarDateChanged($event)"
+        class="nav-date-navigator-btn nav-date-navigator-btn-today"
+      >
+        <img src="../../../assets/icons/circle.svg" alt="Vandaag">
+      </div>
+      <div
+        mwlCalendarNextView
+        [view]="currentView"
+        [(viewDate)]="viewDate"
+        (viewDateChange)="onCalendarDateChanged($event)"
+        class="nav-date-navigator-btn nav-date-navigator-btn-next"
+      >
+        <img src="../../../assets/icons/chevron-black.svg" alt="Volgende">
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div [ngSwitch]="currentView">
+  <mwl-calendar-month-view
+    *ngSwitchCase="CalendarView.Month"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen"
+    [locale]="locale"
+    (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="showCalendarItemPopUp($event.event)"
+    (eventTimesChanged)="calendarItemTimesChanged($event)"
+  >
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="CalendarView.Week"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [locale]="locale"
+    (eventClicked)="showCalendarItemPopUp( $event.event)"
+    (eventTimesChanged)="calendarItemTimesChanged($event)"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="CalendarView.Day"
+    [viewDate]="viewDate"
+    [events]="events"
+    [refresh]="refresh"
+    [locale]="locale"
+    (eventClicked)="showCalendarItemPopUp($event.event)"
+    (eventTimesChanged)="calendarItemTimesChanged($event)"
+  >
+  </mwl-calendar-day-view>
+</div>
+
+<app-popup *ngIf="selectedCalendarItemToShow" title="{{selectedCalendarItemToShow.title}}" (closed)="closeCalendarItemPopUps()" [fitContent]="true" [small]="true">
+  <app-calendar-item-details
+    [calendarItem]="selectedCalendarItemToShow"
+    (editClicked)="editCalendarItemFromDetails(selectedCalendarItemToShow)"
+    (closeDetails)="closeCalendarItemPopUps()"
+  ></app-calendar-item-details>
+</app-popup>
+
+<app-popup *ngIf="selectedCalendarItemToEdit" title="Afspraak wijzigen" (closed)="closeCalendarItemPopUps()">
+  <app-calendar-item-creator
+    [isEditing]="true"
+    [calendarItemToEdit]="selectedCalendarItemToEdit"
+    (calendarItemSaved)="closeCalendarItemPopUps()">
+  </app-calendar-item-creator>
+</app-popup>

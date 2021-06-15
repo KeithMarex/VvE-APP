@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon",
-    "test": "npx mocha -r tsconfig-paths/register -r ts-node/register ./test/*.spec.ts",
+    "start": "set NODE_ENV=development&& nodemon",
+    "test": "set NODE_ENV=test npx mocha -r tsconfig-paths/register -r ts-node/register ./test/*.spec.ts",
     "docu": "swagger-cli bundle -o ./util/swagger.json ./documentation/swagger.yaml",
     "build": "ttsc -P ./tsconfig.json",
     "prodstart": "npm run build && pm2 start ecosystem.config.js && pm2 trigger pm2-git-hook start vve-api",
@@ -20,6 +20,7 @@
     "express": "~4.16.1",
     "express-formidable": "^1.2.0",
     "generate-password": "^1.6.0",
+    "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.1",
     "mongoose-beautiful-unique-validation": "^7.1.1",

@@ -2,22 +2,22 @@ post:
   summary: Registers users (Creates accounts) and gives a generated password
   tags:
     - User
-  description: User gets registered (User gets account) is for multiple and single account adding. \n needs to be in an array
+  description: User gets registered (User gets account) is for multiple and single account adding. \n Needs to be in an array.
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          type: object
-          properties:
-            email:
-              type: string
-            firstname:
-              type: string
-            lastname:
-              type: string
-            organization:
-              type: string ObjectId
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+              firstname:
+                type: string
+              lastname:
+                type: string
   responses:
     '201':
       description: Users (accounts) have been registerd (created) succesfully

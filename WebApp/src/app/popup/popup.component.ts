@@ -6,8 +6,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./popup.component.scss']
 })
 export class PopupComponent implements OnInit {
-  @Input() title = 'Popup title';
   @Output() closed = new EventEmitter<void>();
+  @Input() title = 'Popup title';
+  @Input() fitContent: boolean;
+  @Input() small: boolean;
 
   constructor() { }
 

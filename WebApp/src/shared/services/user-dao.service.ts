@@ -16,10 +16,28 @@ export class UserDao {
         }));
     };
 
-    getUsersByOrganization(organizationId: string): Observable<User[]> {
-      return this.dao.sendGetRequest('user/organization/' + organizationId)
+    getUsersByOrganization(): Observable<User[]> {
+      return this.dao.sendGetRequest('user')
       .pipe(map((response: User[]) => {
         return response;
       }))
+    }
+
+    getAdminsByOrganization(): Observable<User[]> {
+      return this.dao.sendGetRequest('organization/users')
+      .pipe(map((response: User[]) => {
+        return response;
+      }))
+    }
+
+    registerUser(email: string, firstname: string, lastname: string): Observable<any> {
+      const body = 
+      [{
+        "email": email,
+        "firstname": firstname,
+        "lastname": lastname
+      }];
+
+      return this.dao.sendPostRequest('user/register', body);
     }
 }

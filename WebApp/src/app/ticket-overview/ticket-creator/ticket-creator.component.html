@@ -15,25 +15,28 @@
             </div>
             <div class="member-select">
                 <select name="assignee" ngModel>
-                    <option value="unassigned" selected="selected">Niet toegewezen</option>
-                    <option value="" *ngFor="let member of organizationMembers" [ngValue]="member._id">{{ member.firstname + ' ' + member.lastname }}</option>
+                    <option value="">Niet toegewezen</option>
+                    <option *ngFor="let member of organizationMembers" [ngValue]="member._id">{{ member.firstname + ' ' + member.lastname }}</option>
                 </select>
             </div>
             <div class="tag-field">
                 <h1>Tag toewijzen</h1>
-                <select name="tag" id="tag">
-                    <option value="Email">Email</option>
+                <select name="tag" ngModel>
+                    <option value="">Geen tag</option>
+                    <option *ngFor="let tag of organizationTags" [ngValue]="tag._id">{{ tag.name }}</option>
                 </select>
             </div>
             <div class="status-field">
                 <h1>Status toewijzen</h1>
-                <select name="status" id="tag" ngModel>
-                    <option selected value="In afwachting">In afwachting</option>
+                <select name="status" id="tag" required ngModel>
+                    <option value="">Selecteer status</option>
+                    <option value="In afwachting">In afwachting</option>
                     <option value="In behandeling">In behandeling</option>
                     <option value="Afgehandeld">Afgehandeld</option>
                 </select>
             </div>
-            <button type="submit" [disabled]="form.invalid">Aanmaken</button>
+            <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
+            <button appColoring colorElement="backgroundColor" type="submit" [disabled]="form.invalid">Aanmaken</button>
         </div>
     </form>
 </section>

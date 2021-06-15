@@ -1,9 +1,9 @@
 import Ticket from '../models/Ticket';
 import logger from '~/util/Logger';
 import User from '~/models/User';
-import { sendMailToBestuur, sendMailToBewoner } from '~/util/Mailer';
+import { sendAdminMail, sendMail } from '~/util/Mailer';
+import { validateBodyPutTicket } from '~/validators/TicketPutValidator';
 import { Types } from 'mongoose';
-import { resolve6 } from 'dns';
 
 export const getTickets = async(req, res) => {
     const user = res.locals.user;
@@ -28,9 +28,19 @@ export const getTickets = async(req, res) => {
 
 export const getTicket = (req, res) => {
     const id = req.params.id;
-    Ticket.findById(id).populate('images')
+    Ticket.findById(id).populate('images').populate({
+        path: 'comments',
+        model: 'Comment',
+        populate: [{
+            path: 'images',
+            model: 'Image'
+        },{
+            path: 'user',
+            model: 'User'
+        }]
+    })
     .then(result => {
-        res.status(200).send(result);
+        res.status(200).send(removePasswordFromCommentUser(result));
     })
     .catch(err => {
         logger.error(err);
@@ -43,11 +53,14 @@ export const postTicket = (req, res) => {
     const ticket = createTicket(req, res);
     ticket.save()
     .then(result => {
-        //Bestuurder mail
-        sendMailToBestuur("[VvE] Er is een nieuwe ticket aangemaakt", "ticket_bestuurder.html");
 
-        //Bewoner mail
-        sendMailToBewoner("[VvE] U heeft een ticket aangemaakt", "ticket_aangemaakt_bewoner.html", res.locals.user._id);
+        sendAdminMail("Er is een nieuwe ticket aangemaakt", {
+            organization: res.locals.user.organizations[0],
+            ticketTitle: result["title"],
+            ticketDescription: result["description"],
+            firstname: res.locals.user.firstname,
+            lastname: res.locals.user.lastname }
+        , "ticket");
 
         res.status(201).send(result);
     })
@@ -60,20 +73,15 @@ export const postTicket = (req, res) => {
 
 export const putTicket = (req, res) => {
     const id = req.params.id;
-    const ticket: any = new Ticket(req.body);
-    Ticket.updateOne({ _id: id }, {
-        assignee: ticket.assignee,
-        status: ticket.status,
-        comments: ticket.comments,
-        tag: ticket.tag
-     })
-    .then(result => {
-        res.status(200).send(result);
+    const body = validateBodyPutTicket(req.body);
+    Ticket.updateOne({ _id: id }, body)
+    .then(() => {
+        res.status(200);
     })
     .catch(err => {
         logger.error(err);
         const status = err.statusCode || 500;
-        res.status(status).json({message: err})
+        res.status(status).json( { message: err } )
     });
 }
 
@@ -112,4 +120,12 @@ const createTicket = (req, res) => {
         req.fields.images = res.locals.images;
     }
     return new Ticket(req.fields);
+}
+
+const removePasswordFromCommentUser = (data) => {
+    data.comments.forEach(comment => {
+        if(comment.user)
+            comment.user.password = null;
+    });
+    return data;
 }

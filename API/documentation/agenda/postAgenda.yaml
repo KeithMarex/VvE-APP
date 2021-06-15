@@ -1,0 +1,34 @@
+post:
+  summary: Adds agenda item to the database
+  description: |
+    __enddate__ is optional, only used for appointments that last longer than a day and require such a notation.
+  tags:
+    - Agenda
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+            date:
+              type: Date
+            enddate:
+              type: Date
+          required:
+            - title
+            - description
+            - date
+  responses:
+    '201':
+      description: Receiving created Agenda Item
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Agenda.yaml
+    '400':
+      description: validation error

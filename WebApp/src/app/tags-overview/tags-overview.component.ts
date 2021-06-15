@@ -13,11 +13,11 @@ export class TagsOverviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAdd() {
+  onAdd(): void {
     this.creatingTag = true;
   }
 
-  onClose() {
+  onClose(): void {
     this.creatingTag = false;
   }
 

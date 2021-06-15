@@ -1,46 +1,58 @@
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
+import Emailcredentials from '~/models/Emailcredentials';
 import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
+import handlebars from 'handlebars';
 import User from "~/models/User";
+import path from 'path'
+import Organization from "~/models/Organization";
 
-export const getHTML = async function(fileName){
-    const pathToHtml = "./html/";
-    
-    return readFileSync(pathToHtml + fileName, 'utf8');;
+// Needed to initialize the model
+Emailcredentials.count();
+
+export const getHTML = async (fileName: String) => {
+    const filePath = path.join(__dirname, `../html/${fileName}.html`);
+    return readFileSync(filePath, 'utf-8').toString();
 }
 
-export const getAllBoardMemberMails = async function() {
-    let emailComposition = [];
-
-    await User.find({ role: 'admin'}, "email", {}, function(err, docs){ // was async
-        if (!docs.length) return;
-        docs.forEach(function(user) {
-            emailComposition.push(user["email"]);
-        });
-    });
-    return emailComposition;   
-}
-
-export const getMailFromCreatorObject = async function(creatorObject) {
-    const usermail = await User.find({_id: creatorObject}, "email");
-    return usermail[0]['email'];
-}
-
-export const sendMail = async function(subject, htmlFilePath, emailList) {
-    if(!emailList.length || !process.env.MAIL_USER || !process.env.MAIL_PASS) return;
+export const sendMail = async(subject: String, info: any, htlm: String) => {
+    let source = await getHTML(htlm);
+    source = addAttributes(source, info);
+    let email = info.email || await getEmail(info._id);
     mailTransporter.sendMail({
         from: process.env.MAIL_USER,
-        to: emailList,
+        to: email,
         subject: subject,
-        html: await getHTML(htmlFilePath)
+        html: source
     });
 }
 
-export const sendMailToBestuur = async function (subject, htmlFilePath) {
-    sendMail(subject, htmlFilePath, await getAllBoardMemberMails());
+export const sendAdminMail = async(subject: String, info: any, htlm: String) => {
+    let source = await getHTML(htlm);
+    source = addAttributes(source, info);
+    let email = await getAdminEmail(info.organization);
+    mailTransporter.sendMail({
+        from: process.env.MAIL_USER,
+        to: email,
+        subject: subject,
+        html: source
+    });
 }
 
-export const sendMailToBewoner = async function (subject, htmlFilePath, bewonerID) {
-    sendMail(subject, htmlFilePath, await getMailFromCreatorObject(bewonerID));
+const addAttributes = (source, attributes) => {
+    const template = handlebars.compile(source);
+    source = template(attributes);
+    return source;
+}
+
+const getEmail = async (userId) => {
+    const email = await User.findOne({_id: userId}, "email");
+    return email["email"];
+}
+
+const getAdminEmail = async (organizationId) => {
+    const email = await Organization.findById(organizationId).populate("emailcredentials");
+    return email["emailcredentials"]["email"];
 }
 
 export const mailTransporter = nodemailer.createTransport({

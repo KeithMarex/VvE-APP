@@ -1,1 +1,28 @@
-<p>account-management works!</p>
+<div appColoring>
+    <header>
+        <h1>Accounts</h1>
+    </header>
+    <body>
+        <section class="button-section">
+            <button appColoring colorElement="backgroundColor" id="add-user-button" class="icon-button dropdown-button">Toevoegen
+                <span class="button-dropdown" appColoring>
+                    <div class="top-option">
+                        <p>CSV importeren</p>
+                    </div>
+                    <hr>
+                    <div class="bottom-option" (click)="onAddUser()">
+                        <p>Gebruiker toevoegen</p>
+                    </div>
+                </span>
+            </button>
+            <p>TODO search component</p>
+        </section>
+        <section class="content-section">
+            <app-account-list></app-account-list>
+        </section>
+        <app-popup *ngIf="creatingUser" title="Account toevoegen" (closed)="onClose()">
+            <app-account-creator></app-account-creator>
+        </app-popup>
+    </body>
+</div>
+

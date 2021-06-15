@@ -16,7 +16,7 @@ export class Dao {
     sendPostRequest(urlPath: string, body: unknown): Observable<any> {
       return this.http.post<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }
-    
+
     sendPostRequestForm(urlPath: string, body: unknown): Observable<any> { // TODO rewrite
       return this.http.post<any>(this.dbAddress + urlPath, body, { withCredentials: true });
     }
@@ -25,16 +25,8 @@ export class Dao {
       return this.http.put<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }
 
-    sendDeleteRequest(urlPath: string, body: unknown): Observable<any> {
+    sendDeleteRequest(urlPath: string): Observable<any> {
       return this.http.delete<any>(this.dbAddress + urlPath, this.generateOptions());
-    }
-
-    //TODO remove
-    forceLogin() {
-      this.sendPostRequest('user/login', {
-        "email": "admin@test.com",
-        "password": "test"
-      }).subscribe();
     }
 
     private generateOptions(): { headers: HttpHeaders, withCredentials: boolean } {

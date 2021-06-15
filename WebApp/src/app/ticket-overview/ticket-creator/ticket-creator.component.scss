@@ -1,6 +1,7 @@
 @import "../../../utilities/button.scss";
 
 section > form {
+    color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -56,9 +57,9 @@ section > form {
         align-self: flex-end;
         margin: 1rem 0;
         background-color: #498fc0;
+    }
 
-        &:disabled {
-            filter:saturate(50%);
-        }
+    .error-text {
+        color: red;
     }
 }

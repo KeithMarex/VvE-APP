@@ -1,0 +1,15 @@
+get:
+  summary: Returns the next agenda item from today.
+  tags:
+    - Agenda
+  responses:
+    '200':
+      description: Next agenda item from today
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/Agenda.yaml
+    '404':
+      description: Agenda does not exists
+    '500':
+      description: Error trying to get Agenda

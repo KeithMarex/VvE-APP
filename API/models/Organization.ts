@@ -19,8 +19,8 @@ const OrganizationSchema = new Schema({
     },
     emailcredentials: {
         type: Schema.Types.ObjectId,
-        ref: "Organization",
-        required: [true, 'An organization needs to be connected to a email']
+        ref: "Emailcredentials",
+        required: [true, 'An organization needs to be connected to an email']
     },
     Theme: {
         primarycolor: {

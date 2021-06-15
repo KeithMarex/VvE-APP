@@ -1,5 +1,9 @@
 post:
   summary: Adds comment to the database and ticket
+  description: |
+    __ticketID__ is required for the API to push the comment onto the right ticket object. <br>
+    If no __ticketID__ is sent, the api cannot attach the comment to a ticket. <br>
+    Be sure to send correct naming __ticketID__
   tags:
     - Comment
   requestBody:
@@ -11,14 +15,14 @@ post:
           properties:
             comment:
               type: string
-            user:
-              type: string ObjectId
             images:
               type: string
               format: binary
+            ticketID:
+              type: string ObjectId
           required:
             - comment
-            - user
+            - ticketID
   responses:
     '201':
       description: Receiving created comment

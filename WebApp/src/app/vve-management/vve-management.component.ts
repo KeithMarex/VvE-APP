@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @Component({
   selector: 'app-vve-management',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vve-management.component.scss']
 })
 export class VveManagementComponent implements OnInit {
+  primaryColor = this.dataStorageService.getPrimaryColor();
+  secondaryColor = this.dataStorageService.getSecondaryColor();
 
-  constructor() { }
+  constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
+  }
+
+  onChangeStyling(form: NgForm) {
+    const formValues = form.value;
+
+    this.dataStorageService.setPrimaryColor(formValues.primaryColor);
+    this.dataStorageService.setSecondaryColor(formValues.secondaryColor);
+
+    window.location.reload();
   }
 
 }
