@@ -25,6 +25,7 @@
     "moment": "^2.29.1",
     "ng-inline-svg": "^13.0.0",
     "ngx-daterangepicker-material": "^4.0.1",
+    "ngx-quill": "^14.0.0",
     "rxjs": "^6.6.7",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
