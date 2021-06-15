@@ -22,10 +22,6 @@ put:
               type: string
   responses:
     '200':
-      description: Receiving updated tag
-      content:
-        application/json:
-          schema:
-            $ref: ../definitions/Tag.yaml
+      description: Successfull
     '400':
       description: validation error

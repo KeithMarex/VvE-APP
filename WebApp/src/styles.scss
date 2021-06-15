@@ -1,5 +1,6 @@
+@import "node_modules/angular-calendar/scss/angular-calendar.scss";
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-@import "../src/utilities/colors.scss";
+@import "utilities/index.scss";
 
 * {
     margin: 0;
@@ -13,7 +14,6 @@ html {
 
 header {
     h1 {
-        color: $primary-color;
         font-size: 200%;
         font-weight: 700;
         margin-bottom: 10px !important;
@@ -44,3 +44,11 @@ header {
 :host app-popup {
     height: auto;
 }
+
+.svg-element {
+    stroke: currentColor;
+    fill: white;
+}
+
+@include date-picker();
+@include calendar();

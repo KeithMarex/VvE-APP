@@ -4,17 +4,14 @@ import {
     Text,
     StyleSheet,
     Dimensions,
-    Image,
     TextInput,
     TouchableOpacity,
     Keyboard,
     TouchableWithoutFeedback,
-    Alert
 } from "react-native";
 import Mail from '../../resources/icons/login/Mail.svg';
 import isEmail from 'validator/lib/isEmail';
 import ApiHelper from "../../util/ApiHelper";
-import UserModel from "../../models/user.model";
 import {Logo} from "../../resources";
 
 const ss = Dimensions.get('window');
@@ -31,7 +28,7 @@ const LoginForgot = (props) => {
             props.navigation.navigate('login');
             alert('Als er een geldig account is gekoppeld aan het opgegeven email adres zal u spoedig een mail ontvangen.');
         }).catch(() => {
-            alert('Er is geen account gekoppeld aan het opgegeven email adres');;
+            alert('Er is geen account gekoppeld aan het opgegeven email adres', 'dsad');
         })
     }
 
@@ -109,7 +106,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#EFF0F7',
         borderRadius: 10,
-        marginBottom: Dimensions.get('window').height / 30 * 1,
+        marginBottom: Dimensions.get('window').height / 30,
         width: Dimensions.get('window').width / 10 * 7,
     }
 });

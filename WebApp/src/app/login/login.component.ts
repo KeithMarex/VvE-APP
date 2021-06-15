@@ -1,4 +1,5 @@
 import { AuthDao } from '../../shared/services/auth-dao.service';
+import { DataStorageService } from '../../shared/services/data-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -13,8 +14,9 @@ import { User } from 'src/shared/models/user.model';
 
 export class LoginComponent implements OnInit {
   isLoading: boolean;
+  userName: string;
 
-  constructor(private authDao: AuthDao, private router: Router) { }
+  constructor(private authDao: AuthDao, private router: Router, private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (user: User) => {
           if (user.role == 'admin') {
+            this.dataStorageService.setLoggedInUserId(user._id);
             this.router.navigate(['/ticket-overview']);
           }
           else {
