@@ -1,0 +1,7 @@
+@import "../utilities/colors.scss";
+@import "../utilities/button.scss";
+
+button {
+    @include button;
+    background-color: currentColor;
+}
