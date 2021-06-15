@@ -4,6 +4,7 @@ import { AccountManagementComponent } from './account-management/account-managem
 import { CalendarOverviewComponent } from './calendar-overview/calendar-overview.component';
 import { LoginComponent } from './login/login.component';
 import { NewsOverviewComponent } from './news-overview/news-overview.component';
+import { NewsCreateComponent } from './news-create/news-create.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { TicketOverviewComponent } from './ticket-overview/ticket-overview.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'account-management', component: AccountManagementComponent },
   { path: 'calendar', component: CalendarOverviewComponent },
   { path: 'news-overview', component: NewsOverviewComponent },
+  { path: 'news-create', component: NewsCreateComponent },
   { path: 'ticket-overview', component: TicketOverviewComponent },
   { path: 'vve-management', component: VveManagementComponent },
   { path: 'tags-overview', component: TagsOverviewComponent },
