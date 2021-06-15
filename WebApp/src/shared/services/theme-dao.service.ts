@@ -11,8 +11,8 @@ export class ThemeDao {
 
     getTheme(): Observable<Theme> {
         return this.dao.sendGetRequest('organization/theme')
-        .pipe(map((response: Theme) => {
-            return response;
+        .pipe(map((response: {Theme: Theme, id: string}) => {
+            return response.Theme;
         }));
     };
 

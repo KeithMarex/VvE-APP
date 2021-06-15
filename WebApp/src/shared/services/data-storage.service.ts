@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Theme } from "../models/theme.model";
+import { JsonParserService } from "./json-parser.service";
 import { ThemeDao } from "./theme-dao.service";
 
 @Injectable({
@@ -36,26 +37,29 @@ export class DataStorageService {
         localStorage.setItem('userId', user);
     }
 
-    getTheme(): any {
+    getTheme(): Theme {
         var theme = this.getThemeFromStorage();
 
         if (!theme) {
             this.themeDao.getTheme()
             .subscribe(res => {
-                console.log('fetching theme from db');
                 this.setTheme(res);
+                return;
             })
         }
-        else {
-            this.setTheme(theme);
-        }
+
+        return theme;
     }
 
     getThemeFromStorage(): any {
-        var storedTheme = this.getValueFromStorage('theme');
+        var storedJsonTheme = this.getValueFromStorage('Theme');
+        var storedTheme = new Theme('#000000', '#000000')
 
-        if (storedTheme) {
-            storedTheme = JSON.parse(storedTheme);
+        if (storedJsonTheme) {
+
+            storedTheme = JsonParserService.toObjectInstance(storedTheme, storedJsonTheme);
+
+            console.log(storedTheme.primarycolor);
         }
 
         return storedTheme;
@@ -63,7 +67,7 @@ export class DataStorageService {
 
     setTheme(theme: Theme) {
         this.theme = theme;
-        localStorage.setItem('theme', JSON.stringify(this.theme));
+        localStorage.setItem('Theme', JSON.stringify(this.theme));
         this.setColors();
     }
 
