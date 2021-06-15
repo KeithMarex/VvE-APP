@@ -1,5 +1,5 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions} from 'react-native'
-import React from 'react'
+import {Dimensions, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native'
+import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import PageLogo from '../../components/PageLogo'
 import Button from '../../components/Button'
@@ -9,7 +9,16 @@ import ApiHelper from "../../util/ApiHelper";
 const window = Dimensions.get('window')
 
 const TicketDetails = (props) => {
-    const { ticket } = props.route.params
+    const [ticket, setTicket] = useState(null)
+
+    useEffect(() => {
+        const inputTicket = props.route.params.ticket
+        ApiHelper.get('/ticket/' + inputTicket._id)
+            .then((res) => {
+                inputTicket.comments = res.data.comments
+                setTicket(inputTicket)
+            })
+    }, [])
 
     const showImages = () => {
         props.navigation.navigate('ShowImages', { ticket });
@@ -23,29 +32,29 @@ const TicketDetails = (props) => {
                     <PageLogo/>
 
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
-                        { ticket.title }
+                        { ticket?.title }
                     </StyledText>
                     <View style={styles.ticketInfo}>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Aangemaakt op: { ticket.parsedCreatedAt }
+                            Aangemaakt op: { ticket?.parsedCreatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Laatste wijziging: { ticket.parsedUpdatedAt }
+                            Laatste wijziging: { ticket?.parsedUpdatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
-                            Status: { ticket.parsedStatus }
+                            Status: { ticket?.parsedStatus }
                         </StyledText>
                     </View>
 
-                    {ticket.images.length !== 0 &&
-                    <View style={styles.ticketSection}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            Uw afbeeldingen
-                        </StyledText>
-                        <Button pressAction={() => {showImages()}}>
-                            Afbeeldingen inzien
-                        </Button>
-                    </View>
+                    {ticket?.images.length !== 0 &&
+                        <View style={styles.ticketSection}>
+                            <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
+                                Uw afbeeldingen
+                            </StyledText>
+                            <Button pressAction={showImages}>
+                                Afbeeldingen inzien
+                            </Button>
+                        </View>
                     }
 
                     <View style={styles.ticketSection}>
@@ -53,7 +62,7 @@ const TicketDetails = (props) => {
                             Bericht
                         </StyledText>
                         <StyledText inputStyle={styles.ticketContent}>
-                            { ticket.description }
+                            { ticket?.description }
                         </StyledText>
                     </View>
 
@@ -61,7 +70,11 @@ const TicketDetails = (props) => {
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
                             Opmerkingen
                         </StyledText>
-                        <TicketCommentBox ticket={ticket}/>
+                        {
+                            (!!ticket) && (
+                                <TicketCommentBox ticket={ticket} key={ticket.comments}/>
+                            )
+                        }
                     </View>
                 </View>
             </ScrollView>
