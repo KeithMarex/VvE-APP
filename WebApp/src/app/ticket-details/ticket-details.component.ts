@@ -47,6 +47,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.getActiveTicket();
     this.getTicketCreator();
     this.getTags();
+    this.getSelectedTag();
     this.getSelectedStatus();
     this.getAssignees();
     this.getSelectedAssignee();
@@ -99,7 +100,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     .subscribe((incomingtags: Tag[]) => {
       this.tags = incomingtags;
       })
-      this.getSelectedTag();
   }
 
   getSelectedTag(): void {
@@ -185,7 +185,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     //   }
     // );
   }
-  
+
   submitComment(form: NgForm): void {
     const formData = new FormData();
     this.inputCommentText = form.value.inputCommentText;
