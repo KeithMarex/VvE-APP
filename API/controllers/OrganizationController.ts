@@ -32,9 +32,9 @@ export const getOrganizationTheme = (req, res: Response ) => {
 
 export const putOrganizationTheme = (req, res: Response ) => {
     const body = validateTheme(req.body);
-    Organization.updateOne({ _id: res.locals.user.organizations[0] }, body)
+    Organization.updateOne({ _id: Types.ObjectId(res.locals.user.organizations[0]) }, {"$set": body})
     .then ( () => {
-        res.status(200).json({ message: "success" })
+        res.status(200).json({ message: "Success" })
     })
     .catch( err => {
         logger.error(err);
