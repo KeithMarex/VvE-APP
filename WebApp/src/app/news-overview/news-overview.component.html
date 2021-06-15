@@ -1,1 +1,11 @@
-<p>news-overview works!</p>
+<header>
+  <h1>Nieuws</h1>
+</header>
+<div class="news">
+  <section class="button-section">
+    <button (click)="onCreateNewsClicked()">Nieuw</button>
+  </section>
+  <section class="content-section">
+    <app-news-item-list></app-news-item-list>
+  </section>
+</div>

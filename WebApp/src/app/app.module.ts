@@ -55,6 +55,7 @@ import { CalendarComponent } from './calendar-overview/calendar/calendar.compone
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
 import { CalendarService } from './calendar-overview/calendar/calendar.service';
 import { CalendarItemDetailsComponent } from './calendar-overview/calendar/calendar-item-details/calendar-item-details.component';
+import { NewsItemListComponent } from './news-overview/news-item-list/news-item-list.component';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -97,6 +98,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarComponent,
     CalendarItemCreatorComponent,
     CalendarItemDetailsComponent,
+    NewsItemListComponent,
   ],
   imports: [
     BrowserModule,
