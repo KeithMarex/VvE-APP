@@ -4,6 +4,7 @@
     </header>
     <body>
         <section class="personalization">
+            <h2>Personalisatie</h2>
             <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
                 <div class="color-picker-container">
                     <p>Primaire kleur</p>
@@ -25,6 +26,9 @@
                 <br>
                 <button type="submit" appColoring colorElement="backgroundColor">Update styling</button>
             </form>
+        </section>
+        <section class="Information">
+            <h2>Woninginformatie</h2>
         </section>
     </body>
 </div>
