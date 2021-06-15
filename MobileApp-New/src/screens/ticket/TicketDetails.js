@@ -54,7 +54,7 @@ const TicketDetails = (props) => {
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
                             Opmerkingen
                         </StyledText>
-                        <TicketCommentBox comments={ticket.comments}/>
+                        <TicketCommentBox ticket={ticket}/>
                     </View>
                 </View>
             </ScrollView>

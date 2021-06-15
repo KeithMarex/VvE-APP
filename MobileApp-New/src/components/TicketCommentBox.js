@@ -5,24 +5,32 @@ import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
 import { PlusIcon } from '../resources'
+import ApiHelper from "../util/ApiHelper";
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
-    const [comments, setComments] = useState(props.comments)
-    let commentInputRef = createRef()
+    const [comments, setComments] = useState(props.ticket.comments)
 
-    const sendComment = () => {
+    const sendComment = async () => {
         if (!commentInputText) return
         const newComment = {
             comment: commentInputText,
         }
-        setComments([...comments, newComment])
-        Keyboard.dismiss()
-        clearCommentInput()
+
+        const fd = new FormData
+        fd.append('ticketID', props.ticket._id)
+        fd.append('comment', commentInputText)
+        // fd.append('images', null)
+        await ApiHelper.post('/comment', fd, {'content-type': 'multipart/form-data'})
+            .then(() => {
+                setComments([...comments, newComment])
+                Keyboard.dismiss()
+                clearCommentInput()
+            })
     }
 
     const clearCommentInput = () => {
-        commentInputRef.clear()
+        // commentInputRef.clear()
         onCommentInputText('')
     }
 
@@ -49,7 +57,6 @@ const TicketCommentBox = (props) => {
                 <TextInput
                     style={styles.commentInputField}
                     onChangeText={ onCommentInputText }
-                    ref={input => {commentInputRef = input}}
                     placeholder={'Typ hier uw opmerking'}
                     multiline
                 />
