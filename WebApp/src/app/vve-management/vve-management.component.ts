@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
+import { ThemeDao } from 'src/shared/services/theme-dao.service';
 
 @Component({
   selector: 'app-vve-management',
@@ -11,7 +12,7 @@ export class VveManagementComponent implements OnInit {
   primaryColor = this.dataStorageService.getPrimaryColor();
   secondaryColor = this.dataStorageService.getSecondaryColor();
 
-  constructor(private dataStorageService: DataStorageService) { }
+  constructor(private dataStorageService: DataStorageService, private themeDao: ThemeDao) { }
 
   ngOnInit(): void {
   }
@@ -19,10 +20,20 @@ export class VveManagementComponent implements OnInit {
   onChangeStyling(form: NgForm) {
     const formValues = form.value;
 
-    this.dataStorageService.setPrimaryColor(formValues.primaryColor);
-    this.dataStorageService.setSecondaryColor(formValues.secondaryColor);
+    var newTheme =
+    {
+      "primarycolor": formValues.primaryColor,
+      "secondarycolor": formValues.secondaryColor
+    }
 
-    window.location.reload();
+    this.themeDao.updateTheme(newTheme)
+    .subscribe(() => {
+      this.dataStorageService.setTheme(newTheme);
+
+      window.location.reload();
+    });
   }
+
+
 
 }
