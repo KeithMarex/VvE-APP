@@ -1,0 +1,15 @@
+get:
+  summary: Returns the organization the user is in.
+  tags:
+    - Organization
+  responses:
+    '200':
+      description: Organization object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../definitions/Organization.yaml
+    '500':
+      description: Error while returning organization

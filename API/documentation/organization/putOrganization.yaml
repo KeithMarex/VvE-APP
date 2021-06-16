@@ -1,0 +1,24 @@
+put:
+  summary: Updates the name or logo of the organization.
+  description: |
+    This request can take both name and logo as attributes to update, however not both are required.<br>
+    <b>Example:</b> It is possible to only change the logo of an organization, without changing its name.
+  tags:
+    - Organization
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            logo:
+              type: string
+              format: binary
+  responses:
+    '200':
+      description: Successfully updated given attributes.
+    '500':
+      description: Error trying to update the name or logo.
