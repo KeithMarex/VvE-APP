@@ -1,4 +1,4 @@
-<div class="container">
+<div appColoring class="container">
     <section class="left-block">
         <div class="top-section">
             <div class="dot" [ngStyle]="{'background-color':tag.color}"></div>
@@ -12,10 +12,10 @@
 
     <section class="right-block">
         <div class="edit-button">
-            <button class="icon-button">Wijzigen</button>
+            <button appColoring colorElement="backgroundColor" colorStyle="secondary" class="icon-button">Wijzigen</button>
         </div>
         <div class="delete-button">
-            <button class="icon-button">Verwijderen</button>
+            <button appColoring colorElement="backgroundColor" class="icon-button">Verwijderen</button>
         </div>
     </section>
 </div>

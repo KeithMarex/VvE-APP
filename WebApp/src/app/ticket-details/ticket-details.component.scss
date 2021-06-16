@@ -59,7 +59,7 @@ header {
 body {
     display: flex;
     flex-direction: column;
-    width: 85vw;
+    width: 100%;
     
     h1 {
         font-size: 150%;
@@ -211,7 +211,7 @@ body {
                     width: 0px;
                 }
 
-                .send-logo {
+                #send-logo {
                     margin-top: 7px;
                     background-color: white;
                 }
