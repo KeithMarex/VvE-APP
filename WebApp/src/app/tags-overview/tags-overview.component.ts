@@ -21,4 +21,9 @@ export class TagsOverviewComponent implements OnInit {
     this.creatingTag = false;
   }
 
+  createTag(): void {
+    this.creatingTag = false;
+    window.location.reload();
+  }
+
 }

@@ -1,0 +1,72 @@
+@import "../../../utilities/button.scss";
+
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    margin: auto;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    text-align: center;
+    font-size: 100%;
+    font-weight: 700;
+}
+
+input {
+    text-align: center;
+}
+
+.light-text {
+    color: #A0A3BD;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.color-picker {
+    
+
+    input {
+        border: none;
+        outline: none;
+        height: 1.8rem;
+        width: 2.5rem;
+        margin-right: 0.5rem;
+    }
+
+    input::-webkit-color-swatch {
+        border: none;
+        border-radius: 3rem;
+    }
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 1rem;
+    border: none;
+    // border-bottom: 1px solid #C6C6C8;
+    font-family: inherit;
+    font-size: 110%;
+    color: black;
+}
+
+button {
+    @include button;
+    
+    margin: 2rem 0;
+    background-color: #498fc0;
+}
+
+.error-text {
+    margin-top: 5px;
+    color: red;
+}

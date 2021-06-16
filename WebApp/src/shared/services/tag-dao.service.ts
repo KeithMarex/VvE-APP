@@ -16,8 +16,8 @@ export class TagDao {
         }));
     };
 
-    createTag(tagData: FormData): Observable<any> {
-      return this.dao.sendPostRequestForm('tag/', tagData);
+    createTag(tag: Tag): Observable<any> {
+      return this.dao.sendPostRequestForm('tag/', tag);
     }
 
     deleteTag(tagId: string): Observable<any> {

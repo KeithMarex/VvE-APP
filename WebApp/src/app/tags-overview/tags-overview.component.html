@@ -9,8 +9,8 @@
         <section class="content-section">
             <app-tag-list></app-tag-list>
         </section>
-        <app-popup *ngIf="creatingTag" title="Tag aanmaken" (closed)="onClose()">
-            <app-tag-creator></app-tag-creator>
+        <app-popup class="ticket-creator" *ngIf="creatingTag" title="Tag aanmaken" (closed)="onClose()" [fitContent]="true" [small]="true">
+            <app-tag-creator (tagCreated)="createTag($event)"></app-tag-creator>
         </app-popup>
     </body>
 </div>

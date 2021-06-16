@@ -1,2 +1,17 @@
-<p>tag-creator works!</p>
-<button (click)="createTag()">Nieuw</button>
+<div class="container">
+    <form class="form-group" #tagForm="ngForm" (ngSubmit)="createTag(tagForm)">
+        <h1>Kies een naam</h1>
+        <div class="name">
+            <input class="name" type="name" id="name" name="name" placeholder="Kies een naam" ngModel required>
+        </div>
+        <h1>Kies een kleur</h1>
+        <div class="color-picker">
+            <div class="color-picker">
+                <input type="color" id="tag-color" name="tagColor" [(ngModel)]="tagColor">
+                <label for="tag-color" class="light-text">{{ tagColor }}</label>
+            </div>
+        </div>
+        <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <button type="submit" appColoring colorElement="backgroundColor">Aanmaken</button>
+    </form>
+</div>

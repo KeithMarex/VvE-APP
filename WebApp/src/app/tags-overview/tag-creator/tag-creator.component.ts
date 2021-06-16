@@ -10,24 +10,34 @@ import { TagDao } from 'src/shared/services/tag-dao.service';
 export class TagCreatorComponent implements OnInit {
   @Output() tagCreated = new EventEmitter();
   errorMessage: string;
+  tagColor: string;
 
   constructor(private tagDao: TagDao) { }
 
   ngOnInit(): void {
   }
 
-  onCreateTag(form: NgForm) {
+  createTag(form: NgForm) {
     const formValues = form.value;
-    
-    //TODO send post request with formValues
-  }
+    if (formValues.name.length > 10) {
+      this.errorMessage = "Naam is te lang";
+      return;
+    }
 
-  createTag() {
-    console.log("tag maken")
-    const mForm = new FormData();
+    if (!formValues.name) {
+      this.errorMessage = "Naam mag niet leeg zijn";
+      return;
+    }
 
-    mForm.append('name', "test Tag");
-    mForm.append('color', "#D90600");
+    if (!formValues.tagColor) {
+      this.errorMessage = "Kleur mag niet leeg zijn";
+      return;
+    }
+
+    var mForm = {
+      "name" : formValues.name,
+      "color" : formValues.tagColor
+    }
 
     this.tagDao.createTag(mForm)
     .subscribe(
@@ -37,7 +47,7 @@ export class TagCreatorComponent implements OnInit {
       errorRes => {
         let incomingErrorMessage = errorRes.error.message;
         if (incomingErrorMessage) {
-          this.errorMessage = errorRes.error.message;
+          this.errorMessage = 'Er is een onbekende error opgetreden';
         } else {
           this.errorMessage = 'Er is een onbekende error opgetreden';
         }
