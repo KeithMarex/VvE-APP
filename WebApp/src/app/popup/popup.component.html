@@ -1,9 +1,9 @@
 <div class="{{
     'popup' + (fitContent ? ' popup-fit-content' : ' popup-fixed') + ' '
     + (small ? 'popup-small' : undefined)
-}}" appColoring>
+}}">
     <div class="container">
-        <div appColoring colorElement="border-color" colorStyle="secondary" class="top-bar">
+        <div class="top-bar">
             <h2>{{ title }}</h2>
             <button id="close-button" (click)="onClose()"></button>
         </div>

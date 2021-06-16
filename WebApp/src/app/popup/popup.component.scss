@@ -1,4 +1,4 @@
-@import "../../utilities/effects.scss";
+@import "../../utilities/index.scss";
 
 .popup {
   padding: 30px;
@@ -31,10 +31,11 @@
       flex-direction: row;
       justify-content: space-between;
       padding: 1.2rem .5rem 1rem 2.5rem;
-      border-bottom: 1px solid;
+      border-bottom: 1px solid $dynamic-secondary;
     }
 
     h2 {
+      color: $dynamic-primary;
       padding: 0;
     }
 
