@@ -7,7 +7,7 @@ export const postNews = (req, res) => {
 
     news.save()
     .then(result => {
-        res.status(200).send(result);
+        res.status(201).send(result);
     })
     .catch(err => {
         logger.error(err);
