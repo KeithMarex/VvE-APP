@@ -72,6 +72,7 @@ export class CalendarComponent implements OnInit {
       const foundFetchedMonthItems =
         this.calendarService.overwriteWithNewMonthItems(newDate, oldDate);
       if (foundFetchedMonthItems) {
+        this.currentMonth = newDate;
         return;
       }
     }

@@ -58,23 +58,24 @@ export class CalendarService {
   fetchMonthAndSurroundingMonthsItems(date: Date): void {
     let calendarItemsWithSurroundingMonths = [];
 
-    this.findOrFetchMonthItems(date).then((thisMonthItems) => {
-      calendarItemsWithSurroundingMonths =
-        calendarItemsWithSurroundingMonths.concat(thisMonthItems);
+    this.findOrFetchMonthItems(date)
+      .then((thisMonthItems) => {
+        calendarItemsWithSurroundingMonths =
+          calendarItemsWithSurroundingMonths.concat(thisMonthItems);
 
-      this.findOrFetchMonthItems(subMonths(date, 1))
-        .then((prevMonthItems) => {
-          calendarItemsWithSurroundingMonths =
-            calendarItemsWithSurroundingMonths.concat(prevMonthItems);
+        this.findOrFetchMonthItems(subMonths(date, 1))
+          .then((prevMonthItems) => {
+            calendarItemsWithSurroundingMonths =
+              calendarItemsWithSurroundingMonths.concat(prevMonthItems);
 
-          this.findOrFetchMonthItems(addMonths(date, 1))
-            .then((nextMonthItems) => {
-              calendarItemsWithSurroundingMonths =
-                calendarItemsWithSurroundingMonths.concat(nextMonthItems);
+            this.findOrFetchMonthItems(addMonths(date, 1))
+              .then((nextMonthItems) => {
+                calendarItemsWithSurroundingMonths =
+                  calendarItemsWithSurroundingMonths.concat(nextMonthItems);
 
-              this.setCalendarItems(calendarItemsWithSurroundingMonths);
-            });
-        });
+                this.setCalendarItems(calendarItemsWithSurroundingMonths);
+              });
+          });
     });
   }
 
@@ -95,30 +96,35 @@ export class CalendarService {
   }
 
   storeFetchedMonth(month: Date): void {
-    let monthIsStored = false;
-    this.fetchedMonths.forEach((fetchedMonth) => {
-      if (isSameMonth(fetchedMonth.month, month)) {
-        monthIsStored = true;
-      }
-    });
-    if (!monthIsStored) {
+    if (!this.monthIsStored(month)) {
       this.fetchedMonths.push({
         month,
-        calendarItems: this.calendarItems.getValue()
+        calendarItems: this.calendarItems.getValue().filter(calendarItem =>
+          isSameMonth(new Date(calendarItem.date), month)
+        )
       });
     }
   }
 
-  findOrFetchMonthItems(prevMonth: Date): Promise<CalendarItem[]> {
+  monthIsStored(month: Date): boolean {
+    this.fetchedMonths.forEach((fetchedMonth) => {
+      if (isSameMonth(fetchedMonth.month, month)) {
+        return true;
+      }
+    });
+    return false;
+  }
+
+  findOrFetchMonthItems(month: Date): Promise<CalendarItem[]> {
     return new Promise<CalendarItem[]>((resolve) => {
-      const storedItemsPrevMonth = this.findFetchedCalendarItems(prevMonth);
-      if (!storedItemsPrevMonth) {
-        this.calendarDao.getCalendarItems(this.getFetchMonthString(prevMonth))
-          .subscribe((prevMonthCalItems) => {
-            resolve(prevMonthCalItems);
+      const storedItemsMonth = this.findFetchedCalendarItems(month);
+      if (!storedItemsMonth) {
+        this.calendarDao.getCalendarItems(this.getFetchMonthString(month))
+          .subscribe((monthCalItems) => {
+            resolve(monthCalItems);
           });
       } else {
-        resolve(storedItemsPrevMonth);
+        resolve(storedItemsMonth);
       }
     });
   }
