@@ -92,7 +92,8 @@
                         </div>
                     </div>
                     <div class="second-row">
-                        <h1>Toegewezen persoon</h1>
+                        <h1>Toegewezen persoon
+                        </h1>
                         <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
                             <ng-template dropdownSelected let-selected>
                                 <div class="dropdown-item">
@@ -140,12 +141,12 @@
                     <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
                         <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
                         <label class="file-input">
-                            <img class="image-select-logo" src="assets\icons\Plus.svg">
+                            <div class="svg-element" appColoring colorStyle="secondary" [inlineSVG]="'../../../../assets/icons/Plus.svg'"></div>
                             <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">
                         </label>
                         <div class="submit-button">
                             <button [disabled]="formForm.invalid" class="submit-comment-button">
-                                <img class="send-logo" src="assets\icons\Send.svg">
+                                <div class="svg-element" appColoring colorStyle="secondary" colorElement="fill" [inlineSVG]="'../../../../assets/icons/Send.svg'"></div>
                             </button>
                         </div>
                     </form>
