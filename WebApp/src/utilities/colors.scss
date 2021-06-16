@@ -5,3 +5,11 @@ $background-color: #F7F7FC;
 $default-text-color: #000000;
 $grayscale-color: #6e7191;
 $calendar-selected-color: #ededed;
+
+$dynamic-primary: var(--dynamic-primary);
+$dynamic-secondary: var(--dynamic-secondary);
+
+:root {
+  --dynamic-primary: #ff0000;
+  --dynamic-secondary: #0018ff;
+}
