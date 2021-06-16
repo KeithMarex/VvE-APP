@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-/**
- * Parent component for the calendar
- */
-
 @Component({
   selector: 'app-calendar-overview',
   templateUrl: './calendar-overview.component.html',
