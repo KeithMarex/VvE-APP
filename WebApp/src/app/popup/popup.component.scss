@@ -1,4 +1,4 @@
-@import "../../utilities/effects.scss";
+@import "../../utilities/index.scss";
 
 .popup {
   padding: 30px;
@@ -31,21 +31,25 @@
       flex-direction: row;
       justify-content: space-between;
       padding: 1.2rem .5rem 1rem 2.5rem;
-      border-bottom: 1px solid;
+      border-bottom: 1px solid $dynamic-secondary;
     }
 
     h2 {
+      color: $dynamic-primary;
       padding: 0;
     }
 
     #close-button {
       width: 2rem;
       height: 2rem;
-      padding: 0 1.5rem;
+      margin-right: 1rem;
       border: none;
-      background: url('../../assets/icons/Close.svg') no-repeat;
       cursor: pointer;
-      transform: translateY(-3px);
+      background-color: inherit;
+
+      .svg-element {
+        stroke: $dynamic-primary;
+      }
     }
 
     .content-container {

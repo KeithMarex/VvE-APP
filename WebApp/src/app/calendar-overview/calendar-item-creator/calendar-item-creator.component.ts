@@ -14,10 +14,6 @@ interface CalendarItemPayload {
   enddate: Date;
 }
 
-/**
- * Component for creating and editing calendar items
- */
-
 @Component({
   selector: 'app-calendar-item-creator',
   templateUrl: './calendar-item-creator.component.html',

@@ -65,7 +65,7 @@
   <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"
     [viewDate]="viewDate"
-    [events]="events"
+    [events]="calendarItemsToShow"
     [refresh]="refresh"
     [activeDayIsOpen]="activeDayIsOpen"
     [locale]="locale"
@@ -77,7 +77,7 @@
   <mwl-calendar-week-view
     *ngSwitchCase="CalendarView.Week"
     [viewDate]="viewDate"
-    [events]="events"
+    [events]="calendarItemsToShow"
     [refresh]="refresh"
     [locale]="locale"
     (eventClicked)="showCalendarItemPopUp( $event.event)"
@@ -87,7 +87,7 @@
   <mwl-calendar-day-view
     *ngSwitchCase="CalendarView.Day"
     [viewDate]="viewDate"
-    [events]="events"
+    [events]="calendarItemsToShow"
     [refresh]="refresh"
     [locale]="locale"
     (eventClicked)="showCalendarItemPopUp($event.event)"

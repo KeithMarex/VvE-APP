@@ -1,4 +1,4 @@
-<section>
+<section class="content-area">
     <form (ngSubmit)="onCreateTicket(form)" #form="ngForm">
         <div class="left-side">
             <div class="title-field">
@@ -11,7 +11,6 @@
         <div class="right-side">
             <div class="assignee-field">
                 <h1>Persoon toewijzen</h1>
-                <p>(TODO search component)</p>
             </div>
             <div class="member-select">
                 <select name="assignee" ngModel>
@@ -36,7 +35,7 @@
                 </select>
             </div>
             <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
-            <button appColoring colorElement="backgroundColor" type="submit" [disabled]="form.invalid">Aanmaken</button>
+            <button type="submit" [disabled]="form.invalid">Aanmaken</button>
         </div>
     </form>
 </section>

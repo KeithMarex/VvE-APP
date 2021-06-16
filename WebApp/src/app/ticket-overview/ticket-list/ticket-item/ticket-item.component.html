@@ -1,10 +1,10 @@
 <div class="container">
     <section class="left-block">
         <div class="top-section">
-            <div class="svg-element" appColoring colorElement="stroke" [inlineSVG]="'../../../../assets/icons/members.svg'"></div>
+            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/members.svg'"></div>
             <h1>{{ creator ? creator.firstname + ' ' + creator.lastname : 'Maker kan niet geladen worden' }}</h1>
             <h1 id="comment-count">{{ ticket.comments.length }}</h1>
-            <div class="svg-element" appColoring colorElement="stroke" [inlineSVG]="'../../../../assets/icons/comment.svg'"></div>
+            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/comment.svg'"></div>
         </div>
         <div class="title">
             <h1>{{ ticket.title.length > 180 ? ticket.title.slice(0, 180) + '...' : ticket.title }}</h1>
@@ -29,6 +29,8 @@
                 <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
             </div>
         </div>
-        <button id="details-button" (click)="onEdit()"></button>
+        <button id="details-button" (click)="onEdit()">
+            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/Forward.svg'"></div>
+        </button>
     </section>
 </div>
