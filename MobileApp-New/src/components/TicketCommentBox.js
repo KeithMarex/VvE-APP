@@ -5,6 +5,7 @@ import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
 import { PlusIcon } from '../resources'
+import tr from '../config/languages/translate';
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
@@ -41,7 +42,7 @@ const TicketCommentBox = (props) => {
             {commentsEl.length > 0
                 ? commentsEl
                 : (<StyledText inputStyle={styles.noComments}>
-                        Er zijn nog geen opmerkingen geplaatst
+                        {tr.ticket.noComments}.
                 </StyledText>
             )}
 
@@ -50,7 +51,7 @@ const TicketCommentBox = (props) => {
                     style={styles.commentInputField}
                     onChangeText={ onCommentInputText }
                     ref={input => {commentInputRef = input}}
-                    placeholder={'Typ hier uw opmerking'}
+                    placeholder={tr.ticket.placeholder}
                     multiline
                 />
             </View>
@@ -60,7 +61,7 @@ const TicketCommentBox = (props) => {
                 </TouchableOpacity>
                 { commentInputText.length > 0 && (
                     <Button withArrow style={styles.commentSendButton} pressAction={ sendComment }>
-                        Versturen
+                        {tr.ticket.send}
                     </Button>
                 )}
             </View>
