@@ -47,6 +47,7 @@
         visibility: hidden;
         background-color: #F7F7FC;
         border: 2px solid;
+        border-color: $dynamic-primary;
         border-radius: 1rem;
         width: inherit;
         top: 2.75rem;
@@ -55,6 +56,7 @@
             padding: 0.5rem 1rem;
             text-align: start;
             font-size: 80%;
+            color: $dynamic-primary;
         }
 
         div:hover {
@@ -75,6 +77,7 @@
             border: none;
             border-bottom: 1px solid;
             margin: 0 1rem;
+            color: $dynamic-primary;
         }
     }
 }
