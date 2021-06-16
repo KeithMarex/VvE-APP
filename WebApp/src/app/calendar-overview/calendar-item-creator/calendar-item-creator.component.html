@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <button class="createBtn" type="submit" [disabled]="form.invalid">
+    <button class="createBtn" type="submit" [disabled]="form.invalid" appColoring colorElement="backgroundColor">
       {{ isEditing ? 'Wijzigen' : 'Aanmaken' }}
     </button>
 </form>

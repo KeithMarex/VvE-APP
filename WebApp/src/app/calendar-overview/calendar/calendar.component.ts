@@ -62,6 +62,9 @@ export class CalendarComponent implements OnInit {
     const now = new Date();
     this.currentMonth = now;
     this.fetchMonthItems(now, null);
+
+    document.documentElement.style.setProperty('--dynamic-primary', '#1800ff');
+    document.documentElement.style.setProperty('--dynamic-secondary', '#ff0000');
   }
 
   fetchMonthItems(newDate: Date, oldDate: Date): void {
