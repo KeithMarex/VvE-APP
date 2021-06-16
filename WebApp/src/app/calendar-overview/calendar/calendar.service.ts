@@ -17,12 +17,6 @@ interface FetchedMonth {
 export class CalendarService {
   calendarItems = new BehaviorSubject<CalendarItem[]>([]);
   fetchedMonths: FetchedMonth[] = []; // For storing months that have already been fetched
-  colors: any = {
-    primary: {
-      primary: '#441C62',
-      secondary: '#441C6226', // Primary with 15% opacity (hex+26)
-    },
-  };
 
   constructor() { }
 
@@ -48,7 +42,6 @@ export class CalendarService {
       title: calItem.title,
       description: calItem.description,
       id: calItem._id,
-      color: this.colors.primary,
       allDay,
       actions,
       resizable: {
