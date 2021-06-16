@@ -11,6 +11,7 @@ import { ThemeDao } from 'src/shared/services/theme-dao.service';
 export class VveManagementComponent implements OnInit {
   primaryColor = this.dataStorageService.getPrimaryColor();
   secondaryColor = this.dataStorageService.getSecondaryColor();
+  logo: string = 'de-nieuwe-wereld-logo.svg'; //TODO replace with file
 
   constructor(private dataStorageService: DataStorageService, private themeDao: ThemeDao) { }
 

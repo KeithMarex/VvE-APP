@@ -1,7 +1,9 @@
 @import "../../utilities/effects.scss";
 @import "../../utilities/button.scss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 body {
+    font-family: Poppins;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -33,10 +35,11 @@ button {
 
 .control-panel {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     margin-left: 15%;
-    gap: 15%;
-    // justify-content: space-between;
+    margin-right: 15%;
+    gap: 20%;
     flex-direction: row;
 
     input[type="file"] {
@@ -121,6 +124,13 @@ button {
     }
     
     .information {
+        flex: 2;
+
+        .files-block {
+            width: 80%;
+            min-height: 50%;
+            background-color: #F7F7FC;
+        }
         
         .custom-file-input {
             display: flex;
