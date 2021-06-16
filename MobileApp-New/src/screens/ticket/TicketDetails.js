@@ -5,7 +5,7 @@ import PageLogo from '../../components/PageLogo'
 import Button from '../../components/Button'
 import TicketCommentBox from '../../components/TicketCommentBox'
 import ApiHelper from "../../util/ApiHelper";
-import tr from '../../config/languages/translate';
+import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
 
@@ -15,6 +15,12 @@ const TicketDetails = (props) => {
     const showImages = () => {
         props.navigation.navigate('ShowImages', { ticket });
     }
+
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     return (
         <SafeAreaView style={styles.root}>
@@ -28,30 +34,30 @@ const TicketDetails = (props) => {
                     </StyledText>
                     <View style={styles.ticketInfo}>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            {tr.ticket.createdOn}: { ticket.parsedCreatedAt }
+                            {tr.ticket?.createdOn}: { ticket.parsedCreatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            {tr.ticket.lastModified}: { ticket.parsedUpdatedAt }
+                            {tr.ticket?.lastModified}: { ticket.parsedUpdatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
-                            {tr.ticket.status}: { ticket.parsedStatus }
+                            {tr.ticket?.status}: { ticket.parsedStatus }
                         </StyledText>
                     </View>
 
                     {ticket.images.length !== 0 &&
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            {tr.ticket.pictures}
+                            {tr.ticket?.pictures}
                         </StyledText>
                         <Button pressAction={() => {showImages()}}>
-                            {tr.ticket.showPictures}
+                            {tr.ticket?.showPictures}
                         </Button>
                     </View>
                     }
 
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            {tr.ticket.message}
+                            {tr.ticket?.message}
                         </StyledText>
                         <StyledText inputStyle={styles.ticketContent}>
                             { ticket.description }
@@ -60,7 +66,7 @@ const TicketDetails = (props) => {
 
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            {tr.ticket.comments}
+                            {tr.ticket?.comments}
                         </StyledText>
                         <TicketCommentBox comments={ticket.comments}/>
                     </View>
