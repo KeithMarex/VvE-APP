@@ -23,7 +23,7 @@ export const getAgenda = (req, res) => {
         $or: [{
             date: {
                 $gte: from,
-                $lte: to
+                $lt: to
             }},
             {
             $and: [{date: {$lte: from}}, {enddate: {$gte: from}}]
