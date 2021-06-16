@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {addMonths, isSameMinute, isSameMonth, subMonths} from 'date-fns';
+import { addMonths, isSameMinute, isSameMonth, subMonths } from 'date-fns';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CustomEvent } from './custom-event';
-import {CalendarDao} from "../../../shared/services/calendar-dao.service";
+import { CalendarDao } from '../../../shared/services/calendar-dao.service';
 
 interface FetchedMonth {
   month: Date;
   calendarItems: CalendarItem[];
 }
 
-/*
- * Manages a local array of calendar items
- */
-
 @Injectable()
 export class CalendarService {
   calendarItems = new BehaviorSubject<CalendarItem[]>([]);
-  fetchedMonths: FetchedMonth[] = []; // For storing months that have already been fetched
+  fetchedMonths: FetchedMonth[] = [];
 
   constructor(private calendarDao: CalendarDao) { }
 
@@ -29,6 +25,125 @@ export class CalendarService {
       event.start,
       event.end
     );
+  }
+
+  updateCalendarItem(calendarItem: CalendarItem): void {
+    const calendarItems = this.calendarItems.getValue();
+    const updatedCalendarItemIndex = calendarItems.findIndex(
+      (item) => item._id === calendarItem._id
+    );
+    calendarItems[updatedCalendarItemIndex] = calendarItem;
+
+    this.calendarItems.next(calendarItems);
+  }
+
+  deleteCalendarItem(calendarItemId: string): void {
+    this.calendarItems.next(
+      this.calendarItems.getValue().filter((calendarItem) => {
+          return calendarItem._id !== calendarItemId;
+        }
+      ));
+  }
+
+  setCalendarItems(calendarItems: CalendarItem[]): void {
+    this.calendarItems.next(calendarItems);
+  }
+
+  addCalendarItem(calendarItem: CalendarItem): void {
+    this.calendarItems.next(
+      this.calendarItems.getValue().concat([calendarItem])
+    );
+  }
+
+  fetchMonthAndSurroundingMonthsItems(date: Date): void {
+    let calendarItemsWithSurroundingMonths = [];
+
+    this.findOrFetchMonthItems(date).then((thisMonthItems) => {
+      calendarItemsWithSurroundingMonths =
+        calendarItemsWithSurroundingMonths.concat(thisMonthItems);
+
+      this.findOrFetchMonthItems(subMonths(date, 1))
+        .then((prevMonthItems) => {
+          calendarItemsWithSurroundingMonths =
+            calendarItemsWithSurroundingMonths.concat(prevMonthItems);
+
+          this.findOrFetchMonthItems(addMonths(date, 1))
+            .then((nextMonthItems) => {
+              calendarItemsWithSurroundingMonths =
+                calendarItemsWithSurroundingMonths.concat(nextMonthItems);
+
+              this.setCalendarItems(calendarItemsWithSurroundingMonths);
+            });
+        });
+    });
+  }
+
+  overwriteWithNewMonthItems(newDate: Date, oldDate: Date): boolean {
+    let foundFetchedMonthItems = false;
+
+    if (!this.calendarItemsIsEmpty()) {
+      this.storeFetchedMonth(oldDate);
+    }
+
+    const foundCalendarItems = this.findFetchedCalendarItems(newDate);
+    if (foundCalendarItems) {
+      this.setCalendarItems(foundCalendarItems);
+      foundFetchedMonthItems = true;
+    }
+
+    return foundFetchedMonthItems;
+  }
+
+  storeFetchedMonth(month: Date): void {
+    let monthIsStored = false;
+    this.fetchedMonths.forEach((fetchedMonth) => {
+      if (isSameMonth(fetchedMonth.month, month)) {
+        monthIsStored = true;
+      }
+    });
+    if (!monthIsStored) {
+      this.fetchedMonths.push({
+        month,
+        calendarItems: this.calendarItems.getValue()
+      });
+    }
+  }
+
+  findOrFetchMonthItems(prevMonth: Date): Promise<CalendarItem[]> {
+    return new Promise<CalendarItem[]>((resolve) => {
+      const storedItemsPrevMonth = this.findFetchedCalendarItems(prevMonth);
+      if (!storedItemsPrevMonth) {
+        this.calendarDao.getCalendarItems(this.getFetchMonthString(prevMonth))
+          .subscribe((prevMonthCalItems) => {
+            resolve(prevMonthCalItems);
+          });
+      } else {
+        resolve(storedItemsPrevMonth);
+      }
+    });
+  }
+
+  findFetchedCalendarItems(month: Date): any {
+    let foundItems = null;
+    this.fetchedMonths.forEach((fetchedMonth) => {
+      if (isSameMonth(fetchedMonth.month, month)) {
+        foundItems = fetchedMonth.calendarItems;
+        return;
+      }
+    });
+    return foundItems;
+  }
+
+  parseCalendarItemsToDisplayable(calItems: CalendarItem[], actions): CustomEvent[] {
+    const parsedEvents: CustomEvent[] = [];
+
+    calItems.forEach((calItem) => {
+      parsedEvents.push(
+        this.calendarItemToCustomEvent(calItem, actions)
+      );
+    });
+
+    return parsedEvents;
   }
 
   calendarItemToCustomEvent(calItem: CalendarItem, actions): CustomEvent {
@@ -55,93 +170,11 @@ export class CalendarService {
     return customEvent[0];
   }
 
-  updateCalendarItem(calendarItem: CalendarItem): void {
-    const calendarItems = this.calendarItems.getValue();
-    const updatedCalendarItemIndex = calendarItems.findIndex(
-      (item) => item._id === calendarItem._id
-    );
-    calendarItems[updatedCalendarItemIndex] = calendarItem;
-
-    this.calendarItems.next(calendarItems);
-  }
-
-  deleteCalendarItem(calendarItemId: string): void {
-    this.calendarItems.next(
-      this.calendarItems.getValue().filter((calendarItem) => {
-          return calendarItem._id !== calendarItemId;
-        }
-      ));
-  }
-
-  setCalendarItems(calendarItems: CalendarItem[]): void {
-    this.calendarItems.next(calendarItems);
-  }
-
-  onFetchCalendarItems(thisMonthCalendarItems: CalendarItem[], date: Date): void {
-    let calendarItemsWithSurroundingMonths = thisMonthCalendarItems;
-
-    this.findOrFetchMonthItems(subMonths(date, 1))
-      .then((prevMonthItems) => {
-        calendarItemsWithSurroundingMonths =
-          calendarItemsWithSurroundingMonths.concat(prevMonthItems);
-
-        this.findOrFetchMonthItems(addMonths(date, 1))
-          .then((nextMonthItems) => {
-            calendarItemsWithSurroundingMonths =
-              calendarItemsWithSurroundingMonths.concat(nextMonthItems);
-
-            this.setCalendarItems(calendarItemsWithSurroundingMonths);
-          });
-      });
-  }
-
-  findOrFetchMonthItems(prevMonth: Date): Promise<CalendarItem[]> {
-    return new Promise<CalendarItem[]>((resolve) => {
-      const storedItemsPrevMonth = this.findFetchedCalendarItems(prevMonth);
-      if (!storedItemsPrevMonth) {
-        this.calendarDao.getCalendarItems(this.getFetchMonthString(prevMonth))
-          .subscribe((prevMonthCalItems) => {
-            resolve(prevMonthCalItems);
-          });
-      } else {
-        resolve(storedItemsPrevMonth);
-      }
-    });
-  }
-
-  addCalendarItem(calendarItem: CalendarItem): void {
-    this.calendarItems.next(
-      this.calendarItems.getValue().concat([calendarItem])
-    );
-  }
-
-  findFetchedCalendarItems(month: Date): any {
-    let foundItems = null;
-    this.fetchedMonths.forEach((fetchedMonth) => {
-      if (isSameMonth(fetchedMonth.month, month)) {
-        foundItems = fetchedMonth.calendarItems;
-        return;
-      }
-    });
-    return foundItems;
-  }
-
-  storeFetchedMonth(month: Date): void {
-    let monthIsStored = false;
-    this.fetchedMonths.forEach((fetchedMonth) => {
-      if (isSameMonth(fetchedMonth.month, month)) {
-        monthIsStored = true;
-      }
-    });
-    if (!monthIsStored) {
-      this.fetchedMonths.push({
-        month,
-        calendarItems: this.calendarItems.getValue()
-      });
-    }
-  }
-
   getFetchMonthString(month: Date): string {
     return (month.getFullYear()) + '-' + (month.getMonth() + 1);
+  }
+
+  calendarItemsIsEmpty(): boolean {
+    return this.calendarItems.getValue().length <= 0;
   }
 }

@@ -1,15 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
-import { CalendarView } from 'angular-calendar';
 import { CustomEvent, CustomEventAction, CustomEventTimesChangedEvent } from './custom-event';
+import { CalendarView } from 'angular-calendar';
 import { CalendarDao } from '../../../shared/services/calendar-dao.service';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CalendarService } from './calendar.service';
-
-/*
- * Component with main calendar logic
- */
 
 @Component({
   selector: 'app-calendar',
@@ -19,7 +15,6 @@ import { CalendarService } from './calendar.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent implements OnInit {
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   currentView: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   refresh: Subject<any> = new Subject();
@@ -55,54 +50,33 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.calendarService.calendarItems
       .subscribe((calendarItems) => {
-        this.parseCalendarItems(calendarItems);
-        this.refresh.next();
+        this.displayCalendarItems(calendarItems);
       });
 
-    const now = new Date();
-    this.currentMonth = now;
-    this.fetchMonthItems(now, null);
+    this.currentMonth = new Date();
+    this.fetchMonthItems(this.currentMonth);
 
+    // TODO remove
     document.documentElement.style.setProperty('--dynamic-primary', '#1800ff');
     document.documentElement.style.setProperty('--dynamic-secondary', '#ff0000');
   }
 
-  fetchMonthItems(newDate: Date, oldDate: Date): void {
+  displayCalendarItems(calendarItems: CalendarItem[]): void {
+    this.calendarItemsToShow =
+      this.calendarService.parseCalendarItemsToDisplayable(calendarItems, this.actions);
+    this.refresh.next();
+  }
+
+  fetchMonthItems(newDate: Date, oldDate?: Date): void {
     if (oldDate) {
-      if (this.calendarItemsIsEmpty()) {
-        this.calendarService.storeFetchedMonth(this.currentMonth);
-      }
-      const foundCalendarItems = this.findStoredCalendarItems(newDate);
-      if (foundCalendarItems) {
-        this.calendarService.setCalendarItems(foundCalendarItems);
+      const foundFetchedMonthItems =
+        this.calendarService.overwriteWithNewMonthItems(newDate, oldDate);
+      if (foundFetchedMonthItems) {
         return;
       }
     }
-    this.calendarDao.getCalendarItems(this.calendarService.getFetchMonthString(newDate))
-      .subscribe(resCalItems => {
-        this.calendarService.onFetchCalendarItems(resCalItems, newDate);
-      });
+    this.calendarService.fetchMonthAndSurroundingMonthsItems(newDate);
     this.currentMonth = newDate;
-  }
-
-  findStoredCalendarItems(date: Date): CalendarItem[] {
-    const foundFetchedCalendarItems =
-      this.calendarService.findFetchedCalendarItems(date);
-    if (foundFetchedCalendarItems) {
-      return foundFetchedCalendarItems;
-    }
-    return null;
-  }
-
-  parseCalendarItems(calItems: CalendarItem[]): void {
-    const parsedEvents: CustomEvent[] = [];
-
-    calItems.forEach((calItem) => {
-      parsedEvents.push(
-        this.calendarService.calendarItemToCustomEvent(calItem, this.actions)
-      );
-    });
-    this.calendarItemsToShow = parsedEvents;
   }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
@@ -163,9 +137,5 @@ export class CalendarComponent implements OnInit {
   closeCalendarItemPopUps(): void {
     this.selectedCalendarItemToShow = null;
     this.selectedCalendarItemToEdit = null;
-  }
-
-  calendarItemsIsEmpty(): boolean {
-    return this.calendarItemsToShow.length <= 0;
   }
 }
