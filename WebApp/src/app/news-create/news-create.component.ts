@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation  } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Editor, Toolbar, Validators } from 'ngx-editor';
+import { Editor, Toolbar, Validators, toDoc } from 'ngx-editor';
 
 @Component({
   selector: 'app-news-create',
@@ -17,7 +17,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     ['underline', 'strike'],
     ['code', 'blockquote'],
     ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    [{ heading: ['h1', 'h2', 'h3', 'h4'] }],
     ['link', 'image'],
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
@@ -28,11 +28,18 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    this.editor = new Editor();
+    this.editor = new Editor({
+      keyboardShortcuts: true,
+      history: true
+    });
   }
 
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  saveNews(): void {
+    console.log("This is the html: ", toDoc(this.form.controls["editorContent"].value))
   }
 
 }
