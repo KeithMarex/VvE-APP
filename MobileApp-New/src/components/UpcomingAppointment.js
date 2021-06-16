@@ -4,6 +4,7 @@ import {CalendarIcon} from "../resources";
 import React, {useEffect, useState} from "react";
 import ApiHelper from "../util/ApiHelper";
 import moment from "moment";
+import tr from '../config/languages/translate';
 
 const UpcomingAppointment = () => {
     const [upcomingApp, setUpcomingApp] = useState('');
@@ -19,7 +20,7 @@ const UpcomingAppointment = () => {
     return (
         <View style={styles.upcomingAppointment}>
             <View style={{width: Dimensions.get('window').width * .7,}}>
-            <StyledText>Eerst volgende nieuwe afspraak</StyledText>
+            <StyledText>{tr.agenda.upcomingAppointment}</StyledText>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 10}}>
                 <CalendarIcon stroke={'#451864'}/>
                 <StyledText inputStyle={styles.information}>{upcomingApp}</StyledText>
