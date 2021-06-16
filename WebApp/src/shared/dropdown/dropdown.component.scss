@@ -20,9 +20,7 @@
         .right {
             margin-left: auto;
             width: 40px;
-            height: calc(100% + 2px);
-            display: block;
-            position: absolute;
+            height: 20px;
             right: -1px;
             top: -1px;
             border-top-right-radius: 10px;
@@ -55,6 +53,7 @@
             padding: 13px 0;
             border-bottom: 1px solid $primary-color;
             cursor: pointer;
+            list-style: none;
 
             &::ng-deep p {
                 font-size: 13px;
