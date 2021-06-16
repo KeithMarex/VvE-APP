@@ -38,14 +38,14 @@ const LoginForgot = (props) => {
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
             <View style={styles.view}>
                 <Logo width={ss.width / 10 * 7} style={styles.logo} />
-                <Text style={styles.topBeschrijving}>{tr.login.pass_forget}</Text>
+                <Text style={styles.topBeschrijving}>{tr.login.loginForget.pass_forgot}</Text>
                 <View style={styles.emailField}>
                     <Mail style={styles.svg} stroke={'#A0A3BD'}/>
                     <TextInput style={styles.input} onChangeText={onChangeEmail} value={email} placeholder="Email" />
                 </View>
-                <Text style={styles.beschrijving}>Er wordt een nieuw wachtwoord naar uw mail adres gestuurd.</Text>
-                <TouchableOpacity style={styles.loginButton} onPress={() => handleEmail()}><Text style={styles.text}>Wachtwoord herstellen</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login')}><Text style={styles.passForgot}>Terug naar login</Text></TouchableOpacity>
+                <Text style={styles.beschrijving}>{tr.login.loginForget.description}</Text>
+                <TouchableOpacity style={styles.loginButton} onPress={() => handleEmail()}><Text style={styles.text}>{tr.login.loginForget.pass_forgot}</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login')}><Text style={styles.passForgot}>{tr.login.loginForget.back}</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
     );
