@@ -1,5 +1,6 @@
 @import "../../utilities/button.scss";
 @import "../../utilities/effects.scss";
+@import "../../utilities/colors.scss";
 
 button {
     @include button;
@@ -7,9 +8,10 @@ button {
 
 h1 {
     text-align: center;
+    color: $dynamic-primary;
 
     span svg {
-        stroke: currentColor;
+        stroke: $dynamic-primary;
         width: 24px;
         height: auto;
     }
@@ -17,6 +19,7 @@ h1 {
 
 h2 {
     font-size: 20px;
+    color: $dynamic-primary;
 }
 
 .text-editor {
@@ -31,7 +34,7 @@ h2 {
     box-shadow: $default-box-shadow;
 
     .NgxEditor__MenuBar {
-        border-color: currentColor !important; // Dit moet secondary colour zijn.
+        border-color: $dynamic-secondary !important;
     }
 }
 
@@ -41,7 +44,7 @@ h2 {
 }
 
 .NgxEditor__MenuItem--IconContainer svg{
-    fill: currentColor;
+    fill: $dynamic-primary;
 }
 
 .details {
@@ -64,10 +67,10 @@ h2 {
         }
 
         span {
-            border-bottom: 2px solid currentColor;
+            border-bottom: 2px solid $dynamic-primary;
 
             svg{
-                stroke: currentColor;
+                stroke: $dynamic-primary;
                 width: 24px;
                 height: auto;
             }
@@ -79,7 +82,7 @@ h2 {
 
                 &:focus {
                     outline: none;
-                    background-color: white;
+                    background-color: $background-color;
                 }
             }
         }
@@ -97,12 +100,12 @@ h2 {
             display: flex;
             cursor: pointer;
             width: fit-content;
-            color: #6E7191;
+            color: $grayscale-color;
 
             span svg {
                 width: 20px;
                 height: auto;
-                stroke: grey;
+                stroke: $grayscale-color;
                 margin-left: 5px;
             }
         }
@@ -123,8 +126,8 @@ h2 {
                 overflow:hidden;
                 cursor: pointer;
                 text-align:center;
-                background-color:cornflowerblue;
-                color:#fff;
+                background-color: $dynamic-secondary;
+                color: $background-color;
                 font-size: 16px;
                 padding: 18px;
 
@@ -138,7 +141,7 @@ h2 {
 
                 span svg {
                     margin: 2px 0 0 5px;
-                    stroke: white; // Change to colour
+                    stroke: $background-color;
                 }
             }
         }
