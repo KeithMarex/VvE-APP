@@ -23,6 +23,9 @@
     },
     {
       "name": "Organization"
+    },
+    {
+      "name": "News"
     }
   ],
   "paths": {
@@ -1274,6 +1277,172 @@
           },
           "404": {
             "description": "Agenda item does not exists"
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "summary": "Returns all the News.",
+        "description": "An array with News objects that are requested are returned. <br>\nThe organization is taken from the jwt tokens.\n",
+        "tags": [
+          "News"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/paths/~1news~1%7Bid%7D/get/responses/200/content/application~1json/schema"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error with finding News"
+          }
+        }
+      }
+    },
+    "/news/{id}": {
+      "get": {
+        "summary": "Returns the News corresponding with the given ID.",
+        "tags": [
+          "News"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "News object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "Organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "_v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News does not exists"
+          },
+          "500": {
+            "description": "Error trying to get News"
+          }
+        }
+      }
+    },
+    "/news/": {
+      "post": {
+        "summary": "Adds News to the database",
+        "description": "Adds the data to the database in a News Object.",
+        "tags": [
+          "News"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "author",
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Receiving created News",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error while creating News"
+          }
+        }
+      }
+    },
+    "/news/{id}/": {
+      "delete": {
+        "summary": "Deletes the News by ID.",
+        "tags": [
+          "News"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "500": {
+            "description": "Error while deleting News"
           }
         }
       }
