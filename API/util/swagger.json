@@ -244,6 +244,41 @@
         }
       }
     },
+    "/user/reset": {
+      "post": {
+        "summary": "Resets the password of a user",
+        "description": "This requests requires an <b>email</b> and will generate a random password for the corresponding user.<br>\nWhen the new password is set it will be emailed to the user his email.\n",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User password reset"
+          },
+          "500": {
+            "description": "Error while resetting password"
+          }
+        }
+      }
+    },
     "/user/{id}/": {
       "put": {
         "summary": "Updates user in the database",
