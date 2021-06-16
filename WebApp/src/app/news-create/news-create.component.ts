@@ -38,7 +38,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     this.editor.destroy();
   }
 
-  saveNews(): void {
+  onImageInput(images): void {
     console.log("This is the html: ", toDoc(this.form.controls["editorContent"].value))
   }
 

@@ -1,5 +1,151 @@
 @import "../../utilities/button.scss";
+@import "../../utilities/effects.scss";
 
 button {
     @include button;
+}
+
+h1 {
+    text-align: center;
+
+    span svg {
+        stroke: currentColor;
+        width: 24px;
+        height: auto;
+    }
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.text-editor {
+    margin: 20px 0 20px 0;
+}
+
+.NgxEditor__Wrapper {
+    min-width: 40%;
+    max-width: 87%;
+    margin: auto;
+    border: none !important;
+    box-shadow: $default-box-shadow;
+
+    .NgxEditor__MenuBar {
+        border-color: currentColor !important; // Dit moet secondary colour zijn.
+    }
+}
+
+.NgxEditor__Content {
+    height: 500px;
+    overflow: auto;
+}
+
+.NgxEditor__MenuItem--IconContainer svg{
+    fill: currentColor;
+}
+
+.details {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        font-size: 32px;
+        font-style: bold;
+        margin-bottom: 20px;
+    }
+
+    .text-section {
+        display: flex;
+
+        div {
+            margin: 10px 35px;
+        }
+
+        span {
+            border-bottom: 2px solid currentColor;
+
+            svg{
+                stroke: currentColor;
+                width: 24px;
+                height: auto;
+            }
+
+            input {
+                background: none;
+                border: none;
+                min-width: 400px;
+
+                &:focus {
+                    outline: none;
+                    background-color: white;
+                }
+            }
+        }
+
+    }
+
+    .file-section {
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        min-width: 500px;
+
+        p {
+            margin-top: 5px;
+            display: flex;
+            cursor: pointer;
+            width: fit-content;
+            color: #6E7191;
+
+            span svg {
+                width: 20px;
+                height: auto;
+                stroke: grey;
+                margin-left: 5px;
+            }
+        }
+
+        div {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+
+            label {
+                @include button;
+                display: flex;
+                flex-direction: row;
+                width: 190px;
+                margin: 20px;
+                align-items: center;
+                position:relative;
+                overflow:hidden;
+                cursor: pointer;
+                text-align:center;
+                background-color:cornflowerblue;
+                color:#fff;
+                font-size: 16px;
+                padding: 18px;
+
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    margin: 0;
+                    padding:0;
+                }
+
+                span svg {
+                    margin: 2px 0 0 5px;
+                    stroke: white; // Change to colour
+                }
+            }
+        }
+
+    }
+}
+
+@media screen and (max-width: 1000px){
+
 }

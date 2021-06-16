@@ -1,29 +1,46 @@
-<div appColoring>
-    <h1>Titel van nieuws :potlood:</h1>
-    <article>
+<div style="margin-top: 12vh;" appColoring>
+    <h1>Titel van nieuws</h1>
+    <article class="text-editor">
         <form [formGroup]="form">
-        <div class="NgxEditor__Wrapper">
-            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
-            <ngx-editor [editor]="editor" formControlName="editorContent"> </ngx-editor>
-        </div>
+            <div class="NgxEditor__Wrapper">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+                <ngx-editor
+                    [editor]="editor"
+                    formControlName="editorContent"
+                ></ngx-editor>
+            </div>
         </form>
     </article>
-    <article>
+    <article class="details">
         <h1>Details</h1>
-        <section>
-            <h3>Titel van nieuws</h3>
-            <input alt="Invullen titel van het nieuws"/>
-            <h3>Auteur van nieuws</h3>
-            <input alt="Invullen auteur van het nieuws"/>
+        <section class="text-section">
+            <div>
+                <h2>Titel van nieuws</h2>
+                <span class="form-group">
+                    <input type="text" alt="Invullen titel van het nieuws" placeholder="Vul hier de titel in" ngModel required>
+                    <span [inlineSVG]="'../../assets/icons/edit.svg'"></span>
+                </span>
+            </div>
+            <div>
+                <h2>Auteur van nieuws</h2>
+                <span class="form-group">
+                    <input type="text" alt="Invullen auteur van het nieuws" placeholder="Vul hier de auteur in" ngModel required>
+                    <span class="svg" [inlineSVG]="'../../assets/icons/edit.svg'"></span>
+                </span>
+            </div>
         </section>
-        <section>
-            <h3>Voorpagina foto</h3>
-            <li>
-                <p>FOTO</p>
-            </li>
-            <button class="button">Foto toevoegen :image:</button>
+        <section class="file-section">
+            <h2>Voorpagina foto</h2>
+            <p>Vrolijke mevrouw.jpeg <span class="svg" [inlineSVG]="'../../assets/icons/Close.svg'"></span> </p>
+            <div>
+                <label class="attachment-button" appColoring colorStyle="secondary" colorElement="backgroundColor">Foto toevoegen
+                    <input #images accept=".png, .jpg, .jpeg" type="file" single (change)="onImageInput(images)">
+                    <span class="svg" [inlineSVG]="'../../assets/icons/Image.svg'"></span>
+                </label>
+            </div>
         </section>
     </article>
+    <button style="float: right;" >Opslaan</button>
 </div>
 
 <!-- https://sibiraj-s.github.io/ngx-editor/#/input-rules -->
