@@ -5,7 +5,9 @@
     <div class="container">
         <div class="top-bar">
             <h2>{{ title }}</h2>
-            <button id="close-button" (click)="onClose()"></button>
+            <button id="close-button" (click)="onClose()">
+                <div class="svg-element" [inlineSVG]="'../../assets/icons/Close.svg'"></div>
+            </button>
         </div>
         <div class="content-container">
             <ng-content></ng-content>

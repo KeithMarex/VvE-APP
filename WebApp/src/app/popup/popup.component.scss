@@ -42,11 +42,14 @@
     #close-button {
       width: 2rem;
       height: 2rem;
-      padding: 0 1.5rem;
+      margin-right: 1rem;
       border: none;
-      background: url('../../assets/icons/Close.svg') no-repeat;
       cursor: pointer;
-      transform: translateY(-3px);
+      background-color: inherit;
+
+      .svg-element {
+        stroke: $dynamic-primary;
+      }
     }
 
     .content-container {
