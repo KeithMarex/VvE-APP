@@ -1,4 +1,4 @@
-@import "../../../utilities/button.scss";
+@import "../../../utilities/index.scss";
 
 section {
     height: 100%;
@@ -30,10 +30,10 @@ form {
         width: 100%;
         padding: 1rem 3rem;
         border: none;
-        border-bottom: 1px solid currentColor;
+        border-bottom: 1px solid $dynamic-secondary;
         font-family: inherit;
         font-size: 110%;
-        color: rgb(167, 167, 167);
+        color: #a6a6a6;
         resize: none;
     }
     
@@ -42,6 +42,7 @@ form {
         
         align-self: flex-end;
         margin: 1rem 0;
+        background-color: $dynamic-secondary;
     }
 
     .error-field {
