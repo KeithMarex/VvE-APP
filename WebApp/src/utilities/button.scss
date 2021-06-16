@@ -16,7 +16,8 @@
 
     &:disabled {
         cursor: initial;
-        filter:opacity(50%);
+        filter:opacity(40%);
+        filter:grayscale(60%);
     }
 }
 

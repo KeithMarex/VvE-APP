@@ -1,4 +1,4 @@
-@import "../../../utilities/button.scss";
+@import "../../../utilities/index.scss";
 
 section > form {
     color: black;
@@ -56,7 +56,7 @@ section > form {
         
         align-self: flex-end;
         margin: 1rem 0;
-        background-color: #498fc0;
+        background-color: $dynamic-secondary;
     }
 
     .error-text {
