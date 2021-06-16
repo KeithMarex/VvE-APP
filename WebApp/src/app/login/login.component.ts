@@ -14,7 +14,7 @@ import { User } from 'src/shared/models/user.model';
 
 export class LoginComponent implements OnInit {
   isLoading: boolean;
-  isNotAnAdmin: boolean;
+  isAdmin: boolean = true;
   isError: boolean;
 
   constructor(private authDao: AuthDao, private router: Router, private dataStorageService: DataStorageService) { }
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   login(form: NgForm): void {
     this.isError = false;
-    this.isNotAnAdmin = false;
+    this.isAdmin = true;
     this.isLoading = true;
     if (form.invalid) { return; }
 
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/ticket-overview']);
           }
           else {
-            this.isNotAnAdmin = true;
+            this.isAdmin = false;
             this.isLoading = false;
           }
         },
