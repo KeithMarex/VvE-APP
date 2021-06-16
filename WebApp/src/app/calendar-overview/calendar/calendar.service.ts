@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {isSameMinute, isSameMonth} from 'date-fns';
+import {addMonths, isSameMinute, isSameMonth, subMonths} from 'date-fns';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CustomEvent } from './custom-event';
+import {CalendarDao} from "../../../shared/services/calendar-dao.service";
 
 interface FetchedMonth {
   month: Date;
@@ -18,7 +19,7 @@ export class CalendarService {
   calendarItems = new BehaviorSubject<CalendarItem[]>([]);
   fetchedMonths: FetchedMonth[] = []; // For storing months that have already been fetched
 
-  constructor() { }
+  constructor(private calendarDao: CalendarDao) { }
 
   customEventToCalendarItem(event: CustomEvent): CalendarItem {
     return new CalendarItem(
@@ -76,6 +77,38 @@ export class CalendarService {
     this.calendarItems.next(calendarItems);
   }
 
+  onFetchCalendarItems(thisMonthCalendarItems: CalendarItem[], date: Date): void {
+    let calendarItemsWithSurroundingMonths = thisMonthCalendarItems;
+
+    this.findOrFetchMonthItems(subMonths(date, 1))
+      .then((prevMonthItems) => {
+        calendarItemsWithSurroundingMonths =
+          calendarItemsWithSurroundingMonths.concat(prevMonthItems);
+
+        this.findOrFetchMonthItems(addMonths(date, 1))
+          .then((nextMonthItems) => {
+            calendarItemsWithSurroundingMonths =
+              calendarItemsWithSurroundingMonths.concat(nextMonthItems);
+
+            this.setCalendarItems(calendarItemsWithSurroundingMonths);
+          });
+      });
+  }
+
+  findOrFetchMonthItems(prevMonth: Date): Promise<CalendarItem[]> {
+    return new Promise<CalendarItem[]>((resolve) => {
+      const storedItemsPrevMonth = this.findFetchedCalendarItems(prevMonth);
+      if (!storedItemsPrevMonth) {
+        this.calendarDao.getCalendarItems(this.getFetchMonthString(prevMonth))
+          .subscribe((prevMonthCalItems) => {
+            resolve(prevMonthCalItems);
+          });
+      } else {
+        resolve(storedItemsPrevMonth);
+      }
+    });
+  }
+
   addCalendarItem(calendarItem: CalendarItem): void {
     this.calendarItems.next(
       this.calendarItems.getValue().concat([calendarItem])
@@ -106,5 +139,9 @@ export class CalendarService {
         calendarItems: this.calendarItems.getValue()
       });
     }
+  }
+
+  getFetchMonthString(month: Date): string {
+    return (month.getFullYear()) + '-' + (month.getMonth() + 1);
   }
 }

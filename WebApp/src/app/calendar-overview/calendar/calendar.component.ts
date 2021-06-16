@@ -75,12 +75,9 @@ export class CalendarComponent implements OnInit {
         return;
       }
     }
-
-    const year = newDate.getFullYear();
-    const month = newDate.getMonth() + 1;
-    this.calendarDao.getCalendarItems(year + '-' + month)
+    this.calendarDao.getCalendarItems(this.calendarService.getFetchMonthString(newDate))
       .subscribe(resCalItems => {
-        this.calendarService.setCalendarItems(resCalItems);
+        this.calendarService.onFetchCalendarItems(resCalItems, newDate);
       });
     this.currentMonth = newDate;
   }
