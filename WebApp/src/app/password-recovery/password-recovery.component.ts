@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./password-recovery.component.scss']
 })
 export class PasswordRecoveryComponent implements OnInit {
-  isError: boolean;
+  errorMessage;
 
   constructor(private router: Router) { }
 
@@ -16,6 +17,12 @@ export class PasswordRecoveryComponent implements OnInit {
 
   onReturnToLogin() {
     this.router.navigate(['/login']);
+  }
+
+  onSubmit(form: NgForm) {
+    var email = form.value.email;
+
+    //TODO api request to recover password
   }
 
 }
