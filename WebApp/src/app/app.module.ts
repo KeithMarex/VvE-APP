@@ -57,6 +57,7 @@ import { CalendarItemDetailsComponent } from './calendar-overview/calendar/calen
 import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
 import { ThemeDao } from 'src/shared/services/theme-dao.service';
 import { JsonParserService } from 'src/shared/services/json-parser.service';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -99,6 +100,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarItemCreatorComponent,
     CalendarItemDetailsComponent,
     SpinnerComponent,
+    PasswordRecoveryComponent,
   ],
   imports: [
     BrowserModule,

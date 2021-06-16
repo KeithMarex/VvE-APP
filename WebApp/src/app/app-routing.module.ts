@@ -9,10 +9,12 @@ import { TicketOverviewComponent } from './ticket-overview/ticket-overview.compo
 import { VveManagementComponent } from './vve-management/vve-management.component';
 import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { AuthGuard } from './guards/auth.guard'
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
+  { path: 'password-recovery', component: PasswordRecoveryComponent},
   { path: 'account-management', component: AccountManagementComponent, canActivate:[AuthGuard] },
   { path: 'calendar', component: CalendarOverviewComponent, canActivate:[AuthGuard] },
   { path: 'news-overview', component: NewsOverviewComponent, canActivate:[AuthGuard] },
