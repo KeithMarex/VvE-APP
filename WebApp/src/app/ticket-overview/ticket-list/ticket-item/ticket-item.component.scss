@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import "../../../../utilities/colors.scss";
+@import "../../../../utilities/index.scss";
 
 .container {
     display: flex;
@@ -22,6 +21,7 @@
 
         h1 {
             margin-right: 2rem;
+            color: $dynamic-primary;
         }
 
         .svg-element {
@@ -30,6 +30,7 @@
             width: 1.5rem;
             height: 1.5rem;
             margin-right: 1rem;
+            stroke: $dynamic-primary;
         }
 
         #comment-count {
@@ -77,6 +78,7 @@
                 }
         
                 .colored-text {
+                    color: $dynamic-primary;
                     text-align: start;
                 }
             }

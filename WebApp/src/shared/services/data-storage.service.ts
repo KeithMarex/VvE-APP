@@ -7,9 +7,8 @@ import { ThemeDao } from "./theme-dao.service";
     providedIn: 'root'
 })
 export class DataStorageService {
-    private theme: Theme = this.getTheme() || new Theme('#451864', '#A0CAE8'); // Default theme in case access token is unavailable
-    private primaryColor: string = this.theme.primarycolor;
-    private secondaryColor: string = this.theme.secondarycolor;
+    private primaryColor: string = '#000000';
+    private secondaryColor: string = '#000000';
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private themeDao: ThemeDao) {}
@@ -45,16 +44,12 @@ export class DataStorageService {
         this.getTheme();
     }
 
-    getTheme(): Theme {
-        // Attempt to fetch theme from session storage to prevent unnecessary requests
-        var theme = this.getThemeFromStorage();
+    getTheme() {
         var loggedIn = this.getValueFromStorage('userId') != null;
 
-        if (!theme && loggedIn) {
+        if (loggedIn) {
             this.getThemeFromDao();
         }
-
-        return theme;
     }
 
     getThemeFromStorage(): Theme {
@@ -72,8 +67,6 @@ export class DataStorageService {
         this.themeDao.getTheme()
         .subscribe(res => {
             this.setTheme(res);
-
-            location.reload();
         }, 
         () => {
             return;
@@ -81,14 +74,11 @@ export class DataStorageService {
     }
 
     setTheme(theme: Theme) {
-        this.theme = theme;
-        sessionStorage.setItem('Theme', JSON.stringify(this.theme));
-        this.setColors();
-    }
+        document.documentElement.style.setProperty('--dynamic-primary', theme.primarycolor);
+        document.documentElement.style.setProperty('--dynamic-secondary', theme.secondarycolor);
 
-    setColors() {
-        this.primaryColor = this.theme.primarycolor;
-        this.secondaryColor = this.theme.secondarycolor;
+        this.primaryColor = theme.primarycolor;
+        this.secondaryColor = theme.secondarycolor;
     }
 
 }

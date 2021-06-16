@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import "../../../utilities/index.scss";
 
 h1 {
     text-align: center;
     font-family: 'Inter', sans-serif;
     font-size: 100%;
     font-weight: 700;
+    color: $dynamic-primary;
 }
