@@ -19,6 +19,7 @@
         </div>
     </section>
 </div>
+<p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
 <app-popup class="ticket-editor" *ngIf="editingTag" title="Tag wijzigen" (closed)="onClose()" [fitContent]="true" [small]="true">
     <app-tag-editor [tag]="tag" (tagEdited)="editTag($event)"></app-tag-editor>
 </app-popup>

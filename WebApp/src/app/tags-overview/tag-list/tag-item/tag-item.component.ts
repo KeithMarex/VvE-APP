@@ -11,6 +11,7 @@ export class TagItemComponent implements OnInit {
   @Input() tag: Tag;
   @Output() tagsChanged = new EventEmitter();
   editingTag = false;
+  errorMessage: string;
 
   constructor(private tagDao: TagDao) { }
 
@@ -23,12 +24,12 @@ export class TagItemComponent implements OnInit {
         this.tagsChanged.emit();
       }, 
       errorRes => {
-        // let incomingErrorMessage = errorRes.error.message;
-        // if (incomingErrorMessage) {
-        //   this.errorMessage = 'Er is een onbekende error opgetreden';
-        // } else {
-        //   this.errorMessage = 'Er is een onbekende error opgetreden';
-        // }
+        let incomingErrorMessage = errorRes.error.message;
+        if (incomingErrorMessage) {
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        } else {
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        }
       }
     );
   }
