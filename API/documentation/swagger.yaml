@@ -22,6 +22,8 @@ paths:
     $ref: ./user/register.yaml
   /user/{id}/:
     $ref: ./user/putUser.yaml
+  /user/{id}//:
+    $ref: ./user/deleteUser.yaml
   /organization/users:
     $ref: ./organization/getOrganizationAdminUsers.yaml
   /organization/theme:
