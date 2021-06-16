@@ -29,7 +29,9 @@ export const getTag = async (req, res) => {
 }
 
 export const postTag = async (req, res) => {
-    const tag = new Tag(req.body);
+    let body = req.body;
+    body["organization"] = res.locals.user.organizations[0]
+    const tag = new Tag(body);
     tag.save()
     .then(result => {
         res.status(201).send(result);
