@@ -29,6 +29,8 @@
                 <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
             </div>
         </div>
-        <button id="details-button" (click)="onEdit()"></button>
+        <button id="details-button" (click)="onEdit()">
+            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/Forward.svg'"></div>
+        </button>
     </section>
 </div>
