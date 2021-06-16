@@ -1,9 +1,8 @@
-@import "../../utilities/colors.scss";
-@import "../../utilities/effects.scss";
-@import "../../utilities/button.scss";
+@import "../../utilities/index.scss";
 
 
 .details-page {
+    color: $dynamic-primary;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -59,7 +58,7 @@ header {
 body {
     display: flex;
     flex-direction: column;
-    width: 85vw;
+    width: 100%;
     
     h1 {
         font-size: 150%;
@@ -211,7 +210,7 @@ body {
                     width: 0px;
                 }
 
-                .send-logo {
+                #send-logo {
                     margin-top: 7px;
                     background-color: white;
                 }

@@ -9,18 +9,19 @@ import { TicketDetailsComponent } from './ticket-details/ticket-details.componen
 import { TicketOverviewComponent } from './ticket-overview/ticket-overview.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
 import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
+import { AuthGuard } from './guards/auth.guard'
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
-  { path: 'account-management', component: AccountManagementComponent },
-  { path: 'calendar', component: CalendarOverviewComponent },
-  { path: 'news-overview', component: NewsOverviewComponent },
-  { path: 'news-create', component: NewsCreateComponent },
-  { path: 'ticket-overview', component: TicketOverviewComponent },
-  { path: 'vve-management', component: VveManagementComponent },
-  { path: 'tags-overview', component: TagsOverviewComponent },
-  { path: 'ticket-details/:id', component: TicketDetailsComponent, pathMatch: 'full' },
+  { path: 'account-management', component: AccountManagementComponent, canActivate:[AuthGuard] },
+  { path: 'calendar', component: CalendarOverviewComponent, canActivate:[AuthGuard] },
+  { path: 'news-overview', component: NewsOverviewComponent, canActivate:[AuthGuard] },
+  { path: 'news-create', component: NewsCreateComponent, /*canActivate:[AuthGuard]*/ },
+  { path: 'ticket-overview', component: TicketOverviewComponent, canActivate:[AuthGuard] },
+  { path: 'vve-management', component: VveManagementComponent, canActivate:[AuthGuard] },
+  { path: 'tags-overview', component: TagsOverviewComponent, canActivate:[AuthGuard] },
+  { path: 'ticket-details/:id', component: TicketDetailsComponent, pathMatch: 'full', canActivate:[AuthGuard] },
 ];
 
 @NgModule({

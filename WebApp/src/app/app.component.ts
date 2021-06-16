@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit()
   {
-    this.dataStorageService.getTheme();
+    this.dataStorageService.getThemeFromDao();
   }
 
 

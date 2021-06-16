@@ -1,12 +1,12 @@
-<div appColoring>
+<div>
     <header>
         <h1>Tickets</h1>
     </header>
     <body>
         <section class="button-section">
-            <button appColoring colorElement="backgroundColor" (click)="onAdd()">Nieuw</button>
-            <button appColoring colorElement="backgroundColor" class="icon-button">Filter</button>
-            <button appColoring colorElement="backgroundColor" class="icon-button" [routerLink]="['/tags-overview']">Tags</button>
+            <button (click)="onAdd()">Nieuw</button>
+            <button class="icon-button">Filter</button>
+            <button class="icon-button" [routerLink]="['/tags-overview']">Tags</button>
         </section>
         <section class="content-section">
             <app-ticket-list></app-ticket-list>

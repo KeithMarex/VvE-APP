@@ -1,18 +1,26 @@
-@import "../../../utilities/button.scss";
+@import "../../../utilities/index.scss";
+
+.content-area {
+    height: 100%;
+}
 
 section > form {
     color: black;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+    min-height: 100%;
+    height: 100%;
+    // margin: 0 5%;
+    gap: 10%;
 }
 
 .left-side {
-    margin-right: 1rem;
+    width: 70%;
 
     input, textarea {
         width: 100%;
-        padding: 1rem;
+        padding: 1rem 0;
         margin-bottom: 1rem;
         border: none;
         border-bottom: 1px solid #C6C6C8;
@@ -26,7 +34,7 @@ section > form {
     }
 
     textarea {
-        height: 20rem;
+        height: 80%;
     }
 }
 
@@ -34,6 +42,7 @@ section > form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 50%;
 
     .assignee-field {
         display: flex;
@@ -44,7 +53,7 @@ section > form {
         border: none;
         padding: 1rem 0;
         padding-right: 3rem;
-        width: 50%;
+        min-width: 50%;
 
         option {
             background-color: #F7F7FC;
@@ -56,7 +65,7 @@ section > form {
         
         align-self: flex-end;
         margin: 1rem 0;
-        background-color: #498fc0;
+        background-color: $dynamic-secondary;
     }
 
     .error-text {

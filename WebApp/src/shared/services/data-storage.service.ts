@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { Theme } from "../models/theme.model";
 import { JsonParserService } from "./json-parser.service";
 import { ThemeDao } from "./theme-dao.service";
@@ -7,9 +8,8 @@ import { ThemeDao } from "./theme-dao.service";
     providedIn: 'root'
 })
 export class DataStorageService {
-    private theme: Theme = this.getTheme() || new Theme('#451864', '#A0CAE8'); // Default theme in case access token is unavailable
-    private primaryColor: string = this.theme.primarycolor;
-    private secondaryColor: string = this.theme.secondarycolor;
+    primaryColor = new BehaviorSubject<string>('#000000');
+    secondaryColor = new BehaviorSubject<string>('#000000');
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private themeDao: ThemeDao) {}
@@ -26,14 +26,6 @@ export class DataStorageService {
         return storageValue || null;
     }
 
-    getPrimaryColor(): string {
-        return this.primaryColor;
-    }
-
-    getSecondaryColor(): string {
-        return this.secondaryColor;
-    }
-
     getLoggedInUserId(): string {
         return this.loggedInUserId;
     }
@@ -45,50 +37,27 @@ export class DataStorageService {
         this.getTheme();
     }
 
-    getTheme(): Theme {
-        // Attempt to fetch theme from session storage to prevent unnecessary requests
-        var theme = this.getThemeFromStorage();
+    getTheme() {
         var loggedIn = this.getValueFromStorage('userId') != null;
 
-        if (!theme && loggedIn) {
+        if (loggedIn) {
             this.getThemeFromDao();
         }
-
-        return theme;
-    }
-
-    getThemeFromStorage(): Theme {
-        var storedJsonTheme = this.getValueFromSessionStorage('Theme');
-        var storedTheme;
-
-        if (storedJsonTheme) {
-            storedTheme = JsonParserService.toObjectInstance(new Theme('#000000', '#000000'), storedJsonTheme);
-        }
-
-        return storedTheme;
     }
 
     getThemeFromDao() {
         this.themeDao.getTheme()
         .subscribe(res => {
             this.setTheme(res);
-
-            location.reload();
-        }, 
-        () => {
-            return;
         });
     }
 
     setTheme(theme: Theme) {
-        this.theme = theme;
-        sessionStorage.setItem('Theme', JSON.stringify(this.theme));
-        this.setColors();
-    }
+        document.documentElement.style.setProperty('--dynamic-primary', theme.primarycolor);
+        document.documentElement.style.setProperty('--dynamic-secondary', theme.secondarycolor);
 
-    setColors() {
-        this.primaryColor = this.theme.primarycolor;
-        this.secondaryColor = this.theme.secondarycolor;
+        this.primaryColor.next(theme.primarycolor);
+        this.secondaryColor.next(theme.secondarycolor);
     }
 
 }
