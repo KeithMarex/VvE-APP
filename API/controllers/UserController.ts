@@ -129,7 +129,6 @@ export const resetPassword = async (req, res) => {
         res.status(500).send({message: "No email defined"});
 
     const password = generator.generate({length: 10, numbers: true});
-    console.log(password);
     User.findOneAndUpdate({ email: email }, {
         password: await bcrypt.hash(password, 12)
     })
