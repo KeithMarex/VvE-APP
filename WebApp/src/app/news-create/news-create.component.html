@@ -1,4 +1,4 @@
-<div style="margin-top: 12vh;" appColoring>
+<div style="margin-top: 12vh;">
     <h1>Titel van nieuws</h1>
     <article class="text-editor">
         <form [formGroup]="form">
@@ -33,7 +33,7 @@
             <h2>Voorpagina foto</h2>
             <p>Vrolijke mevrouw.jpeg <span class="svg" [inlineSVG]="'../../assets/icons/Close.svg'"></span> </p>
             <div>
-                <label class="attachment-button" appColoring colorStyle="secondary" colorElement="backgroundColor">Foto toevoegen
+                <label class="attachment-button">Foto toevoegen
                     <input #images accept=".png, .jpg, .jpeg" type="file" single (change)="onImageInput(images)">
                     <span class="svg" [inlineSVG]="'../../assets/icons/Image.svg'"></span>
                 </label>
