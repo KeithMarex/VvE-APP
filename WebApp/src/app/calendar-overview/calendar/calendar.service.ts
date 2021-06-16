@@ -80,7 +80,7 @@ export class CalendarService {
   }
 
   overwriteWithNewMonthItems(newDate: Date, oldDate: Date): boolean {
-    let foundFetchedMonthItems = false;
+    let didFindFetchedMonthItems = false;
 
     if (!this.calendarItemsIsEmpty()) {
       this.storeFetchedMonth(oldDate);
@@ -88,12 +88,14 @@ export class CalendarService {
 
     const foundCalendarItemsThisMonth = this.findFetchedCalendarItems(newDate);
     if (foundCalendarItemsThisMonth) {
-      const foundCalendarItems = foundCalendarItemsThisMonth.concat(this.findSurroundingFetchedCalendarItems(newDate));
+      const foundCalendarItems = foundCalendarItemsThisMonth ? foundCalendarItemsThisMonth : [];
+      const foundSurroundingCalendarItems = this.findSurroundingFetchedCalendarItems(newDate);
+      foundCalendarItems.push(...foundSurroundingCalendarItems);
       this.setCalendarItems(foundCalendarItems);
-      foundFetchedMonthItems = true;
+      didFindFetchedMonthItems = true;
     }
 
-    return foundFetchedMonthItems;
+    return didFindFetchedMonthItems;
   }
 
   storeFetchedMonth(month: Date): void {
@@ -131,12 +133,11 @@ export class CalendarService {
   }
 
   findSurroundingFetchedCalendarItems(month: Date): CalendarItem[] {
-    let surroundingCalendarItems = [];
+    const surroundingCalendarItems = [];
     const nextMonthItems = this.findFetchedCalendarItems(addMonths(month, 1));
     const prevMonthItems = this.findFetchedCalendarItems(subMonths(month, 1));
-    surroundingCalendarItems = surroundingCalendarItems
-      .concat(nextMonthItems ? nextMonthItems : [])
-      .concat(prevMonthItems ? prevMonthItems : []);
+    surroundingCalendarItems.push(...nextMonthItems ? nextMonthItems : []);
+    surroundingCalendarItems.push(...prevMonthItems ? prevMonthItems : []);
 
     return surroundingCalendarItems;
   }
