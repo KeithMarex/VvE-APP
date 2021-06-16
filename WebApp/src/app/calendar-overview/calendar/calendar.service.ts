@@ -86,8 +86,9 @@ export class CalendarService {
       this.storeFetchedMonth(oldDate);
     }
 
-    const foundCalendarItems = this.findFetchedCalendarItems(newDate);
-    if (foundCalendarItems) {
+    const foundCalendarItemsThisMonth = this.findFetchedCalendarItems(newDate);
+    if (foundCalendarItemsThisMonth) {
+      const foundCalendarItems = foundCalendarItemsThisMonth.concat(this.findSurroundingFetchedCalendarItems(newDate));
       this.setCalendarItems(foundCalendarItems);
       foundFetchedMonthItems = true;
     }
@@ -129,12 +130,22 @@ export class CalendarService {
     });
   }
 
-  findFetchedCalendarItems(month: Date): any {
+  findSurroundingFetchedCalendarItems(month: Date): CalendarItem[] {
+    let surroundingCalendarItems = [];
+    const nextMonthItems = this.findFetchedCalendarItems(addMonths(month, 1));
+    const prevMonthItems = this.findFetchedCalendarItems(subMonths(month, 1));
+    surroundingCalendarItems = surroundingCalendarItems
+      .concat(nextMonthItems ? nextMonthItems : [])
+      .concat(prevMonthItems ? prevMonthItems : []);
+
+    return surroundingCalendarItems;
+  }
+
+  findFetchedCalendarItems(month: Date): CalendarItem[] {
     let foundItems = null;
     this.fetchedMonths.forEach((fetchedMonth) => {
       if (isSameMonth(fetchedMonth.month, month)) {
         foundItems = fetchedMonth.calendarItems;
-        return;
       }
     });
     return foundItems;

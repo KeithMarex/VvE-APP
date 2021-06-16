@@ -76,6 +76,14 @@ export class CalendarComponent implements OnInit {
     this.currentMonth = newDate;
   }
 
+  onCalendarDateChanged(newDate: Date): void {
+    const oldDate = this.currentMonth;
+    if (!isSameMonth(newDate, oldDate)) {
+      this.fetchMonthItems(newDate, oldDate);
+    }
+    this.activeDayIsOpen = false;
+  }
+
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
     if (!isSameMonth(date, this.viewDate)) {
       return;
@@ -116,14 +124,6 @@ export class CalendarComponent implements OnInit {
 
   setCalendarViewType(view: CalendarView): void {
     this.currentView = view;
-  }
-
-  onCalendarDateChanged(newDate: Date): void {
-    const oldDate = this.currentMonth;
-    if (!isSameMonth(newDate, oldDate)) {
-      this.fetchMonthItems(newDate, oldDate);
-    }
-    this.activeDayIsOpen = false;
   }
 
   showCalendarItemPopUp(calendarItemToShow: CustomEvent): void {
