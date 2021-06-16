@@ -284,6 +284,33 @@
         }
       }
     },
+    "/user/{id}//": {
+      "delete": {
+        "summary": "Deletes the User by ID.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "404": {
+            "description": "User does not exists"
+          }
+        }
+      }
+    },
     "/organization/users": {
       "get": {
         "summary": "Returns the admins from the organization the person is in.",
