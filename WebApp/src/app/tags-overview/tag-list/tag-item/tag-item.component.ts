@@ -9,7 +9,8 @@ import { TagDao } from 'src/shared/services/tag-dao.service';
 })
 export class TagItemComponent implements OnInit {
   @Input() tag: Tag;
-  @Output() tagDeleted = new EventEmitter();
+  @Output() tagsChanged = new EventEmitter();
+  editingTag = false;
 
   constructor(private tagDao: TagDao) { }
 
@@ -19,7 +20,7 @@ export class TagItemComponent implements OnInit {
     this.tagDao.deleteTag(this.tag._id)
     .subscribe(
       res => {
-        this.tagDeleted.emit();
+        this.tagsChanged.emit();
       }, 
       errorRes => {
         // let incomingErrorMessage = errorRes.error.message;
@@ -30,6 +31,18 @@ export class TagItemComponent implements OnInit {
         // }
       }
     );
+  }
+
+  onEditTag() {
+    this.editingTag = true;
+  }
+
+  onClose(): void {
+    this.editingTag = false;
+  }
+
+  editTag(): void {
+    this.tagsChanged.emit();
   }
 
 }

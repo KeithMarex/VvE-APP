@@ -12,10 +12,13 @@
 
     <section class="right-block">
         <div class="edit-button">
-            <button appColoring colorElement="backgroundColor" colorStyle="secondary" class="icon-button">Wijzigen</button>
+            <button appColoring colorElement="backgroundColor" colorStyle="secondary" class="icon-button" (click)="onEditTag()">Wijzigen</button>
         </div>
         <div class="delete-button">
             <button appColoring colorElement="backgroundColor" class="icon-button" (click)="onDeleteTag()">Verwijderen</button>
         </div>
     </section>
 </div>
+<app-popup class="ticket-editor" *ngIf="editingTag" title="Tag wijzigen" (closed)="onClose()" [fitContent]="true" [small]="true">
+    <app-tag-editor [tag]="tag" (tagEdited)="editTag($event)"></app-tag-editor>
+</app-popup>

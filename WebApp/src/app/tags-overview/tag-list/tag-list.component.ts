@@ -34,7 +34,7 @@ export class TagListComponent implements OnInit {
     });
   }
 
-  deleteTag(): void {
+  updateTags(): void {
     window.location.reload();
   }
 }

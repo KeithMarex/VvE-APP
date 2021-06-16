@@ -17,7 +17,11 @@ export class TagDao {
     };
 
     createTag(tag: Tag): Observable<any> {
-      return this.dao.sendPostRequestForm('tag/', tag);
+      return this.dao.sendPostRequest('tag/', tag);
+    }
+
+    updateTag(tagId: string, tag: Tag): Observable<any> {
+      return this.dao.sendPutRequest('tag/' + tagId, tag)
     }
 
     deleteTag(tagId: string): Observable<any> {
