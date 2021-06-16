@@ -21,6 +21,8 @@ paths:
     $ref: ./user/login.yaml
   /user/register:
     $ref: ./user/register.yaml
+  /user/reset:
+    $ref: ./user/resetPassword.yaml
   /user/{id}/:
     $ref: ./user/putUser.yaml
   /user/{id}//:
