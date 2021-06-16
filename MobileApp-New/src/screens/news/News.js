@@ -4,6 +4,7 @@ import {HomeIcon, Logo} from '../../resources'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
+import tr from '../../config/languages/translate';
 
 const window = Dimensions.get('window')
 
@@ -13,9 +14,9 @@ const News = () => {
             <ScrollView style={styles.scrollView}>
                 <View style={styles.news}>
                     <PageLogo/>
-                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>Nieuws</StyledText>
+                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>{tr.news.news}</StyledText>
 
-                    <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Meest recent</StyledText>
+                    <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news.mRecent}</StyledText>
                     <NewsShowcase />
 
                     <View style={styles.newsList}>
