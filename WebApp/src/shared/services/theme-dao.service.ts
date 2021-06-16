@@ -11,12 +11,18 @@ export class ThemeDao {
 
     getTheme(): Observable<Theme> {
         return this.dao.sendGetRequest('organization/theme')
-        .pipe(map((response: Theme) => {
-            return response;
+        .pipe(map((response: {Theme: Theme, id: string}) => {
+            return response.Theme;
         }));
     };
 
-    updateTheme(theme: any): Observable<any> {
-        return this.dao.sendPutRequest('organization/theme', theme);
+    updateTheme(theme: Theme): Observable<any> {
+        var body = 
+        {
+            "primarycolor": theme.primarycolor,
+            "secondarycolor": theme.secondarycolor
+        }
+        
+        return this.dao.sendPutRequest('organization/theme', body);
     }
 }
