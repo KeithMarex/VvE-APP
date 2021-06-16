@@ -10,21 +10,29 @@
                     <p>Naam</p>
                     <input type="text">
                     <p>Logo</p>
-                    <input type="text">
+                    <label class="custom-file-input">
+                        <input type="file" accept="image/png, image/jpeg, image/svg+xml" name="logo">
+                        <div class="file-name-field">
+                            <div class="file-name">De nieuwe Wereld logo.svg</div>
+                        </div>
+                        <div class="file-input-icon" appColoring colorElement="backgroundColor">
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/File.svg'"></div>
+                        </div>
+                    </label>
                 </div>
                 <div class="color-fields">
                     <div class="color-picker-container">
                         <p>Primaire kleur</p>
                         <div class="color-picker">
                             <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
-                            <label for="primary-color">{{ primaryColor }}</label>
+                            <label for="primary-color" class="light-text">{{ primaryColor }}</label>
                         </div>
                     </div>
                     <div class="color-picker-container">
                         <p>Secundaire kleur</p>
                         <div class="color-picker">
                             <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
-                            <label for="secondary-color">{{ secondaryColor }}</label>
+                            <label for="secondary-color" class="light-text">{{ secondaryColor }}</label>
                         </div>
                     </div>
                 </div>
