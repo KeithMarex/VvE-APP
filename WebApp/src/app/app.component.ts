@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   ngOnInit()
   {
     this.dataStorageService.getTheme();
+    document.documentElement.style.setProperty('--dynamic-primary', this.dataStorageService.getPrimaryColor());
+    document.documentElement.style.setProperty('--dynamic-secondary', this.dataStorageService.getSecondaryColor());
   }
 
 

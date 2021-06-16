@@ -1,4 +1,4 @@
-<div appColoring>
+<div>
     <header>
         <h1>Uw VvE</h1>
     </header>
@@ -16,8 +16,8 @@
                             <div class="file-name-field">
                                 <div class="file-name">{{ logo.length > 17 ? logo.slice(0, 15) + '...' : logo }}</div>
                             </div>
-                            <div class="file-input-icon" appColoring colorElement="backgroundColor">
-                                <div class="svg-element" [inlineSVG]="'../../assets/icons/File.svg'"></div>
+                            <div class="file-input-icon">
+                                <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
                             </div>
                         </label>
                     </div>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" appColoring colorElement="backgroundColor">Update styling</button>
+                    <button type="submit">Update styling</button>
                 </form>
             </section>
             <section class="information">
@@ -47,7 +47,7 @@
                 <div class="files-block">
 
                 </div>
-                <label class="custom-file-input" appColoring>
+                <label class="custom-file-input">
                     <input type="file" accept="image/png, image/jpeg, image/svg+xml" name="logo">
                     <div class="file-name-field">
                         <div class="file-name">Voeg toe</div>

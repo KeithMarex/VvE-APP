@@ -1,6 +1,4 @@
-@import "../../utilities/effects.scss";
-@import "../../utilities/button.scss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import "../../utilities/index.scss";
 
 body {
     font-family: Poppins;
@@ -95,8 +93,10 @@ button {
             .file-input-icon {
                 min-width: 15%;
                 border-radius: 0 15% 15% 0;
+                background-color: $dynamic-primary;
     
                 .svg-element {
+                    stroke: white;
                     display: flex;
                     width: 1.1rem;
                     height: 1.1rem;
@@ -136,8 +136,9 @@ button {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border: 1px solid currentColor;
+            border: 1px solid $dynamic-primary;
             border-radius: 3rem;
+            color: $dynamic-primary;
             width: 6rem;
             min-width: 6rem;
             padding: 0 1.3rem;
@@ -147,7 +148,7 @@ button {
                 align-items: center;
                 width: 1.1rem;
                 height: 1.1rem;
-                stroke: currentColor;
+                stroke: $dynamic-primary;
             }
         }
     }

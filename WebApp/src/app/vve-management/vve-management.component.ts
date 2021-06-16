@@ -27,12 +27,14 @@ export class VveManagementComponent implements OnInit {
       "secondarycolor": formValues.secondaryColor
     }
 
-    this.themeDao.updateTheme(newTheme)
-    .subscribe(() => {
-      this.dataStorageService.setTheme(newTheme);
+    document.documentElement.style.setProperty('--dynamic-primary', newTheme.primarycolor);
+    document.documentElement.style.setProperty('--dynamic-secondary', newTheme.secondarycolor);
 
-      window.location.reload();
-    });
+    // this.themeDao.updateTheme(newTheme)
+    // .subscribe(() => {
+    //   this.dataStorageService.setTheme(newTheme);
+    //   window.location.reload();
+    // });
   }
 
 
