@@ -27,7 +27,7 @@ export class CalendarComponent implements OnInit {
   locale = 'nl';
   selectedCalendarItemToShow: CalendarItem;
   selectedCalendarItemToEdit: CalendarItem;
-  events: CustomEvent[] = [];
+  calendarItemsToShow: CustomEvent[] = [];
   activeDayIsOpen = true;
   currentMonth: Date;
   actions: CustomEventAction[] = [
@@ -69,6 +69,9 @@ export class CalendarComponent implements OnInit {
 
   fetchMonthItems(newDate: Date, oldDate: Date): void {
     if (oldDate) {
+      if (this.calendarItemsIsEmpty()) {
+        this.calendarService.storeFetchedMonth(this.currentMonth);
+      }
       const foundCalendarItems = this.findStoredCalendarItems(newDate);
       if (foundCalendarItems) {
         this.calendarService.setCalendarItems(foundCalendarItems);
@@ -83,9 +86,6 @@ export class CalendarComponent implements OnInit {
   }
 
   findStoredCalendarItems(date: Date): CalendarItem[] {
-    if (this.events.length > 0) {
-      this.calendarService.storeFetchedMonth(this.currentMonth);
-    }
     const foundFetchedCalendarItems =
       this.calendarService.findFetchedCalendarItems(date);
     if (foundFetchedCalendarItems) {
@@ -102,7 +102,7 @@ export class CalendarComponent implements OnInit {
         this.calendarService.calendarItemToCustomEvent(calItem, this.actions)
       );
     });
-    this.events = parsedEvents;
+    this.calendarItemsToShow = parsedEvents;
   }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
@@ -163,5 +163,9 @@ export class CalendarComponent implements OnInit {
   closeCalendarItemPopUps(): void {
     this.selectedCalendarItemToShow = null;
     this.selectedCalendarItemToEdit = null;
+  }
+
+  calendarItemsIsEmpty(): boolean {
+    return this.calendarItemsToShow.length <= 0;
   }
 }
