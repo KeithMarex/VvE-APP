@@ -1,4 +1,5 @@
 import { Injectable, OnInit } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { Theme } from "../models/theme.model";
 import { JsonParserService } from "./json-parser.service";
 import { ThemeDao } from "./theme-dao.service";
@@ -7,8 +8,8 @@ import { ThemeDao } from "./theme-dao.service";
     providedIn: 'root'
 })
 export class DataStorageService {
-    private primaryColor: string = '#000000';
-    private secondaryColor: string = '#000000';
+    primaryColor = new BehaviorSubject<string>('#000000');
+    secondaryColor = new BehaviorSubject<string>('#000000');
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private themeDao: ThemeDao) {}
@@ -23,14 +24,6 @@ export class DataStorageService {
         var storageValue = sessionStorage.getItem(key);
 
         return storageValue || null;
-    }
-
-    getPrimaryColor(): string {
-        return this.primaryColor;
-    }
-
-    getSecondaryColor(): string {
-        return this.secondaryColor;
     }
 
     getLoggedInUserId(): string {
@@ -52,24 +45,10 @@ export class DataStorageService {
         }
     }
 
-    getThemeFromStorage(): Theme {
-        var storedJsonTheme = this.getValueFromSessionStorage('Theme');
-        var storedTheme;
-
-        if (storedJsonTheme) {
-            storedTheme = JsonParserService.toObjectInstance(new Theme('#000000', '#000000'), storedJsonTheme);
-        }
-
-        return storedTheme;
-    }
-
     getThemeFromDao() {
         this.themeDao.getTheme()
         .subscribe(res => {
             this.setTheme(res);
-        }, 
-        () => {
-            return;
         });
     }
 
@@ -77,8 +56,8 @@ export class DataStorageService {
         document.documentElement.style.setProperty('--dynamic-primary', theme.primarycolor);
         document.documentElement.style.setProperty('--dynamic-secondary', theme.secondarycolor);
 
-        this.primaryColor = theme.primarycolor;
-        this.secondaryColor = theme.secondarycolor;
+        this.primaryColor.next(theme.primarycolor);
+        this.secondaryColor.next(theme.secondarycolor);
     }
 
 }

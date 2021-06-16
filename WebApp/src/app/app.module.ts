@@ -49,7 +49,6 @@ import { DropdownComponent } from 'src/shared/dropdown/dropdown.component';
 import { DropdownSelectedDirective } from 'src/shared/dropdown/dropdown-selected.directive';
 import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive';
 import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
-import { ColoringDirective } from 'src/shared/directives/coloring.directive';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
@@ -95,7 +94,6 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     DropdownSelectedDirective,
     DropdownOptionDirective,
     AccountCreatorComponent,
-    ColoringDirective,
     CalendarComponent,
     CalendarItemCreatorComponent,
     CalendarItemDetailsComponent,
