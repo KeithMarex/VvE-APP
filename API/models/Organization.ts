@@ -39,6 +39,10 @@ const OrganizationSchema = new Schema({
                 message: 'Please fill a valid hex color (# needs to be included)'
             }
         }
+    },
+    logo: {
+        type: Schema.Types.ObjectId,
+        ref: "Image"
     }
 }, { timestamps: true });
 
