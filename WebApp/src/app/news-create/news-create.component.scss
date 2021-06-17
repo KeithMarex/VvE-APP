@@ -75,7 +75,7 @@ h2 {
                 height: auto;
             }
 
-            input {
+            .input-detail {
                 background: none;
                 border: none;
                 min-width: 400px;
@@ -148,6 +148,8 @@ h2 {
     }
 }
 
-@media screen and (max-width: 1000px){
-
+@media screen and (max-width: 1200px){
+    .input-detail {
+        min-width: 250px !important;
+    }
 }
