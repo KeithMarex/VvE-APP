@@ -69,6 +69,7 @@
         .edit-button {
             button {
                 @include button;
+                background-color: $dynamic-secondary;
 
                 &::after {
                     height: 17px;
@@ -81,6 +82,7 @@
         .delete-button {
             button {
                 @include button;
+                background-color: $dynamic-primary;
 
                 &::after {
                     height: 17px;

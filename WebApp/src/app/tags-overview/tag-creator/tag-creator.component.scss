@@ -1,5 +1,16 @@
 @import "../../../utilities/index.scss";
 
+.error-message {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 3px;
+    background-color: #bb2d3b;
+    color: white;
+    align-items: center;
+    text-align: center;
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -79,7 +90,7 @@ button {
     @include button;
     
     margin: 2rem 0;
-    background-color: #498fc0;
+    background-color: $dynamic-primary;
 }
 
 .error-text {

@@ -14,6 +14,7 @@ export class TagEditorComponent implements OnInit {
   errorMessage: string;
   tagColor: string;
   tagName: string;
+  isError = false;
 
   constructor(private tagDao: TagDao) { }
 
@@ -25,16 +26,19 @@ export class TagEditorComponent implements OnInit {
   createTag(form: NgForm) {
     const formValues = form.value;
     if (formValues.name.length > 10) {
+      this.isError = true;
       this.errorMessage = "Naam is te lang";
       return;
     }
 
     if (!formValues.name) {
+      this.isError = true;
       this.errorMessage = "Naam mag niet leeg zijn";
       return;
     }
 
     if (!formValues.tagColor) {
+      this.isError = true;
       this.errorMessage = "Kleur mag niet leeg zijn";
       return;
     }
@@ -52,8 +56,10 @@ export class TagEditorComponent implements OnInit {
       errorRes => {
         let incomingErrorMessage = errorRes.error.message;
         if (incomingErrorMessage) {
+          this.isError = true;
           this.errorMessage = 'Er is een onbekende error opgetreden';
         } else {
+          this.isError = true;
           this.errorMessage = 'Er is een onbekende error opgetreden';
         }
       }
