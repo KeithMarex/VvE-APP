@@ -20,11 +20,11 @@ body {
 }
 
 h2 {
-    margin-bottom: 2rem;
+    margin: 2rem 0;
 }
 
 p {
-    margin-bottom: 0.4rem;
+    margin: 0.2rem 0;
 }
 
 button {
@@ -53,12 +53,12 @@ button {
         border: none;
         margin-bottom: 1rem;
         cursor: pointer;
+        margin: 0.5rem 0;
         
         .file-input-icon {
             display: flex;
             justify-content: center;
             align-content: center;
-            margin-left: 0.2rem;
         }
     }
 
@@ -74,7 +74,7 @@ button {
                 height: 2rem;
                 width: 100%;
                 border: none;
-                margin-bottom: 1rem;
+                margin: 0.5rem 0;
             }
     
             .file-name-field {
@@ -107,6 +107,7 @@ button {
         .color-picker {
             display: flex;
             align-items: center;
+            margin: 0.5rem 0;
         
             input {
                 border: none;
@@ -114,6 +115,7 @@ button {
                 height: 1.8rem;
                 width: 2.5rem;
                 margin-right: 0.5rem;
+                background-color: inherit;
             }
         
             input::-webkit-color-swatch {
@@ -127,9 +129,15 @@ button {
         flex: 2;
 
         .files-block {
-            width: 80%;
-            min-height: 50%;
+            width: 100%;
+            min-height: 65%;
             background-color: #F7F7FC;
+            margin: 0.3rem 0;
+        }
+
+        .file-upload {
+            display: flex;
+            justify-content: flex-end;
         }
         
         .custom-file-input {

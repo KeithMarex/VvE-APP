@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native'
 import Mail from '../../resources/icons/login/Mail.svg'
 import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
 import ApiHelper from '../../util/ApiHelper'
 import UserModel from '../../models/user.model'
-import tr from '../../config/languages/translate'
+import tra from '../../config/languages/translate'
 
 const ss = Dimensions.get('window')
 
@@ -13,6 +13,11 @@ const LoginScreen = (props) => {
     const [username, onChangeName] = React.useState("")
     const [pass, onChangePass] = React.useState("")
     const [results, setResults] = React.useState([])
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     const loginUser = async (email, password) => {
         await ApiHelper.post('/user/login', {email: email, password: password}).then(res => {
@@ -33,14 +38,14 @@ const LoginScreen = (props) => {
                 <Logo width={ss.width / 10 * 7} style={styles.logo} />
                 <View style={styles.emailField}>
                     <Mail style={styles.svg} stroke={'#A0A3BD'}/>
-                    <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder={tr.login.login.email} />
+                    <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder={tr.login?.login.email} />
                 </View>
                 <View style={styles.emailField}>
                     <Lock style={styles.svg} stroke={'#A0A3BD'}/>
-                    <TextInput style={styles.input} onChangeText={onChangePass} secureTextEntry={true} value={pass} placeholder={tr.login.login.password} />
+                    <TextInput style={styles.input} onChangeText={onChangePass} secureTextEntry={true} value={pass} placeholder={tr.login?.login.password} />
                 </View>
                 <TouchableOpacity style={styles.loginButton} onPress={() => { loginUser(username, pass); }}><Text style={styles.text}>Login</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>{tr.login.login.forgotPassword}</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>{tr.login?.login.forgotPassword}</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
     );

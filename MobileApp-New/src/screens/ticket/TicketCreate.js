@@ -21,7 +21,7 @@ import OptionsMenu from "react-native-option-menu";
 import ApiHelper from "../../util/ApiHelper";
 import * as ImageManipulator from 'expo-image-manipulator';
 import CloseButtonComponent from "../../components/Buttons/CloseButton.Component";
-import tr from '../../config/languages/translate';
+import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
 
@@ -29,6 +29,11 @@ const TicketCreate = (props) => {
     const [subject, onChangeSubject] = React.useState("")
     const [description, onChangeDescription] = React.useState("")
     const [images, setImages] = React.useState([]);
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     const takePicture = async () => {
         let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -56,7 +61,7 @@ const TicketCreate = (props) => {
         setImages((images) => [...images, result]);
     };
 
-    const afbeeldingKnop = (<PageActionButton icon={'plus'} text={tr.ticket.addPictures}/>);
+    const afbeeldingKnop = (<PageActionButton icon={'plus'} text={tr.ticket?.addPictures}/>);
 
     async function maakMelding() {
         const fd = new FormData();
@@ -100,20 +105,20 @@ const TicketCreate = (props) => {
                         <TouchableOpacity onPress={() => props.navigation.goBack()}>
                             <BackArrow style={styles.back}/>
                         </TouchableOpacity>
-                        <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>{tr.ticket.createTicket}</StyledText>
+                        <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>{tr.ticket?.createTicket}</StyledText>
                     </View>
 
-                    <Text style={styles.inputText}>{tr.ticket.subject}</Text>
+                    <Text style={styles.inputText}>{tr.ticket?.subject}</Text>
                     <View style={styles.inputField}>
-                        <TextInput style={styles.input} onChangeText={onChangeSubject} value={subject} placeholder={tr.ticket.placeholderSubject} />
+                        <TextInput style={styles.input} onChangeText={onChangeSubject} value={subject} placeholder={tr.ticket?.placeholderSubject} />
                     </View>
-                    <Text style={styles.inputText}>{tr.ticket.message}</Text>
+                    <Text style={styles.inputText}>{tr.ticket?.message}</Text>
                     <View style={styles.inputField}>
-                        <TextInput style={styles.inputBeschrijving} multiline={true} onChangeText={onChangeDescription} value={description} placeholder={tr.ticket.placeholderMessage} />
+                        <TextInput style={styles.inputBeschrijving} multiline={true} onChangeText={onChangeDescription} value={description} placeholder={tr.ticket?.placeholderMessage} />
                     </View>
 
                     <TouchableOpacity onPress={() => null}>
-                        <OptionsMenu customButton={afbeeldingKnop} options={[`${tr.ticket.photo.makePhoto}`, `${tr.ticket.photo.choosePicture}`, `${tr.ticket.photo.cancel}`]} actions={[takePicture, choosePicture]}/>
+                        <OptionsMenu customButton={afbeeldingKnop} options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]} actions={[takePicture, choosePicture]}/>
                     </TouchableOpacity>
 
                     <View style={styles.images}>
@@ -127,7 +132,7 @@ const TicketCreate = (props) => {
 
                     <TouchableOpacity onPress={() => maakMelding()} style={styles.sendBtn}>
                         <StyledText inputStyle={styles.ticketBtnText}>
-                            {tr.ticket.send}
+                            {tr.ticket?.send}
                         </StyledText>
                     </TouchableOpacity>
                 </View>

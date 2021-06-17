@@ -5,11 +5,17 @@ import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
 import { PlusIcon } from '../resources'
-import tr from '../config/languages/translate';
+import tra from "../config/languages/translate";
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
     const [comments, setComments] = useState(props.comments)
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
+
     let commentInputRef = createRef()
 
     const sendComment = () => {
@@ -42,7 +48,7 @@ const TicketCommentBox = (props) => {
             {commentsEl.length > 0
                 ? commentsEl
                 : (<StyledText inputStyle={styles.noComments}>
-                        {tr.ticket.noComments}.
+                        {tr.ticket?.noComments}.
                 </StyledText>
             )}
 
@@ -51,7 +57,7 @@ const TicketCommentBox = (props) => {
                     style={styles.commentInputField}
                     onChangeText={ onCommentInputText }
                     ref={input => {commentInputRef = input}}
-                    placeholder={tr.ticket.placeholder}
+                    placeholder={tr.ticket?.placeholder}
                     multiline
                 />
             </View>
@@ -61,7 +67,7 @@ const TicketCommentBox = (props) => {
                 </TouchableOpacity>
                 { commentInputText.length > 0 && (
                     <Button withArrow style={styles.commentSendButton} pressAction={ sendComment }>
-                        {tr.ticket.send}
+                        {tr.ticket?.send}
                     </Button>
                 )}
             </View>
