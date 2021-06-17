@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-@import "../../utilities/colors.scss";
-@import "../../utilities/button.scss";
-@import "../../utilities/effects.scss";
+@import "../../utilities/index.scss";
 
 * {
     margin: 0;
@@ -32,6 +30,7 @@ body {
 
         button {
             @include button;
+            background-color: $dynamic-primary;
 
             &::after {
                 margin-top: 0.3rem;
