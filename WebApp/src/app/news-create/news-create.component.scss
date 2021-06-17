@@ -122,14 +122,13 @@ h2 {
                 width: 190px;
                 margin: 20px;
                 align-items: center;
+                justify-content: center;
                 position:relative;
                 overflow:hidden;
                 cursor: pointer;
-                text-align:center;
                 background-color: $dynamic-secondary;
                 color: $background-color;
                 font-size: 16px;
-                padding: 18px;
 
                 input {
                     position: absolute;
