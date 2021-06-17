@@ -10,6 +10,7 @@ tags:
   - name: Comment
   - name: Agenda
   - name: Organization
+  - name: News
 
 paths:
   /user:
@@ -22,6 +23,8 @@ paths:
     $ref: ./user/register.yaml
   /user/{id}/:
     $ref: ./user/putUser.yaml
+  /user/{id}//:
+    $ref: ./user/deleteUser.yaml
   /organization/users:
     $ref: ./organization/getOrganizationAdminUsers.yaml
   /organization/theme:
@@ -62,3 +65,11 @@ paths:
     $ref: ./agenda/putAgenda.yaml
   /agenda/{id}//:
     $ref: ./agenda/deleteAgenda.yaml
+  /news:
+    $ref: ./news/getAllNews.yaml
+  /news/{id}:
+    $ref: ./news/getNews.yaml
+  /news/:
+    $ref: ./news/postNews.yaml
+  /news/{id}/:
+    $ref: ./news/deleteNews.yaml

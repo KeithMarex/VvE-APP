@@ -1,0 +1,17 @@
+get:
+  summary: Returns all the News.
+  description: |
+        An array with News objects that are requested are returned. <br>
+        The organization is taken from the jwt tokens.
+  tags:
+    - News
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../definitions/News.yaml
+    '500':
+      description: Error with finding News
