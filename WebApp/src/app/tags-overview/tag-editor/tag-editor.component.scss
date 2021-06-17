@@ -1,4 +1,4 @@
-@import "../../../utilities/button.scss";
+@import "../../../utilities/index.scss";
 
 .container {
     display: flex;
@@ -14,6 +14,7 @@ h1 {
     text-align: center;
     font-size: 100%;
     font-weight: 700;
+    color: $dynamic-primary;
 }
 
 input {
@@ -47,13 +48,20 @@ input {
     }
 }
 
+.name-section {
+    input:focus {
+        outline: none;
+        border-bottom: 1px solid $dynamic-primary;
+      }
+}
+
 .name {
     display: flex;
     align-items: center;
     align-content: center;
     margin-bottom: 1rem;
     border: none;
-    // border-bottom: 1px solid #C6C6C8;
+    border-bottom: 1px solid $dynamic-secondary;
     font-family: inherit;
     font-size: 110%;
     color: black;

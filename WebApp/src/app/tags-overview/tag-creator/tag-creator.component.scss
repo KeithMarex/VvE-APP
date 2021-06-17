@@ -1,4 +1,4 @@
-@import "../../../utilities/button.scss";
+@import "../../../utilities/index.scss";
 
 .container {
     display: flex;
@@ -14,6 +14,7 @@ h1 {
     text-align: center;
     font-size: 100%;
     font-weight: 700;
+    color: $dynamic-primary;
 }
 
 input {
@@ -31,6 +32,7 @@ input {
 }
 
 .color-picker {
+    background-color: none;
     
 
     input {
@@ -39,12 +41,21 @@ input {
         height: 1.8rem;
         width: 2.5rem;
         margin-right: 0.5rem;
+        background-color: none;
     }
 
     input::-webkit-color-swatch {
         border: none;
         border-radius: 3rem;
+        background-color: white;
     }
+}
+
+.name-section {
+    input:focus {
+        outline: none;
+        border-bottom: 1px solid $dynamic-primary;
+      }
 }
 
 .name {
@@ -53,10 +64,15 @@ input {
     align-content: center;
     margin-bottom: 1rem;
     border: none;
-    // border-bottom: 1px solid #C6C6C8;
+    border-bottom: 1px solid $dynamic-secondary;
     font-family: inherit;
     font-size: 110%;
     color: black;
+
+    .name:focus {
+        outline: none;
+        border-bottom: 1px solid $primary-color;
+      }
 }
 
 button {
