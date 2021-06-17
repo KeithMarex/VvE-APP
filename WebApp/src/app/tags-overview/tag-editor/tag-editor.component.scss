@@ -43,7 +43,8 @@ input {
 }
 
 .color-picker {
-    
+    display: flex;
+    align-items: center;  
 
     input {
         border: none;
@@ -51,6 +52,7 @@ input {
         height: 1.8rem;
         width: 2.5rem;
         margin-right: 0.5rem;
+        background-color: inherit;
     }
 
     input::-webkit-color-swatch {
