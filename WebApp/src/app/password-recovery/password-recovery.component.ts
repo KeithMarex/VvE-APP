@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserDao } from 'src/shared/services/user-dao.service';
 
 @Component({
   selector: 'app-password-recovery',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class PasswordRecoveryComponent implements OnInit {
   errorMessage;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userDao: UserDao) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +23,10 @@ export class PasswordRecoveryComponent implements OnInit {
   onSubmit(form: NgForm) {
     var email = form.value.email;
 
-    //TODO api request to recover password
+    this.userDao.recoverPassword(email)
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 
 }
