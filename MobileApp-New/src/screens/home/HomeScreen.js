@@ -7,12 +7,18 @@ import { CommentIcon, CalendarIcon, Logo } from '../../resources'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import UpcomingAppointment from "../../components/UpcomingAppointment";
-import tr from '../../config/languages/translate';
+import tra from '../../config/languages/translate';
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
 
 const HomeScreen = (props) => {
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
+
     return (
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
@@ -20,30 +26,30 @@ const HomeScreen = (props) => {
                     <PageLogo/>
 
                     <View style={[styles.homeSection, styles.intro]}>
-                        <StyledText inputStyle={styles.introWelcome}>{tr.home.welcome}</StyledText>
+                        <StyledText inputStyle={styles.introWelcome}>{tr.home?.welcome}</StyledText>
                         <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
                         <View style={styles.introMessage}>
                             <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 {tr.home.newReaction} &#62;</StyledText>
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 {tr.home?.newReaction} &#62;</StyledText>
                         </View>
                         <View style={styles.introMessage}>
                             <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 {tr.home.appointments} &#62;</StyledText>
+                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 {tr.home?.appointments} &#62;</StyledText>
                         </View>
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home.soon}</StyledText>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home?.soon}</StyledText>
                         <UpcomingAppointment/>
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home.recentNews}</StyledText>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home?.recentNews}</StyledText>
                         <NewsShowcase />
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home.vveinfo}</StyledText>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home?.vveinfo}</StyledText>
                         <View style={styles.info}>
 
                             <View style={styles.infoOrganization}>
@@ -64,7 +70,7 @@ const HomeScreen = (props) => {
                             </View>
 
                             <View style={styles.infoOrganization}>
-                                <StyledText inputStyle={styles.infoOrganizationName}>{tr.home.parking}</StyledText>
+                                <StyledText inputStyle={styles.infoOrganizationName}>{tr.home?.parking}</StyledText>
                                 <View style={styles.infoOrganizationFiles}>
 
                                     <View style={styles.infoOrganizationFile}>
