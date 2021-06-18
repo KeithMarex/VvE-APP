@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
-import { ThemeDao } from 'src/shared/services/theme-dao.service';
+import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 
 @Component({
   selector: 'app-vve-management',
@@ -17,7 +17,7 @@ export class VveManagementComponent implements OnInit, OnDestroy {
   secondaryColorSub: Subscription;
   logo: string = 'de-nieuwe-wereld-logo.svg'; //TODO replace with file
 
-  constructor(private dataStorageService: DataStorageService, private themeDao: ThemeDao) { }
+  constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
   ngOnInit(): void {
     this.handleSubscriptions();
@@ -47,7 +47,7 @@ export class VveManagementComponent implements OnInit, OnDestroy {
       "secondarycolor": formValues.secondaryColor
     }
 
-    this.themeDao.updateTheme(newTheme)
+    this.organizationDao.updateTheme(newTheme)
     .subscribe(() => {
       this.dataStorageService.setTheme(newTheme);
     });

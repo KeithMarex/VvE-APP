@@ -5,7 +5,7 @@ import { Theme } from "../models/theme.model";
 import { Dao } from "./dao.service";
 
 @Injectable()
-export class ThemeDao {
+export class OrganizationDao {
 
     constructor(private dao: Dao) {}
 

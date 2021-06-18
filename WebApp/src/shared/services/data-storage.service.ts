@@ -1,8 +1,7 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { Theme } from "../models/theme.model";
-import { JsonParserService } from "./json-parser.service";
-import { ThemeDao } from "./theme-dao.service";
+import { OrganizationDao } from "./organization-dao.service";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +11,7 @@ export class DataStorageService {
     secondaryColor = new BehaviorSubject<string>('#000000');
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
-    constructor(private themeDao: ThemeDao) {}
+    constructor(private organizationDao: OrganizationDao) {}
 
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
@@ -46,7 +45,7 @@ export class DataStorageService {
     }
 
     getThemeFromDao() {
-        this.themeDao.getTheme()
+        this.organizationDao.getTheme()
         .subscribe(res => {
             this.setTheme(res);
         });
