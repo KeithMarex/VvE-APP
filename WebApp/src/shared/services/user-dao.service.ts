@@ -30,6 +30,15 @@ export class UserDao {
       }))
     }
 
+    changeUserRole(id: string, newRole: string): Observable<any> {
+      const body =
+      {
+        "role": newRole
+      }
+
+      return this.dao.sendPutRequest('user/' + id, body);
+    }
+
     registerUser(email: string, firstname: string, lastname: string): Observable<any> {
       const body = 
       [{
