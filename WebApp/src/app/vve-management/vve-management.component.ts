@@ -42,16 +42,16 @@ export class VveManagementComponent implements OnInit {
     const formValues = form.value;
     const mForm = new FormData();
 
-    // var newTheme =
-    // {
-    //   "primarycolor": formValues.primaryColor,
-    //   "secondarycolor": formValues.secondaryColor
-    // }
+    var newTheme =
+    {
+      "primarycolor": formValues.primaryColor,
+      "secondarycolor": formValues.secondaryColor
+    }
 
-    // this.organizationDao.updateTheme(newTheme)
-    // .subscribe(() => {
-    //   this.dataStorageService.setTheme(newTheme);
-    // });
+    this.organizationDao.updateTheme(newTheme)
+    .subscribe(() => {
+      this.dataStorageService.setTheme(newTheme);
+    });
 
     var newName = formValues.name;
     
@@ -63,15 +63,11 @@ export class VveManagementComponent implements OnInit {
       mForm.append('logo', this.newLogo);
     }
 
-    // if (newName || this.newLogo)
-    // {
-    //   this.organizationDao.updateDetails(mForm)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //   }, err => {
-    //     console.log(err);
-    //   }); 
-    // }
+    if (newName || this.newLogo)
+    {
+      this.organizationDao.updateDetails(mForm)
+      .subscribe(); 
+    }
   }
 
   onFileChanged(event) {
