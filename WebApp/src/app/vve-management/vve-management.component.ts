@@ -47,14 +47,10 @@ export class VveManagementComponent implements OnInit, OnDestroy {
       "secondarycolor": formValues.secondaryColor
     }
 
-    document.documentElement.style.setProperty('--dynamic-primary', newTheme.primarycolor);
-    document.documentElement.style.setProperty('--dynamic-secondary', newTheme.secondarycolor);
-
-    // this.themeDao.updateTheme(newTheme)
-    // .subscribe(() => {
-    //   this.dataStorageService.setTheme(newTheme);
-    //   window.location.reload();
-    // });
+    this.themeDao.updateTheme(newTheme)
+    .subscribe(() => {
+      this.dataStorageService.setTheme(newTheme);
+    });
   }
 
 

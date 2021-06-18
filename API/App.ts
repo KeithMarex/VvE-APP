@@ -16,6 +16,7 @@ import TagRouter from './routes/TagRouter';
 import CommentRouter from './routes/CommentRouter';
 import AgendaRouter from './routes/Agenda_itemRouter';
 import OrganizationRouter from './routes/OrganizationRouter';
+import NewsRouter from './routes/NewsRouter';
 
 const corsOptions = {
     origin: `http://localhost:${process.env.APP_PORT}`,
@@ -41,6 +42,7 @@ app.use('/tag', isAuth, TagRouter);
 app.use('/ticket' ,isAuth, TicketRouter);
 app.use('/comment', isAuth, CommentRouter);
 app.use('/agenda', isAuth, AgendaRouter);
+app.use('/news', isAuth, NewsRouter);
 
 //LISTENER
 mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})

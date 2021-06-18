@@ -13,6 +13,8 @@ properties:
         type: string
       secondarycolor:
         type: string
+  logo:
+    type: Image
   createdAt:
     type: string
   updatedAt:

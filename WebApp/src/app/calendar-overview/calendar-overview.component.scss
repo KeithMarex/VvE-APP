@@ -10,4 +10,5 @@
 
 .content-section {
   @include content-section;
+  overflow-y: scroll;
 }

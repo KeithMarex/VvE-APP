@@ -1,0 +1,22 @@
+get:
+  summary: Returns the News corresponding with the given ID.
+  tags:
+    - News
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  responses:
+    '200':
+      description: News object
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/News.yaml
+    '404':
+      description: News does not exists
+    '500':
+      description: Error trying to get News
