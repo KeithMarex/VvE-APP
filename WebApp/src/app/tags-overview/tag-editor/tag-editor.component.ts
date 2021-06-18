@@ -1,21 +1,26 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Tag } from 'src/shared/models/tag.model';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 
 @Component({
-  selector: 'app-tag-creator',
-  templateUrl: './tag-creator.component.html',
-  styleUrls: ['./tag-creator.component.scss']
+  selector: 'app-tag-editor',
+  templateUrl: './tag-editor.component.html',
+  styleUrls: ['./tag-editor.component.scss']
 })
-export class TagCreatorComponent implements OnInit {
-  @Output() tagCreated = new EventEmitter();
+export class TagEditorComponent implements OnInit {
+  @Input() tag: Tag;
+  @Output() tagEdited = new EventEmitter();
   errorMessage: string;
   tagColor: string;
+  tagName: string;
   isError = false;
 
   constructor(private tagDao: TagDao) { }
 
   ngOnInit(): void {
+    this.tagColor = this.tag.color;
+    this.tagName = this.tag.name;
   }
 
   createTag(form: NgForm) {
@@ -43,10 +48,10 @@ export class TagCreatorComponent implements OnInit {
       "color" : formValues.tagColor
     }
 
-    this.tagDao.createTag(mForm)
+    this.tagDao.updateTag(this.tag._id, mForm)
     .subscribe(
       res => {
-      this.tagCreated.emit();
+      this.tagEdited.emit();
       }, 
       errorRes => {
         let incomingErrorMessage = errorRes.error.message;

@@ -16,10 +16,16 @@ export class TagDao {
         }));
     };
 
-  //   addTag(): Observable<Tag[]> {
-  //     return this.dao.sendPostRequest('tag')
-  //     .pipe(map((response: Tag[]) => {
-  //       return response;
-  //     }));
-  // };
+    createTag(tag: Tag): Observable<any> {
+      return this.dao.sendPostRequest('tag/', tag);
+    }
+
+    updateTag(tagId: string, tag: Tag): Observable<any> {
+      return this.dao.sendPutRequest('tag/' + tagId, tag)
+    }
+
+    deleteTag(tagId: string): Observable<any> {
+      return this.dao.sendDeleteRequest('tag/' + tagId);
+    }
+
 }

@@ -36,6 +36,7 @@ import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
 import { TagItemComponent } from './tags-overview/tag-list/tag-item/tag-item.component';
 import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.component';
+import { TagEditorComponent } from './tags-overview/tag-editor/tag-editor.component';
 import { Dao } from 'src/shared/services/dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { UserDao } from 'src/shared/services/user-dao.service';
@@ -87,6 +88,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TagListComponent,
     TagItemComponent,
     TagCreatorComponent,
+    TagEditorComponent,
     TicketDetailsComponent,
     TicketCommentComponent,
     LoggedInUserTicketCommentComponent,

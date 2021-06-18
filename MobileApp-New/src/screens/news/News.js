@@ -4,19 +4,25 @@ import {HomeIcon, Logo} from '../../resources'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
-import tr from '../../config/languages/translate';
+import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
 
 const News = () => {
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
+
     return (
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
                 <View style={styles.news}>
                     <PageLogo/>
-                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>{tr.news.news}</StyledText>
+                    <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>{tr.news?.news}</StyledText>
 
-                    <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news.mRecent}</StyledText>
+                    <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
                     <NewsShowcase />
 
                     <View style={styles.newsList}>
