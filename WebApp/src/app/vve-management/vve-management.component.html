@@ -9,7 +9,7 @@
                 <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
                     <div class="input-fields">
                         <p>Naam</p>
-                        <input type="text">
+                        <input type="text" placeholder="{{ organization.name }}">
                         <p>Logo</p>
                         <label class="custom-file-input">
                             <input type="file" accept="image/png, image/jpeg, image/svg+xml" name="logo">

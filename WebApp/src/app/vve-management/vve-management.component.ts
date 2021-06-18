@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Organization } from 'src/shared/models/organization.model';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 
@@ -9,33 +10,26 @@ import { OrganizationDao } from 'src/shared/services/organization-dao.service';
   templateUrl: './vve-management.component.html',
   styleUrls: ['./vve-management.component.scss']
 })
-export class VveManagementComponent implements OnInit, OnDestroy {
+export class VveManagementComponent implements OnInit {
+  organization: Organization
   primaryColor = '';
   secondaryColor = '';
-  
-  primaryColorSub: Subscription;
-  secondaryColorSub: Subscription;
   logo: string = 'de-nieuwe-wereld-logo.svg'; //TODO replace with file
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
   ngOnInit(): void {
-    this.handleSubscriptions();
+    this.getOrganizationDetails();
   }
 
-  ngOnDestroy(): void {
-    this.primaryColorSub.unsubscribe();
-    this.secondaryColorSub.unsubscribe();
-  }
-
-  handleSubscriptions(): void {
-    this.primaryColorSub = this.dataStorageService.primaryColor.subscribe(newColor => {
-      this.primaryColor = newColor;
-    });
-
-    this.secondaryColorSub = this.dataStorageService.secondaryColor.subscribe(newColor => {
-      this.secondaryColor = newColor;
-    });
+  getOrganizationDetails() {
+    this.organizationDao.getOrganization()
+    .subscribe(res => {
+      this.organization = res;
+      this.primaryColor = this.organization.Theme.primarycolor;
+      this.secondaryColor = this.organization.Theme.secondarycolor;
+      this.logo = this.organization.logo.name;
+    })
   }
 
   onChangeStyling(form: NgForm) {
