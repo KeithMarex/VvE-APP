@@ -75,6 +75,13 @@ button {
                 width: 100%;
                 border: none;
                 margin: 0.5rem 0;
+                font-family: inherit;
+                color: #A0A3BD;
+                font-size: inherit;
+            }
+
+            input[type="text"], input::placeholder{
+                color: #A0A3BD;
             }
     
             .file-name-field {

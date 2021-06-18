@@ -15,7 +15,6 @@
                             <input type="file" accept="image/png, image/jpeg, image/svg+xml" name="logo" [(ngModel)]="newLogoName">
                             <div class="file-name-field">
                                 <div class="file-name"> {{ newLogoName ? newLogoName.slice(12, 30) : 'Selecteer bestand' }}</div>
-                                <!-- <div class="file-name" *ngIf="logo">{{ logo.name.length > 17 ? logo.name.slice(0, 15) + '...' : logo.name }}</div> -->
                             </div>
                             <div class="file-input-icon">
                                 <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
