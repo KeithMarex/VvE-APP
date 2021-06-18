@@ -14,7 +14,7 @@ export class VveManagementComponent implements OnInit {
   organization: Organization
   primaryColor = '';
   secondaryColor = '';
-  logo: string = 'de-nieuwe-wereld-logo.svg'; //TODO replace with file
+  logo = '';
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 

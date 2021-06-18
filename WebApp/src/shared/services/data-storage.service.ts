@@ -7,8 +7,6 @@ import { OrganizationDao } from "./organization-dao.service";
     providedIn: 'root'
 })
 export class DataStorageService {
-    primaryColor = new BehaviorSubject<string>('#000000');
-    secondaryColor = new BehaviorSubject<string>('#000000');
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private organizationDao: OrganizationDao) {}
@@ -54,9 +52,6 @@ export class DataStorageService {
     setTheme(theme: Theme) {
         document.documentElement.style.setProperty('--dynamic-primary', theme.primarycolor);
         document.documentElement.style.setProperty('--dynamic-secondary', theme.secondarycolor);
-
-        this.primaryColor.next(theme.primarycolor);
-        this.secondaryColor.next(theme.secondarycolor);
     }
 
 }
