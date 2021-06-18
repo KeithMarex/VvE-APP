@@ -181,6 +181,8 @@ body {
             }
             
             .comments {
+                display: flex;
+                flex-direction: column;
                 height: 150px;
                 min-width: 100%;
                 overflow: auto;

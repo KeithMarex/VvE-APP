@@ -134,9 +134,12 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.inputCommentText = form.value.inputCommentText;
     console.log(this.inputCommentText);
     // console.log(this.inputCommentText);
-    if (this.commentImages.length>0) {
-      formData.append("images", JSON.stringify(this.commentImages));
-    }
+    this.commentImages.forEach((image, index) => {
+      formData.append(`file` + index+1 , image)
+  })
+    // if (this.commentImages.length>0) {
+    //   formData.append("images", this.inputCommentImage);
+    // }
     formData.append("comment", this.inputCommentText);
     formData.append("ticketID", this.ticket._id);
 
