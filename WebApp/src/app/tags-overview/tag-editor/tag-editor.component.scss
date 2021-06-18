@@ -5,7 +5,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 3px;
-    background-color: #bb2d3b;
+    background-color: $error-color;
     color: white;
     align-items: center;
     text-align: center;
@@ -33,7 +33,7 @@ input {
 }
 
 .light-text {
-    color: #A0A3BD;
+    color: $grayscale-color;
 }
 
 .form-group {
@@ -85,9 +85,4 @@ button {
     
     margin: 2rem 0;
     background-color: $dynamic-primary;
-}
-
-.error-text {
-    margin-top: 5px;
-    color: red;
 }

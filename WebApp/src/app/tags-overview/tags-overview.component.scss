@@ -25,7 +25,7 @@ body {
     .button-section {
         display: flex;
         justify-content: flex-end;
-        border-bottom: 1px solid #DEDEDE;
+        border-bottom: 1px solid $background-color;
         margin: 0 15px;
 
         button {
@@ -48,7 +48,7 @@ body {
 
     ::-webkit-scrollbar {
         width: 2.5rem;
-        background-color: #DEDEDE;
+        background-color: $background-color;
         border: 15px solid rgb(255, 255, 255);
         border-radius: 25px;
     }
