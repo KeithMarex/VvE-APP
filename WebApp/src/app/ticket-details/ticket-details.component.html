@@ -129,12 +129,12 @@
                     <h1>Opmerkingen</h1>
                     <div class="comments">
                         <div *ngFor="let comment of comments">
-                            <div *ngIf="!commentIsFromUser(comment)" class="different-user-comment">
+                            <div class="different-user-comment">
                                 <app-ticket-comment [comment]="comment"></app-ticket-comment>
                             </div>
-                            <div *ngIf="commentIsFromUser(comment)" class="user-comment">
+                            <!-- <div *ngIf="commentIsFromUser(comment)" class="user-comment">
                                 <app-logged-in-user-ticket-comment [comment]="comment"></app-logged-in-user-ticket-comment>
-                            </div>
+                            </div> -->
                         </div>
                         <app-ticket-comment *ngFor="let comment of comments" [comment]="comment"></app-ticket-comment>
                     </div>

@@ -134,11 +134,9 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.inputCommentText = form.value.inputCommentText;
     console.log(this.inputCommentText);
     // console.log(this.inputCommentText);
-    
-    this.commentImages.forEach((image, index) => { 
-      // let imgBlob = new Blob()
-      formData.append(`file${index + 1}`, image);
-    });
+    if (this.commentImages.length>0) {
+      formData.append("images", JSON.stringify(this.commentImages));
+    }
     formData.append("comment", this.inputCommentText);
     formData.append("ticketID", this.ticket._id);
 
@@ -146,7 +144,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   handleFileInput(target: any): void {
-		this.inputCommentImage = target.files.item(0);
+    console.log(target.files[0]);
+		this.inputCommentImage = target.files[0];
     this.commentImages.push(this.inputCommentImage);
     this.inputCommentImage = undefined;
     target.value = "";
