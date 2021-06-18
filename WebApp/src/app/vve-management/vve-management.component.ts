@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Image } from 'src/shared/models/image.model';
 import { Organization } from 'src/shared/models/organization.model';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { OrganizationDao } from 'src/shared/services/organization-dao.service';
@@ -14,7 +14,7 @@ export class VveManagementComponent implements OnInit {
   organization: Organization
   primaryColor = '';
   secondaryColor = '';
-  logo = '';
+  logo: Image;
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
@@ -25,11 +25,15 @@ export class VveManagementComponent implements OnInit {
   getOrganizationDetails() {
     this.organizationDao.getOrganization()
     .subscribe(res => {
-      this.organization = res;
-      this.primaryColor = this.organization.Theme.primarycolor;
-      this.secondaryColor = this.organization.Theme.secondarycolor;
-      this.logo = this.organization.logo.name;
+      this.setOrganizationDetails(res);
     })
+  }
+
+  setOrganizationDetails(organization: Organization) {
+    this.organization = organization;
+    this.primaryColor = this.organization.Theme.primarycolor;
+    this.secondaryColor = this.organization.Theme.secondarycolor;
+    this.logo = this.organization.logo;
   }
 
   onChangeStyling(form: NgForm) {
