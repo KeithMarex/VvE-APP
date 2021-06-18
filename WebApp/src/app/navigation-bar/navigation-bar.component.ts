@@ -33,7 +33,6 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
     this.dataStorageService.logoUrl
     .subscribe(newLogo => {
       this.logoUrl = newLogo;
-      console.log(this.logoUrl);
     })
   }
 
