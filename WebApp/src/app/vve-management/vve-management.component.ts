@@ -53,17 +53,25 @@ export class VveManagementComponent implements OnInit {
     //   this.dataStorageService.setTheme(newTheme);
     // });
 
-    mForm.append('name', formValues.name);
-    mForm.append('logo', this.newLogo);
+    var newName = formValues.name;
+    
+    if (newName) {
+      mForm.append('name', formValues.name);
+    }
+    if (this.newLogo)
+    {
+      mForm.append('logo', this.newLogo);
+    }
 
-    console.log(this.newLogo);
-
-    // this.organizationDao.updateDetails(mForm)
-    // .subscribe(res => {
-    //   console.log(res);
-    // }, err => {
-    //   console.log(err);
-    // });
+    // if (newName || this.newLogo)
+    // {
+    //   this.organizationDao.updateDetails(mForm)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //   }, err => {
+    //     console.log(err);
+    //   }); 
+    // }
   }
 
   onFileChanged(event) {
