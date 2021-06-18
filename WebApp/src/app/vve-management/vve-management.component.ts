@@ -12,9 +12,10 @@ import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 })
 export class VveManagementComponent implements OnInit {
   organization: Organization
-  primaryColor = '';
-  secondaryColor = '';
+  primaryColor = '#000000';
+  secondaryColor = '#000000';
   logo: Image;
+  newLogoName: string; // Based on uploaded file
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
@@ -26,7 +27,7 @@ export class VveManagementComponent implements OnInit {
     this.organizationDao.getOrganization()
     .subscribe(res => {
       this.setOrganizationDetails(res);
-    })
+    });
   }
 
   setOrganizationDetails(organization: Organization) {
@@ -39,18 +40,17 @@ export class VveManagementComponent implements OnInit {
   onChangeStyling(form: NgForm) {
     const formValues = form.value;
 
+    console.log(formValues.logo);
+
     var newTheme =
     {
       "primarycolor": formValues.primaryColor,
       "secondarycolor": formValues.secondaryColor
     }
 
-    this.organizationDao.updateTheme(newTheme)
-    .subscribe(() => {
-      this.dataStorageService.setTheme(newTheme);
-    });
+    // this.organizationDao.updateTheme(newTheme)
+    // .subscribe(() => {
+    //   this.dataStorageService.setTheme(newTheme);
+    // });
   }
-
-
-
 }

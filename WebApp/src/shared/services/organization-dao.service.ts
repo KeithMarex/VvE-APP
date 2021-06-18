@@ -33,4 +33,8 @@ export class OrganizationDao {
         
         return this.dao.sendPutRequest('organization/theme', body);
     }
+
+    updateDetails(OrganizationData: FormData): Observable<any> {
+        return this.dao.sendPutRequestForm('organization', OrganizationData);
+    }
 }
