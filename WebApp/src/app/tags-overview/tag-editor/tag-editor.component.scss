@@ -78,11 +78,6 @@ input {
     font-family: inherit;
     font-size: 110%;
     color: black;
-
-    .name:focus {
-        outline: none;
-        border-bottom: 1px solid $primary-color;
-      }
 }
 
 button {
