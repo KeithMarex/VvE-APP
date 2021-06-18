@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 *ngIf="!fileLoaded">Kies een csv bestand.</h1>
+    <h1 *ngIf="fileLoaded">Ingeladen accounts</h1>
+    <div class="control-panel">
+    <section class="personalization">
+        <form (ngSubmit)="onInputFile(accounts)" #accounts="ngForm">
+            <div class="input-fields">
+                <label class="custom-file-input">
+                    <input type="file" accept=".csv" id="accounts" name="accounts" ngModel>
+                    <div class="file-name-field">
+                        <div class="file-name"> {{loadedFileName}} </div>
+                    </div>
+                    <div class="file-input-icon">
+                        <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
+                    </div>
+                </label>
+            </div>
+            <br>
+            <button type="submit">Bevestig</button>
+        </form>
+    </section>
+    </div>
+    <button type="submit">Aanmaken</button>
+</div>

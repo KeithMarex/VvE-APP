@@ -6,7 +6,7 @@
         <section class="button-section">
             <button id="add-user-button" class="icon-button dropdown-button">Toevoegen
                 <span class="button-dropdown">
-                    <div class="top-option">
+                    <div class="top-option" (click)="onImportUsers()">
                         <p>CSV importeren</p>
                     </div>
                     <hr>
@@ -19,8 +19,11 @@
         <section class="content-section">
             <app-account-list></app-account-list>
         </section>
-        <app-popup *ngIf="creatingUser" title="Account toevoegen" (closed)="onClose()">
+        <app-popup *ngIf="creatingUser" title="Account toevoegen" (closed)="onCloseCreator()">
             <app-account-creator (userCreated)="onCreateUser($event)"></app-account-creator>
+        </app-popup>
+        <app-popup *ngIf="importingUsers" title="Accounts toevoegen (csv)" (closed)="onCloseImport()">
+            <app-account-import (userImported)="onUsersImported($event)"></app-account-import>
         </app-popup>
     </body>
 </div>

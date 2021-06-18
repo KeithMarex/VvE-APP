@@ -59,6 +59,8 @@ import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
 import { ThemeDao } from 'src/shared/services/theme-dao.service';
 import { JsonParserService } from 'src/shared/services/json-parser.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { AccountImportComponent } from './account-management/account-import/account-import.component';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -103,6 +105,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarItemDetailsComponent,
     SpinnerComponent,
     PasswordRecoveryComponent,
+    AccountImportComponent
   ],
   imports: [
     BrowserModule,
@@ -123,6 +126,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       }
     }),
     NgxDaterangepickerMd.forRoot(),
+    NgxCsvParserModule,
   ],
   providers: [
     Dao,
