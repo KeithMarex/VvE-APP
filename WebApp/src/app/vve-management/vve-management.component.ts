@@ -16,6 +16,7 @@ export class VveManagementComponent implements OnInit {
   secondaryColor = '#000000';
   logo: Image;
   newLogoName: string; // Based on uploaded file
+  newLogo: File;
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
@@ -39,18 +40,33 @@ export class VveManagementComponent implements OnInit {
 
   onChangeStyling(form: NgForm) {
     const formValues = form.value;
+    const mForm = new FormData();
 
-    console.log(formValues.logo);
-
-    var newTheme =
-    {
-      "primarycolor": formValues.primaryColor,
-      "secondarycolor": formValues.secondaryColor
-    }
+    // var newTheme =
+    // {
+    //   "primarycolor": formValues.primaryColor,
+    //   "secondarycolor": formValues.secondaryColor
+    // }
 
     // this.organizationDao.updateTheme(newTheme)
     // .subscribe(() => {
     //   this.dataStorageService.setTheme(newTheme);
     // });
+
+    mForm.append('name', formValues.name);
+    mForm.append('logo', this.newLogo);
+
+    console.log(this.newLogo);
+
+    // this.organizationDao.updateDetails(mForm)
+    // .subscribe(res => {
+    //   console.log(res);
+    // }, err => {
+    //   console.log(err);
+    // });
+  }
+
+  onFileChanged(event) {
+    this.newLogo = event.target.files[0];
   }
 }
