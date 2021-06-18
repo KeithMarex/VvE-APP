@@ -40,4 +40,13 @@ export class UserDao {
 
       return this.dao.sendPostRequest('user/register', body);
     }
+
+    recoverPassword(email: string): Observable<any> {
+      const body = 
+      {
+        "email": email
+      };
+
+      return this.dao.sendPostRequest('user/reset', body);
+    }
 }
