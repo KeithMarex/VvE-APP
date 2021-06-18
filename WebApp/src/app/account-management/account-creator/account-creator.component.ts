@@ -10,6 +10,7 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 export class AccountCreatorComponent implements OnInit {
   @Output() userCreated = new EventEmitter();
   errorMessage: string;
+  isLoading = false;
 
   constructor(private userDao: UserDao) { }
 
@@ -23,12 +24,14 @@ export class AccountCreatorComponent implements OnInit {
     const mailValid = this.validateEmail(formValues.email, formValues.confirmEmail);
 
     if (mailValid) {
+      this.isLoading = true;
       this.userDao.registerUser(formValues.email, formValues.firstname, formValues.lastname).subscribe(
         res => {
           this.userCreated.emit();
         },
         errorRes => {
-          this.errorMessage = errorRes.error.message;
+          this.errorMessage = errorRes.statusText;
+          this.isLoading = false;
         }
       );
     }

@@ -69,6 +69,7 @@ section > form {
     }
 
     .error-text {
-        color: red;
+        background-color: $error-color;
+        color: white;
     }
 }

@@ -40,16 +40,11 @@ export class TicketCreatorComponent implements OnInit {
 
     this.ticketDao.createTicket(mForm)
     .subscribe(
-      res => {
+      () => {
       this.ticketCreated.emit();
       }, 
       errorRes => {
-        let incomingErrorMessage = errorRes.error.message;
-        if (incomingErrorMessage) {
-          this.errorMessage = errorRes.error.message;
-        } else {
-          this.errorMessage = 'Er is een onbekende error opgetreden';
-        }
+        this.errorMessage = errorRes.statusText;
       }
     );
   }
