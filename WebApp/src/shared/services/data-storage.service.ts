@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { Theme } from "../models/theme.model";
 import { OrganizationDao } from "./organization-dao.service";
 
@@ -7,18 +7,13 @@ import { OrganizationDao } from "./organization-dao.service";
     providedIn: 'root'
 })
 export class DataStorageService {
+    logoUrl = new BehaviorSubject<string>('');
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
     constructor(private organizationDao: OrganizationDao) {}
 
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
-
-        return storageValue || null;
-    }
-
-    getValueFromSessionStorage(key: string): string {
-        var storageValue = sessionStorage.getItem(key);
 
         return storageValue || null;
     }
@@ -31,14 +26,14 @@ export class DataStorageService {
         this.loggedInUserId = user;
         localStorage.setItem('userId', user);
         
-        this.getTheme();
+        this.initializeTheme();
     }
 
-    getTheme() {
-        var loggedIn = this.getValueFromStorage('userId') != null;
+    initializeTheme() {
+        var isLoggedIn = this.getValueFromStorage('userId') != null;
 
-        if (loggedIn) {
-            this.getThemeFromDao();
+        if (isLoggedIn) {
+            this.getOrganizationFromDao();
         }
     }
 
@@ -47,6 +42,16 @@ export class DataStorageService {
         .subscribe(res => {
             this.setTheme(res);
         });
+    }
+
+    getOrganizationFromDao() {
+        this.organizationDao.getOrganization()
+        .subscribe(res => {
+            this.setTheme(res.Theme);
+            if (res.logo.image_url) {
+                this.logoUrl.next(res.logo.image_url);
+            }
+        })
     }
 
     setTheme(theme: Theme) {
