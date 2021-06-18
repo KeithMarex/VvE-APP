@@ -26,4 +26,14 @@ export class AccountItemComponent implements OnInit {
       console.log(err.statusText);
     });
   }
+
+  onDeleteUser() {
+    //TODO add confirmation popup
+    this.userDao.deleteUser(this.user._id)
+    .subscribe(() => {
+      location.reload();
+    }, err => {
+      console.log(err);
+    });
+  }
 }

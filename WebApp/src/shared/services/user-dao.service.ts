@@ -39,6 +39,10 @@ export class UserDao {
       return this.dao.sendPutRequest('user/' + id, body);
     }
 
+    deleteUser(id: string): Observable<any> {
+      return this.dao.sendDeleteRequest('user/' + id);
+    }
+
     registerUser(email: string, firstname: string, lastname: string): Observable<any> {
       const body = 
       [{

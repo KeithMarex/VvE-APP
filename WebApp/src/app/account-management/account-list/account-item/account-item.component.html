@@ -20,6 +20,6 @@
 
     <section class="controls">
         <button class="icon-button" id="role-button" (click)="onChangeRole()">{{ user.role === 'admin' ? 'Bewoner maken' : 'Bestuur maken' }}</button>
-        <button class="icon-button" id="delete-button">Account verwijderen</button>
+        <button class="icon-button" id="delete-button" (click)="onDeleteUser()">Account verwijderen</button>
     </section>
 </div>
