@@ -34,7 +34,8 @@ export class PasswordRecoveryComponent implements OnInit {
     }
     , err => {
       this.notificationMessage = err.statusText;
-    }, () => {
+    })
+    .add(() => {
       this.isLoading = false;
     });
   }
