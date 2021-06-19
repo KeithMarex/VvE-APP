@@ -1,16 +1,19 @@
 <div class="comment-container">
     <div class="comment">
-        <h1>Jij</h1>
-        <p class="comment-text">{{comment.comment}}</p>
-        <div class="date">{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm' }}</div>
-    </div>
-    <section *ngIf="comment.images.length > 0" class="image-section">
-        <div class="comment-images" *ngIf="comment.images.length > 0">
-            <p *ngFor="let image of comment.images">
-                <a href="{{ image.image_url }}" target="_blank">
-                    <img src="{{ image.image_url }}" alt="none">
-                </a>
-            </p>
+        <div class="background"></div>
+        <div class="foreground">
+            <h1>Jij</h1>
+            <p class="comment-text">{{comment.comment}}</p>
+            <div class="date">{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm' }}</div>
         </div>
-    </section>
+        <section *ngIf="comment.images.length > 0" class="image-section">
+            <div class="comment-images" *ngIf="comment.images.length > 0">
+                <p *ngFor="let image of comment.images">
+                    <a href="{{ image.image_url }}" target="_blank">
+                        <img src="{{ image.image_url }}" alt="none">
+                    </a>
+                </p>
+            </div>
+        </section>
+    </div>
 </div>

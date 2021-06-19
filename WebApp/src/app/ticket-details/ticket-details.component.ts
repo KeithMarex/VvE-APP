@@ -132,14 +132,11 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   submitComment(form: NgForm): void {
     const formData = new FormData();
     this.inputCommentText = form.value.inputCommentText;
-    console.log(this.inputCommentText);
-    // console.log(this.inputCommentText);
+
     this.commentImages.forEach((image, index) => {
       formData.append(`file` + index+1 , image)
-  })
-    // if (this.commentImages.length>0) {
-    //   formData.append("images", this.inputCommentImage);
-    // }
+    })
+
     formData.append("comment", this.inputCommentText);
     formData.append("ticketID", this.ticket._id);
 
