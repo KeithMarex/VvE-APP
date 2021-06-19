@@ -13,9 +13,11 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 })
 export class TicketCreatorComponent implements OnInit {
   @Output() ticketCreated = new EventEmitter();
-  organizationMembers: User[];
+  organizationMembers: User[] = [new User(null, null, null, 'Niet', 'toegewezen', null, null)]; // Default user added so no assignee can be selected
   organizationTags: Tag[];
   errorMessage: string;
+  
+  selectedAssignee = this.organizationMembers[0];
 
   constructor(private ticketDao: TicketDao, private userDao: UserDao, private tagDao: TagDao) { }
 
@@ -28,25 +30,30 @@ export class TicketCreatorComponent implements OnInit {
     const formValues = form.value;
     const mForm = new FormData();
 
-    mForm.append('title', formValues.title);
-    mForm.append('description', formValues.description);
-    if (formValues.assignee) {
-      mForm.append('assignee', formValues.assignee);
+    if (formValues.assignee._id)
+    {
+      console.log(formValues.assignee._id);
     }
-    if (formValues.tag) {
-      mForm.append('tag', formValues.tag);
-    }
-    mForm.append('status', this.formatStatus(formValues.status));
 
-    this.ticketDao.createTicket(mForm)
-    .subscribe(
-      () => {
-      this.ticketCreated.emit();
-      }, 
-      errorRes => {
-        this.errorMessage = errorRes.statusText;
-      }
-    );
+    // mForm.append('title', formValues.title);
+    // mForm.append('description', formValues.description);
+    // if (formValues.assignee._id) {
+    //   mForm.append('assignee', formValues.assignee._id);
+    // }
+    // if (formValues.tag) {
+    //   mForm.append('tag', formValues.tag);
+    // }
+    // mForm.append('status', this.formatStatus(formValues.status));
+
+    // this.ticketDao.createTicket(mForm)
+    // .subscribe(
+    //   () => {
+    //   this.ticketCreated.emit();
+    //   }, 
+    //   errorRes => {
+    //     this.errorMessage = errorRes.statusText;
+    //   }
+    // );
   }
 
   formatStatus(status: string): string {
@@ -69,15 +76,21 @@ export class TicketCreatorComponent implements OnInit {
   getOrganizationAdmins() {
     this.userDao.getAdminsByOrganization()
     .subscribe(responseUsers => {
-      this.organizationMembers = responseUsers;
-    })
+      this.populateMembers(responseUsers);
+    });
+  }
+
+  populateMembers(newMembers: User[]) {
+    for (var i = 0; i < newMembers.length; i++ ) {
+      this.organizationMembers.push(newMembers[i]);
+    }
   }
 
   getOrganizationTags() {
     this.tagDao.getAllTags()
     .subscribe(responseTags => {
       this.organizationTags = responseTags;
-    })
+    });
   }
 
 }
