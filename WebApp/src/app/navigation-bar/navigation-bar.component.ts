@@ -37,8 +37,7 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    sessionStorage.clear();
-    localStorage.clear();
+    this.dataStorageService.clearStoredData();
 
     location.reload();
   }

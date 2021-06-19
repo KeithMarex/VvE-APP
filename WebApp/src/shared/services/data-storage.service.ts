@@ -59,4 +59,22 @@ export class DataStorageService {
         document.documentElement.style.setProperty('--dynamic-secondary', theme.secondarycolor);
     }
 
+    clearStoredData() {
+        sessionStorage.clear();
+        localStorage.clear();
+
+        // this.deleteAllCookies();
+    }
+
+    deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+    
+        for (var i = 1; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          var equalsPos = cookie.indexOf('='); // Get the char index of equals sign
+          var cookieName = equalsPos > -1 ? cookie.substring(0, equalsPos) : cookie;
+    
+          document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"; // Set new cookie value to expire immediately
+        }
+      }
 }
