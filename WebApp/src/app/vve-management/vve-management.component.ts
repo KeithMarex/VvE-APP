@@ -66,7 +66,9 @@ export class VveManagementComponent implements OnInit {
     if (newName || this.newLogo)
     {
       this.organizationDao.updateDetails(mForm)
-      .subscribe(); 
+      .subscribe(() => {
+        location.reload();
+      }); 
     }
   }
 

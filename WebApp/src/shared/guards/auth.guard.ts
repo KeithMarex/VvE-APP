@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthDao } from '../../shared/services/auth-dao.service';
+import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authDao: AuthDao) {}
+  constructor(private router: Router, private dataStorageService: DataStorageService) {}
 
   /**
    * @param next The activatedroute
@@ -18,11 +18,13 @@ export class AuthGuard implements CanActivate {
   canActivate (
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (this.authDao.isLoggedIn()) {
+      if (this.dataStorageService.getLoggedInUserId()) {
         return true;
       }
-      window.alert('You need to be logged in to view this page');
-      return false;
+      else {
+        this.router.navigate(['/']);
+        return false;
+      }
   }
 
 }

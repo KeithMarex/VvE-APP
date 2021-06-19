@@ -13,9 +13,14 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 })
 export class TicketCreatorComponent implements OnInit {
   @Output() ticketCreated = new EventEmitter();
-  organizationMembers: User[];
-  organizationTags: Tag[];
+  organizationMembers: User[] = [new User(null, null, null, 'Niet', 'toegewezen', null, null)]; // Default user added so no assignee can be selected
+  organizationTags: Tag[] = [new Tag(null, 'Geen tag geselecteerd', null, null, null)];
+  statusOptions = ['In afwachting', 'In behandeling', 'Afgehandeld'];
   errorMessage: string;
+  
+  selectedAssignee = this.organizationMembers[0];
+  selectedTag = this.organizationTags[0];
+  selectedStatus = this.statusOptions[0];
 
   constructor(private ticketDao: TicketDao, private userDao: UserDao, private tagDao: TagDao) { }
 
@@ -30,11 +35,11 @@ export class TicketCreatorComponent implements OnInit {
 
     mForm.append('title', formValues.title);
     mForm.append('description', formValues.description);
-    if (formValues.assignee) {
-      mForm.append('assignee', formValues.assignee);
+    if (formValues.assignee._id) {
+      mForm.append('assignee', formValues.assignee._id);
     }
-    if (formValues.tag) {
-      mForm.append('tag', formValues.tag);
+    if (formValues.tag._id) { // Standard no tag contains no _id
+      mForm.append('tag', formValues.tag._id);
     }
     mForm.append('status', this.formatStatus(formValues.status));
 
@@ -69,15 +74,21 @@ export class TicketCreatorComponent implements OnInit {
   getOrganizationAdmins() {
     this.userDao.getAdminsByOrganization()
     .subscribe(responseUsers => {
-      this.organizationMembers = responseUsers;
-    })
+      this.populateMembers(responseUsers);
+    });
+  }
+
+  populateMembers(newMembers: User[]) {
+    for (var i = 0; i < newMembers.length; i++ ) {
+      this.organizationMembers.push(newMembers[i]);
+    }
   }
 
   getOrganizationTags() {
     this.tagDao.getAllTags()
     .subscribe(responseTags => {
       this.organizationTags = responseTags;
-    })
+    });
   }
 
 }
