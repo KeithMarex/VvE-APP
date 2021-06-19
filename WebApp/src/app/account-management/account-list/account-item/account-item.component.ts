@@ -10,6 +10,8 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 export class AccountItemComponent implements OnInit {
   @Input() user: User;
 
+  warningPopup = false;
+
   constructor(private userDao: UserDao) { }
 
   ngOnInit(): void {
@@ -29,11 +31,16 @@ export class AccountItemComponent implements OnInit {
 
   onDeleteUser() {
     //TODO add confirmation popup
-    this.userDao.deleteUser(this.user._id)
-    .subscribe(() => {
-      location.reload();
-    }, err => {
-      console.log(err);
-    });
+    this.warningPopup = true;
+    // this.userDao.deleteUser(this.user._id)
+    // .subscribe(() => {
+    //   location.reload();
+    // }, err => {
+    //   console.log(err);
+    // });
+  }
+
+  onCloseWarning() {
+    this.warningPopup = false;
   }
 }

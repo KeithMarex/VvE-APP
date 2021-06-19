@@ -23,3 +23,7 @@
         <button class="icon-button" id="delete-button" (click)="onDeleteUser()">Account verwijderen</button>
     </section>
 </div>
+
+<app-popup *ngIf="warningPopup" title="Waarschuwing" (closed)="onCloseWarning()" [fitContent]="true">
+    <app-confirmation-popup content="Weet u zeker dat u dit account wil verwijderen?"></app-confirmation-popup>
+</app-popup>

@@ -59,6 +59,7 @@ import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
 import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 import { JsonParserService } from 'src/shared/services/json-parser.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -103,6 +104,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarItemDetailsComponent,
     SpinnerComponent,
     PasswordRecoveryComponent,
+    ConfirmationPopupComponent,
   ],
   imports: [
     BrowserModule,
