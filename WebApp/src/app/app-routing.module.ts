@@ -13,8 +13,8 @@ import { PasswordRecoveryComponent } from './password-recovery/password-recovery
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent },
-  { path: 'password-recovery', component: PasswordRecoveryComponent},
+  { path: 'login', component: LoginComponent, data: { noAuthRequired: true }, canActivate:[AuthGuard] },
+  { path: 'password-recovery', component: PasswordRecoveryComponent, data: { noAuthRequired: true }, canActivate:[AuthGuard] },
   { path: 'account-management', component: AccountManagementComponent, canActivate:[AuthGuard] },
   { path: 'calendar', component: CalendarOverviewComponent, canActivate:[AuthGuard] },
   { path: 'news-overview', component: NewsOverviewComponent, canActivate:[AuthGuard] },

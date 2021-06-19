@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subscription } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { Theme } from "../models/theme.model";
 import { OrganizationDao } from "./organization-dao.service";
 

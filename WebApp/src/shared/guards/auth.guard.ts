@@ -18,7 +18,18 @@ export class AuthGuard implements CanActivate {
   canActivate (
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (this.dataStorageService.getLoggedInUserId()) {
+
+      const noAuthRequired = next.data.noAuthRequired;
+      const isLoggedIn = this.dataStorageService.getLoggedInUserId() != null;
+
+      if (isLoggedIn) {
+        if (noAuthRequired) {
+          this.router.navigate(['/ticket-overview']);
+          return false;
+        }
+        return true;
+      }
+      else if (noAuthRequired) {
         return true;
       }
       else {
