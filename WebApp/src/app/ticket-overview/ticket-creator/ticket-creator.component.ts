@@ -14,10 +14,13 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 export class TicketCreatorComponent implements OnInit {
   @Output() ticketCreated = new EventEmitter();
   organizationMembers: User[] = [new User(null, null, null, 'Niet', 'toegewezen', null, null)]; // Default user added so no assignee can be selected
-  organizationTags: Tag[];
+  organizationTags: Tag[] = [new Tag(null, 'Geen tag geselecteerd', null, null, null)];
+  statusOptions = ['In afwachting', 'In behandeling', 'Afgehandeld'];
   errorMessage: string;
   
   selectedAssignee = this.organizationMembers[0];
+  selectedTag = this.organizationTags[0];
+  selectedStatus = this.statusOptions[0];
 
   constructor(private ticketDao: TicketDao, private userDao: UserDao, private tagDao: TagDao) { }
 

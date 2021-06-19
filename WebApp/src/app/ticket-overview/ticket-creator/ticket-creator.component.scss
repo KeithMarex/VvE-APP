@@ -54,6 +54,12 @@ section > form {
         height: 2rem;
         min-width: 60%;
         max-width: 100%;
+        margin: 1rem 0;
+
+        .dropdown-text {
+            min-width: 10rem !important;
+            max-width: 10rem;
+        }
     }
 
     button {
