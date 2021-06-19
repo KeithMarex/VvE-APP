@@ -33,30 +33,25 @@ export class TicketCreatorComponent implements OnInit {
     const formValues = form.value;
     const mForm = new FormData();
 
-    if (formValues.assignee._id)
-    {
-      console.log(formValues.assignee._id);
+    mForm.append('title', formValues.title);
+    mForm.append('description', formValues.description);
+    if (formValues.assignee._id) {
+      mForm.append('assignee', formValues.assignee._id);
     }
+    if (formValues.tag._id) { // Standard no tag contains no _id
+      mForm.append('tag', formValues.tag._id);
+    }
+    mForm.append('status', this.formatStatus(formValues.status));
 
-    // mForm.append('title', formValues.title);
-    // mForm.append('description', formValues.description);
-    // if (formValues.assignee._id) {
-    //   mForm.append('assignee', formValues.assignee._id);
-    // }
-    // if (formValues.tag) {
-    //   mForm.append('tag', formValues.tag);
-    // }
-    // mForm.append('status', this.formatStatus(formValues.status));
-
-    // this.ticketDao.createTicket(mForm)
-    // .subscribe(
-    //   () => {
-    //   this.ticketCreated.emit();
-    //   }, 
-    //   errorRes => {
-    //     this.errorMessage = errorRes.statusText;
-    //   }
-    // );
+    this.ticketDao.createTicket(mForm)
+    .subscribe(
+      () => {
+      this.ticketCreated.emit();
+      }, 
+      errorRes => {
+        this.errorMessage = errorRes.statusText;
+      }
+    );
   }
 
   formatStatus(status: string): string {
