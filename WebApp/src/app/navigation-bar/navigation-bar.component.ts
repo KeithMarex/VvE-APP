@@ -36,4 +36,11 @@ export class NavigationBarComponent implements OnInit, OnDestroy {
     })
   }
 
+  onLogout() {
+    sessionStorage.clear();
+    localStorage.clear();
+
+    location.reload();
+  }
+
 }
