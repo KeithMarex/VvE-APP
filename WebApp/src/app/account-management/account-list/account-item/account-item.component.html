@@ -25,5 +25,5 @@
 </div>
 
 <app-popup *ngIf="warningPopup" title="Waarschuwing" (closed)="onCloseWarning()" [fitContent]="true">
-    <app-confirmation-popup content="Weet u zeker dat u dit account wil verwijderen?" (confirmed)="onConfirmDeletion()"></app-confirmation-popup>
+    <app-confirmation-popup content="Weet u zeker dat u het account van {{ user.firstname + ' ' + user.lastname}} wil verwijderen?" (confirmed)="onConfirmDeletion()"></app-confirmation-popup>
 </app-popup>
