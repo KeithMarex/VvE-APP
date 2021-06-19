@@ -130,31 +130,32 @@
                     <div class="comments">
                         <div *ngFor="let comment of comments">
                             <div class="different-user-comment">
-                                <app-ticket-comment *ngIf="commentIsFromUser(comment)" [comment]="comment"></app-ticket-comment>
+                                <app-ticket-comment *ngIf="!commentIsFromUser(comment)" [comment]="comment"></app-ticket-comment>
                             </div>
                             <div *ngIf="commentIsFromUser(comment)" class="user-comment">
                                 <app-logged-in-user-ticket-comment [comment]="comment"></app-logged-in-user-ticket-comment>
                             </div>
                         </div>
-                        <app-ticket-comment *ngFor="let comment of comments" [comment]="comment"></app-ticket-comment>
                     </div>
                     <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
                         <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
                         <label class="file-input">
-                            <div class="svg-element" appColoring colorStyle="secondary" [inlineSVG]="'../../../../assets/icons/Plus.svg'"></div>
+                            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/Plus.svg'"></div>
                             <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">
                         </label>
                         <div class="submit-button">
                             <button [disabled]="formForm.invalid" class="submit-comment-button">
-                                <div class="svg-element" appColoring colorStyle="secondary" colorElement="fill" [inlineSVG]="'../../../../assets/icons/Send.svg'"></div>
+                                <div class="svg-element" [inlineSVG]="'../../../../assets/icons/Send.svg'"></div>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="input-image-name" >
+            <div *ngIf="commentImages.length>0" class="input-image-name" >
                 <div *ngFor="let image of commentImages">
-                    <button class="remove-button" (click)="deleteImage(image)">{{ image.name}}</button>
+                    <div class="remove-button">
+                        <button class="icon-button" (click)="deleteImage()">{{ image.name }}</button>
+                    </div>
                 </div>
             </div>
         </section>
