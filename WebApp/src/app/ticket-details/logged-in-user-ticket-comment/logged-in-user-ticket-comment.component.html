@@ -8,11 +8,11 @@
         </div>
         <section *ngIf="comment.images.length > 0" class="image-section">
             <div class="comment-images" *ngIf="comment.images.length > 0">
-                <p *ngFor="let image of comment.images">
+                <div *ngFor="let image of comment.images">
                     <a href="{{ image.image_url }}" target="_blank">
                         <img src="{{ image.image_url }}" alt="none">
                     </a>
-                </p>
+                </div>
             </div>
         </section>
     </div>

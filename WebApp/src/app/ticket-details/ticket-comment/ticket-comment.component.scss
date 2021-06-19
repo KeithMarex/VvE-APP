@@ -12,7 +12,7 @@
         padding-bottom: 15px;
         background-color: white;
         justify-content: space-between;
-        margin: 15px 0px;
+        margin: 10px 0px;
         border-radius: 12px;
         box-shadow: $default-box-shadow;
 
@@ -50,8 +50,8 @@
             flex-wrap: wrap;
             gap: 1rem;
     
-            p > a > img {
-                height: 2rem;
+            a > img {
+                height: 3rem;
                 cursor: pointer;
             }
         }

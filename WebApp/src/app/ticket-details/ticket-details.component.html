@@ -127,6 +127,7 @@
             <div class="left-section">
                 <div>
                     <h1>Opmerkingen</h1>
+                    <div *ngIf="isError" class="error-message">{{errorMessage}}</div>
                     <div class="comments">
                         <div *ngFor="let comment of comments">
                             <div class="different-user-comment">
@@ -138,7 +139,7 @@
                         </div>
                     </div>
                     <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
-                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord">
+                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord" [formControl]="commentText">
                         <label class="file-input">
                             <div class="svg-element" [inlineSVG]="'../../../../assets/icons/Plus.svg'"></div>
                             <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">

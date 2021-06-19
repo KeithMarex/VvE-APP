@@ -13,7 +13,7 @@
         padding-bottom: 15px;
         background: none;
         justify-content: space-between;
-        margin: 15px 0px;
+        margin: 10px 0px;
         border-radius: 12px;
         box-shadow: $default-box-shadow;
         
@@ -40,6 +40,7 @@
         }
 
         .comment-text {
+            position: relative;
             max-width: 95%;
             color: black;
         }
@@ -67,8 +68,8 @@
             flex-wrap: wrap;
             gap: 1rem;
     
-            p > a > img {
-                height: 2rem;
+            a > img {
+                height: 3rem;
                 cursor: pointer;
             }
         }
