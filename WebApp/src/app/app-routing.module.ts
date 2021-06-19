@@ -8,7 +8,7 @@ import { TicketDetailsComponent } from './ticket-details/ticket-details.componen
 import { TicketOverviewComponent } from './ticket-overview/ticket-overview.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
 import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
-import { AuthGuard } from './guards/auth.guard'
+import { AuthGuard } from '../shared/guards/auth.guard'
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 
 const routes: Routes = [
