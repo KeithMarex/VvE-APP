@@ -23,24 +23,23 @@ export class AccountItemComponent implements OnInit {
     this.userDao.changeUserRole(this.user._id, newRole)
     .subscribe(() => {
       this.user.role = newRole;
-    },
-    err => {
-      console.log(err.statusText);
     });
   }
 
   onDeleteUser() {
-    //TODO add confirmation popup
     this.warningPopup = true;
-    // this.userDao.deleteUser(this.user._id)
-    // .subscribe(() => {
-    //   location.reload();
-    // }, err => {
-    //   console.log(err);
-    // });
   }
 
   onCloseWarning() {
     this.warningPopup = false;
+  }
+
+  onConfirmDeletion() {
+    this.onCloseWarning();
+
+    this.userDao.deleteUser(this.user._id)
+    .subscribe(() => {
+      location.reload();
+    });
   }
 }

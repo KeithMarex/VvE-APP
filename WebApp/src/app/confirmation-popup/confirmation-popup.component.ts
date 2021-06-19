@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-popup',
@@ -6,11 +6,16 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./confirmation-popup.component.scss']
 })
 export class ConfirmationPopupComponent implements OnInit {
+  @Output() confirmed = new EventEmitter<void>();
   @Input() content = 'Weet u het zeker?';
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onConfirm() {
+    this.confirmed.emit();
   }
 
 }
