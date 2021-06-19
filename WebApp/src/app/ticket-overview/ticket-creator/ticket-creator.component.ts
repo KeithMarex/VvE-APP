@@ -87,8 +87,14 @@ export class TicketCreatorComponent implements OnInit {
   getOrganizationTags() {
     this.tagDao.getAllTags()
     .subscribe(responseTags => {
-      this.organizationTags = responseTags;
+      this.populateTags(responseTags);
     });
+  }
+
+  populateTags(newTags: Tag[]) {
+    for (var i = 0; i < newTags.length; i++) {
+      this.organizationTags.push(newTags[i]);
+    }
   }
 
 }
