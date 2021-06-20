@@ -27,4 +27,7 @@ export class TicketListComponent implements OnInit {
     });
   }
 
+  onChangeSort(): void {
+    this.tickets = this.tickets.sort(sortBy('-createdAt'));
+  }
 }
