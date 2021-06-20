@@ -1,0 +1,133 @@
+{
+  "en": {
+    "login": {
+      "loginForget": {
+        "pass_forgot": "Retrieve password",
+        "description": "A new email will be sent to your address",
+        "back": "Back to login"
+      },
+      "login": {
+        "password": "Password",
+        "email": "Email",
+        "forgotPassword": "Forgot password?"
+      }
+    },
+    "home": {
+      "welcome": "Welcome",
+      "soon": "soon",
+      "recentNews": "Recent news",
+      "vveinfo": "Homeowners Association Info",
+      "parking": "Parking",
+      "newReaction": "New reaction",
+      "appointments": "Agenda points"
+    },
+    "agenda": {
+      "upcomingAppointment": "First new upcoming appointment",
+      "appointment": "Appointment",
+      "close": "close",
+      "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      "chooseApp": "Choose an appointment"
+    },
+    "news": {
+      "news": "News",
+      "mRecent": "Most recent"
+    },
+    "profile": {
+      "general": "General",
+      "modify": "Modify",
+      "language": "Language"
+    },
+    "ticket": {
+      "notifications": "Notifications",
+      "create": "Create",
+      "noNotifications": "You have not created any tickets.",
+      "createdOn": "Created on",
+      "lastModified": "Last modified",
+      "status": "Status",
+      "pictures": "Pictures",
+      "showPictures": "Show pictures",
+      "message": "Message",
+      "comments": "Comments",
+      "noComments": "No comments have been left yet",
+      "send": "Send",
+      "placeholder": "Type here your comment",
+      "createTicket": "Create ticket",
+      "subject": "Subject",
+      "placeholderSubject": "Subject of ticket",
+      "placeholderMessage": "Message of ticket",
+      "addPictures": "Add pictures",
+      "photo": {
+        "makePhoto": "Create a picture",
+        "choosePicture": "Choose an existing picture",
+        "cancel": "Cancel"
+      },
+      "moreInfo": "More info"
+
+    }
+  },
+  "nl": {
+    "login": {
+      "loginForget": {
+        "pass_forgot": "Wachtwoord herstellen",
+        "description": "Een nieuwe mail zal verstuurd worden met een tijdelijk wachtwoord voor het daar aan gekoppelde account.",
+        "back": "Terug naar login"
+      },
+      "login": {
+        "password": "Wachtwoord",
+        "email": "Email",
+        "forgotPassword": "Wachtwoord vergeten?"
+      }
+    },
+    "home": {
+      "welcome": "Welkom",
+      "soon": "Binnenkort",
+      "recentNews": "Recent nieuws",
+      "vveinfo": "VVE INfo",
+      "parking": "Parkeerplaats",
+      "newReaction": "Nieuwe reacties",
+      "appointments": "Agenda punten"
+    },
+    "agenda": {
+      "upcomingAppointment": "Eerst nieuw aankomende afspraak",
+      "appointment": "Afspraak",
+      "close": "sluiten",
+      "months": ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
+      "chooseApp": "Kies een afspraak"
+    },
+    "news": {
+      "news": "Nieuws",
+      "mRecent": "Meest recent"
+    },
+    "profile": {
+      "general": "Algemeen",
+      "modify": "Aanpassen",
+      "language": "Taal"
+    },
+    "ticket": {
+      "notifications": "Meldingen",
+      "create": "Aanmaken",
+      "noNotifications": "Je hebt geen meldingen gemaakt.",
+      "createdOn": "Aangemaakt op",
+      "lastModified": "Laatst gewijzigd",
+      "status": "Status",
+      "pictures": "Foto's",
+      "showPictures": "Bekijk foto's",
+      "message": "Bericht",
+      "comments": "Reacties",
+      "noComments": "Er zijn nog geen reacties achtergelaten",
+      "send": "Versturen",
+      "placeholder": "Schrijf hier jouw reactie",
+      "createTicket": "Maak melding",
+      "subject": "Onderwerp",
+      "placeholderSubject": "Onderwerp van melding",
+      "placeholderMessage": "Bericht van melding",
+      "addPictures": "Foto's toevoegen",
+      "photo": {
+        "makePhoto": "Maak een nieuwe foto",
+        "choosePicture": "Kies een bestaande foto",
+        "cancel": "Annuleren"
+      },
+      "moreInfo": "Meer info"
+    }
+  }
+}

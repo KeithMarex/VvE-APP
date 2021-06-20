@@ -1,11 +1,11 @@
-<div appColoring>
+<div>
     <header>
         <h1>Accounts</h1>
     </header>
     <body>
         <section class="button-section">
-            <button appColoring colorElement="backgroundColor" id="add-user-button" class="icon-button dropdown-button">Toevoegen
-                <span class="button-dropdown" appColoring>
+            <button id="add-user-button" class="icon-button dropdown-button">Toevoegen
+                <span class="button-dropdown">
                     <div class="top-option">
                         <p>CSV importeren</p>
                     </div>
@@ -15,14 +15,12 @@
                     </div>
                 </span>
             </button>
-            <p>TODO search component</p>
         </section>
         <section class="content-section">
             <app-account-list></app-account-list>
         </section>
         <app-popup *ngIf="creatingUser" title="Account toevoegen" (closed)="onClose()">
-            <app-account-creator></app-account-creator>
+            <app-account-creator (userCreated)="onCreateUser($event)"></app-account-creator>
         </app-popup>
     </body>
 </div>
-

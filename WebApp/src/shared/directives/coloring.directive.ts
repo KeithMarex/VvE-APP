@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 
 @Directive({
@@ -13,7 +13,7 @@ export class ColoringDirective implements OnInit {
 
   constructor(private elRef: ElementRef, private renderer: Renderer2, private dataStorageService: DataStorageService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     var chosenColor = this.primaryColor; // Default set to primary color, other values can be added below
     if (this.colorStyle == 'secondary')
     {

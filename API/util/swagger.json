@@ -23,6 +23,9 @@
     },
     {
       "name": "Organization"
+    },
+    {
+      "name": "News"
     }
   ],
   "paths": {
@@ -241,6 +244,171 @@
         }
       }
     },
+    "/user/reset": {
+      "post": {
+        "summary": "Resets the password of a user",
+        "description": "This requests requires an <b>email</b> and will generate a random password for the corresponding user.<br>\nWhen the new password is set it will be emailed to the user his email.\n",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User password reset"
+          },
+          "500": {
+            "description": "Error while resetting password"
+          }
+        }
+      }
+    },
+    "/user/{id}/": {
+      "put": {
+        "summary": "Updates user in the database",
+        "description": "Updates only the attributes that it receives. All attributes are optional.\n",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User has been updated successfully"
+          },
+          "500": {
+            "description": "Error occured while updating"
+          }
+        }
+      }
+    },
+    "/user/{id}//": {
+      "delete": {
+        "summary": "Deletes the User by ID.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "404": {
+            "description": "User does not exists"
+          }
+        }
+      }
+    },
+    "/organization": {
+      "get": {
+        "summary": "Returns the organization the user is in.",
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "emailcredentials": {
+                        "type": "string"
+                      },
+                      "theme": {
+                        "type": "object",
+                        "properties": {
+                          "primarycolor": {
+                            "type": "string"
+                          },
+                          "secondarycolor": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "logo": {
+                        "type": "Image"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error while returning organization"
+          }
+        }
+      }
+    },
     "/organization/users": {
       "get": {
         "summary": "Returns the admins from the organization the person is in.",
@@ -353,6 +521,42 @@
         }
       }
     },
+    "/organization/": {
+      "put": {
+        "summary": "Updates the name or logo of the organization.",
+        "description": "This request can take both name and logo as attributes to update, however not both are required.<br>\n<b>Example:</b> It is possible to only change the logo of an organization, without changing its name.\n",
+        "tags": [
+          "Organization"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated given attributes."
+          },
+          "500": {
+            "description": "Error trying to update the name or logo."
+          }
+        }
+      }
+    },
     "/tag": {
       "get": {
         "summary": "Returns all the tags of organization.",
@@ -455,38 +659,7 @@
                       "type": "string"
                     },
                     "organization": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "emailcredentials": {
-                          "type": "string"
-                        },
-                        "theme": {
-                          "type": "object",
-                          "properties": {
-                            "primarycolor": {
-                              "type": "string"
-                            },
-                            "secondarycolor": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "createdAt": {
-                          "type": "string"
-                        },
-                        "updatedAt": {
-                          "type": "string"
-                        },
-                        "__v": {
-                          "type": "string"
-                        }
-                      }
+                      "$ref": "#/paths/~1organization/get/responses/200/content/application~1json/schema/items"
                     },
                     "createdAt": {
                       "type": "string"
@@ -1231,6 +1404,172 @@
           },
           "404": {
             "description": "Agenda item does not exists"
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "summary": "Returns all the News.",
+        "description": "An array with News objects that are requested are returned. <br>\nThe organization is taken from the jwt tokens.\n",
+        "tags": [
+          "News"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/paths/~1news~1%7Bid%7D/get/responses/200/content/application~1json/schema"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error with finding News"
+          }
+        }
+      }
+    },
+    "/news/{id}": {
+      "get": {
+        "summary": "Returns the News corresponding with the given ID.",
+        "tags": [
+          "News"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "News object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "Organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "_v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News does not exists"
+          },
+          "500": {
+            "description": "Error trying to get News"
+          }
+        }
+      }
+    },
+    "/news/": {
+      "post": {
+        "summary": "Adds News to the database",
+        "description": "Adds the data to the database in a News Object.",
+        "tags": [
+          "News"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "author",
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Receiving created News",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error while creating News"
+          }
+        }
+      }
+    },
+    "/news/{id}/": {
+      "delete": {
+        "summary": "Deletes the News by ID.",
+        "tags": [
+          "News"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "500": {
+            "description": "Error while deleting News"
           }
         }
       }

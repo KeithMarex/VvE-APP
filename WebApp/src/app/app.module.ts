@@ -36,6 +36,7 @@ import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
 import { TagItemComponent } from './tags-overview/tag-list/tag-item/tag-item.component';
 import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.component';
+import { TagEditorComponent } from './tags-overview/tag-editor/tag-editor.component';
 import { Dao } from 'src/shared/services/dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { UserDao } from 'src/shared/services/user-dao.service';
@@ -49,12 +50,16 @@ import { DropdownComponent } from 'src/shared/dropdown/dropdown.component';
 import { DropdownSelectedDirective } from 'src/shared/dropdown/dropdown-selected.directive';
 import { DropdownOptionDirective } from 'src/shared/dropdown/dropdown-option.directive';
 import { AccountCreatorComponent } from './account-management/account-creator/account-creator.component';
-import { ColoringDirective } from 'src/shared/directives/coloring.directive';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { CalendarComponent } from './calendar-overview/calendar/calendar.component';
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
 import { CalendarService } from './calendar-overview/calendar/calendar.service';
 import { CalendarItemDetailsComponent } from './calendar-overview/calendar/calendar-item-details/calendar-item-details.component';
+import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
+import { OrganizationDao } from 'src/shared/services/organization-dao.service';
+import { JsonParserService } from 'src/shared/services/json-parser.service';
+import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -84,6 +89,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TagListComponent,
     TagItemComponent,
     TagCreatorComponent,
+    TagEditorComponent,
     TicketDetailsComponent,
     TicketCommentComponent,
     LoggedInUserTicketCommentComponent,
@@ -93,10 +99,12 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     DropdownSelectedDirective,
     DropdownOptionDirective,
     AccountCreatorComponent,
-    ColoringDirective,
     CalendarComponent,
     CalendarItemCreatorComponent,
     CalendarItemDetailsComponent,
+    SpinnerComponent,
+    PasswordRecoveryComponent,
+    ConfirmationPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,7 +124,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
         useClass: CustomDateFormatter
       }
     }),
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
   ],
   providers: [
     Dao,
@@ -130,6 +138,8 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TicketEditorService,
     DataStorageService,
     CalendarService,
+    OrganizationDao,
+    JsonParserService,
     {
       provide: LOCALE_ID,
       useValue: 'nl-NL',

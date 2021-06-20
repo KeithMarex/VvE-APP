@@ -63,7 +63,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     else {
       this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
         if (!ticketId) {
-          this.router.navigate(['ticket-overview']);
+          this.router.navigate(['ticket-overview']); // Failsafe
         }
         else {
           this.ticketDao.getTicketById(ticketId)

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { isSameDay, isSameMinute } from 'date-fns';
 import { CalendarItem } from '../../../../shared/models/calendar-item';
 import { CalendarDao } from '../../../../shared/services/calendar-dao.service';
-import {CalendarService} from "../calendar.service";
+import { CalendarService } from '../calendar.service';
 
 interface ParsedDate {
   weekDay: string;
