@@ -27,7 +27,7 @@ export class TicketDao {
       return this.dao.sendPostRequestForm('ticket/', ticketData);
     }
 
-    updateTicket(id: string, ticketData: FormData): Observable<any> {
-      return this.dao.sendPutRequest('ticket/' + id, ticketData);
+    updateTicket(id: string, ticket: Ticket): Observable<any> {
+      return this.dao.sendPutRequest('ticket/' + id, ticket);
     }
 }

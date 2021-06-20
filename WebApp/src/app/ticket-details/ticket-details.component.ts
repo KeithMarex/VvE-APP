@@ -157,20 +157,33 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   submitInformation(): void {
     const mForm = new FormData();
+    var multiForm = {};
+    if (this.selectedStatus != this.originalStatus) {
+      multiForm["status"] = this.selectedStatus;
+    }
+    if (this.selectedTag != this.originalTag) {
+      multiForm["tag"] = this.selectedTag._id;
+    }
+    if (this.selectedAssignee != this.originalAssignee) {
+      multiForm["assignee"] = this.selectedAssignee._id;
+    }
+
+    console.log(multiForm);
 
     if (this.selectedStatus != this.originalStatus) {
       mForm.append('status', this.selectedStatus);
     }
     if (this.selectedTag != this.originalTag) {
-      mForm.append('assignee', this.selectedTag._id);
+      mForm.append('tag', this.selectedTag._id);
     }
     if (this.selectedAssignee != this.originalAssignee) {
       mForm.append('assignee', this.selectedAssignee._id);
     }
     
-    this.ticketDao.updateTicket(this.ticket._id, mForm)
+    this.ticketDao.updateTicket(this.ticket._id, multiForm)
     .subscribe(
       res => {
+        console.log("gelukt");
         this.originalAssignee = this.selectedAssignee;
         this.originalStatus = this.selectedStatus;
         this.originalTag = this.selectedTag;
