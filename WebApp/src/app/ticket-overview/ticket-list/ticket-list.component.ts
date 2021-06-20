@@ -10,6 +10,7 @@ import { sortBy } from 'sort-by-typescript';
 })
 export class TicketListComponent implements OnInit {
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[];
 
   constructor(
     private ticketDao: TicketDao,

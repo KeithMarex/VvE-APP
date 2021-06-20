@@ -12,8 +12,7 @@ export class TicketOverviewComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onAdd(): void {
     this.creatingTicket = true;
@@ -30,6 +29,10 @@ export class TicketOverviewComponent implements OnInit {
 
   onChangeSort(sortProperty: string): void {
     this.listCmp.onChangeSort(sortProperty);
+  }
+
+  searchTermChanged(newTerm: string): void {
+    console.log(newTerm);
   }
 
 }
