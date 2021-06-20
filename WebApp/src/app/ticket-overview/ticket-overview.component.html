@@ -5,7 +5,21 @@
     <body>
         <section class="button-section">
             <button (click)="onAdd()">Nieuw</button>
-            <button class="icon-button" (click)="onChangeSort()">Filter</button>
+            <button class="icon-button dropdown-button">Filter
+                <span class="button-dropdown">
+                    <div class="top-option" (click)="onChangeSort('status')">
+                        <p>Ticket status</p>
+                    </div>
+                    <hr>
+                    <div (click)="onChangeSort('updatedAt')">
+                        <p>Update datum</p>
+                    </div>
+                    <hr>
+                    <div class="bottom-option" (click)="onChangeSort('createdAt')">
+                        <p>Aanmaak datum</p>
+                    </div>
+                </span>
+            </button>
             <button [routerLink]="['/tags-overview']">Tags</button>
         </section>
         <section class="content-section">

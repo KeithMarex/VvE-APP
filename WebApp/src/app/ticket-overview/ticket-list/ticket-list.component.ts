@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ticket } from 'src/shared/models/ticket.model';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
 import { sortBy } from 'sort-by-typescript';
@@ -27,7 +27,7 @@ export class TicketListComponent implements OnInit {
     });
   }
 
-  onChangeSort(): void {
-    this.tickets = this.tickets.sort(sortBy('-createdAt'));
+  onChangeSort(sortProperty: string): void {
+    this.tickets = this.tickets.sort(sortBy('-' + sortProperty));
   }
 }

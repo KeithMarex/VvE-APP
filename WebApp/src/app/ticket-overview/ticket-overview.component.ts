@@ -28,8 +28,8 @@ export class TicketOverviewComponent implements OnInit {
     window.location.reload();
   }
 
-  onChangeSort(): void {
-    this.listCmp.onChangeSort();
+  onChangeSort(sortProperty: string): void {
+    this.listCmp.onChangeSort(sortProperty);
   }
 
 }
