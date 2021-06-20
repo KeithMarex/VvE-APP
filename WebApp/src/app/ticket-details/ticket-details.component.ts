@@ -47,10 +47,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.getActiveTicket();
     this.getTicketCreator();
     this.getTags();
-    this.getSelectedTag();
-    this.getSelectedStatus();
     this.getAssignees();
-    this.getSelectedAssignee();
   }
 
   getActiveTicket() {
@@ -59,6 +56,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     if (storedTicket) {
       this.ticket =  JSON.parse(storedTicket);
       this.comments = this.ticket.comments;
+      this.getSelectedInformation();
     }
     else {
       this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
@@ -72,10 +70,45 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
               this.ticket = ticketRes;
               sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
               this.comments = this.ticket.comments;
+              this.getSelectedInformation();
             }
           );
         }
       })
+    }
+  }
+
+  getSelectedInformation(): void {
+    if (this.ticket.assignee) {
+      this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
+        this.selectedAssignee = user;
+        this.originalAssignee = user;
+      });
+    }
+    else {
+      let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
+      this.selectedAssignee = unnamedAssignee;
+      this.originalAssignee = unnamedAssignee;
+    }
+    if (this.ticket.tag) {
+      console.log(this.ticket.tag);
+      this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
+        this.selectedTag = tag;
+        this.originalTag = tag;
+      });
+    }
+    else {
+      let unnamedTag: Tag = { name: "Nog niet toegewezen" }
+      this.selectedTag = unnamedTag;
+      this.originalTag = unnamedTag;
+    }
+    if (this.ticket.status) {
+      this.selectedStatus = this.ticket.status;
+      this.originalStatus = this.ticket.status;
+    }
+    else {
+      this.selectedStatus = this.statuses[0];
+      this.originalStatus = this.statuses[0];
     }
   }
 
@@ -96,9 +129,11 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getTags(): void {
+    let unnamedTag: Tag = { name: "Nog niet toegewezen" }
     this.tagDao.getAllTags()
     .subscribe((incomingtags: Tag[]) => {
       this.tags = incomingtags;
+      this.tags.push(unnamedTag);
       })
   }
 
@@ -106,8 +141,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     let unnamedTag: Tag = { name: "Nog niet toegewezen" }
     this.tags.push(unnamedTag);
     if (this.ticket && this.ticket.tag) {
-      this.selectedTag = this.ticket.tag;
-      this.originalTag = this.ticket.tag;
+      // this.selectedTag = this.ticket.tag;
+      // this.originalTag = this.ticket.tag;
     }
     else {
       this.selectedTag = unnamedTag;
@@ -162,22 +197,10 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       multiForm["status"] = this.selectedStatus;
     }
     if (this.selectedTag != this.originalTag) {
-      multiForm["tag"] = this.selectedTag._id;
+      multiForm["tag"] = this.selectedTag;
     }
     if (this.selectedAssignee != this.originalAssignee) {
       multiForm["assignee"] = this.selectedAssignee._id;
-    }
-
-    console.log(multiForm);
-
-    if (this.selectedStatus != this.originalStatus) {
-      mForm.append('status', this.selectedStatus);
-    }
-    if (this.selectedTag != this.originalTag) {
-      mForm.append('tag', this.selectedTag._id);
-    }
-    if (this.selectedAssignee != this.originalAssignee) {
-      mForm.append('assignee', this.selectedAssignee._id);
     }
     
     this.ticketDao.updateTicket(this.ticket._id, multiForm)
@@ -202,8 +225,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   submitComment(form: NgForm): void {
     const formData = new FormData();
     this.inputCommentText = form.value.inputCommentText;
-    console.log(this.inputCommentText);
-    // console.log(this.inputCommentText);
     
     this.commentImages.forEach((image, index) => { 
       // let imgBlob = new Blob()
