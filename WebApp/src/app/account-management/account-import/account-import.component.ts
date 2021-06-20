@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
+import { User } from 'src/shared/models/user.model';
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { AccountListComponent } from '../account-list/account-list.component';
 
@@ -14,10 +16,11 @@ export class AccountImportComponent implements OnInit {
   errorMessage: string;
   fileLoaded: false;
   loadedFileName: string = "accounts";
-  loadedFile: File;
+  loadedFile: Blob;
   accounts: any[] = [];
+  public userArray: User[] = [];
 
-  constructor(private userDao: UserDao, private ngxCsvParser: NgxCsvParser) { }
+  constructor(private userDao: UserDao, private ngxCsvParser: NgxCsvParser, private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -53,17 +56,35 @@ export class AccountImportComponent implements OnInit {
   }
 
   onInputFile(form: NgForm) {
+  //   this.http.get('WebApp/src/app/account-management/assets/test-users.csv', {responseType: 'text'})
+  //   .subscribe(
+  //       data => {
+  //         console.log(data)
+  //           let csvToRowArray = data.split("\n");
+  //           for (let index = 1; index < csvToRowArray.length - 1; index++) {
+  //             let row = csvToRowArray[index].split(";");
+  //             this.userArray.push({firstname: row[0], lastname: row[1], email: row[2], role: row[3]});
+  //           }
+  //           console.log(this.userArray);
+  //       },
+  //       error => {
+  //           console.log(error);
+  //       }
+  //   );
     const formValues = form.value;
     console.log(formValues.accounts)
-    console.log(this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' }))
+    this.loadedFile = formValues.accounts;
+    var reader = new FileReader();
+    reader.readAsText(formValues.accounts)
+    // console.log(this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' }))
 
-    this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' })
-      .pipe().subscribe((result: Array<any>) => {
+    // this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' })
+    //   .pipe().subscribe((result: Array<any>) => {
 
-        console.log('Result', result);
-        this.accounts = result;
-      }, (error: NgxCSVParserError) => {
-        console.log('Error', error);
-      });
+    //     console.log('Result', result);
+    //     this.accounts = result;
+    //   }, (error: NgxCSVParserError) => {
+    //     console.log('Error', error);
+    //   });
   }
 }
