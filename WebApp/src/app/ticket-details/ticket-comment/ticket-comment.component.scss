@@ -1,25 +1,23 @@
-@import "../../../utilities/colors.scss";
-@import "../../../utilities/effects.scss";
+@import "../../../utilities/index.scss";
 
 .comment-container {
-    max-width: 80%;
-    margin: 5px;
+    width: 80%;
+    margin-left: 5px;
 
     .comment {
         position: relative;
         padding-top: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
         background-color: white;
-        // display: flex;
         justify-content: space-between;
-        margin: 15px 0px;
-        border-radius: 32px;
+        margin: 10px 0px;
+        border-radius: 12px;
         box-shadow: $default-box-shadow;
 
         h1 {
-            color: $primary-color;
+            color: $grayscale-color;
             font-size: 80%;
             font-weight: 1000;
             padding-bottom: 5px;
@@ -31,27 +29,29 @@
 
         .date {
             position: absolute;
-            bottom: 2;
+            bottom: 5px;
             right: 0;
-            padding-right: 20px;
-            color: #6E7191;
+            padding-right: 15px;
+            color: $grayscale-color;
             font-size: 60%;
             font-weight: 1000;
         }
     }
 
     .image-section {
+        border-top: 1px solid $dynamic-primary;
+        padding-top: 10px;
+        margin-top: 10px;
 
         .comment-images {
             display: flex;
             flex-direction: row;
             align-self: flex-start;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 1rem;
     
-            p > a > img {
-                max-width: 3rem;
-                max-height: 3rem;
+            a > img {
+                height: 3rem;
                 cursor: pointer;
             }
         }
