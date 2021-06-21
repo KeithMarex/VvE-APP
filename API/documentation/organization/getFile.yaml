@@ -1,0 +1,20 @@
+get:
+  summary: Sends the requested file
+  description: |
+    The requested file is fetched from the database buffer, and the data is written to <b>/temp/</b> in the api folder.<br>
+    When the file is written to the filesystem it will be send over to the user using sendFile() from express.
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  tags:
+    - Organization
+  responses:
+    '200':
+      description: |
+        The requested file is send back to the requester using sendFile() from express.
+    '500':
+      description: Error fetching and sending file.

@@ -1,0 +1,17 @@
+get:
+  summary: Returns all the files owned by an organization.
+  tags:
+    - Organization
+  responses:
+    '200':
+      description: |
+        An array of all files owned by the user organization are returned without the filedata.<br>
+        Organization id is taken from the jwt token.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../definitions/File.yaml
+    '500':
+      description: Error with finding files

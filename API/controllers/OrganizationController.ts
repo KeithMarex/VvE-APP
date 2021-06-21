@@ -1,9 +1,12 @@
 import User from '../models/User';
 import Organization from '../models/Organization';
 import logger from '~/util/Logger';
+import fs, { write } from 'fs';
 import { Types } from 'mongoose';
 import { Response } from 'express';
 import { validateTheme } from '../validators/ThemeValidator';
+import File from '../models/File';
+import path from 'path';
 
 export const getUsersOrganization = (req, res: Response) => {
     User.find({
@@ -74,6 +77,49 @@ export const putOrganization = (req, res) => {
     });
 }
 
+export const postFile = (req, res) => {
+    const file = createFile(req, res, req.files.file);
+
+    file.save()
+    .then(() => {
+        res.status(200).send({message: "File uploaded successfully"});
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json( { message: err } )
+    });
+}
+
+export const getFiles = (req, res) => {
+    const organizationid = res.locals.user.organizations[0]
+    File.find({ organisation: organizationid})
+    .select('-data')
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json( { message: err } )
+    });
+}
+
+export const getFile = (req, res) => {
+    const id = req.params.id;
+    const organizationid = res.locals.user.organizations[0];
+    
+    File.findOne({ _id: id, organisation: organizationid })
+    .then(file => {
+        serveFileFromTemp(req, res, file);        
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json( { message: err } )
+    });
+}
+
 const buildUpdateQuery = (req, res) => {
     let query = {}
     if(req.fields.name) {
@@ -85,4 +131,32 @@ const buildUpdateQuery = (req, res) => {
     }
 
     return query;
+}
+
+const createFile = (req, res, file) => {
+    let fileInstance = new File({
+        filename: file.name,
+        type: file.type,
+        data: fs.readFileSync(file.path),
+        organisation: res.locals.user.organizations[0]
+    });
+
+    return fileInstance;
+}
+
+const serveFileFromTemp = (req, res, file) => {
+    const dir = path.join("./", 'temp/')
+    const writePath = dir + file["filename"]
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+    fs.writeFileSync(writePath, file["data"]);
+
+    res.sendFile(file["filename"], {
+        root: dir
+    }, err => {
+        if(err)
+            logger.error(err);
+        fs.unlinkSync(writePath);
+    });
 }
