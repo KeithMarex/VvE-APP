@@ -1,5 +1,17 @@
 import React, {useState} from 'react'
-import { Text, StyleSheet, View, Image, Dimensions, TextInput, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Alert } from 'react-native'
+import {
+    Text,
+    StyleSheet,
+    View,
+    Image,
+    Dimensions,
+    TextInput,
+    TouchableOpacity,
+    Keyboard,
+    TouchableWithoutFeedback,
+    Alert,
+    AsyncStorage
+} from 'react-native'
 import Mail from '../../resources/icons/login/Mail.svg'
 import Lock from '../../resources/icons/login/Lock.svg'
 import { Logo } from '../../resources'
@@ -20,16 +32,18 @@ const LoginScreen = (props) => {
     })
 
     const loginUser = async (email, password) => {
-        await ApiHelper.post('/user/login', {email: email, password: password}).then(res => {
-            const d = res.data;
-            const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
-            props.navigation.navigate('homeNavigation', { user });
-        }).catch(error => {
-            console.log(error);
-            if (error.response.status === 401){
-                Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
-            }
-        })
+        await ApiHelper.post('/user/login', {email: email, password: password})
+            .then(async (res) => {
+                const d = res.data;
+                const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
+                await AsyncStorage.setItem('userId', d._id);
+                props.navigation.navigate('homeNavigation', { user });
+            }).catch(error => {
+                console.log(error);
+                if (error.response.status === 401){
+                    Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
+                }
+            })
     };
 
     return (
