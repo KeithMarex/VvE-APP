@@ -196,6 +196,15 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  sliceImageName(name: string): string {
+    if (name.length < 15) {
+      return name;
+    }
+    else {
+      return name.slice(0,14) + '...';
+    }
+  }
+
   ngOnDestroy(): void {
     sessionStorage.clear();
     if (this.ticketIdSub)

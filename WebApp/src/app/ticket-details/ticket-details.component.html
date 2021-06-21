@@ -155,7 +155,7 @@
             <div *ngIf="commentImages.length>0" class="input-image-name" >
                 <div *ngFor="let image of commentImages">
                     <div class="remove-button">
-                        <button class="icon-button" (click)="deleteImage()">{{ image.name.slice(0, 15) + '...' }}</button>
+                        <button class="icon-button" (click)="deleteImage()">{{ sliceImageName(image.name) }}</button>
                     </div>
                 </div>
             </div>
