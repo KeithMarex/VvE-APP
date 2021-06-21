@@ -557,6 +557,128 @@
         }
       }
     },
+    "/organization/file": {
+      "get": {
+        "summary": "Returns all the files owned by an organization.",
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of all files owned by the user organization are returned without the filedata.<br>\nOrganization id is taken from the jwt token.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/paths/~1organization~1file~1/post/responses/200/content/application~1json/schema"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error with finding files"
+          }
+        }
+      }
+    },
+    "/organization/file/{id}": {
+      "get": {
+        "summary": "Sends the requested file",
+        "description": "The requested file is fetched from the database buffer, and the data is written to <b>/temp/</b> in the api folder.<br>\nWhen the file is written to the filesystem it will be send over to the user using sendFile() from express.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested file is send back to the requester using sendFile() from express.\n"
+          },
+          "500": {
+            "description": "Error fetching and sending file."
+          }
+        }
+      }
+    },
+    "/organization/file/": {
+      "post": {
+        "summary": "Uploads a file to the organisation library",
+        "description": "This endpoint requires a single file to be uploaded under the field '<b>file</b>'. <br>\nIt will populate all information needed automatically from the metadata.\nOrganization ID will be taken from the user corresponding with the received cookie.\n",
+        "tags": [
+          "Organization"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns File object (without the file) and file binary has been saved in the database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "Buffer"
+                    },
+                    "organisation": {
+                      "type": "string objectId"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error while saving file to database."
+          }
+        }
+      }
+    },
     "/tag": {
       "get": {
         "summary": "Returns all the tags of organization.",
