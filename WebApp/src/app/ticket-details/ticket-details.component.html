@@ -143,7 +143,7 @@
                         </div>
                     </div>
                     <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
-                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Antwoord" [formControl]="commentText">
+                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Type hier uw bericht" [formControl]="commentText">
                         <label class="file-input">
                             <div class="svg-element" [inlineSVG]="'../../../../assets/icons/Plus.svg'"></div>
                             <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">
@@ -159,7 +159,7 @@
             <div *ngIf="commentImages.length>0" class="input-image-name" >
                 <div *ngFor="let image of commentImages">
                     <div class="remove-button">
-                        <button class="icon-button" (click)="deleteImage()">{{ image.name }}</button>
+                        <button class="icon-button" (click)="deleteImage()">{{ sliceImageName(image.name) }}</button>
                     </div>
                 </div>
             </div>

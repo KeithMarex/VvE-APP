@@ -212,10 +212,14 @@ body {
                 height: 350px;
                 min-width: 100%;
                 overflow: auto;
+                border-radius: 4px;
+                box-shadow: $default-box-shadow;
+                background-color: white;
+                padding: 5px;
             }
     
             .comment-form {
-                width: 95%;
+                width: 100%;
                 display: flex;
                 flex-direction: row;
                 border-radius: 4px;
@@ -233,24 +237,21 @@ body {
                 }
     
                 .textfield {
-                    width: 90%;
+                    width: 100%;
                     border: none;
                     background-color: white;
                 }
     
                 .file-input {
+
                     display: flex;
                     align-items: center;
 
                     .svg-element {
                         margin-top: 5px;
+                        filter: drop-shadow( 0px 3px 2px rgba(112, 112, 112, 0.7));
+                        cursor: pointer;
                     }
-                }
-
-                .image-select-logo {
-                    margin-left: 2px;
-                    margin-right: 2px;
-                    background-color: white;
                 }
     
                 .image-select-button {
@@ -266,12 +267,15 @@ body {
                     display: flex;
                     border: none;
                     align-items: center;
-                    background-color: white;
+                    background: none;
                     
                     .svg-element {
                         display: flex;
                         fill: $dynamic-primary;
+                        stroke: $dynamic-primary;
                         align-items: center;
+                        filter: drop-shadow( 0px 3px 2px rgba(112, 112, 112, 0.7));
+                        cursor: pointer;
                     }
                 }
             }
@@ -281,8 +285,9 @@ body {
 
         .input-image-name {
             display: flex;
-            flex-direction: column;
-            width: 220px;
+            flex-direction: row;
+            width: 70%;
+            flex-wrap: wrap;
             margin-bottom: 40px;
             border-radius: 15px;
             box-shadow: $default-box-shadow;
@@ -292,6 +297,8 @@ body {
                 button {
                     @include button;
                     background-color: $dynamic-primary;
+                    font-size: 90%;
+                    height: 30px;
     
                     &::after {
                         height: 17px;
