@@ -29,19 +29,19 @@
                                         <div [ngSwitch]="selected">
                                             <div *ngSwitchCase="'PENDING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FF3B30'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FF3B30'}"></div>
                                                     <p class="dropdown-text">In afwachting</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FED977'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FED977'}"></div>
                                                     <p class="dropdown-text">In behandeling</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLED'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#00ff00'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#00ff00'}"></div>
                                                     <p class="dropdown-text">Afgehandeld</p>
                                                 </div>
                                             </div>
@@ -53,19 +53,19 @@
                                         <div [ngSwitch]="option">
                                             <div *ngSwitchCase="'PENDING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FF3B30'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FF3B30'}"></div>
                                                     <p class="dropdown-text">In afwachting</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FED977'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FED977'}"></div>
                                                     <p class="dropdown-text">In behandeling</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLED'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#00ff00'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#00ff00'}"></div>
                                                     <p class="dropdown-text">Afgehandeld</p>
                                                 </div>
                                             </div>
@@ -96,13 +96,13 @@
                                 <app-dropdown class="dropdown" [(ngModel)]="selectedTag" (ngModelChange)="submitTag($event)" name="selectedTag" id="selectedTag" ngDefaultControl required [options]="tags">
                                     <ng-template dropdownSelected let-selected>
                                         <div class="dropdown-item">
-                                            <div class="dot" [ngStyle]="{'background-color':selected.color}"></div>
+                                            <div class="dropdown-colored-circle" [ngStyle]="{'background-color':selected.color}"></div>
                                             <p class="dropdown-text">{{ selected.name }}</p>
                                         </div>
                                     </ng-template>
                                     <ng-template dropdownOption let-option>
                                         <div class="dropdown-item">
-                                            <div class="dot" [ngStyle]="{'background-color':option.color}"></div>
+                                            <div class="dropdown-colored-circle" [ngStyle]="{'background-color':option.color}"></div>
                                             <p class="dropdown-text">{{ option.name }}</p>
                                         </div>
                                     </ng-template>
