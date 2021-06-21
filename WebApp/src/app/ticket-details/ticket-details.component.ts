@@ -80,17 +80,18 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getSelectedInformation(): void {
-    if (this.ticket.assignee) {
-      this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
-        this.selectedAssignee = user;
-        this.originalAssignee = user;
-      });
-    }
-    else {
-      let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
-      this.selectedAssignee = unnamedAssignee;
-      this.originalAssignee = unnamedAssignee;
-    }
+    this.getAssignees();
+    // if (this.ticket.assignee) {
+    //   this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
+    //     this.selectedAssignee = user;
+    //     this.originalAssignee = user;
+    //   });
+    // }
+    // else {
+    //   let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
+    //   this.selectedAssignee = unnamedAssignee;
+    //   this.originalAssignee = unnamedAssignee;
+    // }
     if (this.ticket.tag) {
       this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
         this.selectedTag = tag;
@@ -137,32 +138,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       })
   }
 
-  getSelectedTag(): void {
-    let unnamedTag: Tag = { name: "Nog niet toegewezen" }
-    this.tags.push(unnamedTag);
-    if (this.ticket && this.ticket.tag) {
-      // this.selectedTag = this.ticket.tag;
-      // this.originalTag = this.ticket.tag;
-    }
-    else {
-      this.selectedTag = unnamedTag;
-      this.originalTag = unnamedTag;
-    }
-  }
-
-  getSelectedStatus(): void {
-    if (this.ticket && this.ticket.status) {
-      this.selectedStatus = this.ticket.status;
-      this.originalStatus = this.ticket.status;
-    }
-    else {
-      this.selectedStatus = this.statuses[0];
-      this.originalStatus = this.statuses[0];
-    }
-  }
-
   getAssignees(): void {
-    let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
 
     this.userDao.getUsersByOrganization()
       .subscribe((incomingUsers: User[]) => {
@@ -171,23 +147,19 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
             this.assignees.push(incomingUser);
           }
         })
-        this.assignees.push(unnamedAssignee);
       });
-  }
 
-  getSelectedAssignee(): void {
-    let assignedUserId: string;
-    let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
-    if (this.ticket && this.ticket.assignee) {
-      this.userDao.getUserById(this.ticket.assignee).subscribe(Response => {
-        this.selectedAssignee = Response;
-        this.originalAssignee = Response;
-      });
-    }
-    else {
-      this.selectedAssignee = unnamedAssignee;
-      this.originalAssignee = unnamedAssignee;
-    }
+      if (this.ticket.assignee) {
+        this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
+          this.selectedAssignee = user;
+          this.originalAssignee = user;
+        });
+      }
+      else {
+        let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
+        this.selectedAssignee = unnamedAssignee;
+        this.originalAssignee = unnamedAssignee;
+      }
   }
 
   submitInformation(): void {
