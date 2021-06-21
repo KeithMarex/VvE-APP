@@ -3,19 +3,34 @@ import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-nativ
 import CloseButtonComponent from './Buttons/CloseButton.Component'
 
 const InputImage = (props) => {
-    console.log(props)
     return (
-        <TouchableOpacity onPress={() => props.removeImage(props.image)}>
-            <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}}
+        <TouchableOpacity onPress={() => props.removeImage(props.image)} style={styles.inputImageWrapper}>
+            <Image style={styles.image}
                    source={{uri: `data:image/png;base64,${props.image['base64']}`}}
             />
-            <CloseButtonComponent style={styles.circle}/>
+            <CloseButtonComponent style={styles.closeBtn}/>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
-    circle: {
+    inputImageWrapper: {
+        position: 'relative',
+        width: 100,
+        height: 100,
+        marginHorizontal: 5,
+        marginVertical: 12,
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 15,
+        // marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5,
+        marginBottom: 5
+    },
+    closeBtn: {
         position: 'absolute',
         right: 1,
         top: 1,
