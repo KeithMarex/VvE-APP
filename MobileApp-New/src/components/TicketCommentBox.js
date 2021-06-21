@@ -1,5 +1,14 @@
 import React, { useState, createRef, useEffect } from 'react'
-import {Dimensions, Keyboard, StyleSheet, TouchableOpacity, View, KeyboardAvoidingView, TextInput} from 'react-native'
+import {
+    Dimensions,
+    Keyboard,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+    KeyboardAvoidingView,
+    TextInput,
+    AsyncStorage
+} from 'react-native'
 import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
 import Button from './Button'
 import TicketComment from './TicketComment'
@@ -35,6 +44,10 @@ const TicketCommentBox = (props) => {
             })
     }
 
+    const isUserComment = async (comment) => {
+        return comment.user._id === await AsyncStorage.getItem('userId');
+    }
+
     const clearCommentInput = () => {
         // commentInputRef.clear()
         onCommentInputText('')
@@ -43,7 +56,7 @@ const TicketCommentBox = (props) => {
     const commentsEl = []
     for (let i = 0; i < comments.length; i++) {
         commentsEl.push(
-            <TicketComment isUserTicket={true} comment={comments[i]} key={i}/>
+            <TicketComment isUserComment={isUserComment(comments[i])} comment={comments[i]} key={i}/>
         )
     }
 
@@ -55,24 +68,24 @@ const TicketCommentBox = (props) => {
             {commentsEl.length > 0
                 ? commentsEl
                 : (<StyledText inputStyle={styles.noComments}>
-                        {tr.ticket?.noComments}.
+                        {tr.ticket?.noComments}
                 </StyledText>
             )}
 
             <View style={styles.commentInputFieldWrapper}>
                 <TextInput
                     style={styles.commentInputField}
-                    onChangeText={ onCommentInputText }
+                    onChangeText={onCommentInputText}
                     placeholder={tr.ticket?.placeholder}
                     multiline
                 />
             </View>
             <View style={styles.commentActionButtons}>
                 <TouchableOpacity onPress={() => alert('Add image')} style={styles.commentAddImageButton}>
-                    <PlusIcon on stroke={'#F7F7FC'} width={20} height={20}/>
+                    <PlusIcon stroke={'#F7F7FC'} width={20} height={20}/>
                 </TouchableOpacity>
                 { commentInputText.length > 0 && (
-                    <Button withArrow style={styles.commentSendButton} pressAction={ sendComment }>
+                    <Button withArrow style={styles.commentSendButton} pressAction={sendComment}>
                         {tr.ticket?.send}
                     </Button>
                 )}

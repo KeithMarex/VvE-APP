@@ -4,14 +4,14 @@ import StyledText from "./StyledText";
 import { parseDate } from "../util/DateUtil";
 
 const TicketComment = (props) => {
-    const { isUserTicket, comment } = props
-    const commentType = isUserTicket ? 'user' : 'org'
+    const { isUserComment, comment } = props
+    const commentType = isUserComment ? 'user' : 'org'
 
     return (
         <View style={styles[commentType + 'CommentWrapper']}>
             <View style={[styles.ticketComment, styles[commentType + 'Comment']]}>
                 <StyledText inputStyle={styles[commentType + 'CommentUser']}>
-                    { isUserTicket ? 'U' : 'Bestuur' }
+                    { isUserComment ? 'U' : 'Bestuur' }
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentContent}>
                     {comment.comment}
