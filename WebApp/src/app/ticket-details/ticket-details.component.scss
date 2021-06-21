@@ -109,12 +109,13 @@ body {
         flex-direction: column;
         justify-content: space-between;
         margin: 0.5rem 0;
+        margin-right: 20px;
         padding: 1.5rem;
-        border-radius: 32px;
+        border-radius: 30px;
         box-shadow: $default-box-shadow;
 
         h1 {
-            font-size: 110%;
+            font-size: 100%;
             padding-bottom: 5px;
         }
         
@@ -122,19 +123,17 @@ body {
         .first-row {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            // justify-content: space-between;
             margin-bottom: 1rem;
 
             .dropdown {
-                .dropdown-text{
-                    padding-left: 10px;
-                }
 
                 .dot {
                     height: 15px;
                     width: 15px;
                     border-radius: 50%;
                     display: inline-block;
+                    margin-right: 4px;
                 }
                 .dropdown-item {
                     display: flex;
@@ -143,12 +142,7 @@ body {
             }
 
             .status {
-                padding-right: 6rem;
-                width: 250px;
-            }
-            
-            .tag {
-                width: 250px;
+                margin-right: 2rem;
             }
         }
 
@@ -156,18 +150,15 @@ body {
             position: relative;
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            // justify-content: space-between;
 
             h1 {
-                font-size: 110%;
+                font-size: 100%;
                 padding-bottom: 5px;
             }
 
             .dropdown {
-                .dropdown-text{
-                    padding-left: 10px;
-                }
-
+                width: 40%;
                 .dropdown-item {
                     display: flex;
                     flex-direction: row;
@@ -175,24 +166,18 @@ body {
             }
 
             .selected-assignee {
-                width: 250px;
-                padding-right: 6rem;
+                padding-right: 1rem;
             }
 
             .submit-information-button {
                 display: flex;
                 justify-content: flex-end;
-                border-bottom: 1px solid #DEDEDE;
                 margin: 0 15px;
-                height: 1px;
-                width: 1px;
         
                 button {
                     @include button;
                     height: 25px;
-                    width: 200px;
-                    padding-left: 10px;
-                    padding-right: 10px;
+                    width: 100%;
         
                     &::after {
                         margin-top: 0.3rem;
