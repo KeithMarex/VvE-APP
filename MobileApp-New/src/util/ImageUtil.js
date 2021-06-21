@@ -11,11 +11,13 @@ export const takeCameraImage = async () => {
 
     let pickerResult = await ImagePicker.launchCameraAsync();
 
-    return await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {
-        compress: 0.1,
-        format: ImageManipulator.SaveFormat.PNG,
-        base64: true
-    });
+    return pickerResult.cancelled
+        ? null
+        : await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {
+            compress: 0.1,
+            format: ImageManipulator.SaveFormat.PNG,
+            base64: true
+        })
 }
 
 export const pickGalleryImage = async () => {
@@ -28,9 +30,11 @@ export const pickGalleryImage = async () => {
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
 
-    return await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {
-        compress: 0.1,
-        format: ImageManipulator.SaveFormat.PNG,
-        base64: true
-    })
+    return pickerResult.cancelled
+        ? null
+        : await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {
+            compress: 0.1,
+            format: ImageManipulator.SaveFormat.PNG,
+            base64: true
+        })
 }
