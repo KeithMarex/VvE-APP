@@ -9,59 +9,41 @@ import {
     Text,
     Image,
     Alert,
-    ActivityIndicator
 } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import StyledText from '../../components/StyledText'
-import {Logo} from '../../resources'
+import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton';
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
-import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
 import ApiHelper from "../../util/ApiHelper";
-import * as ImageManipulator from 'expo-image-manipulator';
 import CloseButtonComponent from "../../components/Buttons/CloseButton.Component";
 import tra from "../../config/languages/translate";
+import { takeCameraImage, pickGalleryImage } from "../../util/ImageUtil"
 
 const window = Dimensions.get('window')
 
 const TicketCreate = (props) => {
-    const [subject, onChangeSubject] = React.useState("")
-    const [description, onChangeDescription] = React.useState("")
-    const [images, setImages] = React.useState([]);
-    const [tr, setTr] = React.useState({})
+    const [subject, onChangeSubject] = useState("")
+    const [description, onChangeDescription] = useState("")
+    const [images, setImages] = useState([])
+    const [tr, setTr] = useState({})
 
     tra().then(res => {
-        setTr(res);
+        setTr(res)
     })
 
-    const takePicture = async () => {
-        let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-
-        if (permissionResult.granted === false) {
-            alert("Toegang tot uw camera is vereist.");
-            return;
-        }
-
-        let pickerResult = await ImagePicker.launchCameraAsync();
-        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
-        setImages((images) => [...images, result]);
+    const onTakeCameraImagePressed = async () => {
+        const takenPicture = await takeCameraImage()
+        setImages((images) => [...images, takenPicture])
     };
 
-    const choosePicture = async () => {
-        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-        if (permissionResult.granted === false) {
-            alert("Wij hebben toegang nodig tot je camera rol.");
-            return;
-        }
-
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
-        setImages((images) => [...images, result]);
+    const onPickGalleryImagePressed = async () => {
+        const pickedImage = await pickGalleryImage()
+        setImages((images) => [...images, pickedImage])
     };
 
-    const afbeeldingKnop = (<PageActionButton icon={'plus'} text={tr.ticket?.addPictures}/>);
+    const afbeeldingKnop = (<PageActionButton icon={'plus'} text={tr.ticket?.addPictures}/>)
 
     async function maakMelding() {
         const fd = new FormData();
@@ -118,7 +100,7 @@ const TicketCreate = (props) => {
                     </View>
 
                     <TouchableOpacity onPress={() => null}>
-                        <OptionsMenu customButton={afbeeldingKnop} options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]} actions={[takePicture, choosePicture]}/>
+                        <OptionsMenu customButton={afbeeldingKnop} options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]} actions={[onTakeCameraImagePressed, onPickGalleryImagePressed]}/>
                     </TouchableOpacity>
 
                     <View style={styles.images}>
