@@ -1,13 +1,21 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { Organization } from "../models/organization.model";
 import { Theme } from "../models/theme.model";
 import { Dao } from "./dao.service";
 
 @Injectable()
-export class ThemeDao {
+export class OrganizationDao {
 
     constructor(private dao: Dao) {}
+
+    getOrganization(): Observable<Organization> {
+        return this.dao.sendGetRequest('organization')
+        .pipe(map((response: Organization) => {
+            return response;
+        }));
+    }
 
     getTheme(): Observable<Theme> {
         return this.dao.sendGetRequest('organization/theme')
@@ -24,5 +32,9 @@ export class ThemeDao {
         }
         
         return this.dao.sendPutRequest('organization/theme', body);
+    }
+
+    updateDetails(OrganizationData: FormData): Observable<any> {
+        return this.dao.sendPutRequestForm('organization', OrganizationData);
     }
 }

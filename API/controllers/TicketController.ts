@@ -75,8 +75,8 @@ export const putTicket = (req, res) => {
     const id = req.params.id;
     const body = validateBodyPutTicket(req.body);
     Ticket.updateOne({ _id: id }, body)
-    .then(() => {
-        res.status(200);
+    .then(result => {
+        res.status(200).send(result);
     })
     .catch(err => {
         logger.error(err);
@@ -88,7 +88,6 @@ export const putTicket = (req, res) => {
 const getTicketsUser = (req, res) => {
     Ticket.find({ creator: Types.ObjectId(res.locals.user._id) })
     .then(result => {
-        console.log("This is the response: ", result)
         res.status(200).send(result);
     })
     .catch(err => {

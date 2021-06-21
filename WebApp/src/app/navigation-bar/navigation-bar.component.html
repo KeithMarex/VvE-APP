@@ -2,7 +2,7 @@
     <section class="navigation-bar">
         <section class="top section">
             <div class="top-icon">
-                <img src="../../assets/icons/logod 1.svg" alt="">
+                <img *ngIf="logoUrl" src="{{ logoUrl }}" alt="logo">
             </div>
     
             <section class="navigation-buttons">
@@ -38,8 +38,7 @@
         </section>
 
         <section class="bottom-section">
-            <!-- Call logout function -->
-            <div class="svg-element" [inlineSVG]="'../../assets/icons/logout.svg'"></div>
+            <div class="svg-element" [inlineSVG]="'../../assets/icons/logout.svg'" (click)="onLogout()"></div>
         </section>
     </section>
 </body>

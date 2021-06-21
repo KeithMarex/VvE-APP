@@ -6,7 +6,7 @@
         <section class="button-section">
             <button (click)="onAdd()">Nieuw</button>
             <button class="icon-button">Filter</button>
-            <button class="icon-button" [routerLink]="['/tags-overview']">Tags</button>
+            <button [routerLink]="['/tags-overview']">Tags</button>
         </section>
         <section class="content-section">
             <app-ticket-list></app-ticket-list>

@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import "../../../../utilities/colors.scss";
-@import "../../../../utilities/button.scss";
+@import "../../../../utilities/index.scss";
+
+.error-message {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 3px;
+    background-color: $error-color;
+    color: white;
+    align-items: center;
+    text-align: center;
+}
 
 .container {
     display: flex;
     justify-content: space-between;
-    background-color: #F7F7FC;
+    background-color: $background-color;
     margin: 15px 25px;
     padding: 1rem 1.5rem;
     border-radius: 32px;
@@ -38,7 +48,7 @@
 
     .date-info {
         font-size: 70%;
-        color: #6E7191;
+        color: $grayscale-color;
         
         .created-at {
             display: inline-block;
@@ -69,6 +79,7 @@
         .edit-button {
             button {
                 @include button;
+                background-color: $dynamic-secondary;
 
                 &::after {
                     height: 17px;
@@ -81,6 +92,7 @@
         .delete-button {
             button {
                 @include button;
+                background-color: $dynamic-primary;
 
                 &::after {
                     height: 17px;
@@ -91,3 +103,4 @@
         }
     }
 }
+

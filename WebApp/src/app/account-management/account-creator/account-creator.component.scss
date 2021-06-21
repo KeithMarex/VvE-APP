@@ -33,8 +33,12 @@ form {
         border-bottom: 1px solid $dynamic-secondary;
         font-family: inherit;
         font-size: 110%;
-        color: #a6a6a6;
+        color: #686868;
         resize: none;
+    }
+
+    input::placeholder {
+        color: #a6a6a6;
     }
     
     button {
@@ -45,7 +49,12 @@ form {
         background-color: $dynamic-secondary;
     }
 
+    #loading {
+        visibility: hidden;
+    }
+
     .error-field {
-        color: red;
+        background-color: $error-color;
+        color: white;
     }
 }

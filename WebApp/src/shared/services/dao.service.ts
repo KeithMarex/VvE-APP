@@ -25,6 +25,10 @@ export class Dao {
       return this.http.put<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }
 
+    sendPutRequestForm(urlPath: string, body: unknown): Observable<any> {
+      return this.http.put<any>(this.dbAddress + urlPath, body, { withCredentials: true });
+    }
+
     sendDeleteRequest(urlPath: string): Observable<any> {
       return this.http.delete<any>(this.dbAddress + urlPath, this.generateOptions());
     }

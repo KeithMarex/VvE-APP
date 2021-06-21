@@ -1,45 +1,46 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Image } from 'src/shared/models/image.model';
+import { Organization } from 'src/shared/models/organization.model';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
-import { ThemeDao } from 'src/shared/services/theme-dao.service';
+import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 
 @Component({
   selector: 'app-vve-management',
   templateUrl: './vve-management.component.html',
   styleUrls: ['./vve-management.component.scss']
 })
-export class VveManagementComponent implements OnInit, OnDestroy {
-  primaryColor = '';
-  secondaryColor = '';
-  
-  primaryColorSub: Subscription;
-  secondaryColorSub: Subscription;
-  logo: string = 'de-nieuwe-wereld-logo.svg'; //TODO replace with file
+export class VveManagementComponent implements OnInit {
+  organization: Organization
+  primaryColor = '#000000';
+  secondaryColor = '#000000';
+  logo: Image;
+  newLogoName: string; // Based on uploaded file
+  newLogo: File;
 
-  constructor(private dataStorageService: DataStorageService, private themeDao: ThemeDao) { }
+  constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
   ngOnInit(): void {
-    this.handleSubscriptions();
+    this.getOrganizationDetails();
   }
 
-  ngOnDestroy(): void {
-    this.primaryColorSub.unsubscribe();
-    this.secondaryColorSub.unsubscribe();
+  getOrganizationDetails() {
+    this.organizationDao.getOrganization()
+    .subscribe(res => {
+      this.setOrganizationDetails(res);
+    });
   }
 
-  handleSubscriptions(): void {
-    this.primaryColorSub = this.dataStorageService.primaryColor.subscribe(newColor => {
-      this.primaryColor = newColor;
-    });
-
-    this.secondaryColorSub = this.dataStorageService.secondaryColor.subscribe(newColor => {
-      this.secondaryColor = newColor;
-    });
+  setOrganizationDetails(organization: Organization) {
+    this.organization = organization;
+    this.primaryColor = this.organization.Theme.primarycolor;
+    this.secondaryColor = this.organization.Theme.secondarycolor;
+    this.logo = this.organization.logo;
   }
 
   onChangeStyling(form: NgForm) {
     const formValues = form.value;
+    const mForm = new FormData();
 
     var newTheme =
     {
@@ -47,16 +48,31 @@ export class VveManagementComponent implements OnInit, OnDestroy {
       "secondarycolor": formValues.secondaryColor
     }
 
-    document.documentElement.style.setProperty('--dynamic-primary', newTheme.primarycolor);
-    document.documentElement.style.setProperty('--dynamic-secondary', newTheme.secondarycolor);
+    this.organizationDao.updateTheme(newTheme)
+    .subscribe(() => {
+      this.dataStorageService.setTheme(newTheme);
+    });
 
-    // this.themeDao.updateTheme(newTheme)
-    // .subscribe(() => {
-    //   this.dataStorageService.setTheme(newTheme);
-    //   window.location.reload();
-    // });
+    var newName = formValues.name;
+    
+    if (newName) {
+      mForm.append('name', formValues.name);
+    }
+    if (this.newLogo)
+    {
+      mForm.append('logo', this.newLogo);
+    }
+
+    if (newName || this.newLogo)
+    {
+      this.organizationDao.updateDetails(mForm)
+      .subscribe(() => {
+        location.reload();
+      }); 
+    }
   }
 
-
-
+  onFileChanged(event) {
+    this.newLogo = event.target.files[0];
+  }
 }

@@ -75,6 +75,13 @@ button {
                 width: 100%;
                 border: none;
                 margin: 0.5rem 0;
+                font-family: inherit;
+                color: #A0A3BD;
+                font-size: inherit;
+            }
+
+            input[type="text"], input::placeholder{
+                color: #A0A3BD;
             }
     
             .file-name-field {
@@ -115,6 +122,7 @@ button {
                 height: 1.8rem;
                 width: 2.5rem;
                 margin-right: 0.5rem;
+                background-color: inherit;
             }
         
             input::-webkit-color-swatch {
