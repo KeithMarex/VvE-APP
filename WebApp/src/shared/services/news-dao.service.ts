@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Dao } from './dao.service';
-import { CalendarItem } from '../models/calendar-item';
-import {NewsItem} from "../models/news-item";
+import { NewsItem } from '../models/news-item';
 
 @Injectable()
 export class NewsDao {
