@@ -37,6 +37,12 @@ paths:
     $ref: ./organization/putOrganizationTheme.yaml
   /organization/:
     $ref: ./organization/putOrganization.yaml
+  /organization/file:
+    $ref: ./organization/getFiles.yaml
+  /organization/file/{id}:
+    $ref: ./organization/getFile.yaml
+  /organization/file/:
+    $ref: ./organization/postFile.yaml
   /tag:
     $ref: ./tag/getTags.yaml
   /tag/{id}:
