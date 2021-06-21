@@ -34,7 +34,7 @@
             <p>Vrolijke mevrouw.jpeg <span class="svg" [inlineSVG]="'../../assets/icons/Close.svg'"></span> </p>
             <div>
                 <label class="attachment-button">Foto toevoegen
-                    <input #images accept=".png, .jpg, .jpeg" type="file" single (change)="onImageInput(images)">
+                    <input #images accept=".png, .jpg, .jpeg" type="file" single (change)="onImageInput($event)">
                     <span class="svg" [inlineSVG]="'../../assets/icons/Image.svg'"></span>
                 </label>
             </div>

@@ -23,6 +23,8 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
 
+  frontPagePhoto: Blob;
+
   form: FormGroup = new FormGroup({
     editorContent: new FormControl('', Validators.required()),
   });
@@ -38,8 +40,8 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     this.editor.destroy();
   }
 
-  onImageInput(images): void {
-    console.log("This is the html: ", toDoc(this.form.controls["editorContent"].value))
+  onImageInput(event): void {
+    this.frontPagePhoto = event.target.files[0];
   }
 
 }
