@@ -43,9 +43,9 @@ const TicketCreate = (props) => {
         setImages((images) => [...images, pickedImage])
     };
 
-    const afbeeldingKnop = (<PageActionButton icon={'plus'} text={tr.ticket?.addPictures}/>)
+    const imageButton = (<PageActionButton icon={'plus'} text={tr.ticket?.addPictures}/>)
 
-    async function maakMelding() {
+    async function createTicket() {
         const fd = new FormData();
         fd.append('title', subject);
         fd.append('description', description);
@@ -96,11 +96,11 @@ const TicketCreate = (props) => {
                     </View>
                     <Text style={styles.inputText}>{tr.ticket?.message}</Text>
                     <View style={styles.inputField}>
-                        <TextInput style={styles.inputBeschrijving} multiline={true} onChangeText={onChangeDescription} value={description} placeholder={tr.ticket?.placeholderMessage} />
+                        <TextInput style={styles.inputDescription} multiline={true} onChangeText={onChangeDescription} value={description} placeholder={tr.ticket?.placeholderMessage} />
                     </View>
 
                     <TouchableOpacity onPress={() => null}>
-                        <OptionsMenu customButton={afbeeldingKnop} options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]} actions={[onTakeCameraImagePressed, onPickGalleryImagePressed]}/>
+                        <OptionsMenu customButton={imageButton} options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]} actions={[onTakeCameraImagePressed, onPickGalleryImagePressed]}/>
                     </TouchableOpacity>
 
                     <View style={styles.images}>
@@ -112,7 +112,7 @@ const TicketCreate = (props) => {
                         ))}
                     </View>
 
-                    <TouchableOpacity onPress={() => maakMelding()} style={styles.sendBtn}>
+                    <TouchableOpacity onPress={() => createTicket()} style={styles.sendBtn}>
                         <StyledText inputStyle={styles.ticketBtnText}>
                             {tr.ticket?.send}
                         </StyledText>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
-    inputBeschrijving: {
+    inputDescription: {
         flex: 1,
         height: Dimensions.get('window').height / 5,
         borderRadius: 10,
