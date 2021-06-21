@@ -16,6 +16,7 @@ import StyledText from './StyledText'
 import { PlusIcon } from '../resources'
 import ApiHelper from "../util/ApiHelper";
 import tra from "../config/languages/translate";
+import OptionsMenu from "react-native-option-menu";
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
@@ -82,7 +83,11 @@ const TicketCommentBox = (props) => {
             </View>
             <View style={styles.commentActionButtons}>
                 <TouchableOpacity onPress={() => alert('Add image')} style={styles.commentAddImageButton}>
-                    <PlusIcon stroke={'#F7F7FC'} width={20} height={20}/>
+                    <OptionsMenu
+                        customButton={<PlusIcon stroke={'#F7F7FC'} width={20} height={20}/>}
+                        options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]}
+                        // actions={[takePicture, choosePicture]}
+                    />
                 </TouchableOpacity>
                 { commentInputText.length > 0 && (
                     <Button withArrow style={styles.commentSendButton} pressAction={sendComment}>
