@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsDao } from '../../../shared/services/news-dao.service';
 import { NewsItem } from '../../../shared/models/news-item';
-import News from "../../../../../API/models/News";
 
 @Component({
   selector: 'app-news-item-list',
