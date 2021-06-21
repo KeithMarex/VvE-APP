@@ -1,4 +1,5 @@
-<div class="container">
+<div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+<div appColoring class="container">
     <section class="left-block">
         <div class="top-section">
             <div class="dot" [ngStyle]="{'background-color':tag.color}"></div>
@@ -12,10 +13,13 @@
 
     <section class="right-block">
         <div class="edit-button">
-            <button class="icon-button">Wijzigen</button>
+            <button class="icon-button" (click)="onEditTag()">Wijzigen</button>
         </div>
         <div class="delete-button">
-            <button class="icon-button">Verwijderen</button>
+            <button class="icon-button" (click)="onDeleteTag()">Verwijderen</button>
         </div>
     </section>
 </div>
+<app-popup class="ticket-editor" *ngIf="editingTag" title="Tag wijzigen" (closed)="onClose()" [fitContent]="true" [small]="true">
+    <app-tag-editor [tag]="tag" (tagEdited)="editTag($event)"></app-tag-editor>
+</app-popup>

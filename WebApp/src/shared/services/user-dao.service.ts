@@ -30,6 +30,19 @@ export class UserDao {
       }))
     }
 
+    changeUserRole(id: string, newRole: string): Observable<any> {
+      const body =
+      {
+        "role": newRole
+      }
+
+      return this.dao.sendPutRequest('user/' + id, body);
+    }
+
+    deleteUser(id: string): Observable<any> {
+      return this.dao.sendDeleteRequest('user/' + id);
+    }
+
     registerUser(email: string, firstname: string, lastname: string): Observable<any> {
       const body = 
       [{
@@ -39,5 +52,14 @@ export class UserDao {
       }];
 
       return this.dao.sendPostRequest('user/register', body);
+    }
+
+    recoverPassword(email: string): Observable<any> {
+      const body = 
+      {
+        "email": email
+      };
+
+      return this.dao.sendPostRequest('user/reset', body);
     }
 }

@@ -7,12 +7,18 @@ import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
 import { initDateParser, parseDate } from '../../util/DateUtil'
 import { parseTicketStatus } from '../../util/ApiParseUtil'
+import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
 
 const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
     const [isFetchingTickets, setIsFetchingTickets] = useState(false)
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     useEffect(() => {
         initDateParser('nl') //TODO move to splash screen
@@ -25,7 +31,7 @@ const Tickets = (props) => {
             .then((res) => {
                 const parsedTickets = []
                 res.data.forEach((ticket) => {
-                    ticket.parsedStatus = parseTicketStatus(ticket.status, 'nl')
+                    ticket.parsedStatus = parseTicketStatus(ticket.status, 'en')
                     ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
                     ticket.parsedCreatedAt = parseDate(ticket.createdAt)
                     parsedTickets.push(ticket)
@@ -55,7 +61,7 @@ const Tickets = (props) => {
             return isFetchingTickets
                 ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
                 : <StyledText inputStyle={styles.noTickets}>
-                    U heeft nog geen meldingen gedaan.
+                    {tr.ticket?.noNotifications}
                 </StyledText>
         }
     }
@@ -66,10 +72,10 @@ const Tickets = (props) => {
                 <View style={styles.tickets}>
                     <PageLogo/>
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
-                        Meldingen
+                        {tr.ticket?.notifications}
                     </StyledText>
                     <TouchableOpacity onPress={() => props.navigation.navigate('Create')}>
-                        <PageActionButton icon={'plus'} text={'Aanmaken'}/>
+                        <PageActionButton icon={'plus'} text={tr.ticket?.create}/>
                     </TouchableOpacity>
 
                     <View>

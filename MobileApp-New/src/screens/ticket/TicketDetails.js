@@ -5,6 +5,7 @@ import PageLogo from '../../components/PageLogo'
 import Button from '../../components/Button'
 import TicketCommentBox from '../../components/TicketCommentBox'
 import ApiHelper from "../../util/ApiHelper";
+import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
 
@@ -14,6 +15,12 @@ const TicketDetails = (props) => {
     const showImages = () => {
         props.navigation.navigate('ShowImages', { ticket });
     }
+
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     return (
         <SafeAreaView style={styles.root}>
@@ -27,30 +34,30 @@ const TicketDetails = (props) => {
                     </StyledText>
                     <View style={styles.ticketInfo}>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Aangemaakt op: { ticket.parsedCreatedAt }
+                            {tr.ticket?.createdOn}: { ticket.parsedCreatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            Laatste wijziging: { ticket.parsedUpdatedAt }
+                            {tr.ticket?.lastModified}: { ticket.parsedUpdatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
-                            Status: { ticket.parsedStatus }
+                            {tr.ticket?.status}: { ticket.parsedStatus }
                         </StyledText>
                     </View>
 
                     {ticket.images.length !== 0 &&
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            Uw afbeeldingen
+                            {tr.ticket?.pictures}
                         </StyledText>
                         <Button pressAction={() => {showImages()}}>
-                            Afbeeldingen inzien
+                            {tr.ticket?.showPictures}
                         </Button>
                     </View>
                     }
 
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            Bericht
+                            {tr.ticket?.message}
                         </StyledText>
                         <StyledText inputStyle={styles.ticketContent}>
                             { ticket.description }
@@ -59,7 +66,7 @@ const TicketDetails = (props) => {
 
                     <View style={styles.ticketSection}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            Opmerkingen
+                            {tr.ticket?.comments}
                         </StyledText>
                         <TicketCommentBox comments={ticket.comments}/>
                     </View>
