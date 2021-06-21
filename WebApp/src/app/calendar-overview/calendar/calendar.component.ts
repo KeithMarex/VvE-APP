@@ -65,9 +65,9 @@ export class CalendarComponent implements OnInit {
 
   fetchMonthItems(newDate: Date, oldDate?: Date): void {
     if (oldDate) {
-      const didFindFetchedMonthItems =
+      const didOverwriteMonthItems =
         this.calendarService.overwriteWithNewMonthItems(newDate, oldDate);
-      if (didFindFetchedMonthItems) {
+      if (didOverwriteMonthItems) {
         this.currentMonth = newDate;
         return;
       }
