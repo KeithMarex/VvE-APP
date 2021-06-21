@@ -18,29 +18,30 @@
             </div>
             <div class="ticket-info">
                 <h1>Informatie</h1>
+                <div *ngIf="isInfoError" class="error-message">{{ infoErrorMessage }}</div>
                 <div class="info-container">
-                    <div class="first-row">
+                    <div class="left-column">
                         <div class="status">
                             <h1>Status</h1>
-                            <app-dropdown class="dropdown" [(ngModel)]="selectedStatus" name="selectedStatus" id="selectedStatus" ngDefaultControl required [options]="statuses">
+                            <app-dropdown class="dropdown" [(ngModel)]="selectedStatus" (ngModelChange)="submitStatus($event)" name="selectedStatus" id="selectedStatus" ngDefaultControl required [options]="statuses">
                                 <ng-template dropdownSelected let-selected>
                                     <div>
                                         <div [ngSwitch]="selected">
                                             <div *ngSwitchCase="'PENDING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FF3B30'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FF3B30'}"></div>
                                                     <p class="dropdown-text">In afwachting</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FED977'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FED977'}"></div>
                                                     <p class="dropdown-text">In behandeling</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLED'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#00ff00'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#00ff00'}"></div>
                                                     <p class="dropdown-text">Afgehandeld</p>
                                                 </div>
                                             </div>
@@ -52,19 +53,19 @@
                                         <div [ngSwitch]="option">
                                             <div *ngSwitchCase="'PENDING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FF3B30'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FF3B30'}"></div>
                                                     <p class="dropdown-text">In afwachting</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLING'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#FED977'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#FED977'}"></div>
                                                     <p class="dropdown-text">In behandeling</p>
                                                 </div>
                                             </div>
                                             <div *ngSwitchCase="'HANDLED'">
                                                 <div class="dropdown-item">
-                                                    <div class="dot" [ngStyle]="{'background-color':'#00ff00'}"></div>
+                                                    <div class="dropdown-colored-circle" [ngStyle]="{'background-color':'#00ff00'}"></div>
                                                     <p class="dropdown-text">Afgehandeld</p>
                                                 </div>
                                             </div>
@@ -73,39 +74,40 @@
                                 </ng-template>
                             </app-dropdown>
                         </div>
+                        <div class="selected-assignee">
+                            <h1>Toegewezen persoon</h1>
+                            <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" (ngModelChange)="submitAssignee($event)" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
+                                <ng-template dropdownSelected let-selected>
+                                    <div class="dropdown-item">
+                                        <p class="dropdown-text">{{ selected.firstname + ' ' + selected.lastname }}</p>
+                                    </div>
+                                </ng-template>
+                                <ng-template dropdownOption let-option>
+                                    <div class="dropdown-item">
+                                        <p class="dropdown-text">{{ option.firstname + ' ' + option.lastname }}</p>
+                                    </div>
+                                </ng-template>
+                            </app-dropdown>
+                        </div>
+                    </div>
+                    <div class="right-column">
                         <div class="tag">
                             <h1>Tag</h1>
-                                <app-dropdown class="dropdown" [(ngModel)]="selectedTag" name="selectedTag" id="selectedTag" ngDefaultControl required [options]="tags">
+                                <app-dropdown class="dropdown" [(ngModel)]="selectedTag" (ngModelChange)="submitTag($event)" name="selectedTag" id="selectedTag" ngDefaultControl required [options]="tags">
                                     <ng-template dropdownSelected let-selected>
                                         <div class="dropdown-item">
-                                            <div class="dot" [ngStyle]="{'background-color':selected.color}"></div>
+                                            <div class="dropdown-colored-circle" [ngStyle]="{'background-color':selected.color}"></div>
                                             <p class="dropdown-text">{{ selected.name }}</p>
                                         </div>
                                     </ng-template>
                                     <ng-template dropdownOption let-option>
                                         <div class="dropdown-item">
-                                            <div class="dot" [ngStyle]="{'background-color':option.color}"></div>
+                                            <div class="dropdown-colored-circle" [ngStyle]="{'background-color':option.color}"></div>
                                             <p class="dropdown-text">{{ option.name }}</p>
                                         </div>
                                     </ng-template>
                                 </app-dropdown>
                         </div>
-                    </div>
-                    <div class="second-row">
-                        <h1>Toegewezen persoon
-                        </h1>
-                        <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
-                            <ng-template dropdownSelected let-selected>
-                                <div class="dropdown-item">
-                                    <p class="dropdown-text">{{ selected }}</p>
-                                </div>
-                            </ng-template>
-                            <ng-template dropdownOption let-option>
-                                <div class="dropdown-item">
-                                    <p class="dropdown-text">{{ option }}</p>
-                                </div>
-                            </ng-template>
-                        </app-dropdown>
                     </div>
                 </div>
             </div>
@@ -127,7 +129,7 @@
             <div class="left-section">
                 <div>
                     <h1>Opmerkingen</h1>
-                    <div *ngIf="isError" class="error-message">{{errorMessage}}</div>
+                    <div *ngIf="isCommentError" class="error-message">{{ commentErrorMessage }}</div>
                     <div class="comments">
                         <div *ngFor="let comment of comments">
                             <div class="different-user-comment">
