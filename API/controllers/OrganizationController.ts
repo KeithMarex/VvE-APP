@@ -1,7 +1,7 @@
 import User from '../models/User';
 import Organization from '../models/Organization';
 import logger from '~/util/Logger';
-import fs, { write } from 'fs';
+import fs from 'fs';
 import { Types } from 'mongoose';
 import { Response } from 'express';
 import { validateTheme } from '../validators/ThemeValidator';
