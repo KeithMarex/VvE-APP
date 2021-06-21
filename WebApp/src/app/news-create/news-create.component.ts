@@ -25,7 +25,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
 
   frontPagePhoto: Blob;
 
-  form: FormGroup = new FormGroup({
+  editorForm: FormGroup = new FormGroup({
     editorContent: new FormControl('', Validators.required()),
   });
 
