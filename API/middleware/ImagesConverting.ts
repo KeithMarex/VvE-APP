@@ -10,7 +10,6 @@ import axios from 'axios'
 const uploadImages = async(base64) => {
     let form = new FormData();
     form.append("image", base64);
-    console.log(form);
     let response;
     try {
         response = await axios.post(process.env.URL_IMGBB, form, {
@@ -65,9 +64,7 @@ export const imagesConvert = async(req: any, res: Response, next: NextFunction) 
     }
 
     if(isImage(req.files)) {
-        console.log('IS BESTAND');
         const imageIds = await createImages(req.files);
-        console.log(imageIds)
         if (imageIds.err === true) {
             return res.status(500).json({message: imageIds.message})
         }
