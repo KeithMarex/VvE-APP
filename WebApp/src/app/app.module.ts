@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {
@@ -56,11 +56,11 @@ import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-
 import { CalendarService } from './calendar-overview/calendar/calendar.service';
 import { CalendarItemDetailsComponent } from './calendar-overview/calendar/calendar-item-details/calendar-item-details.component';
 import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
-import { ThemeDao } from 'src/shared/services/theme-dao.service';
+import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 import { JsonParserService } from 'src/shared/services/json-parser.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { AccountImportComponent } from './account-management/account-import/account-import.component';
-import { NgxCsvParserModule } from 'ngx-csv-parser';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -105,7 +105,8 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarItemDetailsComponent,
     SpinnerComponent,
     PasswordRecoveryComponent,
-    AccountImportComponent
+    AccountImportComponent,
+    ConfirmationPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,7 +115,6 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     HttpClientModule,
     FormsModule,
     InlineSVGModule,
-    FormsModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -126,13 +126,12 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       }
     }),
     NgxDaterangepickerMd.forRoot(),
-    NgxCsvParserModule,
+    ReactiveFormsModule,
   ],
   providers: [
     Dao,
     TicketDao,
     TagDao,
-    AuthDao,
     AuthDao,
     UserDao,
     CommentDao,
@@ -140,7 +139,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TicketEditorService,
     DataStorageService,
     CalendarService,
-    ThemeDao,
+    OrganizationDao,
     JsonParserService,
     {
       provide: LOCALE_ID,

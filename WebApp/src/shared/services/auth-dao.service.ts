@@ -19,8 +19,4 @@ export class AuthDao {
           return response;
         }));
     };
-
-    isLoggedIn(): boolean {
-        return (this.dataStorageService.getLoggedInUserId().length > 0);
-    }
 }
