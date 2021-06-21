@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { TagDao } from 'src/shared/services/tag-dao.service';
 
@@ -8,16 +8,57 @@ import { TagDao } from 'src/shared/services/tag-dao.service';
   styleUrls: ['./tag-creator.component.scss']
 })
 export class TagCreatorComponent implements OnInit {
+  @Output() tagCreated = new EventEmitter();
+  errorMessage: string;
+  tagColor: string;
+  isError = false;
 
   constructor(private tagDao: TagDao) { }
 
   ngOnInit(): void {
   }
 
-  onCreateTag(form: NgForm) {
+  createTag(form: NgForm) {
     const formValues = form.value;
-    
-    //TODO send post request with formValues
+    if (formValues.name.length > 10) {
+      this.isError = true;
+      this.errorMessage = "Naam is te lang";
+      return;
+    }
+
+    if (!formValues.name) {
+      this.isError = true;
+      this.errorMessage = "Naam mag niet leeg zijn";
+      return;
+    }
+
+    if (!formValues.tagColor) {
+      this.isError = true;
+      this.errorMessage = "Kleur mag niet leeg zijn";
+      return;
+    }
+
+    var mForm = {
+      "name" : formValues.name,
+      "color" : formValues.tagColor
+    }
+
+    this.tagDao.createTag(mForm)
+    .subscribe(
+      res => {
+      this.tagCreated.emit();
+      }, 
+      errorRes => {
+        let incomingErrorMessage = errorRes.error.message;
+        if (incomingErrorMessage) {
+          this.isError = true;
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        } else {
+          this.isError = true;
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        }
+      }
+    );
   }
 
 }

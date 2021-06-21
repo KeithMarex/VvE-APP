@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-@import "../../utilities/colors.scss";
-@import "../../utilities/button.scss";
-@import "../../utilities/effects.scss";
+@import "../../utilities/index.scss";
 
 body {
     width: 100%;
@@ -26,5 +23,11 @@ body {
                 background: url('../../assets/icons/chevron.svg') no-repeat;
             }
         }
+    }
+}
+
+@media only screen and (max-width: 830px) {
+    .button-section {
+        justify-content: center !important; 
     }
 }

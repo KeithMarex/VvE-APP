@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Theme } from 'src/shared/models/theme.model';
+import { Image } from 'src/shared/models/image.model';
+import { Organization } from 'src/shared/models/organization.model';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
-import { ThemeDao } from 'src/shared/services/theme-dao.service';
+import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 
 @Component({
   selector: 'app-vve-management',
@@ -10,32 +11,68 @@ import { ThemeDao } from 'src/shared/services/theme-dao.service';
   styleUrls: ['./vve-management.component.scss']
 })
 export class VveManagementComponent implements OnInit {
-  primaryColor = this.dataStorageService.getPrimaryColor();
-  secondaryColor = this.dataStorageService.getSecondaryColor();
+  organization: Organization
+  primaryColor = '#000000';
+  secondaryColor = '#000000';
+  logo: Image;
+  newLogoName: string; // Based on uploaded file
+  newLogo: File;
 
-  constructor(private dataStorageService: DataStorageService, private themeDao: ThemeDao) { }
+  constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
   ngOnInit(): void {
+    this.getOrganizationDetails();
+  }
+
+  getOrganizationDetails() {
+    this.organizationDao.getOrganization()
+    .subscribe(res => {
+      this.setOrganizationDetails(res);
+    });
+  }
+
+  setOrganizationDetails(organization: Organization) {
+    this.organization = organization;
+    this.primaryColor = this.organization.Theme.primarycolor;
+    this.secondaryColor = this.organization.Theme.secondarycolor;
+    this.logo = this.organization.logo;
   }
 
   onChangeStyling(form: NgForm) {
     const formValues = form.value;
+    const mForm = new FormData();
 
-    var newTheme = 
+    var newTheme =
     {
       "primarycolor": formValues.primaryColor,
       "secondarycolor": formValues.secondaryColor
     }
 
-    this.themeDao.updateTheme(newTheme)
-    .subscribe(res => {
-      console.log(res);
-      // this.dataStorageService.setTheme(res);
+    this.organizationDao.updateTheme(newTheme)
+    .subscribe(() => {
+      this.dataStorageService.setTheme(newTheme);
     });
 
-    // window.location.reload();
+    var newName = formValues.name;
+    
+    if (newName) {
+      mForm.append('name', formValues.name);
+    }
+    if (this.newLogo)
+    {
+      mForm.append('logo', this.newLogo);
+    }
+
+    if (newName || this.newLogo)
+    {
+      this.organizationDao.updateDetails(mForm)
+      .subscribe(() => {
+        location.reload();
+      }); 
+    }
   }
 
-
-
+  onFileChanged(event) {
+    this.newLogo = event.target.files[0];
+  }
 }

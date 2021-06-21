@@ -14,14 +14,17 @@ import { User } from 'src/shared/models/user.model';
 
 export class LoginComponent implements OnInit {
   isLoading: boolean;
-  userName: string;
+  isAdmin: boolean = true;
+  isError: boolean;
 
   constructor(private authDao: AuthDao, private router: Router, private dataStorageService: DataStorageService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login(form: NgForm): void {
+    this.isError = false;
+    this.isAdmin = true;
+    this.isLoading = true;
     if (form.invalid) { return; }
 
     const values: {
@@ -42,12 +45,18 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/ticket-overview']);
           }
           else {
-            console.log('geen admin');
+            this.isAdmin = false;
+            this.isLoading = false;
           }
         },
         (error: HttpErrorResponse) => {
-          console.log('mislukt!');
+          this.isError = true;
+          this.isLoading = false;
         }
       );
+  }
+
+  onForgetPassword() {
+    this.router.navigate(['/password-recovery']);
   }
 }

@@ -1,11 +1,9 @@
 export class Theme {
-    _id: string;
-    primaryColor: string;
-    secondaryColor: string;
+    primarycolor: string;
+    secondarycolor: string;
 
-    constructor(_id: string, primaryColor: string, secondaryColor: string) {
-        this._id = _id;
-        this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor;
+    constructor(primarycolor: string, secondarycolor: string) {
+        this.primarycolor = primarycolor;
+        this.secondarycolor = secondarycolor;
     }
 }

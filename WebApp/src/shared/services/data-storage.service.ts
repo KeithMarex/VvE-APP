@@ -1,33 +1,21 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { Theme } from "../models/theme.model";
-import { ThemeDao } from "./theme-dao.service";
+import { OrganizationDao } from "./organization-dao.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataStorageService {
-    private theme: Theme;
-    private primaryColor: string = '#451864'; // Default color value
-    private secondaryColor: string = '#A0CAE8'; // Default color value
+    logoUrl = new BehaviorSubject<string>('');
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
-    constructor(private themeDao: ThemeDao) {
-        this.checkThemeAvailability();
-    }
+    constructor(private organizationDao: OrganizationDao) {}
 
-    // Get a value from local storage
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
 
-        return storageValue ? storageValue : null;
-    }
-
-    getPrimaryColor(): string {
-        return this.primaryColor;
-    }
-
-    getSecondaryColor(): string {
-        return this.secondaryColor;
+        return storageValue || null;
     }
 
     getLoggedInUserId(): string {
@@ -37,27 +25,56 @@ export class DataStorageService {
     setLoggedInUserId(user: string): void {
         this.loggedInUserId = user;
         localStorage.setItem('userId', user);
+        
+        this.initializeTheme();
     }
 
-    checkThemeAvailability() {
-        this.theme = JSON.parse(localStorage.getItem('theme'));
-        
-        if (!this.theme) {
-            this.themeDao.getTheme()
-            .subscribe(res => {
-                this.setTheme(res);
-            });
+    initializeTheme() {
+        var isLoggedIn = this.getValueFromStorage('userId') != null;
+
+        if (isLoggedIn) {
+            this.getOrganizationFromDao();
         }
     }
 
-    setTheme(theme: Theme) {
-        this.theme = theme;
-        localStorage.setItem('theme', JSON.stringify(this.theme));
-        this.setColors();
+    getThemeFromDao() {
+        this.organizationDao.getTheme()
+        .subscribe(res => {
+            this.setTheme(res);
+        });
     }
 
-    setColors() {
-        this.primaryColor = this.theme.primaryColor;
-        this.secondaryColor = this.theme.secondaryColor;
+    getOrganizationFromDao() {
+        this.organizationDao.getOrganization()
+        .subscribe(res => {
+            this.setTheme(res.Theme);
+            if (res.logo.image_url) {
+                this.logoUrl.next(res.logo.image_url);
+            }
+        })
     }
+
+    setTheme(theme: Theme) {
+        document.documentElement.style.setProperty('--dynamic-primary', theme.primarycolor);
+        document.documentElement.style.setProperty('--dynamic-secondary', theme.secondarycolor);
+    }
+
+    clearStoredData() {
+        sessionStorage.clear();
+        localStorage.clear();
+
+        // this.deleteAllCookies();
+    }
+
+    deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+    
+        for (var i = 1; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          var equalsPos = cookie.indexOf('='); // Get the char index of equals sign
+          var cookieName = equalsPos > -1 ? cookie.substring(0, equalsPos) : cookie;
+    
+          document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"; // Set new cookie value to expire immediately
+        }
+      }
 }

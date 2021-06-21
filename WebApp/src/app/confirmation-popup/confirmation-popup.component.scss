@@ -1,0 +1,15 @@
+@import "../../utilities/index.scss";
+
+.confirmation-content {
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.button-section {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    @include button;
+}

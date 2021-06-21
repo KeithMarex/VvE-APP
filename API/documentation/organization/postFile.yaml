@@ -1,0 +1,28 @@
+post:
+  summary: Uploads a file to the organisation library
+  description: |
+    This endpoint requires a single file to be uploaded under the field '<b>file</b>'. <br>
+    It will populate all information needed automatically from the metadata.
+    Organization ID will be taken from the user corresponding with the received cookie.
+  tags:
+    - Organization
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file:
+              type: file
+          required:
+            - file
+  responses:
+    '200':
+      description: Returns File object (without the file) and file binary has been saved in the database.
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/File.yaml
+    '500':
+      description: Error while saving file to database.

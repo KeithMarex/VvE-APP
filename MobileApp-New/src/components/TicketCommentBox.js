@@ -6,10 +6,16 @@ import TicketComment from './TicketComment'
 import StyledText from './StyledText'
 import { PlusIcon } from '../resources'
 import ApiHelper from "../util/ApiHelper";
+import tra from "../config/languages/translate";
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
     const [comments, setComments] = useState(props.ticket.comments)
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     const sendComment = async () => {
         if (!commentInputText) return
@@ -49,7 +55,7 @@ const TicketCommentBox = (props) => {
             {commentsEl.length > 0
                 ? commentsEl
                 : (<StyledText inputStyle={styles.noComments}>
-                        Er zijn nog geen opmerkingen geplaatst
+                        {tr.ticket?.noComments}.
                 </StyledText>
             )}
 
@@ -57,7 +63,7 @@ const TicketCommentBox = (props) => {
                 <TextInput
                     style={styles.commentInputField}
                     onChangeText={ onCommentInputText }
-                    placeholder={'Typ hier uw opmerking'}
+                    placeholder={tr.ticket?.placeholder}
                     multiline
                 />
             </View>
@@ -67,7 +73,7 @@ const TicketCommentBox = (props) => {
                 </TouchableOpacity>
                 { commentInputText.length > 0 && (
                     <Button withArrow style={styles.commentSendButton} pressAction={ sendComment }>
-                        Versturen
+                        {tr.ticket?.send}
                     </Button>
                 )}
             </View>
