@@ -10,8 +10,7 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { Comment } from 'src/shared/models/comment.model';
-import { Image } from 'src/shared/models/image.model';
-import { NgForm } from "@angular/forms";
+import { FormControl, NgForm } from "@angular/forms";
 import { CommentDao } from 'src/shared/services/comment-dao.service';
 
 @Component({
@@ -28,10 +27,12 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   tags: Tag[] = [];
   selectedAssignee: string;
   assignees: string[] = [];
-  inputCommentText: string;
   inputCommentImage: Blob;
   commentImages: Blob[] = [];
   comments: Comment[];
+  commentText = new FormControl('');
+  errorMessage: string;
+  isError = false;
 
   private ticketIdSub: Subscription;
   private creatorSub: Subscription;
@@ -130,23 +131,53 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   submitComment(form: NgForm): void {
-    const formData = new FormData();
-    this.inputCommentText = form.value.inputCommentText;
-    console.log(this.inputCommentText);
-    // console.log(this.inputCommentText);
-    
-    this.commentImages.forEach((image, index) => { 
-      // let imgBlob = new Blob()
-      formData.append(`file${index + 1}`, image);
-    });
-    formData.append("comment", this.inputCommentText);
-    formData.append("ticketID", this.ticket._id);
+    if (!this.commentText.value) {
+      this.isError = true;
+      this.errorMessage = "Het bericht mag niet leeg zijn";
+      return;
+    }
+    else {
+      this.isError = false;
+      this.errorMessage;
+    }
 
-    this.commentDao.createComment(formData).subscribe(Response => console.log(Response));
+    const formData = new FormData();
+
+    this.commentImages.forEach((image, index) => {
+      formData.append(`file` + index+1 , image)
+    })
+
+    formData.append("comment", this.commentText.value);
+    formData.append("ticketID", this.ticket._id);    
+
+    this.commentDao.createComment(formData).subscribe(Response => 
+      {
+        this.commentImages = [];
+        this.commentText.setValue('');
+      this.ticketDao.getTicketById(this.ticket._id)
+      .subscribe(ticketRes => 
+        {
+          this.ticket = ticketRes;
+          sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+          this.comments = this.ticket.comments;
+        }
+        );
+      },
+      errorRes => {
+        let incomingErrorMessage = errorRes.error.message;
+        if (incomingErrorMessage) {
+          this.isError = true;
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        } else {
+          this.isError = true;
+          this.errorMessage = 'Er is een onbekende error opgetreden';
+        }
+      }
+      );
   }
 
   handleFileInput(target: any): void {
-		this.inputCommentImage = target.files.item(0);
+		this.inputCommentImage = target.files[0];
     this.commentImages.push(this.inputCommentImage);
     this.inputCommentImage = undefined;
     target.value = "";
@@ -162,6 +193,15 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     }
     else {
       return false;
+    }
+  }
+
+  sliceImageName(name: string): string {
+    if (name.length < 15) {
+      return name;
+    }
+    else {
+      return name.slice(0,14) + '...';
     }
   }
 

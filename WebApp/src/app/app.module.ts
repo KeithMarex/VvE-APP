@@ -117,7 +117,6 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     FormsModule,
     ReactiveFormsModule,
     InlineSVGModule,
-    FormsModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -135,7 +134,6 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     Dao,
     TicketDao,
     TagDao,
-    AuthDao,
     AuthDao,
     UserDao,
     CommentDao,
