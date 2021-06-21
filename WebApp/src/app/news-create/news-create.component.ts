@@ -29,6 +29,11 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     editorContent: new FormControl('', Validators.required()),
   });
 
+  detailsForm: FormGroup = new FormGroup({
+    title: new FormControl('', Validators.required()),
+    author: new FormControl('', Validators.required())
+  });
+
   ngOnInit(): void {
     this.editor = new Editor({
       keyboardShortcuts: true,

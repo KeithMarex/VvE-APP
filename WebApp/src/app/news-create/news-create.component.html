@@ -13,22 +13,22 @@
     </article>
     <article class="details">
         <h1>Details</h1>
-        <section class="text-section">
+        <form [formGroup]="detailsForm" class="text-section">
             <div>
                 <h2>Titel van nieuws</h2>
                 <span class="form-group">
-                    <input class="input-detail" type="text" alt="Invullen titel van het nieuws" placeholder="Vul hier de titel in" ngModel required>
+                    <input formControlName="title" class="input-detail" type="text" alt="Invullen titel van het nieuws" placeholder="Vul hier de titel in" ngModel required>
                     <span [inlineSVG]="'../../assets/icons/edit.svg'"></span>
                 </span>
             </div>
             <div>
                 <h2>Auteur van nieuws</h2>
                 <span class="form-group">
-                    <input class="input-detail" type="text" alt="Invullen auteur van het nieuws" placeholder="Vul hier de auteur in" ngModel required>
+                    <input formControlName="author" class="input-detail" type="text" alt="Invullen auteur van het nieuws" placeholder="Vul hier de auteur in" ngModel required>
                     <span class="svg" [inlineSVG]="'../../assets/icons/edit.svg'"></span>
                 </span>
             </div>
-        </section>
+        </form>
         <section class="file-section">
             <h2>Voorpagina foto</h2>
             <p>Vrolijke mevrouw.jpeg <span class="svg" [inlineSVG]="'../../assets/icons/Close.svg'"></span> </p>
