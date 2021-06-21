@@ -88,7 +88,6 @@ export const putTicket = (req, res) => {
 const getTicketsUser = (req, res) => {
     Ticket.find({ creator: Types.ObjectId(res.locals.user._id) })
     .then(result => {
-        console.log("This is the response: ", result)
         res.status(200).send(result);
     })
     .catch(err => {

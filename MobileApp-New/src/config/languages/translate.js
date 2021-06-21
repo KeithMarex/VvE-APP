@@ -5,7 +5,7 @@ const translate = async () => {
     let locale = ""
     const hasLang = await AsyncStorage.getItem('lang');
 
-    if (typeof hasLang != null){
+    if (hasLang != null){
         locale = hasLang;
     } else {
         if (Platform.OS === 'ios'){

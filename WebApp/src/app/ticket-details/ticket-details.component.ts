@@ -10,8 +10,7 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { Comment } from 'src/shared/models/comment.model';
-import { Image } from 'src/shared/models/image.model';
-import { NgForm } from "@angular/forms";
+import { FormControl, NgForm } from "@angular/forms";
 import { CommentDao } from 'src/shared/services/comment-dao.service';
 
 @Component({
@@ -23,15 +22,23 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: User;
   selectedStatus: string;
+  originalStatus: string;
   statuses: string[] = ["PENDING", "HANDLING", "HANDLED"];
   selectedTag: Tag;
+  originalTag: Tag;
   tags: Tag[] = [];
-  selectedAssignee: string;
-  assignees: string[] = [];
+  selectedAssignee: User;
+  originalAssignee: User;
+  assignees: User[] = [];
   inputCommentText: string;
   inputCommentImage: Blob;
   commentImages: Blob[] = [];
   comments: Comment[];
+  commentText = new FormControl('');
+  commentErrorMessage: string;
+  infoErrorMessage: string;
+  isCommentError = false;
+  isInfoError = false;
 
   private ticketIdSub: Subscription;
   private creatorSub: Subscription;
@@ -42,17 +49,14 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getActiveTicket();
     this.getTicketCreator();
-    this.getTags();
-    this.getSelectedStatus();
-    this.getAssignees();
   }
 
   getActiveTicket() {
     const storedTicket = sessionStorage.getItem('ticket');
-
     if (storedTicket) {
       this.ticket =  JSON.parse(storedTicket);
       this.comments = this.ticket.comments;
+      this.getSelectedInformation();
     }
     else {
       this.ticketIdSub = this.ticketEditorService.selectedTicketId.subscribe(ticketId => {
@@ -66,11 +70,18 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
               this.ticket = ticketRes;
               sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
               this.comments = this.ticket.comments;
+              this.getSelectedInformation();
             }
           );
         }
       })
     }
+  }
+
+  getSelectedInformation(): void {
+    this.getAssignees();
+    this.getTags();
+    this.getStatus();
   }
 
   getTicketCreator() {
@@ -94,59 +105,142 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     .subscribe((incomingtags: Tag[]) => {
       this.tags = incomingtags;
       })
-      this.getSelectedTag();
-  }
 
-  getSelectedTag(): void {
-    if (this.ticket && this.ticket.tag) {
-      this.selectedTag = this.ticket.tag;
-    }
-    else {
-      this.selectedTag = this.tags[0];
-    }
-  }
-
-  getSelectedStatus(): void {
-    if (this.ticket && this.ticket.status) {
-      this.selectedStatus = this.ticket.status;
-    }
-    else {
-      this.selectedStatus = this.statuses[0];
-    }
+      if (this.ticket.tag) {
+        this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
+          this.selectedTag = tag;
+          this.originalTag = tag;
+        });
+      }
+      else {
+        let unnamedTag: Tag = { name: "Nog niet toegewezen" }
+        this.selectedTag = unnamedTag;
+        this.originalTag = unnamedTag;
+      }
   }
 
   getAssignees(): void {
-    this.selectedAssignee = "Nog niet toegewezen";
 
     this.userDao.getUsersByOrganization()
       .subscribe((incomingUsers: User[]) => {
         incomingUsers.forEach(incomingUser => {
           if (incomingUser.role == 'admin') {
-            this.assignees.push(incomingUser.firstname + " " + incomingUser.lastname);
+            this.assignees.push(incomingUser);
           }
         })
-        this.assignees.push("Nog niet toegewezen");
       });
+
+      if (this.ticket.assignee) {
+        this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
+          this.selectedAssignee = user;
+          this.originalAssignee = user;
+        });
+      }
+      else {
+        let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
+        this.selectedAssignee = unnamedAssignee;
+        this.originalAssignee = unnamedAssignee;
+      }
+  }
+
+  getStatus(): void {
+    if (this.ticket.status) {
+      this.selectedStatus = this.ticket.status;
+      this.originalStatus = this.ticket.status;
+    }
+    else {
+      this.selectedStatus = this.statuses[0];
+      this.originalStatus = this.statuses[0];
+    }
+  }
+
+  submitTag(): void {
+    if (this.selectedTag) {
+      var multiForm = {"tag": this.selectedTag._id};
+      this.submitInformation(multiForm);
+    }
+  }
+
+  submitStatus(): void {
+    var multiForm = {"status": this.selectedStatus};
+    this.submitInformation(multiForm);
+  }
+
+  submitAssignee(): void {
+    if (this.selectedAssignee) {
+      var multiForm = {"assignee": this.selectedAssignee._id};
+      this.submitInformation(multiForm);
+    }
+  }
+
+  submitInformation(body: unknown): void {
+    this.isInfoError = false;
+    
+    this.ticketDao.updateTicket(this.ticket._id, body).subscribe(Response => {
+      this.ticketDao.getTicketById(this.ticket._id)
+      .subscribe(ticketRes => {
+        this.ticket = ticketRes;
+        sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+      });
+    }, 
+    errorRes => {
+      let incomingErrorMessage = errorRes.error.message;
+      if (incomingErrorMessage) {
+        this.infoErrorMessage = errorRes.error.message;
+        this.isInfoError = true;
+      }
+      else {
+        this.infoErrorMessage = 'Er is een onbekende error opgetreden';
+        this.isInfoError = true;
+      }
+    });
   }
 
   submitComment(form: NgForm): void {
-    const formData = new FormData();
-    this.inputCommentText = form.value.inputCommentText;
-    console.log(this.inputCommentText);
-    // console.log(this.inputCommentText);
-    
-    this.commentImages.forEach((image, index) => { 
-      // let imgBlob = new Blob()
-      formData.append(`file${index + 1}`, image);
-    });
-    formData.append("comment", this.inputCommentText);
-    formData.append("ticketID", this.ticket._id);
+    if (!this.commentText.value) {
+      this.isCommentError = true;
+      this.commentErrorMessage = "Het bericht mag niet leeg zijn";
+      return;
+    }
+    else {
+      this.isCommentError = false;
+      this.commentErrorMessage;
+    }
 
-    this.commentDao.createComment(formData).subscribe(Response => console.log(Response));
+    const formData = new FormData();
+
+    this.commentImages.forEach((image, index) => {
+      formData.append(`file` + index+1 , image)
+    })
+
+    formData.append("comment", this.commentText.value);
+    formData.append("ticketID", this.ticket._id);    
+
+    this.commentDao.createComment(formData).subscribe(Response => {
+      this.commentImages = [];
+      this.commentText.setValue('');
+      this.ticketDao.getTicketById(this.ticket._id)
+      .subscribe(ticketRes => {
+        this.ticket = ticketRes;
+        sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+        this.comments = this.ticket.comments;
+      });
+    },
+    errorRes => {
+      let incomingErrorMessage = errorRes.error.message;
+      if (incomingErrorMessage) {
+        this.isCommentError = true;
+        this.commentErrorMessage = 'Er is een onbekende error opgetreden';
+      }
+      else {
+        this.isCommentError = true;
+        this.commentErrorMessage = 'Er is een onbekende error opgetreden';
+      }
+    });
   }
 
   handleFileInput(target: any): void {
-		this.inputCommentImage = target.files.item(0);
+		this.inputCommentImage = target.files[0];
     this.commentImages.push(this.inputCommentImage);
     this.inputCommentImage = undefined;
     target.value = "";
@@ -165,6 +259,15 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  sliceImageName(name: string): string {
+    if (name.length < 15) {
+      return name;
+    }
+    else {
+      return name.slice(0,14) + '...';
+    }
+  }
+
   ngOnDestroy(): void {
     sessionStorage.clear();
     if (this.ticketIdSub)
@@ -176,5 +279,4 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       this.creatorSub.unsubscribe();
     }
   }
-
 }
