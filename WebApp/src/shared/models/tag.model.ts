@@ -1,7 +1,7 @@
 export class Tag {
     _id?: string;
     name: string;
-    color: string;
+    color?: string;
     createdAt?: Date;
     updatedAt?: Date;
 

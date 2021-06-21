@@ -80,6 +80,17 @@ body {
             word-break: break-all;
             height: inherit;
         }
+
+        .error-message {
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 3px;
+            background-color: $error-color;
+            color: white;
+            align-items: center;
+            text-align: center;
+        }
     }
 
     .image-section {
@@ -106,63 +117,63 @@ body {
 
     .info-container {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        flex-direction: row;
         margin: 0.5rem 0;
-        padding: 1.5rem;
-        border-radius: 32px;
+        margin-right: 30px;
+        padding: 1rem;
+        border-radius: 30px;
         box-shadow: $default-box-shadow;
 
         h1 {
-            font-size: 110%;
+            font-size: 90%;
             padding-bottom: 5px;
         }
         
 
-        .first-row {
+        .left-column {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            margin-bottom: 1rem;
+            flex-direction: column;
+            margin-right: 2rem;
 
             .dropdown {
-                .dropdown-text{
-                    padding-left: 10px;
-                }
+                display: flex;
 
-                .dot {
+                .dropdown-colored-circle {
                     height: 15px;
                     width: 15px;
                     border-radius: 50%;
                     display: inline-block;
+                    margin-right: 4px;
                 }
+
                 .dropdown-item {
                     display: flex;
                     flex-direction: row;
+                    min-width: 100px;
                 }
-            }
-
-            .status {
-                padding-right: 6rem;
-                width: 250px;
-            }
-            
-            .tag {
-                width: 175px;
             }
         }
 
-        .second-row {
-            width: 250px;
+        .right-column {
+            position: relative;
+            display: flex;
+            flex-direction: column;
 
             .dropdown {
-                .dropdown-text{
-                    padding-left: 10px;
+                display: flex;
+                
+                .dropdown-colored-circle {
+                    height: 15px;
+                    width: 15px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    margin-right: 4px;
                 }
 
                 .dropdown-item {
                     display: flex;
                     flex-direction: row;
+                    min-width: 100px;
                 }
             }
         }

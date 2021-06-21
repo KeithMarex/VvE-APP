@@ -16,6 +16,13 @@ export class TagDao {
         }));
     };
 
+    getTagById(id: string): Observable<Tag> {
+      return this.dao.sendGetRequest('tag/' + id)
+      .pipe(map((response: Tag) => {
+        return response;
+      }));
+  };
+
     createTag(tag: Tag): Observable<any> {
       return this.dao.sendPostRequest('tag/', tag);
     }
