@@ -1,97 +1,141 @@
 @import "../../utilities/colors.scss";
 @import "../../utilities/button.scss";
 
+#component-container {
+    display: flex;
+    flex: 2;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
 main {
-    position: fixed;
-    top: 50%;
-    // bottom: 50%;
-    left: 50%;
-    // right: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    border-radius: 1%;
     box-shadow: 2px 2px 8px #aaaaaa;
-    width: 50%;
-    height: 85%;
-    // margin: auto;
-    padding-top: 2rem;
-    overflow: auto;
-    background-color: #f8f8f8;
+    width: 45%;
+    height: 100%;
+    padding-top: 2%;
+    background-color: white;
+    padding-bottom: 5%;
+    padding-top: 5%;
 }
 
 .logo {
+    display: flex;
     margin:auto;
+    margin-bottom: 1rem;
     background-color: #f8f8f8;
-    width: 401px;
-    padding: 0 3rem;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 50%;
+    height: 30%;
+    justify-content: center;
+}
+
+#svg {
+    width: 100%;
 }
 
 .login-container {
-    margin: 1rem;
     width: 100%;
-    height: 90%;
-    // height: 818px;
+    height: 100%;
     text-align: center;
 }
 
 .line1 {
-    width: 647px;
+    width: 80%;
     margin: auto;
+    margin-bottom: 1rem;
     padding-top: 1px;
     border-radius: 10px;
     background-color: $secondary-color;
-}
-
-.line2 {
-    width: 575px;
-    margin: auto;
-    padding-top: 1px;
-    border-radius: 10px;
-    background-color: $secondary-color;
-}
-
-.line3 {
-    width: 575px;
-    margin: auto;
-    padding-top: 1px;
-    border-radius: 10px;
-    background-color: $primary-color;
 }
 
 
 h1 {
-    width: 722px;
+    width: 100%;
     color:$primary-color;
     margin: auto;
-    padding-top: 25px;
-    padding-bottom: 16px;
+    padding-top: 3%;
+    padding-bottom: 3%;
     text-align: center;
 }
 
-.email {
-    display: inline-block;
-    padding-top: 55px;
+.error-message {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 3px;
+    background-color: $error-color;
+    color: white;
+    align-items: center;
 }
 
+.email {
+    display: inline-flex;
+    margin-top: 5%;
+    width: 60%;
+    border-bottom: 1px solid $secondary-color;
+    align-items: center;
+    height: 2rem;
+
+    input:focus {
+        outline: none;
+      }
+}
+
+.email:focus-within {
+    border-bottom: 1px solid $primary-color;
+    
+    .email-logo{
+        stroke: $primary-color;
+    }
+  }
+
 .email-logo {
-    float: left;
+    display: flex;
+    align-items: center;
+    height: 70%;
+    stroke: lightgray;
 }
 
 .email-field {
+    display: flex;
     background: none;
 	border: none;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-bottom: 5px;
-    width: 525px;
+    margin-left: 5px;
+    width: 90%;
 }
 
 .password {
-    display: inline-block;
-    padding-top: 35px;
+    display: inline-flex;
+    margin-top: 5%;
+    width: 60%;
+    border-bottom: 1px solid $secondary-color;
+
+    input:focus {
+        outline: none;
+      }
 }
 
+.password:focus-within {
+    border-bottom: 1px solid $primary-color;
+
+    .password-logo{
+        stroke: $primary-color;
+    }
+  }
+
 .password-logo {
-    float: left;
+    display: flex;
+    align-items: center;
+    height: 70%;
+    stroke: lightgray;
 }
 
 .password-field {
@@ -99,21 +143,27 @@ h1 {
 	border: none;
     padding-top: 5px;
     padding-left: 10px;
-    padding-bottom: 5px;
-    width: 525px;
+    margin-bottom: 5px;
+    width: 90%;
 }
 
 
-.form-group button {
-    @include button;
-    margin: auto;
-    margin: 2rem 0;
-    &:disabled {
-        background-color: #666666;
-    }
-    &::after {
-        background:url("../../assets/icons/Forward-white.svg")no-repeat;
-        height: 17px;
+.form-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    button {
+        @include button;
+        margin: 3.5rem 0 1rem 0;
+
+        &:disabled {
+            background-color: #666666;
+        }
+
+        &::after {
+            background: url('../../assets/icons/forward-white.svg') no-repeat;
+        }
     }
 }
 
@@ -124,6 +174,8 @@ h1 {
     text-decoration: underline;
     color: #666666;
     margin: auto;
+    margin-bottom: 4%;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-track {

@@ -1,37 +1,21 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { Theme } from "../models/theme.model";
-import { JsonParserService } from "./json-parser.service";
-import { ThemeDao } from "./theme-dao.service";
+import { OrganizationDao } from "./organization-dao.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataStorageService {
-    private theme: Theme = this.getTheme() || new Theme('#451864', '#A0CAE8'); // Default theme in case access token is unavailable
-    private primaryColor: string = this.theme.primarycolor;
-    private secondaryColor: string = this.theme.secondarycolor;
+    logoUrl = new BehaviorSubject<string>('');
     private loggedInUserId: string = this.getValueFromStorage('userId');
 
-    constructor(private themeDao: ThemeDao) {}
+    constructor(private organizationDao: OrganizationDao) {}
 
     getValueFromStorage(key: string): string {
         var storageValue =  localStorage.getItem(key);
 
         return storageValue || null;
-    }
-
-    getValueFromSessionStorage(key: string): string {
-        var storageValue = sessionStorage.getItem(key);
-
-        return storageValue || null;
-    }
-
-    getPrimaryColor(): string {
-        return this.primaryColor;
-    }
-
-    getSecondaryColor(): string {
-        return this.secondaryColor;
     }
 
     getLoggedInUserId(): string {
@@ -42,53 +26,55 @@ export class DataStorageService {
         this.loggedInUserId = user;
         localStorage.setItem('userId', user);
         
-        this.getTheme();
+        this.initializeTheme();
     }
 
-    getTheme(): Theme {
-        // Attempt to fetch theme from session storage to prevent unnecessary requests
-        var theme = this.getThemeFromStorage();
-        var loggedIn = this.getValueFromStorage('userId') != null;
+    initializeTheme() {
+        var isLoggedIn = this.getValueFromStorage('userId') != null;
 
-        if (!theme && loggedIn) {
-            this.getThemeFromDao();
+        if (isLoggedIn) {
+            this.getOrganizationFromDao();
         }
-
-        return theme;
-    }
-
-    getThemeFromStorage(): Theme {
-        var storedJsonTheme = this.getValueFromSessionStorage('Theme');
-        var storedTheme;
-
-        if (storedJsonTheme) {
-            storedTheme = JsonParserService.toObjectInstance(new Theme('#000000', '#000000'), storedJsonTheme);
-        }
-
-        return storedTheme;
     }
 
     getThemeFromDao() {
-        this.themeDao.getTheme()
+        this.organizationDao.getTheme()
         .subscribe(res => {
             this.setTheme(res);
-
-            location.reload();
-        }, 
-        () => {
-            return;
         });
     }
 
+    getOrganizationFromDao() {
+        this.organizationDao.getOrganization()
+        .subscribe(res => {
+            this.setTheme(res.Theme);
+            if (res.logo.image_url) {
+                this.logoUrl.next(res.logo.image_url);
+            }
+        })
+    }
+
     setTheme(theme: Theme) {
-        this.theme = theme;
-        sessionStorage.setItem('Theme', JSON.stringify(this.theme));
-        this.setColors();
+        document.documentElement.style.setProperty('--dynamic-primary', theme.primarycolor);
+        document.documentElement.style.setProperty('--dynamic-secondary', theme.secondarycolor);
     }
 
-    setColors() {
-        this.primaryColor = this.theme.primarycolor;
-        this.secondaryColor = this.theme.secondarycolor;
+    clearStoredData() {
+        sessionStorage.clear();
+        localStorage.clear();
+
+        // this.deleteAllCookies();
     }
 
+    deleteAllCookies() {
+        const cookies = document.cookie.split(";");
+    
+        for (var i = 1; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          var equalsPos = cookie.indexOf('='); // Get the char index of equals sign
+          var cookieName = equalsPos > -1 ? cookie.substring(0, equalsPos) : cookie;
+    
+          document.cookie = cookieName + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"; // Set new cookie value to expire immediately
+        }
+      }
 }

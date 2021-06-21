@@ -1,33 +1,40 @@
+<div id="component-container">
 <main>
     <div class="logo">
-        <img src="assets\icons\Logo-nieuwe-wereld.svg">
+        <img id="svg" src="assets\icons\Logo-nieuwe-wereld.svg">
     </div>
     <div class="login-container">
-        <h1>Inloggen</h1>
+        <h1>
+            Inloggen
+        </h1>
         <div class="line1"></div>
+        <div *ngIf="isError" class="error-message">Gebruikersnaam en/of wachtwoord onjuist.</div>
+        <div *ngIf="!isAdmin" class="error-message">U heeft niet de juiste rechten voor deze applicatie.</div>
         <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
             <div class="email">
-                <img class="email-logo" src="assets\icons\Mail-Logo.svg">
+                <div class="email-logo" [inlineSVG]="'assets/icons/Mail-Logo.svg'"></div>
                 <span class="form-group">
                     <input class="email-field" type="email" id="email" name="email" placeholder="Email adres" ngModel email required>
                 </span>
             </div>
-            <div class="line2"></div>
 
             <div class="password">
-                <img class="password-logo" src="assets\icons\Password-Logo.svg">
+                <div class="password-logo" [inlineSVG]="'assets/icons/Password-Logo.svg'"></div>
                 <span class="form-group">
                     <input class="password-field" type="password" id="password" name="password" placeholder="Wachtwoord" ngModel required>
                 </span>
             </div>
-            <div class="line3"></div>
 
             <div class="form-group">
-                <button class="dropdown-button" [disabled]="loginForm.invalid">Inloggen</button>
+                <button class="icon-button" [disabled]="loginForm.invalid">
+                    <p *ngIf="!isLoading">Inloggen</p>
+                    <app-spinner *ngIf="isLoading"></app-spinner>
+                </button>
             </div>
         </form>
         <div>
-            <button class="password-button">Wachtwoord vergeten?</button>
+            <button class="password-button" (click)="onForgetPassword()">Wachtwoord vergeten?</button>
         </div>
     </div>
 </main>
+</div>

@@ -1,0 +1,88 @@
+@import "../../../utilities/index.scss";
+
+.error-message {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 3px;
+    background-color: $error-color;
+    color: white;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    margin: auto;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    text-align: center;
+    font-size: 100%;
+    font-weight: 700;
+    color: $dynamic-primary;
+}
+
+input {
+    text-align: center;
+}
+
+.light-text {
+    color: $grayscale-color;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.color-picker {
+    display: flex;
+    align-items: center;  
+
+    input {
+        border: none;
+        outline: none;
+        height: 1.8rem;
+        width: 2.5rem;
+        margin-right: 0.5rem;
+        background-color: inherit;
+    }
+
+    input::-webkit-color-swatch {
+        border: none;
+        border-radius: 3rem;
+    }
+}
+
+.name-section {
+    input:focus {
+        outline: none;
+        border-bottom: 1px solid $dynamic-primary;
+      }
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 1px solid $dynamic-secondary;
+    font-family: inherit;
+    font-size: 110%;
+    color: black;
+}
+
+button {
+    @include button;
+    
+    margin: 2rem 0;
+    background-color: $dynamic-primary;
+}

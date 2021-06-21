@@ -1,7 +1,7 @@
-@import "../../utilities/effects.scss";
-@import "../../utilities/button.scss";
+@import "../../utilities/index.scss";
 
 body {
+    font-family: Poppins;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -20,49 +20,73 @@ body {
 }
 
 h2 {
-    margin-bottom: 2rem;
+    margin: 2rem 0;
 }
 
 p {
-    margin-bottom: 0.4rem;
+    margin: 0.2rem 0;
 }
 
 button {
     @include button;
 }
 
-.personalization {
+.control-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 15%;
+    margin-right: 15%;
+    gap: 20%;
+    flex-direction: row;
 
-    .light-text {
-        color: #A0A3BD;
+    input[type="file"] {
+        display: none;
     }
 
-    .input-fields {
-
-        input {
-            height: 2rem;
-            width: 100%;
-            border: none;
-            margin-bottom: 1rem;
+    .custom-file-input {
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 2rem;
+        min-width: 100%;
+        border: none;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        margin: 0.5rem 0;
+        
+        .file-input-icon {
+            display: flex;
+            justify-content: center;
+            align-content: center;
         }
+    }
 
-        input[type="file"] {
-            display: none;
+    .personalization {
+
+        .light-text {
+            color: #A0A3BD;
         }
+    
+        .input-fields {
+    
+            input {
+                height: 2rem;
+                width: 100%;
+                border: none;
+                margin: 0.5rem 0;
+                font-family: inherit;
+                color: #A0A3BD;
+                font-size: inherit;
+            }
 
-        .custom-file-input {
-            display: inline-flex;
-            flex-direction: row;
-            justify-content: space-between;
-            height: 2rem;
-            min-width: 100%;
-            border: none;
-            margin-bottom: 1rem;
-            cursor: pointer;
-
+            input[type="text"], input::placeholder{
+                color: #A0A3BD;
+            }
+    
             .file-name-field {
                 flex-grow: 2;
-
+    
                 .file-name {
                     display: flex;
                     height: 100%;
@@ -72,39 +96,75 @@ button {
                     color: #A0A3BD;
                 }
             }
-
+    
             .file-input-icon {
-                display: flex;
-                justify-content: center;
-                align-content: center;
                 min-width: 15%;
                 border-radius: 0 15% 15% 0;
-                margin-left: 0.2rem;
-
+                background-color: $dynamic-primary;
+    
                 .svg-element {
+                    stroke: white;
                     display: flex;
                     width: 1.1rem;
                     height: 1.1rem;
                 }
             }
         }
-    }
-
-    .color-picker {
-        display: flex;
-        align-items: center;
     
-        input {
-            border: none;
-            outline: none;
-            height: 1.8rem;
-            width: 2.5rem;
-            margin-right: 0.5rem;
+        .color-picker {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        
+            input {
+                border: none;
+                outline: none;
+                height: 1.8rem;
+                width: 2.5rem;
+                margin-right: 0.5rem;
+                background-color: inherit;
+            }
+        
+            input::-webkit-color-swatch {
+                border: none;
+                border-radius: 3rem;
+            }
         }
+    }
     
-        input::-webkit-color-swatch {
-            border: none;
+    .information {
+        flex: 2;
+
+        .files-block {
+            width: 100%;
+            min-height: 65%;
+            background-color: #F7F7FC;
+            margin: 0.3rem 0;
+        }
+
+        .file-upload {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .custom-file-input {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 1px solid $dynamic-primary;
             border-radius: 3rem;
+            color: $dynamic-primary;
+            width: 6rem;
+            min-width: 6rem;
+            padding: 0 1.3rem;
+    
+            .svg-element {
+                display: flex;
+                align-items: center;
+                width: 1.1rem;
+                height: 1.1rem;
+                stroke: $dynamic-primary;
+            }
         }
     }
 }

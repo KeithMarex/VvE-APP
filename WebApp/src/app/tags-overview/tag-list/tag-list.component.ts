@@ -32,7 +32,9 @@ export class TagListComponent implements OnInit {
         ))
       })
     });
-      console.log(this.tags);
   }
 
+  updateTags(): void {
+    window.location.reload();
+  }
 }

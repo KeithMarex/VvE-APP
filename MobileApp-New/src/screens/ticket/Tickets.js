@@ -7,13 +7,18 @@ import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
 import { initDateParser, parseDate } from '../../util/DateUtil'
 import { parseTicketStatus } from '../../util/ApiParseUtil'
-import tr from '../../config/languages/translate';
+import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
 
 const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
     const [isFetchingTickets, setIsFetchingTickets] = useState(false)
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     useEffect(() => {
         initDateParser('nl') //TODO move to splash screen
@@ -56,7 +61,7 @@ const Tickets = (props) => {
             return isFetchingTickets
                 ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
                 : <StyledText inputStyle={styles.noTickets}>
-                    {tr.ticket.noNotifications}
+                    {tr.ticket?.noNotifications}
                 </StyledText>
         }
     }
@@ -67,10 +72,10 @@ const Tickets = (props) => {
                 <View style={styles.tickets}>
                     <PageLogo/>
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
-                        {tr.ticket.notifications}
+                        {tr.ticket?.notifications}
                     </StyledText>
                     <TouchableOpacity onPress={() => props.navigation.navigate('Create')}>
-                        <PageActionButton icon={'plus'} text={tr.ticket.create}/>
+                        <PageActionButton icon={'plus'} text={tr.ticket?.create}/>
                     </TouchableOpacity>
 
                     <View>

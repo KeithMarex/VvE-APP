@@ -7,14 +7,13 @@ import { DataStorageService } from 'src/shared/services/data-storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
   title = 'WebApp';
 
   constructor(private dataStorageService: DataStorageService) { }
 
   ngOnInit()
   {
-    this.dataStorageService.getTheme();
+    this.dataStorageService.initializeTheme();
   }
 
 

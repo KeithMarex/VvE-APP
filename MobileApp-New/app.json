@@ -15,14 +15,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.yourappname",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#F7F7FC"
       },
-      "package": "com.keithmarex.vveprototype"
+      "package": "com.keithmarex.vveprototype",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

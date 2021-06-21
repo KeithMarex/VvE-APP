@@ -1,47 +1,64 @@
-<div appColoring>
+<div>
     <header>
         <h1>Uw VvE</h1>
     </header>
     <body>
-        <section class="personalization">
-            <h2>Personalisatie</h2>
-            <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
-                <div class="input-fields">
-                    <p>Naam</p>
-                    <input type="text">
-                    <p>Logo</p>
+        <div class="control-panel">
+            <section class="personalization">
+                <h2>Personalisatie</h2>
+                <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
+                    <div class="input-fields">
+                        <p>Naam</p>
+                        <input type="text" placeholder="{{ organization ? organization.name : '' }}" name="name" ngModel>
+                        <p>Logo</p>
+                        <label class="custom-file-input">
+                            <input type="file" accept="image/png, image/jpeg" name="logo" [multiple]="false" (change)="onFileChanged($event)" [(ngModel)]="newLogoName">
+                            <div class="file-name-field">
+                                <div class="file-name"> {{ newLogo ? newLogo.name.slice(0, 18) + '...' : 'Selecteer bestand' }}</div>
+                            </div>
+                            <div class="file-input-icon">
+                                <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="color-fields">
+                        <div class="color-picker-container">
+                            <p>Primaire kleur</p>
+                            <div class="color-picker">
+                                <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
+                                <label for="primary-color" class="light-text">{{ primaryColor }}</label>
+                            </div>
+                        </div>
+                        <div class="color-picker-container">
+                            <p>Secundaire kleur</p>
+                            <div class="color-picker">
+                                <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
+                                <label for="secondary-color" class="light-text">{{ secondaryColor }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit">Update styling</button>
+                </form>
+            </section>
+            <section class="information">
+                <h2>Woninginformatie</h2>
+                <p>Bestanden</p>
+                <div class="files-block">
+
+                </div>
+                <div class="file-upload">
                     <label class="custom-file-input">
                         <input type="file" accept="image/png, image/jpeg, image/svg+xml" name="logo">
                         <div class="file-name-field">
-                            <div class="file-name">De nieuwe Wereld logo.svg</div>
+                            <div class="file-name">Voeg toe</div>
                         </div>
-                        <div class="file-input-icon" appColoring colorElement="backgroundColor">
-                            <div class="svg-element" [inlineSVG]="'../../assets/icons/File.svg'"></div>
+                        <div class="file-input-icon">
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
                         </div>
                     </label>
                 </div>
-                <div class="color-fields">
-                    <div class="color-picker-container">
-                        <p>Primaire kleur</p>
-                        <div class="color-picker">
-                            <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
-                            <label for="primary-color" class="light-text">{{ primaryColor }}</label>
-                        </div>
-                    </div>
-                    <div class="color-picker-container">
-                        <p>Secundaire kleur</p>
-                        <div class="color-picker">
-                            <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
-                            <label for="secondary-color" class="light-text">{{ secondaryColor }}</label>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <button type="submit" appColoring colorElement="backgroundColor">Update styling</button>
-            </form>
-        </section>
-        <section class="Information">
-            <h2>Woninginformatie</h2>
-        </section>
+            </section>
+        </div>
     </body>
 </div>
