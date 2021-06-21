@@ -35,8 +35,10 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   commentImages: Blob[] = [];
   comments: Comment[];
   commentText = new FormControl('');
-  errorMessage: string;
-  isError = false;
+  commentErrorMessage: string;
+  infoErrorMessage: string;
+  isCommentError = false;
+  isInfoError = false;
 
   private ticketIdSub: Subscription;
   private creatorSub: Subscription;
@@ -47,8 +49,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getActiveTicket();
     this.getTicketCreator();
-    this.getTags();
-    this.getAssignees();
   }
 
   getActiveTicket() {
@@ -80,36 +80,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   getSelectedInformation(): void {
     this.getAssignees();
-    // if (this.ticket.assignee) {
-    //   this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
-    //     this.selectedAssignee = user;
-    //     this.originalAssignee = user;
-    //   });
-    // }
-    // else {
-    //   let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
-    //   this.selectedAssignee = unnamedAssignee;
-    //   this.originalAssignee = unnamedAssignee;
-    // }
-    if (this.ticket.tag) {
-      this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
-        this.selectedTag = tag;
-        this.originalTag = tag;
-      });
-    }
-    else {
-      let unnamedTag: Tag = { name: "Nog niet toegewezen" }
-      this.selectedTag = unnamedTag;
-      this.originalTag = unnamedTag;
-    }
-    if (this.ticket.status) {
-      this.selectedStatus = this.ticket.status;
-      this.originalStatus = this.ticket.status;
-    }
-    else {
-      this.selectedStatus = this.statuses[0];
-      this.originalStatus = this.statuses[0];
-    }
+    this.getTags();
+    this.getStatus();
   }
 
   getTicketCreator() {
@@ -129,12 +101,22 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   getTags(): void {
-    let unnamedTag: Tag = { name: "Nog niet toegewezen" }
     this.tagDao.getAllTags()
     .subscribe((incomingtags: Tag[]) => {
       this.tags = incomingtags;
-      this.tags.push(unnamedTag);
       })
+
+      if (this.ticket.tag) {
+        this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
+          this.selectedTag = tag;
+          this.originalTag = tag;
+        });
+      }
+      else {
+        let unnamedTag: Tag = { name: "Nog niet toegewezen" }
+        this.selectedTag = unnamedTag;
+        this.originalTag = unnamedTag;
+      }
   }
 
   getAssignees(): void {
@@ -161,13 +143,26 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       }
   }
 
+  getStatus(): void {
+    if (this.ticket.status) {
+      this.selectedStatus = this.ticket.status;
+      this.originalStatus = this.ticket.status;
+    }
+    else {
+      this.selectedStatus = this.statuses[0];
+      this.originalStatus = this.statuses[0];
+    }
+  }
+
   submitInformation(): void {
+    this.isInfoError = false;
+
     var multiForm = {};
     if (this.selectedStatus != this.originalStatus) {
       multiForm["status"] = this.selectedStatus;
     }
     if (this.selectedTag != this.originalTag) {
-      multiForm["tag"] = this.selectedTag;
+      multiForm["tag"] = this.selectedTag._id;
     }
     if (this.selectedAssignee != this.originalAssignee) {
       multiForm["assignee"] = this.selectedAssignee._id;
@@ -188,23 +183,25 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     errorRes => {
       let incomingErrorMessage = errorRes.error.message;
       if (incomingErrorMessage) {
-        this.errorMessage = errorRes.error.message;
+        this.infoErrorMessage = errorRes.error.message;
+        this.isInfoError = true;
       }
       else {
-        this.errorMessage = 'Er is een onbekende error opgetreden';
+        this.infoErrorMessage = 'Er is een onbekende error opgetreden';
+        this.isInfoError = true;
       }
     });
   }
 
   submitComment(form: NgForm): void {
     if (!this.commentText.value) {
-      this.isError = true;
-      this.errorMessage = "Het bericht mag niet leeg zijn";
+      this.isCommentError = true;
+      this.commentErrorMessage = "Het bericht mag niet leeg zijn";
       return;
     }
     else {
-      this.isError = false;
-      this.errorMessage;
+      this.isCommentError = false;
+      this.commentErrorMessage;
     }
 
     const formData = new FormData();
@@ -229,12 +226,12 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     errorRes => {
       let incomingErrorMessage = errorRes.error.message;
       if (incomingErrorMessage) {
-        this.isError = true;
-        this.errorMessage = 'Er is een onbekende error opgetreden';
+        this.isCommentError = true;
+        this.commentErrorMessage = 'Er is een onbekende error opgetreden';
       }
       else {
-        this.isError = true;
-        this.errorMessage = 'Er is een onbekende error opgetreden';
+        this.isCommentError = true;
+        this.commentErrorMessage = 'Er is een onbekende error opgetreden';
       }
     });
   }

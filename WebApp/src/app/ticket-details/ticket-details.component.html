@@ -18,6 +18,7 @@
             </div>
             <div class="ticket-info">
                 <h1>Informatie</h1>
+                <div *ngIf="isInfoError" class="error-message">{{ infoErrorMessage }}</div>
                 <div class="info-container">
                     <div class="left-column">
                         <div class="status">
@@ -131,7 +132,7 @@
             <div class="left-section">
                 <div>
                     <h1>Opmerkingen</h1>
-                    <div *ngIf="isError" class="error-message">{{errorMessage}}</div>
+                    <div *ngIf="isCommentError" class="error-message">{{ commentErrorMessage }}</div>
                     <div class="comments">
                         <div *ngFor="let comment of comments">
                             <div class="different-user-comment">
