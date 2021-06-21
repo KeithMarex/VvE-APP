@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserDao } from 'src/shared/services/user-dao.service';
 
 @Component({
   selector: 'app-password-recovery',
@@ -8,9 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./password-recovery.component.scss']
 })
 export class PasswordRecoveryComponent implements OnInit {
-  errorMessage;
+  notificationMessage = '';
+  success = false;
+  isLoading = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userDao: UserDao) { }
 
   ngOnInit(): void {
   }
@@ -20,9 +23,21 @@ export class PasswordRecoveryComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    this.success = false;
+    this.isLoading = true;
     var email = form.value.email;
 
-    //TODO api request to recover password
+    this.userDao.recoverPassword(email)
+    .subscribe(res => {
+      this.success = true;
+      this.notificationMessage = res.message;
+    }
+    , err => {
+      this.notificationMessage = err.statusText;
+    })
+    .add(() => {
+      this.isLoading = false;
+    });
   }
 
 }

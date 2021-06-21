@@ -24,6 +24,8 @@
                 <p *ngIf="errorMessage">{{ errorMessage }}</p>
             </div>
         </div>
-        <button type="submit" [disabled]="userForm.invalid">Aanmaken</button>
+        <button type="submit" [disabled]="userForm.invalid || isLoading">
+            <p>Aanmaken</p>
+        </button>
     </form>
 </section>

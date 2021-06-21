@@ -4,10 +4,16 @@ import {CalendarIcon} from "../resources";
 import React, {useEffect, useState} from "react";
 import ApiHelper from "../util/ApiHelper";
 import moment from "moment";
-import tr from '../config/languages/translate';
+import tra from "../config/languages/translate";
 
 const UpcomingAppointment = () => {
     const [upcomingApp, setUpcomingApp] = useState('');
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
+
     useEffect(() => {
         // Function to get API Data
         ApiHelper.get('/agenda/next').then(val => {
@@ -20,7 +26,7 @@ const UpcomingAppointment = () => {
     return (
         <View style={styles.upcomingAppointment}>
             <View style={{width: Dimensions.get('window').width * .7,}}>
-            <StyledText>{tr.agenda.upcomingAppointment}</StyledText>
+            <StyledText>{tr.agenda?.upcomingAppointment}</StyledText>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 10}}>
                 <CalendarIcon stroke={'#451864'}/>
                 <StyledText inputStyle={styles.information}>{upcomingApp}</StyledText>

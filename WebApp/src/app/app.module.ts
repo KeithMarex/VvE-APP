@@ -36,6 +36,7 @@ import { TagsOverviewComponent } from './tags-overview/tags-overview.component';
 import { TagListComponent } from './tags-overview/tag-list/tag-list.component';
 import { TagItemComponent } from './tags-overview/tag-list/tag-item/tag-item.component';
 import { TagCreatorComponent } from './tags-overview/tag-creator/tag-creator.component';
+import { TagEditorComponent } from './tags-overview/tag-editor/tag-editor.component';
 import { Dao } from 'src/shared/services/dao.service';
 import { TicketCreatorComponent } from './ticket-overview/ticket-creator/ticket-creator.component';
 import { UserDao } from 'src/shared/services/user-dao.service';
@@ -55,9 +56,10 @@ import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-
 import { CalendarService } from './calendar-overview/calendar/calendar.service';
 import { CalendarItemDetailsComponent } from './calendar-overview/calendar/calendar-item-details/calendar-item-details.component';
 import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
-import { ThemeDao } from 'src/shared/services/theme-dao.service';
+import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 import { JsonParserService } from 'src/shared/services/json-parser.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -87,6 +89,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TagListComponent,
     TagItemComponent,
     TagCreatorComponent,
+    TagEditorComponent,
     TicketDetailsComponent,
     TicketCommentComponent,
     LoggedInUserTicketCommentComponent,
@@ -101,6 +104,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarItemDetailsComponent,
     SpinnerComponent,
     PasswordRecoveryComponent,
+    ConfirmationPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,7 +138,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TicketEditorService,
     DataStorageService,
     CalendarService,
-    ThemeDao,
+    OrganizationDao,
     JsonParserService,
     {
       provide: LOCALE_ID,

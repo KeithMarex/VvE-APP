@@ -9,30 +9,58 @@
             </div>
         </div>
         <div class="right-side">
-            <div class="assignee-field">
-                <h1>Persoon toewijzen</h1>
-            </div>
             <div class="member-select">
-                <select name="assignee" ngModel>
+                <h1>Persoon toewijzen</h1>
+                <!-- <select name="assignee" ngModel>
                     <option value="">Niet toegewezen</option>
                     <option *ngFor="let member of organizationMembers" [ngValue]="member._id">{{ member.firstname + ' ' + member.lastname }}</option>
-                </select>
+                </select> -->
+                <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="assignee" ngDefaultControl [options]="organizationMembers">
+                    <ng-template dropdownSelected let-selected>
+                        <div class="dropdown-item">
+                            <p class="dropdown-text">{{ selected.firstname + ' ' + selected.lastname }}</p>
+                        </div>
+                    </ng-template>
+                    <ng-template dropdownOption let-option>
+                        <div class="dropdown-item">
+                            <p class="dropdown-text">{{ option.firstname + ' ' + option.lastname }}</p>
+                        </div>
+                    </ng-template>
+                </app-dropdown>
             </div>
             <div class="tag-field">
                 <h1>Tag toewijzen</h1>
-                <select name="tag" ngModel>
+                <!-- <select name="tag" ngModel>
                     <option value="">Geen tag</option>
                     <option *ngFor="let tag of organizationTags" [ngValue]="tag._id">{{ tag.name }}</option>
-                </select>
+                </select> -->
+                <app-dropdown class="dropdown" [(ngModel)]="selectedTag" name="tag" ngDefaultControl [options]="organizationTags">
+                    <ng-template dropdownSelected let-selected>
+                        <div class="dropdown-item">
+                            <p class="dropdown-text">{{ selected.name }}</p>
+                        </div>
+                    </ng-template>
+                    <ng-template dropdownOption let-option>
+                        <div class="dropdown-item">
+                            <p class="dropdown-text">{{ option.name }}</p>
+                        </div>
+                    </ng-template>
+                </app-dropdown>
             </div>
             <div class="status-field">
                 <h1>Status toewijzen</h1>
-                <select name="status" id="tag" required ngModel>
-                    <option value="">Selecteer status</option>
-                    <option value="In afwachting">In afwachting</option>
-                    <option value="In behandeling">In behandeling</option>
-                    <option value="Afgehandeld">Afgehandeld</option>
-                </select>
+                <app-dropdown class="dropdown" [(ngModel)]="selectedStatus" name="status" ngDefaultControl [options]="statusOptions">
+                    <ng-template dropdownSelected let-selected>
+                        <div class="dropdown-item">
+                            <p class="dropdown-text">{{ selected }}</p>
+                        </div>
+                    </ng-template>
+                    <ng-template dropdownOption let-option>
+                        <div class="dropdown-item">
+                            <p class="dropdown-text">{{ option }}</p>
+                        </div>
+                    </ng-template>
+                </app-dropdown>
             </div>
             <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
             <button type="submit" [disabled]="form.invalid">Aanmaken</button>

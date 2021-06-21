@@ -244,6 +244,41 @@
         }
       }
     },
+    "/user/reset": {
+      "post": {
+        "summary": "Resets the password of a user",
+        "description": "This requests requires an <b>email</b> and will generate a random password for the corresponding user.<br>\nWhen the new password is set it will be emailed to the user his email.\n",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User password reset"
+          },
+          "500": {
+            "description": "Error while resetting password"
+          }
+        }
+      }
+    },
     "/user/{id}/": {
       "put": {
         "summary": "Updates user in the database",
@@ -310,6 +345,66 @@
           },
           "404": {
             "description": "User does not exists"
+          }
+        }
+      }
+    },
+    "/organization": {
+      "get": {
+        "summary": "Returns the organization the user is in.",
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "emailcredentials": {
+                        "type": "string"
+                      },
+                      "theme": {
+                        "type": "object",
+                        "properties": {
+                          "primarycolor": {
+                            "type": "string"
+                          },
+                          "secondarycolor": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "logo": {
+                        "type": "Image"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error while returning organization"
           }
         }
       }
@@ -426,6 +521,164 @@
         }
       }
     },
+    "/organization/": {
+      "put": {
+        "summary": "Updates the name or logo of the organization.",
+        "description": "This request can take both name and logo as attributes to update, however not both are required.<br>\n<b>Example:</b> It is possible to only change the logo of an organization, without changing its name.\n",
+        "tags": [
+          "Organization"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated given attributes."
+          },
+          "500": {
+            "description": "Error trying to update the name or logo."
+          }
+        }
+      }
+    },
+    "/organization/file": {
+      "get": {
+        "summary": "Returns all the files owned by an organization.",
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of all files owned by the user organization are returned without the filedata.<br>\nOrganization id is taken from the jwt token.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/paths/~1organization~1file~1/post/responses/200/content/application~1json/schema"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error with finding files"
+          }
+        }
+      }
+    },
+    "/organization/file/{id}": {
+      "get": {
+        "summary": "Sends the requested file",
+        "description": "The requested file is fetched from the database buffer, and the data is written to <b>/temp/</b> in the api folder.<br>\nWhen the file is written to the filesystem it will be send over to the user using sendFile() from express.\n",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "tags": [
+          "Organization"
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested file is send back to the requester using sendFile() from express.\n"
+          },
+          "500": {
+            "description": "Error fetching and sending file."
+          }
+        }
+      }
+    },
+    "/organization/file/": {
+      "post": {
+        "summary": "Uploads a file to the organisation library",
+        "description": "This endpoint requires a single file to be uploaded under the field '<b>file</b>'. <br>\nIt will populate all information needed automatically from the metadata.\nOrganization ID will be taken from the user corresponding with the received cookie.\n",
+        "tags": [
+          "Organization"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "file"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns File object (without the file) and file binary has been saved in the database.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "Buffer"
+                    },
+                    "organisation": {
+                      "type": "string objectId"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error while saving file to database."
+          }
+        }
+      }
+    },
     "/tag": {
       "get": {
         "summary": "Returns all the tags of organization.",
@@ -528,38 +781,7 @@
                       "type": "string"
                     },
                     "organization": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "emailcredentials": {
-                          "type": "string"
-                        },
-                        "theme": {
-                          "type": "object",
-                          "properties": {
-                            "primarycolor": {
-                              "type": "string"
-                            },
-                            "secondarycolor": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "createdAt": {
-                          "type": "string"
-                        },
-                        "updatedAt": {
-                          "type": "string"
-                        },
-                        "__v": {
-                          "type": "string"
-                        }
-                      }
+                      "$ref": "#/paths/~1organization/get/responses/200/content/application~1json/schema/items"
                     },
                     "createdAt": {
                       "type": "string"

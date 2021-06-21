@@ -21,16 +21,28 @@ paths:
     $ref: ./user/login.yaml
   /user/register:
     $ref: ./user/register.yaml
+  /user/reset:
+    $ref: ./user/resetPassword.yaml
   /user/{id}/:
     $ref: ./user/putUser.yaml
   /user/{id}//:
     $ref: ./user/deleteUser.yaml
+  /organization:
+    $ref: ./organization/getOrganization.yaml
   /organization/users:
     $ref: ./organization/getOrganizationAdminUsers.yaml
   /organization/theme:
     $ref: ./organization/getOrganizationTheme.yaml
   /organization/theme/:
     $ref: ./organization/putOrganizationTheme.yaml
+  /organization/:
+    $ref: ./organization/putOrganization.yaml
+  /organization/file:
+    $ref: ./organization/getFiles.yaml
+  /organization/file/{id}:
+    $ref: ./organization/getFile.yaml
+  /organization/file/:
+    $ref: ./organization/postFile.yaml
   /tag:
     $ref: ./tag/getTags.yaml
   /tag/{id}:

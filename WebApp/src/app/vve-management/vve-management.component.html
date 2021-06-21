@@ -9,12 +9,12 @@
                 <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
                     <div class="input-fields">
                         <p>Naam</p>
-                        <input type="text">
+                        <input type="text" placeholder="{{ organization ? organization.name : '' }}" name="name" ngModel>
                         <p>Logo</p>
                         <label class="custom-file-input">
-                            <input type="file" accept="image/png, image/jpeg, image/svg+xml" name="logo">
+                            <input type="file" accept="image/png, image/jpeg" name="logo" [multiple]="false" (change)="onFileChanged($event)" [(ngModel)]="newLogoName">
                             <div class="file-name-field">
-                                <div class="file-name">{{ logo.length > 17 ? logo.slice(0, 15) + '...' : logo }}</div>
+                                <div class="file-name"> {{ newLogo ? newLogo.name.slice(0, 18) + '...' : 'Selecteer bestand' }}</div>
                             </div>
                             <div class="file-input-icon">
                                 <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>

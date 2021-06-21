@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import StyledText from "./StyledText";
 import moment from "moment";
 import Button from "./Button";
+import tra from "../config/languages/translate";
 
 const DateDetailModalComponent = (props) => {
     React.useEffect(() => {
@@ -12,6 +13,11 @@ const DateDetailModalComponent = (props) => {
     }, [props.visible]);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalInfo, setModalInfo] = useState();
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     const getText = () => {
         if (modalInfo !== undefined || modalInfo !== ''){
@@ -32,11 +38,11 @@ const DateDetailModalComponent = (props) => {
             <View style={styles.centeredView}>
                 {(modalInfo !== undefined) ?
                 <View style={styles.modalView}>
-                    <StyledText theme={'pageTitle'}>Afspraak</StyledText>
+                    <StyledText theme={'pageTitle'}>{tr.agenda?.appointment}</StyledText>
                     <StyledText inputStyle={styles.informatie}>{modalInfo.title}</StyledText>
                     <StyledText inputStyle={styles.informatie}>{getText()}</StyledText>
                     <StyledText inputStyle={{color: '#6E7191', fontSize: 13, marginBottom: 10}}>{modalInfo.description}</StyledText>
-                    <Button pressAction={handleClose}>Sluiten</Button>
+                    <Button pressAction={handleClose}>{tr.agenda?.close}</Button>
                 </View>: null
                 }
             </View>
