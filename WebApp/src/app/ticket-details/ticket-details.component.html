@@ -19,7 +19,7 @@
             <div class="ticket-info">
                 <h1>Informatie</h1>
                 <div class="info-container">
-                    <div class="first-row">
+                    <div class="left-column">
                         <div class="status">
                             <h1>Status</h1>
                             <app-dropdown class="dropdown" [(ngModel)]="selectedStatus" name="selectedStatus" id="selectedStatus" ngDefaultControl required [options]="statuses">
@@ -73,6 +73,23 @@
                                 </ng-template>
                             </app-dropdown>
                         </div>
+                        <div class="selected-assignee">
+                            <h1>Toegewezen persoon</h1>
+                            <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
+                                <ng-template dropdownSelected let-selected>
+                                    <div class="dropdown-item">
+                                        <p class="dropdown-text">{{ selected.firstname + ' ' + selected.lastname }}</p>
+                                    </div>
+                                </ng-template>
+                                <ng-template dropdownOption let-option>
+                                    <div class="dropdown-item">
+                                        <p class="dropdown-text">{{ option.firstname + ' ' + option.lastname }}</p>
+                                    </div>
+                                </ng-template>
+                            </app-dropdown>
+                        </div>
+                    </div>
+                    <div class="right-column">
                         <div class="tag">
                             <h1>Tag</h1>
                                 <app-dropdown class="dropdown" [(ngModel)]="selectedTag" name="selectedTag" id="selectedTag" ngDefaultControl required [options]="tags">
@@ -89,23 +106,6 @@
                                         </div>
                                     </ng-template>
                                 </app-dropdown>
-                        </div>
-                    </div>
-                    <div class="second-row">
-                        <div class="selected-assignee">
-                            <h1>Toegewezen persoon</h1>
-                            <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
-                                <ng-template dropdownSelected let-selected>
-                                    <div class="dropdown-item">
-                                        <p class="dropdown-text">{{ selected.firstname + ' ' + selected.lastname }}</p>
-                                    </div>
-                                </ng-template>
-                                <ng-template dropdownOption let-option>
-                                    <div class="dropdown-item">
-                                        <p class="dropdown-text">{{ option.firstname + ' ' + option.lastname }}</p>
-                                    </div>
-                                </ng-template>
-                            </app-dropdown>
                         </div>
                         <section class="submit-information-button">
                             <button (click)="submitInformation()">Opslaan</button>

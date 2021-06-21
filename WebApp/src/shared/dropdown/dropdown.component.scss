@@ -6,7 +6,7 @@
     position: relative;
 
     .dropdown {
-        padding: 2px 10px;
+        padding: 2px 0px;
         border-radius: 10px;
         display: flex;
         position: relative;
@@ -15,7 +15,7 @@
         user-select: none;
 
         .selected-container {
-            margin-right: 50px;
+            margin-right: 20px;
         }
 
         .right {
@@ -34,7 +34,7 @@
 
     .options {
         border: 1px solid $dynamic-primary;
-        width: 80%;
+        width: 100%;
         padding: 0 20px;
         background-color: white;
         border-radius: 10px;
@@ -42,8 +42,8 @@
         position: absolute;
         top: 100%;
         left: 0;
-        max-height: max(min(50vh, 300px), 300px);
-        overflow-y: auto;
+        max-height: 500px;
+        overflow: auto;
         z-index: 2;
         
         &::ng-deep {
