@@ -10,8 +10,7 @@ import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { Comment } from 'src/shared/models/comment.model';
-import { Image } from 'src/shared/models/image.model';
-import { FormControl, NgForm, ɵangular_packages_forms_forms_bk } from "@angular/forms";
+import { FormControl, NgForm } from "@angular/forms";
 import { CommentDao } from 'src/shared/services/comment-dao.service';
 
 @Component({
