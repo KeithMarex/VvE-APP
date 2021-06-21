@@ -49,4 +49,8 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     this.frontPagePhoto = event.target.files[0];
   }
 
+  onSubmit(): void {
+    
+  }
+
 }
