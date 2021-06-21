@@ -29,5 +29,5 @@ export class TicketDao {
 
     updateTicket(id: string, ticket: Ticket): Observable<any> {
       return this.dao.sendPutRequest('ticket/' + id, ticket);
-    }
+    };
 }

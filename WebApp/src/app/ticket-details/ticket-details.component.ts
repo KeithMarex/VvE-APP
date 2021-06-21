@@ -54,7 +54,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   getActiveTicket() {
     const storedTicket = sessionStorage.getItem('ticket');
-
     if (storedTicket) {
       this.ticket =  JSON.parse(storedTicket);
       this.comments = this.ticket.comments;
@@ -93,7 +92,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       this.originalAssignee = unnamedAssignee;
     }
     if (this.ticket.tag) {
-      console.log(this.ticket.tag);
       this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
         this.selectedTag = tag;
         this.originalTag = tag;
@@ -193,7 +191,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   submitInformation(): void {
-    const mForm = new FormData();
     var multiForm = {};
     if (this.selectedStatus != this.originalStatus) {
       multiForm["status"] = this.selectedStatus;
@@ -205,23 +202,27 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       multiForm["assignee"] = this.selectedAssignee._id;
     }
     
-    this.ticketDao.updateTicket(this.ticket._id, multiForm)
-    .subscribe(
-      res => {
-        console.log("gelukt");
-        this.originalAssignee = this.selectedAssignee;
-        this.originalStatus = this.selectedStatus;
-        this.originalTag = this.selectedTag;
-      }, 
-      errorRes => {
-        let incomingErrorMessage = errorRes.error.message;
-        if (incomingErrorMessage) {
-          this.errorMessage = errorRes.error.message;
-        } else {
-          this.errorMessage = 'Er is een onbekende error opgetreden';
-        }
+    this.ticketDao.updateTicket(this.ticket._id, multiForm).subscribe(Response => {
+      this.originalAssignee = this.selectedAssignee;
+      this.originalStatus = this.selectedStatus;
+      this.originalTag = this.selectedTag;
+      this.ticketDao.getTicketById(this.ticket._id)
+      .subscribe(ticketRes => {
+        console.log("gelukt!2")
+        this.ticket = ticketRes;
+        sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+        this.comments = this.ticket.comments;
+      });
+    }, 
+    errorRes => {
+      let incomingErrorMessage = errorRes.error.message;
+      if (incomingErrorMessage) {
+        this.errorMessage = errorRes.error.message;
       }
-    );
+      else {
+        this.errorMessage = 'Er is een onbekende error opgetreden';
+      }
+    });
   }
 
   submitComment(form: NgForm): void {
@@ -244,30 +245,27 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     formData.append("comment", this.commentText.value);
     formData.append("ticketID", this.ticket._id);    
 
-    this.commentDao.createComment(formData).subscribe(Response => 
-      {
-        this.commentImages = [];
-        this.commentText.setValue('');
+    this.commentDao.createComment(formData).subscribe(Response => {
+      this.commentImages = [];
+      this.commentText.setValue('');
       this.ticketDao.getTicketById(this.ticket._id)
-      .subscribe(ticketRes => 
-        {
-          this.ticket = ticketRes;
-          sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
-          this.comments = this.ticket.comments;
-        }
-        );
-      },
-      errorRes => {
-        let incomingErrorMessage = errorRes.error.message;
-        if (incomingErrorMessage) {
-          this.isError = true;
-          this.errorMessage = 'Er is een onbekende error opgetreden';
-        } else {
-          this.isError = true;
-          this.errorMessage = 'Er is een onbekende error opgetreden';
-        }
+      .subscribe(ticketRes => {
+        this.ticket = ticketRes;
+        sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
+        this.comments = this.ticket.comments;
+      });
+    },
+    errorRes => {
+      let incomingErrorMessage = errorRes.error.message;
+      if (incomingErrorMessage) {
+        this.isError = true;
+        this.errorMessage = 'Er is een onbekende error opgetreden';
       }
-      );
+      else {
+        this.isError = true;
+        this.errorMessage = 'Er is een onbekende error opgetreden';
+      }
+    });
   }
 
   handleFileInput(target: any): void {
