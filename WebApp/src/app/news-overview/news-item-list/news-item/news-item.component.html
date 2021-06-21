@@ -5,15 +5,14 @@
       alt="">
   </div>
   <div class="news-content">
-    <p class="news-date">14 juni 2021 09:24</p>
+    <p class="news-date">
+      {{ newsItem ? this.parseDate(newsItem?.updatedAt) : undefined }}
+    </p>
     <h3 appColoring colorStyle="primary" class="news-title">
-      Ouderen blij met komst van nieuwe moestuin
+      {{ newsItem?.title }}
     </h3>
     <p class="news-description">
-      De nieuwe moestuin die sinds 29 Maart is aangelegd is een groot succes! De hele wijk is hartstikke blij met het uitgewerkte plan en vooral de ouderen.
-      Vanaf 12:00 Was iedereen welkom om zijn stukje grond te bewerken en de ouderen deden dit volop. We hebben een paar van deze ouderen gesproken Bep: “Ja het is zo jammer dat ik een balkonnetje heb dus kan ik niet tuinieren wat ik zooo leuk vind.
-      Maar met de moestuin kan ik het wel! Ik heb al tomaatjes en courgette die ik erin ga planten. Verder komen er nog leuke bloemetjes voor de sfeer.”
-      En zij is niet de enige die zo reageert op de moestuin. Vele hebben ook het probleem met een balkon en dus geen tuin....
+      {{ newsItem?.content }}
     </p>
   </div>
   <div class="news-buttons">
