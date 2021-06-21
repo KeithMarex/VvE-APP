@@ -20,6 +20,7 @@ import ApiHelper from "../../util/ApiHelper";
 import CloseButtonComponent from "../../components/Buttons/CloseButton.Component";
 import tra from "../../config/languages/translate";
 import { takeCameraImage, pickGalleryImage } from "../../util/ImageUtil"
+import InputImage from "../../components/InputImage";
 
 const window = Dimensions.get('window')
 
@@ -34,12 +35,16 @@ const TicketCreate = (props) => {
     })
 
     const onTakeCameraImagePressed = async () => {
-        const takenPicture = await takeCameraImage()
-        setImages((images) => [...images, takenPicture])
+        const takenImage = await takeCameraImage()
+        if (!takenImage)
+            return
+        setImages((images) => [...images, takenImage])
     };
 
     const onPickGalleryImagePressed = async () => {
         const pickedImage = await pickGalleryImage()
+        if (!pickedImage)
+            return
         setImages((images) => [...images, pickedImage])
     };
 
@@ -105,10 +110,7 @@ const TicketCreate = (props) => {
 
                     <View style={styles.images}>
                         {images.map(image => (
-                            <TouchableOpacity key={image['uri'].split('ImageManipulator/')[1]} onPress={() => removeImage(image)}>
-                                <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image['base64']}`}} />
-                                <CloseButtonComponent style={styles.circle}/>
-                            </TouchableOpacity>
+                            <InputImage image={image} removeImage={() => {removeImage(image)}} key={image['uri'].split('ImageManipulator/')[1]}/>
                         ))}
                     </View>
 
@@ -129,13 +131,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center'
-    },
-    circle: {
-        position: 'absolute',
-        right: 1,
-        top: 1,
-        marginTop: -5,
-        marginRight: -5
     },
     root: {
         backgroundColor: '#F7F7FC',
