@@ -154,30 +154,33 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  submitInformation(): void {
-    this.isInfoError = false;
+  submitTag(): void {
+    if (this.selectedTag) {
+      var multiForm = {"tag": this.selectedTag._id};
+      this.submitInformation(multiForm);
+    }
+  }
 
-    var multiForm = {};
-    if (this.selectedStatus != this.originalStatus) {
-      multiForm["status"] = this.selectedStatus;
+  submitStatus(): void {
+    var multiForm = {"status": this.selectedStatus};
+    this.submitInformation(multiForm);
+  }
+
+  submitAssignee(): void {
+    if (this.selectedAssignee) {
+      var multiForm = {"assignee": this.selectedAssignee._id};
+      this.submitInformation(multiForm);
     }
-    if (this.selectedTag != this.originalTag) {
-      multiForm["tag"] = this.selectedTag._id;
-    }
-    if (this.selectedAssignee != this.originalAssignee) {
-      multiForm["assignee"] = this.selectedAssignee._id;
-    }
+  }
+
+  submitInformation(body: unknown): void {
+    this.isInfoError = false;
     
-    this.ticketDao.updateTicket(this.ticket._id, multiForm).subscribe(Response => {
-      this.originalAssignee = this.selectedAssignee;
-      this.originalStatus = this.selectedStatus;
-      this.originalTag = this.selectedTag;
+    this.ticketDao.updateTicket(this.ticket._id, body).subscribe(Response => {
       this.ticketDao.getTicketById(this.ticket._id)
       .subscribe(ticketRes => {
-        console.log("gelukt!2")
         this.ticket = ticketRes;
         sessionStorage.setItem('ticket', JSON.stringify(this.ticket));
-        this.comments = this.ticket.comments;
       });
     }, 
     errorRes => {
@@ -276,5 +279,4 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       this.creatorSub.unsubscribe();
     }
   }
-
 }

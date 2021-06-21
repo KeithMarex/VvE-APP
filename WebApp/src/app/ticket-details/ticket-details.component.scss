@@ -118,9 +118,8 @@ body {
     .info-container {
         display: flex;
         flex-direction: row;
-        // justify-content: space-between;
         margin: 0.5rem 0;
-        margin-right: 20px;
+        margin-right: 30px;
         padding: 1rem;
         border-radius: 30px;
         box-shadow: $default-box-shadow;
@@ -175,19 +174,6 @@ body {
                     display: flex;
                     flex-direction: row;
                     min-width: 100px;
-                }
-            }
-
-            .submit-information-button {
-                display: flex;
-                margin: 0 15px;
-        
-                button {
-                    @include button;
-                    height: 30px;
-                    width: 120px;
-                    border-radius: 10px;
-                    margin-left: 0;
                 }
             }
         }

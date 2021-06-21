@@ -23,7 +23,7 @@
                     <div class="left-column">
                         <div class="status">
                             <h1>Status</h1>
-                            <app-dropdown class="dropdown" [(ngModel)]="selectedStatus" name="selectedStatus" id="selectedStatus" ngDefaultControl required [options]="statuses">
+                            <app-dropdown class="dropdown" [(ngModel)]="selectedStatus" (ngModelChange)="submitStatus($event)" name="selectedStatus" id="selectedStatus" ngDefaultControl required [options]="statuses">
                                 <ng-template dropdownSelected let-selected>
                                     <div>
                                         <div [ngSwitch]="selected">
@@ -76,7 +76,7 @@
                         </div>
                         <div class="selected-assignee">
                             <h1>Toegewezen persoon</h1>
-                            <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
+                            <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" (ngModelChange)="submitAssignee($event)" name="selectedAssignee" id="selectedAssignee" ngDefaultControl required [options]="assignees">
                                 <ng-template dropdownSelected let-selected>
                                     <div class="dropdown-item">
                                         <p class="dropdown-text">{{ selected.firstname + ' ' + selected.lastname }}</p>
@@ -93,7 +93,7 @@
                     <div class="right-column">
                         <div class="tag">
                             <h1>Tag</h1>
-                                <app-dropdown class="dropdown" [(ngModel)]="selectedTag" name="selectedTag" id="selectedTag" ngDefaultControl required [options]="tags">
+                                <app-dropdown class="dropdown" [(ngModel)]="selectedTag" (ngModelChange)="submitTag($event)" name="selectedTag" id="selectedTag" ngDefaultControl required [options]="tags">
                                     <ng-template dropdownSelected let-selected>
                                         <div class="dropdown-item">
                                             <div class="dot" [ngStyle]="{'background-color':selected.color}"></div>
@@ -108,9 +108,6 @@
                                     </ng-template>
                                 </app-dropdown>
                         </div>
-                        <section class="submit-information-button">
-                            <button (click)="submitInformation()">Opslaan</button>
-                        </section>
                     </div>
                 </div>
             </div>
