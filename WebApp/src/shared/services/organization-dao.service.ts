@@ -40,6 +40,10 @@ export class OrganizationDao {
         return this.dao.sendPostRequestForm('organization/file', data);
     }
 
+    deleteFile(fileId: string): Observable<any> {
+        return this.dao.sendDeleteRequest('organization/file/' + fileId);
+    }
+
     updateTheme(theme: Theme): Observable<any> {
         var body = 
         {

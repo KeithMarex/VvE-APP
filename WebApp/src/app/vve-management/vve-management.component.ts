@@ -106,7 +106,7 @@ export class VveManagementComponent implements OnInit {
     const mForm = new FormData();
     var file = event.target.files[0]
 
-    if (file.size < 16777216) { // File cannot be larger than 16MB (16777216 bytes)
+    if (file.size < 1600000) { // File cannot be larger than 16MB
       mForm.append('file', file);
 
       this.organizationDao.postFile(mForm)
@@ -125,8 +125,11 @@ export class VveManagementComponent implements OnInit {
     }
   }
 
-  onDeleteFile(file: OrganizationFile) { //TODO
-    console.log(file.filename);
+  onDeleteFile(file: OrganizationFile) {
+    this.organizationDao.deleteFile(file._id)
+    .subscribe(() => {
+      location.reload();
+    });
   }
 
   onDownloadFile(file: OrganizationFile): void {
@@ -141,5 +144,9 @@ export class VveManagementComponent implements OnInit {
     const url = window.URL.createObjectURL(blob);
     
     window.open(url);
+  }
+
+  getFilesizeInMB(file: OrganizationFile): number {
+    return +(file.filesize / 1000000).toFixed(2);
   }
 }
