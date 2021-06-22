@@ -1,11 +1,4 @@
-// @import "../../utilities/button.scss";
-// @import "../../utilities/effects.scss";
-// @import "../../utilities/colors.scss";
 @import "../../utilities/index.scss";
-
-button {
-    @include button;
-}
 
 .body {
     height: 85vh;
@@ -21,11 +14,6 @@ h1 {
         width: 24px;
         height: auto;
     }
-}
-
-h2 {
-    font-size: 20px;
-    color: $dynamic-primary;
 }
 
 .text-editor {
@@ -60,9 +48,13 @@ h2 {
     align-items: center;
 
     h1 {
-        font-size: 32px;
-        font-style: bold;
         margin-bottom: 20px;
+    }
+
+
+    h2 {
+        font-size: 20px;
+        color: $dynamic-primary;
     }
 
     .text-section {
@@ -184,6 +176,10 @@ h2 {
         &:hover {
             cursor: pointer;
         }
+    }
+
+    button {
+        @include button;
     }
 }
 

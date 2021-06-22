@@ -14,7 +14,9 @@
         </form>
     </article>
     <article class="details">
-        <h1>Details</h1>
+        <header>
+            <h1>Details</h1>
+        </header>
         <div *ngIf="error.isError" class="error-message">{{ error.message }}</div>
         <form [formGroup]="detailsForm" class="text-section">
             <div>
