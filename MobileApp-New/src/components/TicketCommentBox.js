@@ -1,4 +1,4 @@
-import React, { useState, createRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import {
     Dimensions,
     Keyboard,
@@ -9,86 +9,126 @@ import {
     TextInput,
     AsyncStorage
 } from 'react-native'
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
+import OptionsMenu from 'react-native-option-menu'
+import { PlusIcon } from '../resources'
+import ApiHelper from '../util/ApiHelper'
+import tra from '../config/languages/translate'
+import { pickGalleryImage, takeCameraImage } from '../util/ImageUtil'
 import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
-import { PlusIcon } from '../resources'
-import ApiHelper from "../util/ApiHelper";
-import tra from "../config/languages/translate";
+import InputImage from './InputImage'
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
     const [comments, setComments] = useState(props.ticket.comments)
-    const [tr, setTr] = React.useState({})
+    const [images, setImages] = useState([])
+    const [tr, setTr] = useState({})
+    const inputRef = useRef('')
 
     tra().then(res => {
-        setTr(res);
+        setTr(res)
     })
 
     const sendComment = async () => {
         if (!commentInputText) return
-        const newComment = {
-            comment: commentInputText,
-        }
+
+        Keyboard.dismiss()
 
         const fd = new FormData
         fd.append('ticketID', props.ticket._id)
         fd.append('comment', commentInputText)
-        // fd.append('images', null)
+        images.forEach((image, index) => {
+            fd.append(`file${index+1}` , {
+                name: image['uri'].split('ImageManipulator/')[1],
+                type: 'image/png',
+                uri: image['uri']
+            })
+        })
+
         await ApiHelper.post('/comment', fd, {'content-type': 'multipart/form-data'})
-            .then(() => {
-                setComments([...comments, newComment])
-                Keyboard.dismiss()
+            .then((res) => {
+                setComments([...comments, res.data])
+                setImages([])
                 clearCommentInput()
+            }).catch((err) => {
+                console.log(err)
+                alert('Er is iets fout gegaan. Probeer het opnieuw.')
             })
     }
 
     const isUserComment = async (comment) => {
-        return comment.user._id === await AsyncStorage.getItem('userId');
+        if (!comment.user)
+            return false
+        return comment.user._id === await AsyncStorage.getItem('userId')
+    }
+
+    const onTakeCameraImagePressed = async () => {
+        const takenPicture = await takeCameraImage()
+        if (!takenPicture)
+            return
+        setImages((images) => [...images, takenPicture])
+    }
+
+    const onPickGalleryImagePressed = async () => {
+        const pickedImage = await pickGalleryImage()
+        if (!pickedImage)
+            return
+        setImages((images) => [...images, pickedImage])
+    }
+
+    const removeImage = (image) => {
+        const array = [...images]
+        const index = array.indexOf(image)
+        if (index !== -1) {
+            array.splice(index, 1)
+            setImages(array)
+        }
     }
 
     const clearCommentInput = () => {
-        // commentInputRef.clear()
+        inputRef.current.clear()
         onCommentInputText('')
-    }
-
-    const commentsEl = []
-    for (let i = 0; i < comments.length; i++) {
-        commentsEl.push(
-            <TicketComment isUserComment={isUserComment(comments[i])} comment={comments[i]} key={i}/>
-        )
     }
 
     return (
         <KeyboardAvoidingView style={styles.ticketComments}>
-            {/*<TicketComment isUserTicket={false}/>*/}
-            {/*<TicketComment isUserTicket={true}/>*/}
-
-            {commentsEl.length > 0
-                ? commentsEl
-                : (<StyledText inputStyle={styles.noComments}>
-                        {tr.ticket?.noComments}
+            {comments.length > 0
+                ? comments.map(comment => (
+                    <TicketComment isUserComment={isUserComment(comment)} comment={comment} navigation={props.navigation} key={comment._id}/>
+                ))
+                : <StyledText inputStyle={styles.noComments}>
+                    {tr.ticket?.noComments}
                 </StyledText>
-            )}
+            }
 
             <View style={styles.commentInputFieldWrapper}>
                 <TextInput
                     style={styles.commentInputField}
                     onChangeText={onCommentInputText}
                     placeholder={tr.ticket?.placeholder}
+                    ref={inputRef}
                     multiline
                 />
             </View>
             <View style={styles.commentActionButtons}>
-                <TouchableOpacity onPress={() => alert('Add image')} style={styles.commentAddImageButton}>
-                    <PlusIcon stroke={'#F7F7FC'} width={20} height={20}/>
+                <TouchableOpacity style={styles.commentAddImageButton}>
+                    <OptionsMenu
+                        customButton={<PlusIcon stroke={'#F7F7FC'} width={20} height={20}/>}
+                        options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]}
+                        actions={[onTakeCameraImagePressed, onPickGalleryImagePressed]}
+                    />
                 </TouchableOpacity>
                 { commentInputText.length > 0 && (
                     <Button withArrow style={styles.commentSendButton} pressAction={sendComment}>
                         {tr.ticket?.send}
                     </Button>
                 )}
+            </View>
+            <View style={styles.commentInputImages}>
+                { images.map(image => (
+                    <InputImage image={image} removeImage={() => {removeImage(image)}} key={image['uri'].split('ImageManipulator/')[1]}/>
+                )) }
             </View>
         </KeyboardAvoidingView>
     )
@@ -133,6 +173,12 @@ const styles = StyleSheet.create({
         color: 'black',
         marginVertical: '5%',
         opacity: 0.4
+    },
+    commentInputImages: {
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
     }
 })
 

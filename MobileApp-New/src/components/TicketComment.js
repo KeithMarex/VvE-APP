@@ -1,11 +1,15 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native'
 import StyledText from "./StyledText";
 import { parseDate } from "../util/DateUtil";
 
 const TicketComment = (props) => {
     const { isUserComment, comment } = props
     const commentType = isUserComment ? 'user' : 'org'
+
+    const showCommentImage = (image) => {
+        props.navigation.navigate('ShowCommentImage', { image });
+    }
 
     return (
         <View style={styles[commentType + 'CommentWrapper']}>
@@ -16,6 +20,18 @@ const TicketComment = (props) => {
                 <StyledText inputStyle={styles.ticketCommentContent}>
                     {comment.comment}
                 </StyledText>
+                { comment.images.length > 0 && (
+                    <View style={styles.imagesContainer}>
+                        { comment.images.map((image, i) => (
+                            <TouchableOpacity onPress={() => showCommentImage(image.image_url)} style={styles.imageWrapper} key={i}>
+                                <Image style={styles.image}
+                                       source={{uri: image.image_url}}
+                                />
+                            </TouchableOpacity>
+                            )
+                        )}
+                    </View>
+                )}
                 <StyledText inputStyle={styles.ticketCommentDate}>
                     {parseDate(comment.createdAt)}
                 </StyledText>
@@ -62,7 +78,23 @@ const styles = StyleSheet.create({
         color: '#6E7191',
         fontSize: 12,
         textAlign: 'right'
-    }
+    },
+    imagesContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        marginVertical: 7
+    },
+    imageWrapper: {
+        marginHorizontal: 4,
+        marginVertical: 4,
+        width: 100,
+        height: 100,
+    },
+    image: {
+        width: '100%',
+        height: '100%'
+    },
 })
 
 export default TicketComment

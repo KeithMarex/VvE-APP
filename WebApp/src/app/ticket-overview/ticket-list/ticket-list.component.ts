@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ticket } from 'src/shared/models/ticket.model';
 import { TicketDao } from 'src/shared/services/ticket-dao.service';
+import { sortBy } from 'sort-by-typescript';
 
 @Component({
   selector: 'app-ticket-list',
@@ -9,6 +10,7 @@ import { TicketDao } from 'src/shared/services/ticket-dao.service';
 })
 export class TicketListComponent implements OnInit {
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[];
 
   constructor(
     private ticketDao: TicketDao,
@@ -21,22 +23,12 @@ export class TicketListComponent implements OnInit {
   getTickets(): void {
     this.ticketDao.getAllTickets()
     .subscribe((incomingTickets: Ticket[]) => {
-      incomingTickets.forEach(incomingTicket => {
-        this.tickets.push(new Ticket(
-          incomingTicket._id,
-          incomingTicket.title,
-          incomingTicket.description,
-          incomingTicket.images,
-          incomingTicket.creator,
-          incomingTicket.assignee,
-          incomingTicket.status,
-          incomingTicket.comments,
-          incomingTicket.tag,
-          incomingTicket.createdAt,
-          incomingTicket.updatedAt
-        ));
-      });
+      this.tickets = incomingTickets;
+      this.tickets.sort(sortBy('-status'));
     });
   }
 
+  onChangeSort(sortProperty: string): void {
+    this.tickets = this.tickets.sort(sortBy('-' + sortProperty));
+  }
 }

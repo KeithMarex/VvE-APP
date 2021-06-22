@@ -5,11 +5,11 @@
     <body>
         <section class="button-section">
             <button (click)="onAdd()">Nieuw</button>
-            <button class="icon-button">Filter</button>
+            <button class="icon-button dropdown-button">Filter</button>
             <button [routerLink]="['/tags-overview']">Tags</button>
         </section>
         <section class="content-section">
-            <app-ticket-list></app-ticket-list>
+            <app-ticket-list #ticketList></app-ticket-list>
         </section>
         <app-popup *ngIf="creatingTicket" title="Ticket aanmaken" (closed)="onClose()">
             <app-ticket-creator (ticketCreated)="onCreateTicket($event)"></app-ticket-creator>

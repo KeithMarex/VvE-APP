@@ -61,6 +61,7 @@ import { JsonParserService } from 'src/shared/services/json-parser.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { AccountImportComponent } from './account-management/account-import/account-import.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { SearchBarComponent } from '../shared/components/search-bar/search-bar.component';
 import { NewsDao } from '../shared/services/news-dao.service';
 import { NewsItemListComponent } from './news-overview/news-item-list/news-item-list.component';
 import { NewsItemComponent } from './news-overview/news-item-list/news-item/news-item.component';
@@ -110,6 +111,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     PasswordRecoveryComponent,
     AccountImportComponent,
     ConfirmationPopupComponent,
+    SearchBarComponent,
     NewsItemListComponent,
     NewsItemComponent,
   ],

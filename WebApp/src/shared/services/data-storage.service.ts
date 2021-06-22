@@ -63,7 +63,7 @@ export class DataStorageService {
         sessionStorage.clear();
         localStorage.clear();
 
-        // this.deleteAllCookies();
+        this.deleteAllCookies();
     }
 
     deleteAllCookies() {
