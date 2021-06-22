@@ -43,7 +43,12 @@
       "noNotifications": "You have not created any tickets.",
       "createdOn": "Created on",
       "lastModified": "Last modified",
-      "status": "Status",
+      "status": {
+        "status": "Status",
+        "pending": "Pending",
+        "handling": "Handling",
+        "handled": "Handled"
+      },
       "pictures": "Pictures",
       "showPictures": "Show pictures",
       "message": "Message",
@@ -109,7 +114,12 @@
       "noNotifications": "Je hebt geen meldingen gemaakt.",
       "createdOn": "Aangemaakt op",
       "lastModified": "Laatst gewijzigd",
-      "status": "Status",
+      "status": {
+        "status": "Status",
+        "pending": "In afwachting",
+        "handling": "In afhandeling",
+        "handled": "Afgehandeld"
+      },
       "pictures": "Foto's",
       "showPictures": "Bekijk foto's",
       "message": "Bericht",
