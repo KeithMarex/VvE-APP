@@ -33,7 +33,7 @@ const Tickets = (props) => {
         )
 
         return () => {
-            screenFocusSubscription.remove()
+            props.navigation.removeListener('focus')
         }
     }, [])
 
