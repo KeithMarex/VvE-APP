@@ -18,6 +18,7 @@ import { Logo } from '../../resources'
 import ApiHelper from '../../util/ApiHelper'
 import UserModel from '../../models/user.model'
 import tra from '../../config/languages/translate'
+import { initOrg } from '../../util/OrganizationUtil'
 
 const ss = Dimensions.get('window')
 
@@ -47,17 +48,7 @@ const LoginScreen = (props) => {
 
     const storeData = async (user) => {
         await AsyncStorage.setItem('userId', user._id)
-        await initTheme(user)
-    }
-
-    const initTheme = async (user) => {
-        const storedOrganization = JSON.parse(await AsyncStorage.getItem('organization'))
-        if (storedOrganization && storedOrganization._id === user._organizations[0])
-            return
-        await ApiHelper.get('/organization')
-            .then(async (organization) => {
-                await AsyncStorage.setItem('organization', JSON.stringify(organization.data))
-            })
+        await initOrg(user)
     }
 
     return (
