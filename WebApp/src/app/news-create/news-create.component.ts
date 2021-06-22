@@ -31,6 +31,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
   };
   isSucces: boolean = false;
   isLoading: boolean = false;
+  isWarning: boolean = true;
 
   editorForm: FormGroup = new FormGroup({
     editorContent: new FormControl('', Validators.required()),
@@ -64,6 +65,10 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
 
   closeSuccesMessage(): void {
     this.isSucces = false;
+  }
+
+  closeWarningPopup(): void {
+    this.isWarning = false;
   }
 
   onSubmit(): void {

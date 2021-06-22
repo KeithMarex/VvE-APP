@@ -59,6 +59,9 @@
             <app-spinner *ngIf="isLoading"></app-spinner>
         </button>
     </section>
+    <app-popup *ngIf="isWarning" title="Er zijn geen gegevens opgeslagen" [fitContent]="true" (closed)="closeWarningPopup()">
+        <app-confirmation-popup content="Weet u heel zeker dat u de pagina wilt verlaten?" (confirmed)="confirmFunction()"></app-confirmation-popup>
+    </app-popup>
 </div>
 
 <!-- https://sibiraj-s.github.io/ngx-editor/#/input-rules -->
