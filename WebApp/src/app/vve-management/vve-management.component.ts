@@ -19,6 +19,7 @@ export class VveManagementComponent implements OnInit {
   newLogoName: string; // Based on uploaded file
   newLogo: File;
   organizationFiles: OrganizationFile[];
+  fileUploadLoading = false;
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
@@ -87,6 +88,7 @@ export class VveManagementComponent implements OnInit {
   }
 
   onFileUpload(event) {
+    this.fileUploadLoading = true;
     const mForm = new FormData();
 
     mForm.append('file', event.target.files[0]);
@@ -94,6 +96,9 @@ export class VveManagementComponent implements OnInit {
     this.organizationDao.postFile(mForm)
     .subscribe(() => {
       location.reload();
+    })
+    .add(() => {
+      this.fileUploadLoading = false;
     });
   }
 }

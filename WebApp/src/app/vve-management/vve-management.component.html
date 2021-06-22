@@ -51,11 +51,12 @@
                 </div>
                 <div class="file-upload">
                     <label class="custom-file-input">
-                        <input type="file" accept="application/pdf" [multiple]="false" (change)="onFileUpload($event)">
-                        <div class="file-name-field">
+                        <input type="file" accept="application/pdf" [multiple]="false" (change)="onFileUpload($event)" *ngIf="!fileUploadLoading">
+                        <app-spinner *ngIf="fileUploadLoading"></app-spinner>
+                        <div class="file-name-field" *ngIf="!fileUploadLoading">
                             <div class="file-name">Voeg toe</div>
                         </div>
-                        <div class="file-input-icon">
+                        <div class="file-input-icon" *ngIf="!fileUploadLoading">
                             <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
                         </div>
                     </label>
