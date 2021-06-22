@@ -82,7 +82,7 @@
       transition: all .1s ease-in-out;
 
       &:hover, &:focus {
-        filter: none;
+        filter: brightness(0%)
       }
     }
 
