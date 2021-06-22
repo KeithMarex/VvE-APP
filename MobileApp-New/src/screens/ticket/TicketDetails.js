@@ -11,6 +11,7 @@ const window = Dimensions.get('window')
 
 const TicketDetails = (props) => {
     const [ticket, setTicket] = useState(null)
+    const [tr, setTr] = React.useState({})
 
     useEffect(() => {
         const inputTicket = props.route.params.ticket
@@ -21,15 +22,17 @@ const TicketDetails = (props) => {
             })
     }, [])
 
-    const showImages = () => {
-        props.navigation.navigate('ShowImages', { ticket });
-    }
-
-    const [tr, setTr] = React.useState({})
-
     tra().then(res => {
         setTr(res);
     })
+
+    const showTicketImages = () => {
+        props.navigation.navigate('ShowImages', { ticket });
+    }
+
+    const showCommentImage = (image) => {
+        props.navigation.navigate('ShowCommentImage', { image });
+    }
 
     return (
         <SafeAreaView style={styles.root}>
@@ -49,7 +52,7 @@ const TicketDetails = (props) => {
                             {tr.ticket?.lastModified}: { ticket?.parsedUpdatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
-                            {tr.ticket?.status}: { ticket?.parsedStatus }
+                            {tr.ticket?.status.status}: { tr.ticket?.status[ticket?.status.toLowerCase()] }
                         </StyledText>
                     </View>
 
@@ -58,7 +61,7 @@ const TicketDetails = (props) => {
                             <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
                                 {tr.ticket?.pictures}
                             </StyledText>
-                            <Button pressAction={showImages}>
+                            <Button pressAction={showTicketImages}>
                                 {tr.ticket?.showPictures}
                             </Button>
                         </View>
@@ -79,7 +82,7 @@ const TicketDetails = (props) => {
                         </StyledText>
                         {
                             (!!ticket) && (
-                                <TicketCommentBox ticket={ticket} key={ticket.comments}/>
+                                <TicketCommentBox ticket={ticket} navigation={props.navigation} key={ticket.comments}/>
                             )
                         }
                     </View>

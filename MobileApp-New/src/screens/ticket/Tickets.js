@@ -6,7 +6,6 @@ import TicketsListItem from '../../components/TicketsListItem'
 import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
 import { initDateParser, parseDate } from '../../util/DateUtil'
-import { parseTicketStatus } from '../../util/ApiParseUtil'
 import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
@@ -33,7 +32,7 @@ const Tickets = (props) => {
         )
 
         return () => {
-            screenFocusSubscription.remove()
+            props.navigation.removeListener('focus')
         }
     }, [])
 
@@ -43,7 +42,7 @@ const Tickets = (props) => {
             .then((res) => {
                 const parsedTickets = []
                 res.data.forEach((ticket) => {
-                    ticket.parsedStatus = parseTicketStatus(ticket.status, 'en')
+                    // ticket.parsedStatus = parseTicketStatus(ticket.status, 'en')
                     ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
                     ticket.parsedCreatedAt = parseDate(ticket.createdAt)
                     parsedTickets.push(ticket)

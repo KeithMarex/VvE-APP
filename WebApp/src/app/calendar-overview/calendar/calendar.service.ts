@@ -5,7 +5,7 @@ import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CustomEvent } from './custom-event';
 import { CalendarDao } from '../../../shared/services/calendar-dao.service';
 
-interface FetchedMonth {
+interface StoredMonth {
   month: Date;
   calendarItems: CalendarItem[];
 }
@@ -13,7 +13,7 @@ interface FetchedMonth {
 @Injectable()
 export class CalendarService {
   calendarItems = new BehaviorSubject<CalendarItem[]>([]);
-  fetchedMonths: FetchedMonth[] = [];
+  storedMonths: StoredMonth[] = [];
 
   constructor(private calendarDao: CalendarDao) { }
 
@@ -80,24 +80,27 @@ export class CalendarService {
   }
 
   overwriteWithNewMonthItems(newDate: Date, oldDate: Date): boolean {
-    let foundFetchedMonthItems = false;
+    let didOverwriteMonthItems = false;
 
     if (!this.calendarItemsIsEmpty()) {
-      this.storeFetchedMonth(oldDate);
+      this.storeMonth(oldDate);
     }
 
-    const foundCalendarItems = this.findFetchedCalendarItems(newDate);
-    if (foundCalendarItems) {
+    const foundCalendarItemsThisMonth = this.findStoredCalendarItems(newDate);
+    if (foundCalendarItemsThisMonth) {
+      const foundCalendarItems = foundCalendarItemsThisMonth ? foundCalendarItemsThisMonth : [];
+      const foundSurroundingCalendarItems = this.findSurroundingStoredCalendarItems(newDate);
+      foundCalendarItems.push(...foundSurroundingCalendarItems);
       this.setCalendarItems(foundCalendarItems);
-      foundFetchedMonthItems = true;
+      didOverwriteMonthItems = true;
     }
 
-    return foundFetchedMonthItems;
+    return didOverwriteMonthItems;
   }
 
-  storeFetchedMonth(month: Date): void {
+  storeMonth(month: Date): void {
     if (!this.monthIsStored(month)) {
-      this.fetchedMonths.push({
+      this.storedMonths.push({
         month,
         calendarItems: this.calendarItems.getValue().filter(calendarItem =>
           isSameMonth(new Date(calendarItem.date), month)
@@ -107,8 +110,8 @@ export class CalendarService {
   }
 
   monthIsStored(month: Date): boolean {
-    this.fetchedMonths.forEach((fetchedMonth) => {
-      if (isSameMonth(fetchedMonth.month, month)) {
+    this.storedMonths.forEach((storedMonth) => {
+      if (isSameMonth(storedMonth.month, month)) {
         return true;
       }
     });
@@ -117,7 +120,7 @@ export class CalendarService {
 
   findOrFetchMonthItems(month: Date): Promise<CalendarItem[]> {
     return new Promise<CalendarItem[]>((resolve) => {
-      const storedItemsMonth = this.findFetchedCalendarItems(month);
+      const storedItemsMonth = this.findStoredCalendarItems(month);
       if (!storedItemsMonth) {
         this.calendarDao.getCalendarItems(this.getFetchMonthString(month))
           .subscribe((monthCalItems) => {
@@ -129,12 +132,21 @@ export class CalendarService {
     });
   }
 
-  findFetchedCalendarItems(month: Date): any {
+  findSurroundingStoredCalendarItems(month: Date): CalendarItem[] {
+    const surroundingCalendarItems = [];
+    const nextMonthItems = this.findStoredCalendarItems(addMonths(month, 1));
+    const prevMonthItems = this.findStoredCalendarItems(subMonths(month, 1));
+    surroundingCalendarItems.push(...nextMonthItems ? nextMonthItems : []);
+    surroundingCalendarItems.push(...prevMonthItems ? prevMonthItems : []);
+
+    return surroundingCalendarItems;
+  }
+
+  findStoredCalendarItems(month: Date): CalendarItem[] {
     let foundItems = null;
-    this.fetchedMonths.forEach((fetchedMonth) => {
-      if (isSameMonth(fetchedMonth.month, month)) {
-        foundItems = fetchedMonth.calendarItems;
-        return;
+    this.storedMonths.forEach((storedMonth) => {
+      if (isSameMonth(storedMonth.month, month)) {
+        foundItems = storedMonth.calendarItems;
       }
     });
     return foundItems;

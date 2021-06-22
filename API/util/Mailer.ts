@@ -15,8 +15,8 @@ export const getHTML = async (fileName: String) => {
     return readFileSync(filePath, 'utf-8').toString();
 }
 
-export const sendMail = async(subject: String, info: any, htlm: String) => {
-    let source = await getHTML(htlm);
+export const sendMail = async(subject: String, info: any, html: String) => {
+    let source = await getHTML(html);
     source = addAttributes(source, info);
     let email = info.email || await getEmail(info._id);
     mailTransporter.sendMail({
