@@ -16,6 +16,8 @@ post:
               type: string
             content:
               type: string
+            thumbnail:
+              type: image
           required:
             - title
             - author

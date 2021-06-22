@@ -1671,6 +1671,9 @@
                   },
                   "content": {
                     "type": "string"
+                  },
+                  "thumbnail": {
+                    "type": "image"
                   }
                 },
                 "required": [
