@@ -24,9 +24,11 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
   ];
 
   frontPagePhoto: Blob;
-  isError: boolean = false;
+  error: any = {
+    isError: false,
+    message: "No message given"
+  };
   isLoading: boolean = false;
-  errorMessage: string = "Saving has failed";
 
   editorForm: FormGroup = new FormGroup({
     editorContent: new FormControl('', Validators.required()),
@@ -58,8 +60,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     // If input is validated
-    // console.log("This is the detailsform title: ", this.detailsForm.value.title)
-    console.log("This is the Editorform content: ", this.editorForm.value)
+
     const formData = new FormData();
     formData.append("title", this.detailsForm.controls["title"].value);
     formData.append("author", this.detailsForm.controls["author"].value);
