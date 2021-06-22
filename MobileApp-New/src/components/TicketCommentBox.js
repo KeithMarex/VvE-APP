@@ -58,6 +58,8 @@ const TicketCommentBox = (props) => {
     }
 
     const isUserComment = async (comment) => {
+        if (!comment.user)
+            return false
         return comment.user._id === await AsyncStorage.getItem('userId')
     }
 
@@ -93,7 +95,7 @@ const TicketCommentBox = (props) => {
         <KeyboardAvoidingView style={styles.ticketComments}>
             {comments.length > 0
                 ? comments.map(comment => (
-                    <TicketComment isUserComment={isUserComment(comment)} comment={comment} key={comment._id}/>
+                    <TicketComment isUserComment={isUserComment(comment)} comment={comment} navigation={props.navigation} key={comment._id}/>
                 ))
                 : <StyledText inputStyle={styles.noComments}>
                     {tr.ticket?.noComments}

@@ -7,6 +7,10 @@ const TicketComment = (props) => {
     const { isUserComment, comment } = props
     const commentType = isUserComment ? 'user' : 'org'
 
+    const showCommentImage = (image) => {
+        props.navigation.navigate('ShowCommentImage', { image });
+    }
+
     return (
         <View style={styles[commentType + 'CommentWrapper']}>
             <View style={[styles.ticketComment, styles[commentType + 'Comment']]}>
@@ -19,7 +23,7 @@ const TicketComment = (props) => {
                 { comment.images.length > 0 && (
                     <View style={styles.imagesContainer}>
                         { comment.images.map((image, i) => (
-                            <TouchableOpacity style={styles.imageWrapper} key={i}>
+                            <TouchableOpacity onPress={() => showCommentImage(image.image_url)} style={styles.imageWrapper} key={i}>
                                 <Image style={styles.image}
                                        source={{uri: image.image_url}}
                                 />
@@ -78,7 +82,8 @@ const styles = StyleSheet.create({
     imagesContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        marginVertical: 7
     },
     imageWrapper: {
         marginHorizontal: 4,
