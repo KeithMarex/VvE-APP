@@ -18,6 +18,8 @@ export class VveManagementComponent implements OnInit {
   logo: Image;
   newLogoName: string; // Based on uploaded file
   newLogo: File;
+  detailsUploadLoading = false;
+  detailsUploadError;
   organizationFiles: OrganizationFile[];
   fileUploadLoading = false;
   fileUploadError;
@@ -77,9 +79,15 @@ export class VveManagementComponent implements OnInit {
 
     if (newName || this.newLogo)
     {
+      this.detailsUploadLoading = true;
       this.organizationDao.updateDetails(mForm)
       .subscribe(() => {
         location.reload();
+      }, err => {
+        this.detailsUploadError = err.statusText;
+      })
+      .add(() => {
+        this.detailsUploadLoading = false;
       }); 
     }
   }
