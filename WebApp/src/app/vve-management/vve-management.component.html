@@ -45,7 +45,9 @@
                 <h2>Woninginformatie</h2>
                 <p>Bestanden</p>
                 <div class="files-block">
-
+                    <div class="file" *ngFor="let file of organizationFiles">
+                        <p>{{ file.filename }}</p>
+                    </div>
                 </div>
                 <div class="file-upload">
                     <label class="custom-file-input">

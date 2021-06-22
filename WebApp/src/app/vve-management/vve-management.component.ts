@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Image } from 'src/shared/models/image.model';
+import { OrganizationFile } from 'src/shared/models/organization-file.model';
 import { Organization } from 'src/shared/models/organization.model';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { OrganizationDao } from 'src/shared/services/organization-dao.service';
@@ -17,17 +18,27 @@ export class VveManagementComponent implements OnInit {
   logo: Image;
   newLogoName: string; // Based on uploaded file
   newLogo: File;
+  organizationFiles: OrganizationFile[];
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
   ngOnInit(): void {
     this.getOrganizationDetails();
+    this.getOrganizationFiles();
   }
 
   getOrganizationDetails() {
     this.organizationDao.getOrganization()
     .subscribe(res => {
       this.setOrganizationDetails(res);
+    });
+  }
+
+  getOrganizationFiles() {
+    this.organizationDao.getFiles()
+    .subscribe(res => {
+      this.organizationFiles = res;
+      console.log(this.organizationFiles[0].filename);
     });
   }
 

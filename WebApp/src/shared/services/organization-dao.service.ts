@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { OrganizationFile } from "../models/organization-file.model";
 import { Organization } from "../models/organization.model";
 import { Theme } from "../models/theme.model";
 import { Dao } from "./dao.service";
@@ -22,7 +23,14 @@ export class OrganizationDao {
         .pipe(map((response: {Theme: Theme, id: string}) => {
             return response.Theme;
         }));
-    };
+    }
+
+    getFiles(): Observable<OrganizationFile[]> {
+        return this.dao.sendGetRequest('organization/file')
+        .pipe(map((response: OrganizationFile[]) => {
+            return response;
+        }));
+    }
 
     updateTheme(theme: Theme): Observable<any> {
         var body = 
