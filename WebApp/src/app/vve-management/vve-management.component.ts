@@ -38,7 +38,6 @@ export class VveManagementComponent implements OnInit {
     this.organizationDao.getFiles()
     .subscribe(res => {
       this.organizationFiles = res;
-      console.log(this.organizationFiles[0].filename);
     });
   }
 
@@ -83,7 +82,18 @@ export class VveManagementComponent implements OnInit {
     }
   }
 
-  onFileChanged(event) {
+  onLogoFileChanged(event) {
     this.newLogo = event.target.files[0];
+  }
+
+  onFileUpload(event) {
+    const mForm = new FormData();
+
+    mForm.append('file', event.target.files[0]);
+
+    this.organizationDao.postFile(mForm)
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 }

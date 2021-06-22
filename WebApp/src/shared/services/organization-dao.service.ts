@@ -32,6 +32,10 @@ export class OrganizationDao {
         }));
     }
 
+    postFile(data: FormData): Observable<any> {
+        return this.dao.sendPostRequestForm('organization/file', data);
+    }
+
     updateTheme(theme: Theme): Observable<any> {
         var body = 
         {
