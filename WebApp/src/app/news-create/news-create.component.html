@@ -49,7 +49,7 @@
     </article>
     <section class="save-section">
         <div *ngIf="isSucces" (click)="closeSuccesMessage()" class="error-message">
-            Succesvol opgeslagen
+            Het nieuwsartikel is succesvol opgeslagen
             <span class="svg" [inlineSVG]="'../../assets/icons/Close.svg'"></span>
         </div>
         <button (click)="onSubmit()" style="float: right;" [disabled]="isLoading">
