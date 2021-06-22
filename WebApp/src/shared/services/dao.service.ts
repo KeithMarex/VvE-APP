@@ -13,6 +13,15 @@ export class Dao {
       return this.http.get<any>(this.dbAddress + urlPath, this.generateOptions());
     }
 
+    sendFileGetRequest(urlPath: string): Observable<any> {
+      var headers = new HttpHeaders(
+        {
+          'Content-Disposition': 'attachment'
+        }
+      );
+      return this.http.get(this.dbAddress + urlPath, { headers, responseType: 'blob', withCredentials: true });
+    }
+
     sendPostRequest(urlPath: string, body: unknown): Observable<any> {
       return this.http.post<any>(this.dbAddress + urlPath, body, this.generateOptions());
     }

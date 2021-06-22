@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Image } from 'src/shared/models/image.model';
 import { OrganizationFile } from 'src/shared/models/organization-file.model';
 import { Organization } from 'src/shared/models/organization.model';
 import { DataStorageService } from 'src/shared/services/data-storage.service';
 import { OrganizationDao } from 'src/shared/services/organization-dao.service';
+import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-vve-management',
@@ -126,5 +127,18 @@ export class VveManagementComponent implements OnInit {
 
   onDeleteFile(file: OrganizationFile) { //TODO
     console.log(file.filename);
+  }
+
+  onDownloadFile(file: OrganizationFile): void {
+    this.organizationDao.getFile(file._id)
+    .subscribe(res => {
+      this.downloadFile(res, "application/pdf");
+    });
+  }
+
+  downloadFile(data: any, type: string): void {
+    const blob = new Blob([data], { type: type });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
   }
 }

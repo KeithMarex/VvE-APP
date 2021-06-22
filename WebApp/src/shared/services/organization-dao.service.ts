@@ -32,6 +32,10 @@ export class OrganizationDao {
         }));
     }
 
+    getFile(fileId: string): Observable<any> {
+        return this.dao.sendFileGetRequest('organization/file/' + fileId);
+    }
+
     postFile(data: FormData): Observable<any> {
         return this.dao.sendPostRequestForm('organization/file', data);
     }
