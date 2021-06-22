@@ -23,8 +23,6 @@ const Profile = (props) => {
         setTr(res);
     })
 
-    console.log(props.route);
-
     return (
         <SafeAreaView>
             <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
