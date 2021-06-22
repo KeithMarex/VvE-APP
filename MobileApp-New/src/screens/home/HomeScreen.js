@@ -13,6 +13,8 @@ const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
 
 const HomeScreen = (props) => {
+    const user = props.route.params.user;
+
     const [tr, setTr] = React.useState({})
 
     tra().then(res => {
@@ -27,7 +29,7 @@ const HomeScreen = (props) => {
 
                     <View style={[styles.homeSection, styles.intro]}>
                         <StyledText inputStyle={styles.introWelcome}>{tr.home?.welcome}</StyledText>
-                        <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
+                        <StyledText inputStyle={styles.introName}>{user._firstname} {user._lastname}</StyledText>
                         <View style={styles.introMessage}>
                             <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
                             <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 {tr.home?.newReaction} &#62;</StyledText>
