@@ -52,6 +52,10 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     this.frontPagePhoto = event.target.files[0];
   }
 
+  deleteFrontPagePhoto(): void {
+    this.frontPagePhoto = null;
+  }
+
   onSubmit(): void {
     // If input is validated
     // console.log("This is the detailsform title: ", this.detailsForm.value.title)
