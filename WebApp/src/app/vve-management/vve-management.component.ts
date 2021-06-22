@@ -20,6 +20,7 @@ export class VveManagementComponent implements OnInit {
   newLogo: File;
   organizationFiles: OrganizationFile[];
   fileUploadLoading = false;
+  fileUploadError;
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
@@ -90,15 +91,24 @@ export class VveManagementComponent implements OnInit {
   onFileUpload(event) {
     this.fileUploadLoading = true;
     const mForm = new FormData();
+    var file = event.target.files[0]
 
-    mForm.append('file', event.target.files[0]);
+    if (file.size < 16777216) { // File cannot be larger than 16MB (16777216 bytes)
+      mForm.append('file', file);
 
-    this.organizationDao.postFile(mForm)
-    .subscribe(() => {
-      location.reload();
-    })
-    .add(() => {
+      this.organizationDao.postFile(mForm)
+      .subscribe(() => {
+        location.reload();
+      }, err => {
+        this.fileUploadError = err.statusText;
+      })
+      .add(() => {
+        this.fileUploadLoading = false;
+      });
+    }
+    else {
+      this.fileUploadError = 'Bestanden mogen niet groter dan 16MB zijn.';
       this.fileUploadLoading = false;
-    });
+    }
   }
 }

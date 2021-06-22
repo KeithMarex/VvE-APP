@@ -61,6 +61,9 @@
                         </div>
                     </label>
                 </div>
+                <div class="errorMessage" *ngIf="fileUploadError">
+                    <p>{{ fileUploadError }}</p>
+                </div>
             </section>
         </div>
     </body>

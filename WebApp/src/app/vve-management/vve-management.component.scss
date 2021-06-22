@@ -31,6 +31,16 @@ button {
     @include button;
 }
 
+.errorMessage {
+    width: 100%;
+    padding: 5px 0;
+    border-radius: 3px;
+    background-color: #bb2d3b;
+    color: white;
+    align-items: center;
+    text-align: center;
+}
+
 .control-panel {
     display: flex;
     justify-content: space-between;
@@ -142,6 +152,7 @@ button {
             margin: 0.3rem 0;
 
             p {
+                margin: 0.5rem 1rem;
                 color: #6E7191;
             }
         }
