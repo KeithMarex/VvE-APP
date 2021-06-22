@@ -16,12 +16,14 @@ import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
 
-const Profile = () => {
+const Profile = (props) => {
     const [tr, setTr] = React.useState({})
 
     tra().then(res => {
         setTr(res);
     })
+
+    console.log(props.route);
 
     return (
         <SafeAreaView>
