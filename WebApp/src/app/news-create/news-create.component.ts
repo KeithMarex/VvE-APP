@@ -60,6 +60,11 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     // If input is validated
+    this.error.isError = false;
+    if (!(this.editorForm.valid && this.detailsForm.valid && this.frontPagePhoto)) {
+      this.error.isError = true;
+      this.setErrorMessage();
+    }
 
     const formData = new FormData();
     formData.append("title", this.detailsForm.controls["title"].value);
@@ -72,5 +77,15 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     // Do request
     // Show error when there is a mistake
 
+  }
+
+  setErrorMessage(): void {
+    if (!this.editorForm.valid) {
+      this.error.message = "Er is geen nieuwsartikel geschreven";
+    } else if (!this.detailsForm.value) {
+      this.error.message = "Titel of auteur ontbreekt";
+    } else if (!this.frontPagePhoto) {
+      this.error.message = "Voorpagina foto ontbreekt"
+    }
   }
 }
