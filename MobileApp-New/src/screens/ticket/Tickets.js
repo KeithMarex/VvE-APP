@@ -14,6 +14,7 @@ const window = Dimensions.get('window')
 const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
     const [isFetchingTickets, setIsFetchingTickets] = useState(false)
+    let screenFocusSubscription
     const [tr, setTr] = React.useState({})
 
     tra().then(res => {
@@ -23,6 +24,17 @@ const Tickets = (props) => {
     useEffect(() => {
         initDateParser('nl') //TODO move to splash screen
         fetchTickets()
+        screenFocusSubscription = props.navigation.addListener(
+            'focus',
+            () => {
+                setTickets([])
+                fetchTickets()
+            }
+        )
+
+        return () => {
+            screenFocusSubscription.remove()
+        }
     }, [])
 
     const fetchTickets = () => {

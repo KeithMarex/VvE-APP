@@ -1,0 +1,13 @@
+@import "../../utilities/index.scss";
+
+.news {
+  @include section;
+}
+
+.button-section {
+  @include button-section;
+}
+
+.content-section {
+  @include content-section;
+}
