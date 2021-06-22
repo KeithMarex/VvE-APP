@@ -1,9 +1,15 @@
-@import "../../utilities/button.scss";
-@import "../../utilities/effects.scss";
-@import "../../utilities/colors.scss";
+// @import "../../utilities/button.scss";
+// @import "../../utilities/effects.scss";
+// @import "../../utilities/colors.scss";
+@import "../../utilities/index.scss";
 
 button {
     @include button;
+}
+
+.body {
+    height: 85vh;
+    overflow: auto;
 }
 
 h1 {
@@ -181,7 +187,7 @@ h2 {
     }
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1250px){
     .input-detail {
         min-width: 250px !important;
     }
