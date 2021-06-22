@@ -31,11 +31,14 @@ const pushCommentToTicket = (req, res, commentObject) => {
         { _id: req.fields.ticketID },
         { $push: { comments: commentObject._id }}
     )
-    .then( result => {
+    .then( async result => {
         sendAdminMail("Er is een nieuw bericht op een ticket",{ organization: res.locals.user.organizations[0], ticketTitle: result["title"], comment: commentObject.comment }, "comment");
         sendMail("Er is een nieuw bericht op een ticket", { _id: result["creator"], ticketTitle: result["title"], comment: commentObject.comment }, "comment");
 
-        res.status(200).send(commentObject);
+        res.status(200).send(
+            await Comment.findById(commentObject._id)
+            .populate("images")
+        );
     })
     .catch(err => {
         logger.error(err);

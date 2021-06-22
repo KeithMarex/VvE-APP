@@ -6,7 +6,7 @@ post:
   requestBody:
     required: true
     content:
-      application/json:
+      multipart/form-data:
         schema:
           type: object
           properties:
@@ -16,6 +16,8 @@ post:
               type: string
             content:
               type: string
+            thumbnail:
+              type: image
           required:
             - title
             - author
