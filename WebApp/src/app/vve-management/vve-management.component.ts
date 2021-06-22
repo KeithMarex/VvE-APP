@@ -142,4 +142,8 @@ export class VveManagementComponent implements OnInit {
     
     window.open(url);
   }
+
+  getFilesizeInMB(file: OrganizationFile): number {
+    return +(file.filesize / 1000000).toFixed(2);
+}
 }
