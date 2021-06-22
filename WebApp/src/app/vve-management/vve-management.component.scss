@@ -168,14 +168,22 @@ button {
                     color: #6E7191;
                     cursor: pointer;
                 }
+
+                p:hover {
+                    color: $dynamic-primary;
+                }
     
-                .close-button {
+                .delete-button {
                     display: flex;
                     align-items: center;
                     stroke: #6E7191;
                     width: 1rem;
                     height: 1rem;
                     cursor: pointer;
+                }
+
+                .delete-button:hover {
+                    stroke: $dynamic-primary;
                 }
             }
         }
