@@ -18,7 +18,7 @@ export const postNews = (req, res) => {
 
 export const getAllNews = (req, res) => {
     const organizationid = res.locals.user.organizations[0];
-    News.find({ organization: organizationid })
+    News.find({ organization: organizationid }).select('-organization')
     .then(result => {
         res.status(200).send(result);
     })
