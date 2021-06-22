@@ -7,6 +7,7 @@ import {Defs, LinearGradient, Rect, Stop, Svg} from "react-native-svg";
 const window = Dimensions.get('window')
 
 const PageActionButton = (props) => {
+
     return (
         <View style={styles.newsShowcase}>
             <Image style={styles.newsImage} source={require('../resources/images/news-placeholder.png')}/>
@@ -25,12 +26,12 @@ const PageActionButton = (props) => {
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
                         <HomeIcon stroke={'#A0CAE8'} width={10} height={10} />
-                        <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
+                        <StyledText inputStyle={styles.newsTextTop}>{props.newsItem?._title}</StyledText>
                     </View>
                     <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
-                    <StyledText inputStyle={styles.newsTextTop}>25/03/2021</StyledText>
+                    <StyledText inputStyle={styles.newsTextTop}>{props.newsItem?._createdAt}</StyledText>
                 </View>
-                <StyledText inputStyle={styles.newsTitle}>Nieuw lid bij de WhatsApp buurtpreventie</StyledText>
+                <StyledText inputStyle={styles.newsTitle}>{props.newsItem?._content}</StyledText>
             </View>
         </View>
     )
