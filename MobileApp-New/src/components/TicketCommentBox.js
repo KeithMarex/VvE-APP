@@ -63,11 +63,15 @@ const TicketCommentBox = (props) => {
 
     const onTakeCameraImagePressed = async () => {
         const takenPicture = await takeCameraImage()
+        if (!takenPicture)
+            return
         setImages((images) => [...images, takenPicture])
     }
 
     const onPickGalleryImagePressed = async () => {
         const pickedImage = await pickGalleryImage()
+        if (!pickedImage)
+            return
         setImages((images) => [...images, pickedImage])
     }
 
