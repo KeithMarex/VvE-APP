@@ -28,23 +28,37 @@ const LoginScreen = (props) => {
     const [tr, setTr] = React.useState({})
 
     tra().then(res => {
-        setTr(res);
+        setTr(res)
     })
 
     const loginUser = async (email, password) => {
         await ApiHelper.post('/user/login', {email: email, password: password})
             .then(async (res) => {
-                const d = res.data;
-                const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
-                await AsyncStorage.setItem('userId', d._id);
-                props.navigation.navigate('homeNavigation', { user });
+                const d = res.data
+                const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname)
+                await storeData(user)
+                props.navigation.navigate('homeNavigation', { user })
             }).catch(error => {
-                console.log(error);
                 if (error.response.status === 401){
-                    Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
+                    Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem')
                 }
             })
-    };
+    }
+
+    const storeData = async (user) => {
+        await AsyncStorage.setItem('userId', user._id)
+        await initTheme(user)
+    }
+
+    const initTheme = async (user) => {
+        const storedOrganization = JSON.parse(await AsyncStorage.getItem('organization'))
+        if (storedOrganization && storedOrganization._id === user._organizations[0])
+            return
+        await ApiHelper.get('/organization')
+            .then(async (organization) => {
+                await AsyncStorage.setItem('organization', JSON.stringify(organization.data))
+            })
+    }
 
     return (
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
@@ -62,8 +76,8 @@ const LoginScreen = (props) => {
                 <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>{tr.login?.login.forgotPassword}</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     svg: {
