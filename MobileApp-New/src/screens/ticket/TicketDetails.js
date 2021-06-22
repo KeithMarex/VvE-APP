@@ -49,7 +49,7 @@ const TicketDetails = (props) => {
                             {tr.ticket?.lastModified}: { ticket?.parsedUpdatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
-                            {tr.ticket?.status}: { ticket?.parsedStatus }
+                            {tr.ticket?.status.status}: { tr.ticket?.status[ticket?.status.toLowerCase()] }
                         </StyledText>
                     </View>
 
