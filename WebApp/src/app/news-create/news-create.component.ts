@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation  } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Editor, Toolbar, Validators, toDoc } from 'ngx-editor';
+import { Editor, Toolbar, Validators } from 'ngx-editor';
 
 @Component({
   selector: 'app-news-create',
@@ -50,7 +50,19 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    
-  }
+    // If input is validated
+    // console.log("This is the detailsform title: ", this.detailsForm.value.title)
+    console.log("This is the Editorform content: ", this.editorForm.value)
+    const formData = new FormData();
+    formData.append("title", this.detailsForm.controls["title"].value);
+    formData.append("author", this.detailsForm.controls["author"].value);
+    formData.append("content", this.editorForm.controls["editorContent"].value);
+    formData.append("file1" , this.frontPagePhoto);
+    // if this is existing thingy do if with other request "Update"
+    // if object id === null
 
+    // Do request
+    // Show error when there is a mistake
+
+  }
 }
