@@ -71,8 +71,9 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     this.isSucces = false;
 
     if (!(this.editorForm.valid && this.detailsForm.valid && this.thumbnail)) {
-      this.error.isError = true;
       this.setErrorMessage();
+      this.error.isError = true;
+      return;
     }
 
     const formData = this.createFormData();
@@ -98,7 +99,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
   setErrorMessage(): void {
     if (!this.editorForm.valid) {
       this.error.message = "Er is geen nieuwsartikel geschreven";
-    } else if (!this.detailsForm.value) {
+    } else if (!this.detailsForm.valid) {
       this.error.message = "Titel of auteur ontbreekt";
     } else if (!this.thumbnail) {
       this.error.message = "Voorpagina foto ontbreekt"
