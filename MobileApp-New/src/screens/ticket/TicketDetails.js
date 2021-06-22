@@ -1,5 +1,5 @@
-import {SafeAreaView, StyleSheet, ScrollView, View, Dimensions} from 'react-native'
-import React from 'react'
+import {Dimensions, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native'
+import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import PageLogo from '../../components/PageLogo'
 import Button from '../../components/Button'
@@ -10,7 +10,16 @@ import tra from "../../config/languages/translate";
 const window = Dimensions.get('window')
 
 const TicketDetails = (props) => {
-    const { ticket } = props.route.params
+    const [ticket, setTicket] = useState(null)
+
+    useEffect(() => {
+        const inputTicket = props.route.params.ticket
+        ApiHelper.get('/ticket/' + inputTicket._id)
+            .then((res) => {
+                inputTicket.comments = res.data.comments
+                setTicket(inputTicket)
+            })
+    }, [])
 
     const showImages = () => {
         props.navigation.navigate('ShowImages', { ticket });
@@ -30,29 +39,29 @@ const TicketDetails = (props) => {
                     <PageLogo/>
 
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
-                        { ticket.title }
+                        { ticket?.title }
                     </StyledText>
                     <View style={styles.ticketInfo}>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            {tr.ticket?.createdOn}: { ticket.parsedCreatedAt }
+                            {tr.ticket?.createdOn}: { ticket?.parsedCreatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoDate}>
-                            {tr.ticket?.lastModified}: { ticket.parsedUpdatedAt }
+                            {tr.ticket?.lastModified}: { ticket?.parsedUpdatedAt }
                         </StyledText>
                         <StyledText inputStyle={styles.ticketInfoStatus}>
-                            {tr.ticket?.status}: { ticket.parsedStatus }
+                            {tr.ticket?.status}: { ticket?.parsedStatus }
                         </StyledText>
                     </View>
 
-                    {ticket.images.length !== 0 &&
-                    <View style={styles.ticketSection}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
-                            {tr.ticket?.pictures}
-                        </StyledText>
-                        <Button pressAction={() => {showImages()}}>
-                            {tr.ticket?.showPictures}
-                        </Button>
-                    </View>
+                    {ticket?.images.length !== 0 &&
+                        <View style={styles.ticketSection}>
+                            <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
+                                {tr.ticket?.pictures}
+                            </StyledText>
+                            <Button pressAction={showImages}>
+                                {tr.ticket?.showPictures}
+                            </Button>
+                        </View>
                     }
 
                     <View style={styles.ticketSection}>
@@ -60,7 +69,7 @@ const TicketDetails = (props) => {
                             {tr.ticket?.message}
                         </StyledText>
                         <StyledText inputStyle={styles.ticketContent}>
-                            { ticket.description }
+                            { ticket?.description }
                         </StyledText>
                     </View>
 
@@ -68,7 +77,11 @@ const TicketDetails = (props) => {
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>
                             {tr.ticket?.comments}
                         </StyledText>
-                        <TicketCommentBox comments={ticket.comments}/>
+                        {
+                            (!!ticket) && (
+                                <TicketCommentBox ticket={ticket} key={ticket.comments}/>
+                            )
+                        }
                     </View>
                 </View>
             </ScrollView>
