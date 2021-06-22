@@ -23,7 +23,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
 
-  frontPagePhoto: Blob;
+  thumbnail: Blob;
   error: any = {
     isError: false,
     message: "No message given"
@@ -50,18 +50,18 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     this.editor.destroy();
   }
 
-  onImageInput(event): void {
-    this.frontPagePhoto = event.target.files[0];
+  setThumbnail(event): void {
+    this.thumbnail = event.target.files[0];
   }
 
-  deleteFrontPagePhoto(): void {
-    this.frontPagePhoto = null;
+  deleteThumbnail(): void {
+    this.thumbnail = null;
   }
 
   onSubmit(): void {
     // If input is validated
     this.error.isError = false;
-    if (!(this.editorForm.valid && this.detailsForm.valid && this.frontPagePhoto)) {
+    if (!(this.editorForm.valid && this.detailsForm.valid && this.thumbnail)) {
       this.error.isError = true;
       this.setErrorMessage();
     }
@@ -70,7 +70,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     formData.append("title", this.detailsForm.controls["title"].value);
     formData.append("author", this.detailsForm.controls["author"].value);
     formData.append("content", this.editorForm.controls["editorContent"].value);
-    formData.append("file1" , this.frontPagePhoto);
+    formData.append("file1" , this.thumbnail);
     // if this is existing thingy do if with other request "Update"
     // if object id === null
 
@@ -84,7 +84,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
       this.error.message = "Er is geen nieuwsartikel geschreven";
     } else if (!this.detailsForm.value) {
       this.error.message = "Titel of auteur ontbreekt";
-    } else if (!this.frontPagePhoto) {
+    } else if (!this.thumbnail) {
       this.error.message = "Voorpagina foto ontbreekt"
     }
   }

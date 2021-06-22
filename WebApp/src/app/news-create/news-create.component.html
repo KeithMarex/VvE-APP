@@ -32,16 +32,16 @@
         </form>
         <section class="file-section">
             <h2>Voorpagina foto</h2>
-            <p *ngIf="frontPagePhoto" (click)="deleteFrontPagePhoto()">
-                {{ frontPagePhoto.name }}
+            <p *ngIf="thumbnail" (click)="deleteThumbnail()">
+                {{ thumbnail.name }}
                 <span class="svg" [inlineSVG]="'../../assets/icons/Close.svg'"></span>
             </p>
-            <p *ngIf="!frontPagePhoto" style="cursor: default;">
+            <p *ngIf="!thumbnail" style="cursor: default;">
                 Voeg een foto toe...
             </p>
             <div>
                 <label class="attachment-button">Foto toevoegen
-                    <input #images accept=".png, .jpg, .jpeg" type="file" single (change)="onImageInput($event)">
+                    <input #images accept=".png, .jpg, .jpeg" type="file" single (change)="setThumbnail($event)">
                     <span class="svg" [inlineSVG]="'../../assets/icons/Image.svg'"></span>
                 </label>
             </div>
