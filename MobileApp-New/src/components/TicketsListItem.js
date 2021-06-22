@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native'
 import { CommentIcon} from "../resources"
 import StyledText from './StyledText'
 import Button from './Button'
-import { parseTicketStatus } from '../util/ApiParseUtil'
 import tra from "../config/languages/translate";
 
 const TicketsListItem = (props) => {
@@ -51,7 +50,7 @@ const TicketsListItem = (props) => {
             </StyledText>
 
             <StyledText inputStyle={styles.ticketStatus}>
-                {tr.ticket?.status}: { props.ticket.parsedStatus }
+                {tr.ticket?.status?.status}: { tr.ticket?.status[props.ticket.status.toLowerCase()] }
             </StyledText>
 
             <View style={styles.ticketBottom}>
