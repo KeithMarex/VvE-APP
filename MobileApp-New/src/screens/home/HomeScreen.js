@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView } from 'react-native'
+import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 import StyledText from '../../components/StyledText'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
@@ -34,10 +34,12 @@ const HomeScreen = (props) => {
                             <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
                             <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 {tr.home?.newReaction} &#62;</StyledText>
                         </View>
-                        <View style={styles.introMessage}>
-                            <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 {tr.home?.appointments} &#62;</StyledText>
-                        </View>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('Agenda')}>
+                            <View style={styles.introMessage}>
+                                <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
+                                <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 {tr.home?.appointments} &#62;</StyledText>
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
