@@ -38,11 +38,9 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" *ngIf="!detailsUploadLoading">
-                        Update styling
-                    </button>
-                    <button *ngIf="detailsUploadLoading">
-                        <app-spinner></app-spinner>
+                    <button type="submit">
+                        <p *ngIf="!detailsUploadLoading">Update gegevens</p>
+                        <app-spinner *ngIf="detailsUploadLoading"></app-spinner>
                     </button>
                 </form>
             </section>

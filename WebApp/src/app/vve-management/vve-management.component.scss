@@ -43,11 +43,11 @@ button {
 
 .control-panel {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     margin-left: 15%;
     margin-right: 15%;
-    gap: 20%;
+    gap: 15%;
     flex-direction: row;
 
     input[type="file"] {
@@ -143,7 +143,7 @@ button {
     }
     
     .information {
-        flex: 2;
+        flex-grow: 0.5;
 
         .files-block {
             display: flex;
