@@ -1,4 +1,5 @@
 @import "effects.scss";
+@import "colors.scss";
 
 @mixin section {
   width: 85vw;
@@ -14,4 +15,13 @@
   max-height: 85%;
   margin: 1rem auto;
   overflow: auto;
+}
+
+@mixin no-more-items {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 100%;
+  font-weight: 700;
+  color: $dynamic-primary;
+  margin-bottom: 1.5rem;
 }

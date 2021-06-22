@@ -6,7 +6,6 @@ import TicketsListItem from '../../components/TicketsListItem'
 import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
 import { initDateParser, parseDate } from '../../util/DateUtil'
-import { parseTicketStatus } from '../../util/ApiParseUtil'
 import tra from "../../config/languages/translate";
 
 const window = Dimensions.get('window')
@@ -14,6 +13,7 @@ const window = Dimensions.get('window')
 const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
     const [isFetchingTickets, setIsFetchingTickets] = useState(false)
+    let screenFocusSubscription
     const [tr, setTr] = React.useState({})
 
     tra().then(res => {
@@ -23,6 +23,17 @@ const Tickets = (props) => {
     useEffect(() => {
         initDateParser('nl') //TODO move to splash screen
         fetchTickets()
+        screenFocusSubscription = props.navigation.addListener(
+            'focus',
+            () => {
+                setTickets([])
+                fetchTickets()
+            }
+        )
+
+        return () => {
+            props.navigation.removeListener('focus')
+        }
     }, [])
 
     const fetchTickets = () => {
@@ -31,7 +42,7 @@ const Tickets = (props) => {
             .then((res) => {
                 const parsedTickets = []
                 res.data.forEach((ticket) => {
-                    ticket.parsedStatus = parseTicketStatus(ticket.status, 'en')
+                    // ticket.parsedStatus = parseTicketStatus(ticket.status, 'en')
                     ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
                     ticket.parsedCreatedAt = parseDate(ticket.createdAt)
                     parsedTickets.push(ticket)

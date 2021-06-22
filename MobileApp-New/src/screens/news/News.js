@@ -1,19 +1,59 @@
-import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, Image } from 'react-native'
-import React from 'react'
-import {HomeIcon, Logo} from '../../resources'
+import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text} from 'react-native'
+import React, {useEffect} from 'react'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import tra from "../../config/languages/translate";
+import ApiHelper from "../../util/ApiHelper";
+import NewsModel from "../../models/news.model";
+import NewsItem from "../../components/NewsItem.component";
 
 const window = Dimensions.get('window')
 
 const News = () => {
     const [tr, setTr] = React.useState({})
+    const [isFetchingNews, setIsFetchingNews] = React.useState(true);
+    const [newsArticles, setNewsArticles] = React.useState([]);
 
     tra().then(res => {
         setTr(res);
     })
+
+    useEffect(() => {
+        fetchNews();
+    }, [])
+
+    const fetchNews = () => {
+        ApiHelper.get('/news')
+            .then((res) => {
+                const parsedNews = []
+                res.data.forEach((newsItem) => {
+                    parsedNews.push(new NewsModel(newsItem._id, newsItem.author, newsItem.title, newsItem.content, newsItem.createdAt.split('T', 1), newsItem.updatedAt.split('T', 1)));
+                });
+                setNewsArticles(parsedNews);
+                setIsFetchingNews(false);
+            })
+    }
+
+    const createTicketsReplacement = () => {
+        if (newsArticles.length <= 0) {
+            return isFetchingNews
+                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
+                : <StyledText inputStyle={styles.noTickets}>
+                    {tr.ticket?.noNotifications}
+                </StyledText>
+        }
+    }
+
+    const createNewsArticles = () => {
+        const newsList = []
+        for (let i = 0; i < newsArticles.length; i++) {
+            newsList.push(
+                <NewsItem newsItem={newsArticles[i]} key={i}/>
+            )
+        }
+        return newsList
+    }
 
     return (
         <SafeAreaView style={styles.root}>
@@ -23,50 +63,17 @@ const News = () => {
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>{tr.news?.news}</StyledText>
 
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
-                    <NewsShowcase />
+
+                    {!isFetchingNews
+                        ? (<NewsShowcase newsItem={newsArticles[0]}/>)
+                        : <Text>Aan het laden...</Text>
+                    }
 
                     <View style={styles.newsList}>
-
-                        <View style={styles.newsItem}>
-                            <View style={styles.newsThumbnailWrapper}>
-                                <Image
-                                    style={styles.newsThumbnail}
-                                    source={require('../../resources/images/news-placeholder.png')}
-                                />
-                            </View>
-                            <View style={styles.newsTextWrapper}>
-                                <View style={styles.newsTextTopWrapper}>
-                                    <View style={styles.newsTextTopOrganization}>
-                                        <HomeIcon stroke={'#A0CAE8'} width={8} height={8} />
-                                        <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
-                                    </View>
-                                    <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
-                                    <StyledText inputStyle={styles.newsTextTop}>25/03/2021</StyledText>
-                                </View>
-                                <StyledText inputStyle={styles.newsTitle}>Dit is een nieuwsartikel</StyledText>
-                            </View>
-                        </View>
-
-                        <View style={styles.newsItem}>
-                            <View style={styles.newsThumbnailWrapper}>
-                                <Image
-                                    style={styles.newsThumbnail}
-                                    source={require('../../resources/images/news-placeholder.png')}
-                                />
-                            </View>
-                            <View style={styles.newsTextWrapper}>
-                                <View style={styles.newsTextTopWrapper}>
-                                    <View style={styles.newsTextTopOrganization}>
-                                        <HomeIcon stroke={'#A0CAE8'} width={8} height={8} />
-                                        <StyledText inputStyle={styles.newsTextTop}>De Nieuwe Wereld</StyledText>
-                                    </View>
-                                    <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
-                                    <StyledText inputStyle={styles.newsTextTop}>25/03/2021</StyledText>
-                                </View>
-                                <StyledText inputStyle={styles.newsTitle}>Dit is nog een interessant nieuwsartikel</StyledText>
-                            </View>
-                        </View>
-
+                        {newsArticles.length > 0
+                            ? (createNewsArticles())
+                            : (createTicketsReplacement())
+                        }
                     </View>
                 </View>
             </ScrollView>
