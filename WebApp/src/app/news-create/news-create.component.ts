@@ -24,6 +24,8 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
   ];
 
   frontPagePhoto: Blob;
+  isError: boolean = false;
+  errorMessage: string = "Saving has failed";
 
   editorForm: FormGroup = new FormGroup({
     editorContent: new FormControl('', Validators.required()),

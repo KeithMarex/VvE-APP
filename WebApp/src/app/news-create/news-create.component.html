@@ -13,6 +13,7 @@
     </article>
     <article class="details">
         <h1>Details</h1>
+        <div *ngIf="isError" class="error-message">{{ errorMessage }}</div>
         <form [formGroup]="detailsForm" class="text-section">
             <div>
                 <h2>Titel van nieuws</h2>
