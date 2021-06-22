@@ -32,6 +32,8 @@ const TicketCommentBox = (props) => {
     const sendComment = async () => {
         if (!commentInputText) return
 
+        Keyboard.dismiss()
+
         const fd = new FormData
         fd.append('ticketID', props.ticket._id)
         fd.append('comment', commentInputText)
@@ -46,7 +48,7 @@ const TicketCommentBox = (props) => {
         await ApiHelper.post('/comment', fd, {'content-type': 'multipart/form-data'})
             .then((res) => {
                 setComments([...comments, res.data])
-                Keyboard.dismiss()
+                setImages([])
                 clearCommentInput()
             }).catch((err) => {
                 console.log(err)
