@@ -8,7 +8,7 @@ import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import UpcomingAppointment from "../../components/UpcomingAppointment";
 import tra from '../../config/languages/translate';
-import { getOrgColors, getOrgLogo } from '../../util/OrganizationUtil'
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
@@ -75,12 +75,12 @@ const HomeScreen = (props) => {
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Huishoudelijk reglement.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(2KB)</StyledText>
                                     </View>
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Informatie over het pand.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(10,29KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(10,29KB)</StyledText>
                                     </View>
 
                                 </View>
@@ -92,12 +92,12 @@ const HomeScreen = (props) => {
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(8,13KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(8,13KB)</StyledText>
                                     </View>
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Kosten.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2,29KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(2,29KB)</StyledText>
                                     </View>
 
                                 </View>
@@ -179,26 +179,6 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
 
-    agenda: {
-        paddingTop: 15,
-        paddingBottom: 18
-    },
-    agendaItemName: {
-        fontSize: 17,
-        marginBottom: 10
-    },
-    agendaItemDate: {
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
-    agendaItemDateText: {
-        color: '#A0CAE8',
-        fontSize: 14,
-    },
-    agendaItemDateIcon: {
-        marginRight: 10
-    },
-
     infoOrganization: {
         marginTop: 12
     },
@@ -224,7 +204,6 @@ const styles = StyleSheet.create({
     infoOrganizationFileSize: {
         marginLeft: 6,
         fontSize: 16,
-        color: '#A0CAE8',
     }
 })
 

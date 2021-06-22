@@ -12,6 +12,7 @@ const StyledText = (props) => {
     }, [])
 
     const styles = getTextStyle(parseInputStyleArray(props.inputStyle), colors)
+
     return (
         <Text style={[styles.styledText, styles[props.theme]]}>
             { props.children }
@@ -21,6 +22,7 @@ const StyledText = (props) => {
 
 const parseInputStyleArray = (inputStyle) => {
     let result = {}
+
     if (Array.isArray(inputStyle)) {
         inputStyle.forEach((inputStyleItem) => {
             Object.keys(inputStyleItem).forEach((inputStyleItemField) => {
@@ -28,8 +30,10 @@ const parseInputStyleArray = (inputStyle) => {
             })
             result = {...result, }
         })
+
         return result
     } else {
+
         return inputStyle
     }
 }
@@ -70,6 +74,9 @@ const getTextStyle = (inputStyle, colors) => {
             fontWeight: 'bold',
             fontSize: 20,
             letterSpacing: 1
+        },
+        secondaryColor: {
+            color: colors.secondarycolor
         }
     })
 }
