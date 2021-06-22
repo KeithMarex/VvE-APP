@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv').config({ path: `../.env.${process.env.NODE_ENV}` })
 import Emailcredentials from '~/models/Emailcredentials';
 import { readFileSync } from "fs";
 import nodemailer from "nodemailer";
@@ -56,10 +56,9 @@ const getAdminEmail = async (organizationId) => {
 }
 
 export const mailTransporter = nodemailer.createTransport({
-    host: 'mail.nfoservers.com',
-    port: 587,
+    service: 'gmail',
     auth: {
         user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
+        pass: process.env.MAIL_PASS
     }
 });
