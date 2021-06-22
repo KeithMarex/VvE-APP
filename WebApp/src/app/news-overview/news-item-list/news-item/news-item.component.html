@@ -1,0 +1,28 @@
+<div class="news-item">
+  <div class="news-thumbnail">
+    <img *ngIf="thumbnailUrl"
+      [src]="thumbnailUrl"
+      [alt]="newsItem?.title">
+  </div>
+  <div class="news-content">
+    <p class="news-date">
+      {{ newsItem ? this.parseDate(newsItem?.updatedAt) : undefined }}
+    </p>
+    <h3 class="news-title">
+      {{ newsItem?.title }}
+    </h3>
+    <p class="news-description">
+      {{ newsItem?.content }}
+    </p>
+  </div>
+  <div class="news-buttons">
+    <button class="secondary-btn">
+      Wijzigen
+      <object data="../../../assets/icons/edit-white.svg"></object>
+    </button>
+    <button class="primary-btn" (click)="onDeleteNewsItemClicked()">
+      Verwijderen
+      <object data="../../../assets/icons/delete.svg"></object>
+    </button>
+  </div>
+</div>

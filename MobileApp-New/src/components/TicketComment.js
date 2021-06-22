@@ -1,24 +1,23 @@
 import React from 'react'
-import {Dimensions, StyleSheet, View} from 'react-native'
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput'
+import { StyleSheet, View } from 'react-native'
 import StyledText from "./StyledText";
-import Button from './Button'
+import { parseDate } from "../util/DateUtil";
 
 const TicketComment = (props) => {
-    const { isUserTicket, comment } = props
-    const commentType = isUserTicket ? 'user' : 'org'
+    const { isUserComment, comment } = props
+    const commentType = isUserComment ? 'user' : 'org'
 
     return (
         <View style={styles[commentType + 'CommentWrapper']}>
             <View style={[styles.ticketComment, styles[commentType + 'Comment']]}>
                 <StyledText inputStyle={styles[commentType + 'CommentUser']}>
-                    { isUserTicket ? 'U' : 'Bestuur' }
+                    { isUserComment ? 'U' : 'Bestuur' }
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentContent}>
                     {comment.comment}
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentDate}>
-                    14 mei 2021 15:30
+                    {parseDate(comment.createdAt)}
                 </StyledText>
             </View>
         </View>

@@ -1,0 +1,14 @@
+@import "../../../utilities/index.scss";
+
+.news-item-list {
+  padding: 0 25px;
+  list-style: none;
+
+  &-item {
+    margin-bottom: 18px;
+  }
+
+  &-empty {
+    @include no-more-items;
+  }
+}

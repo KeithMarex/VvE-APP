@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import {
@@ -61,6 +61,9 @@ import { JsonParserService } from 'src/shared/services/json-parser.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SearchBarComponent } from '../shared/components/search-bar/search-bar.component';
+import { NewsDao } from '../shared/services/news-dao.service';
+import { NewsItemListComponent } from './news-overview/news-item-list/news-item-list.component';
+import { NewsItemComponent } from './news-overview/news-item-list/news-item/news-item.component';
 
 @Injectable()
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -107,6 +110,8 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     PasswordRecoveryComponent,
     ConfirmationPopupComponent,
     SearchBarComponent,
+    NewsItemListComponent,
+    NewsItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,7 +120,6 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     HttpClientModule,
     FormsModule,
     InlineSVGModule,
-    FormsModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -127,12 +131,12 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       }
     }),
     NgxDaterangepickerMd.forRoot(),
+    ReactiveFormsModule,
   ],
   providers: [
     Dao,
     TicketDao,
     TagDao,
-    AuthDao,
     AuthDao,
     UserDao,
     CommentDao,
@@ -142,6 +146,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarService,
     OrganizationDao,
     JsonParserService,
+    NewsDao,
     {
       provide: LOCALE_ID,
       useValue: 'nl-NL',
