@@ -139,6 +139,7 @@ export class VveManagementComponent implements OnInit {
   downloadFile(data: any, type: string): void {
     const blob = new Blob([data], { type: type });
     const url = window.URL.createObjectURL(blob);
+    
     window.open(url);
   }
 }
