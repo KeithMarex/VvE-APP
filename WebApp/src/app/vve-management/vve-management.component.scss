@@ -151,9 +151,23 @@ button {
             background-color: #F7F7FC;
             margin: 0.3rem 0;
 
-            p {
-                margin: 0.5rem 1rem;
-                color: #6E7191;
+            .file {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                
+                p {
+                    margin: 0.5rem 1rem;
+                    color: #6E7191;
+                }
+    
+                .close-button {
+                    display: flex;
+                    align-items: center;
+                    stroke: #6E7191;
+                    width: 1rem;
+                    height: 1rem;
+                }
             }
         }
 

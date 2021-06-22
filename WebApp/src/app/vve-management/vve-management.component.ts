@@ -123,4 +123,8 @@ export class VveManagementComponent implements OnInit {
       this.fileUploadLoading = false;
     }
   }
+
+  onDeleteFile(file: OrganizationFile) { //TODO
+    console.log(file.filename);
+  }
 }

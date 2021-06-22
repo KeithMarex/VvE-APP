@@ -52,6 +52,7 @@
                 <div class="files-block">
                     <div class="file" *ngFor="let file of organizationFiles">
                         <p class="light-text">{{ file.filename.length > 25 ? file.filename.slice(0, 20) + '... ' + file.filename.slice(-4) : file.filename }}</p>
+                        <div class="close-button" [inlineSVG]="'../../assets/icons/Close.svg'" (click)="onDeleteFile(file)"></div>
                     </div>
                 </div>
                 <div class="file-upload">
