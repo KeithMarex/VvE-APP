@@ -19,6 +19,10 @@ const NewsSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref: 'Organization',
         required: [true, 'A news article need to be connected to an organization'],
+    },
+    thumbnail: {
+        type: Schema.Types.ObjectId,
+        ref: "Image"
     }
 }, { timestamps: true});
 

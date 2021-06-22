@@ -656,6 +656,9 @@
                     "data": {
                       "type": "Buffer"
                     },
+                    "filesize": {
+                      "type": "Number"
+                    },
                     "organisation": {
                       "type": "string objectId"
                     },
@@ -675,6 +678,33 @@
           },
           "500": {
             "description": "Error while saving file to database."
+          }
+        }
+      }
+    },
+    "/organization/file/{id}/": {
+      "delete": {
+        "summary": "Deletes the File by ID.",
+        "tags": [
+          "Organization"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "500": {
+            "description": "Error occured while deleting File"
           }
         }
       }
@@ -1629,7 +1659,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
