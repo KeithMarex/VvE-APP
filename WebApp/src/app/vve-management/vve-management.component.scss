@@ -146,10 +146,16 @@ button {
         flex: 2;
 
         .files-block {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            min-height: 65%;
+            height: 32vh;
+            max-height: 32vh;
+            border-radius: 1rem;
             background-color: #F7F7FC;
             margin: 0.3rem 0;
+            resize: none;
+            overflow: auto;
 
             .file {
                 display: flex;
