@@ -92,8 +92,8 @@ export class VveManagementComponent implements OnInit {
     mForm.append('file', event.target.files[0]);
 
     this.organizationDao.postFile(mForm)
-    .subscribe(res => {
-      console.log(res);
+    .subscribe(() => {
+      location.reload();
     });
   }
 }

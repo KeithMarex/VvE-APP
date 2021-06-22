@@ -7,8 +7,8 @@
             <button (click)="onAdd()">Nieuw</button>
             <button class="icon-button dropdown-button">Filter
                 <span class="button-dropdown">
-                    <app-search-bar (searchTermChanged)="searchTermChanged($event)"></app-search-bar>
-                    <!-- <div class="top-option" (click)="onChangeSort('status')">
+                    <!-- <app-search-bar (searchTermChanged)="searchTermChanged($event)"></app-search-bar> -->
+                    <div class="top-option" (click)="onChangeSort('status')">
                         <p>Ticket status</p>
                     </div>
                     <hr>
@@ -18,7 +18,7 @@
                     <hr>
                     <div class="bottom-option" (click)="onChangeSort('createdAt')">
                         <p>Aanmaak datum</p>
-                    </div> -->
+                    </div>
                 </span>
             </button>
             <button [routerLink]="['/tags-overview']">Tags</button>
