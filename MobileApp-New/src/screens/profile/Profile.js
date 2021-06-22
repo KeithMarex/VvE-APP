@@ -58,12 +58,14 @@ const Profile = () => {
                             <TouchableOpacity onPress={async () => {
                                 await AsyncStorage.setItem('lang', 'nl');
                                 console.log('Item set NL');
+                                alert('Restart application for changes to be applied.');
                             }}>
                                 <NLFlag style={{marginRight: '2%'}}/>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={async () => {
                                 await AsyncStorage.setItem('lang', 'en');
                                 console.log('Item set EN');
+                                alert('Restart application for changes to be applied.');
                             }}>
                                 <ENFlag style={{marginLeft: '2%', marginRight: '-2%'}}/>
                             </TouchableOpacity>
