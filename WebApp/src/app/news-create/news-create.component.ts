@@ -1,3 +1,4 @@
+import { NewsDao } from './../../shared/services/news-dao.service';
 import { Component, OnInit, OnDestroy, ViewEncapsulation  } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
@@ -28,6 +29,7 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     isError: false,
     message: "No message given"
   };
+  isSucces: boolean = false;
   isLoading: boolean = false;
 
   editorForm: FormGroup = new FormGroup({
@@ -38,6 +40,8 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     title: new FormControl('', Validators.required()),
     author: new FormControl('', Validators.required())
   });
+
+  constructor(private newsDao: NewsDao) {};
 
   ngOnInit(): void {
     this.editor = new Editor({
@@ -56,6 +60,10 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
 
   deleteThumbnail(): void {
     this.thumbnail = null;
+  }
+
+  closeSuccesMessage(): void {
+    this.isSucces = false;
   }
 
   onSubmit(): void {
