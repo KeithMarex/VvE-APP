@@ -1,4 +1,4 @@
-import React, { useState, createRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import {
     Dimensions,
     Keyboard,
@@ -9,24 +9,25 @@ import {
     TextInput,
     AsyncStorage
 } from 'react-native'
+import OptionsMenu from 'react-native-option-menu'
+import { PlusIcon } from '../resources'
+import ApiHelper from '../util/ApiHelper'
+import tra from '../config/languages/translate'
+import { pickGalleryImage, takeCameraImage } from '../util/ImageUtil'
 import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
-import { PlusIcon } from '../resources'
-import ApiHelper from "../util/ApiHelper";
-import tra from "../config/languages/translate";
-import OptionsMenu from "react-native-option-menu";
-import {pickGalleryImage, takeCameraImage} from "../util/ImageUtil";
-import InputImage from "./InputImage";
+import InputImage from './InputImage'
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
     const [comments, setComments] = useState(props.ticket.comments)
     const [images, setImages] = useState([])
     const [tr, setTr] = useState({})
+    const inputRef = useRef('')
 
     tra().then(res => {
-        setTr(res);
+        setTr(res)
     })
 
     const sendComment = async () => {
@@ -72,42 +73,35 @@ const TicketCommentBox = (props) => {
 
     const removeImage = (image) => {
         const array = [...images]
-        const index = array.indexOf(image);
+        const index = array.indexOf(image)
         if (index !== -1) {
-            array.splice(index, 1);
-            setImages(array);
+            array.splice(index, 1)
+            setImages(array)
         }
     }
 
     const clearCommentInput = () => {
-        // commentInputRef.clear()
+        inputRef.current.clear()
         onCommentInputText('')
-    }
-
-    const commentsEl = []
-    for (let i = 0; i < comments.length; i++) {
-        commentsEl.push(
-            <TicketComment isUserComment={isUserComment(comments[i])} comment={comments[i]} key={i}/>
-        )
     }
 
     return (
         <KeyboardAvoidingView style={styles.ticketComments}>
-            {/*<TicketComment isUserTicket={false}/>*/}
-            {/*<TicketComment isUserTicket={true}/>*/}
-
-            {commentsEl.length > 0
-                ? commentsEl
-                : (<StyledText inputStyle={styles.noComments}>
-                        {tr.ticket?.noComments}
+            {comments.length > 0
+                ? comments.map(comment => (
+                    <TicketComment isUserComment={isUserComment(comment)} comment={comment} key={comment._id}/>
+                ))
+                : <StyledText inputStyle={styles.noComments}>
+                    {tr.ticket?.noComments}
                 </StyledText>
-            )}
+            }
 
             <View style={styles.commentInputFieldWrapper}>
                 <TextInput
                     style={styles.commentInputField}
                     onChangeText={onCommentInputText}
                     placeholder={tr.ticket?.placeholder}
+                    ref={inputRef}
                     multiline
                 />
             </View>
