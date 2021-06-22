@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 import { User } from 'src/shared/models/user.model';
 import { UserDao } from 'src/shared/services/user-dao.service';
 import { AccountListComponent } from '../account-list/account-list.component';
@@ -20,7 +19,7 @@ export class AccountImportComponent implements OnInit {
   accounts: any[] = [];
   public userArray: User[] = [];
 
-  constructor(private userDao: UserDao, private ngxCsvParser: NgxCsvParser, private http: HttpClient) { }
+  constructor(private userDao: UserDao, private http: HttpClient) { }
 
   ngOnInit(): void {
   }
