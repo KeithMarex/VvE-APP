@@ -65,11 +65,8 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
       this.setErrorMessage();
     }
 
-    const formData = new FormData();
-    formData.append("title", this.detailsForm.controls["title"].value);
-    formData.append("author", this.detailsForm.controls["author"].value);
-    formData.append("content", this.editorForm.controls["editorContent"].value);
-    formData.append("file1" , this.thumbnail);
+    const formData = this.createFormData();
+
     // if this is existing thingy do if with other request "Update"
     // if object id === null
 
@@ -86,5 +83,14 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     } else if (!this.thumbnail) {
       this.error.message = "Voorpagina foto ontbreekt"
     }
+  }
+
+  createFormData(): FormData {
+    const formData = new FormData();
+    formData.append("title", this.detailsForm.controls["title"].value);
+    formData.append("author", this.detailsForm.controls["author"].value);
+    formData.append("content", this.editorForm.controls["editorContent"].value);
+    formData.append("file1" , this.thumbnail);
+    return formData;
   }
 }
