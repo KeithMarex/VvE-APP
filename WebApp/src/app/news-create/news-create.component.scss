@@ -59,15 +59,6 @@ h2 {
         margin-bottom: 20px;
     }
 
-    .error-message {
-        width: 100%;
-        padding: 10px 0;
-        border-radius: 3px;
-        background-color: $error-color;
-        color: $background-color;
-        text-align: center;
-    }
-
     .text-section {
         display: flex;
 
@@ -154,6 +145,39 @@ h2 {
             }
         }
 
+    }
+}
+
+.error-message {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 3px;
+    background-color: $error-color;
+    color: $background-color;
+    text-align: center;
+}
+
+.save-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    .error-message {
+        background-color: $dynamic-primary;
+
+        span {
+            vertical-align: middle;
+            svg{
+                stroke: $background-color;
+                width: 19px;
+                height: auto;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 
