@@ -59,7 +59,6 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    // If input is validated
     this.error.isError = false;
     if (!(this.editorForm.valid && this.detailsForm.valid && this.thumbnail)) {
       this.error.isError = true;
