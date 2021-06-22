@@ -68,12 +68,24 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.error.isError = false;
+    this.isSucces = false;
+
     if (!(this.editorForm.valid && this.detailsForm.valid && this.thumbnail)) {
       this.error.isError = true;
       this.setErrorMessage();
     }
 
     const formData = this.createFormData();
+
+    this.newsDao.createNewsItem(formData).subscribe(
+      () => {
+        this.isSucces = true;
+      },
+      err => {
+        this.error.message = err.message;
+        this.error.isError = true;
+      }
+    )
 
     // if this is existing thingy do if with other request "Update"
     // if object id === null
