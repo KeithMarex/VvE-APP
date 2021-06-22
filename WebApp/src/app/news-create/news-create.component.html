@@ -41,7 +41,10 @@
             </div>
         </section>
     </article>
-    <button (click)="onSubmit()" style="float: right;" >Opslaan</button>
+    <button (click)="onSubmit()" style="float: right;" [disabled]="isLoading">
+        <p *ngIf="!isLoading">Opslaan</p>
+        <app-spinner *ngIf="isLoading"></app-spinner>
+    </button>
 </div>
 
 <!-- https://sibiraj-s.github.io/ngx-editor/#/input-rules -->
