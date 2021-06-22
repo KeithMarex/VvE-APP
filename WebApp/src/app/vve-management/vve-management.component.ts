@@ -55,6 +55,7 @@ export class VveManagementComponent implements OnInit {
   onChangeStyling(form: NgForm) {
     const formValues = form.value;
     const mForm = new FormData();
+    this.detailsUploadLoading = true;
 
     var newTheme =
     {
@@ -65,6 +66,8 @@ export class VveManagementComponent implements OnInit {
     this.organizationDao.updateTheme(newTheme)
     .subscribe(() => {
       this.dataStorageService.setTheme(newTheme);
+    }, err => {
+      this.detailsUploadError = err.statusText;
     });
 
     var newName = formValues.name;
@@ -79,7 +82,6 @@ export class VveManagementComponent implements OnInit {
 
     if (newName || this.newLogo)
     {
-      this.detailsUploadLoading = true;
       this.organizationDao.updateDetails(mForm)
       .subscribe(() => {
         location.reload();
@@ -89,6 +91,8 @@ export class VveManagementComponent implements OnInit {
       .add(() => {
         this.detailsUploadLoading = false;
       }); 
+    } else {
+      this.detailsUploadLoading = false;
     }
   }
 
