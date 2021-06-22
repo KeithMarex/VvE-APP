@@ -28,7 +28,7 @@ const News = () => {
             .then((res) => {
                 const parsedNews = []
                 res.data.forEach((newsItem) => {
-                    parsedNews.push(new NewsModel(newsItem._id, newsItem.author, newsItem.title, newsItem.content, newsItem.createdAt, newsItem.updatedAt));
+                    parsedNews.push(new NewsModel(newsItem._id, newsItem.author, newsItem.title, newsItem.content, newsItem.createdAt.split('T', 1), newsItem.updatedAt.split('T', 1)));
                 });
                 setNewsArticles(parsedNews);
                 setIsFetchingNews(false);
