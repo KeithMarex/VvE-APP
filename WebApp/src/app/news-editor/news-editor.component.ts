@@ -33,6 +33,7 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
   isSucces: boolean = false;
   isLoading: boolean = false;
   isNew: boolean = true;
+  _id: string;
 
   editorForm: FormGroup = new FormGroup({
     editorContent: new FormControl('', Validators.required()),
@@ -54,6 +55,7 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
       params => {
         if (params['id'] !== 'create') {
           this.isNew = false;
+          this._id = params["id"];
           this.initzializeNews(params['id']);
         }
       }
@@ -128,7 +130,7 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
   }
 
   updateNews(formData): void {
-    this.newsDao.updateNewsItem(formData).subscribe(
+    this.newsDao.updateNewsItem(formData, this._id).subscribe(
       () => {
         this.isSucces = true;
       },
