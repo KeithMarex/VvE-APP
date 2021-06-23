@@ -18,6 +18,7 @@
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "dotenv": "^10.0.0",
+    "downloadjs": "^1.4.7",
     "expo": "^41.0.1",
     "expo-cli": "^4.3.0",
     "expo-image-manipulator": "~9.1.0",

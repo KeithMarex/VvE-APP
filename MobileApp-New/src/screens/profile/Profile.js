@@ -3,27 +3,36 @@ import {
     Keyboard,
     View,
     ScrollView,
-    TouchableWithoutFeedback, Dimensions, TouchableOpacity, AsyncStorage
+    TouchableWithoutFeedback, Dimensions, AsyncStorage
 } from 'react-native'
 import React, {useEffect, useState} from 'react'
 
-import { ProfileIcon, MailIcon, PhoneIcon, Logo, NLFlag, ENFlag } from '../../resources'
+import { ProfileIcon, MailIcon, PhoneIcon } from '../../resources'
 import { SafeAreaView } from 'react-navigation'
 import PageActionButton from '../../components/PageActionButton'
 import StyledText from '../../components/StyledText'
 import PageLogo from "../../components/PageLogo";
 import tra from "../../config/languages/translate";
-import { getOrgColors } from '../../util/OrganizationUtil'
+import { getOrgColors, getOrgName } from '../../util/OrganizationUtil'
+import LanguageSelector from '../../components/LanguageSelector'
+import ApiHelper from "../../util/ApiHelper";
 
 const window = Dimensions.get('window')
 
-const Profile = () => {
+const Profile = (props) => {
     const [colors, setColors] = useState({})
-    const [tr, setTr] = React.useState({})
+    const [tr, setTr] = useState({})
+    const [orgName, setOrgName] = useState('')
+
+    const user = props.route.params.user;
 
     useEffect(() => {
         getOrgColors().then(colors => {
             setColors(colors)
+        })
+
+        getOrgName().then(name => {
+            setOrgName(name)
         })
 
         tra().then(res => {
@@ -38,46 +47,35 @@ const Profile = () => {
                     <View style={styles.home}>
                         <PageLogo/>
                         <StyledText inputStyle={styles.pageTitle}>{tr.profile?.general}</StyledText>
-                        <PageActionButton icon={'pen'} text={tr.profile?.modify}/>
 
                         <View style={styles.profileSection}>
                             <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
                                 <ProfileIcon stroke={colors?.primarycolor} style={{marginRight: '5%'}}/>
-                                <StyledText inputStyle={styles.accountName}>Hicham Ben Yessef</StyledText>
+                                <StyledText inputStyle={styles.accountName}>{user._firstname} {user._lastname}</StyledText>
                             </View>
-                            <StyledText inputStyle={{paddingBottom: '3%', textAlign: 'left'}}>Hasebroekstraat 75 II</StyledText>
+                            {/*<StyledText inputStyle={{paddingBottom: '3%', textAlign: 'left'}}>Hasebroekstraat 75 II</StyledText>*/}
                             <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
                                 <MailIcon stroke={colors?.primarycolor} style={{marginRight: '2%'}} width={window.width / 15} />
-                                <StyledText inputStyle={{color: '#6E7191'}}>hicham@hotmail.com</StyledText>
+                                <StyledText inputStyle={{color: '#6E7191'}}>{user._email}</StyledText>
                             </View>
                             <View style={{flexDirection: 'row'}}>
-                                <PhoneIcon stroke={colors?.primarycolor} style={{marginRight: '2%'}} width={window.width / 15} />
+                                <PhoneIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
                                 <StyledText inputStyle={{color: '#6E7191'}}>06-12345678</StyledText>
                             </View>
 
                             <StyledText inputStyle={styles.organizationsSection}>{tr.home?.vveinfo}</StyledText>
-                            <StyledText inputStyle={{color: 'black', textAlign: 'left'}}>De Nieuwe Wereld</StyledText>
-                            <StyledText inputStyle={styles.organizationAddress}>Hasebroekstraat</StyledText>
-                            <StyledText inputStyle={{color: 'black', textAlign: 'left'}}>{tr.home?.parking}</StyledText>
-                            <StyledText inputStyle={[styles.organizationAddress, {marginBottom: '10%'}]}>Autoplaatsplekstraat</StyledText>
+                            <StyledText inputStyle={{color: 'black', textAlign: 'left'}}>
+                                { orgName }
+                            </StyledText>
+                            { user?.parking && (
+                                <StyledText inputStyle={{color: 'black', textAlign: 'left'}}>
+                                    { tr.home?.parking }
+                                </StyledText>
+                            )}
                         </View>
+
                         <StyledText inputStyle={[styles.accountName, {marginTop: '5%'}]}>{tr.profile?.language}</StyledText>
-                        <View style={{flexDirection: 'row', marginTop: '5%'}}>
-                            <TouchableOpacity onPress={async () => {
-                                await AsyncStorage.setItem('lang', 'nl');
-                                console.log('Item set NL');
-                                alert('Restart application for changes to be applied.');
-                            }}>
-                                <NLFlag style={{marginRight: '2%'}}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={async () => {
-                                await AsyncStorage.setItem('lang', 'en');
-                                console.log('Item set EN');
-                                alert('Restart application for changes to be applied.');
-                            }}>
-                                <ENFlag style={{marginLeft: '2%', marginRight: '-2%'}}/>
-                            </TouchableOpacity>
-                        </View>
+                        <LanguageSelector/>
                     </View>
                 </ScrollView>
             </TouchableWithoutFeedback>
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
         textAlign: 'left'
     },
     organizationsSection: {
-        marginTop: '10%',
+        marginTop: '7%',
         fontWeight: 'bold',
         fontSize: 20,
         textAlign: 'left'
@@ -100,6 +98,7 @@ const styles = StyleSheet.create({
     view: {
         width: '100%',
         backgroundColor: '#F7F7FC',
+        height: '100%'
     },
     home: {
         justifyContent: 'center',
@@ -120,7 +119,8 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#fff',
         paddingHorizontal: '7%',
-        paddingVertical: '2%',
+        paddingTop: '2%',
+        paddingBottom: '8%',
         borderRadius: 20,
         borderColor: '#f8f8f8',
         borderWidth: 5,

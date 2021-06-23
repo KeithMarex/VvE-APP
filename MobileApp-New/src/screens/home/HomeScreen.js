@@ -3,12 +3,13 @@ import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacit
 import StyledText from '../../components/StyledText'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { CommentIcon, CalendarIcon, Logo } from '../../resources'
+import { CommentIcon, CalendarIcon } from '../../resources'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import UpcomingAppointment from "../../components/UpcomingAppointment";
 import tra from '../../config/languages/translate';
 import { getOrgColors } from '../../util/OrganizationUtil'
+import OrganisationFilesComponent from "../../components/OrganisationFiles.component";
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
@@ -67,43 +68,7 @@ const HomeScreen = (props) => {
 
                     <View style={styles.homeSectionWrapper}>
                         <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home?.vveinfo}</StyledText>
-                        <View style={styles.info}>
-
-                            <View style={styles.infoOrganization}>
-                                <StyledText inputStyle={styles.infoOrganizationName}>De Nieuwe Wereld</StyledText>
-                                <View style={styles.infoOrganizationFiles}>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Huishoudelijk reglement.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(2KB)</StyledText>
-                                    </View>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Informatie over het pand.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(10,29KB)</StyledText>
-                                    </View>
-
-                                </View>
-                            </View>
-
-                            <View style={styles.infoOrganization}>
-                                <StyledText inputStyle={styles.infoOrganizationName}>{tr.home?.parking}</StyledText>
-                                <View style={styles.infoOrganizationFiles}>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(8,13KB)</StyledText>
-                                    </View>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Kosten.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(2,29KB)</StyledText>
-                                    </View>
-
-                                </View>
-                            </View>
-
-                        </View>
+                        <OrganisationFilesComponent/>
                     </View>
 
                 </View>
@@ -179,31 +144,24 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
 
-    infoOrganization: {
-        marginTop: 12
+    agenda: {
+        paddingTop: 15,
+        paddingBottom: 18
     },
-    infoOrganizationName: {
-        fontSize: 16
+    agendaItemName: {
+        fontSize: 17,
+        marginBottom: 10
     },
-    infoOrganizationFiles: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    infoOrganizationFile: {
-        paddingBottom: 10,
+    agendaItemDate: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
         justifyContent: 'center'
     },
-    infoOrganizationFileName: {
-        color: '#6E7191',
-        fontSize: 16,
-        textDecorationLine: 'underline'
+    agendaItemDateText: {
+        color: '#A0CAE8',
+        fontSize: 14,
     },
-    infoOrganizationFileSize: {
-        marginLeft: 6,
-        fontSize: 16,
+    agendaItemDateIcon: {
+        marginRight: 10
     }
 })
 

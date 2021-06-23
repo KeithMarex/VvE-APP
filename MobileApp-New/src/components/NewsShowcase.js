@@ -1,20 +1,35 @@
 import React, {useEffect, useState} from 'react'
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
-import { Defs, LinearGradient, Rect, Stop, Svg } from 'react-native-svg'
-import { HomeIcon } from "../resources"
-import StyledText from "./StyledText"
+import {Dimensions, Image, StyleSheet, View} from 'react-native'
+import StyledText from "./StyledText";
+import {Defs, LinearGradient, Rect, Stop, Svg} from "react-native-svg";
+import ApiHelper from "../util/ApiHelper";
+import NewsModel from "../models/news.model";
 import { getOrgColors } from '../util/OrganizationUtil'
+import {CalendarIcon} from "../resources";
 
 const window = Dimensions.get('window')
 
-const PageActionButton = (props) => {
+const NewsShowcase = () => {
+    const [newsArticles, setNewsArticles] = useState([]);
     const [colors, setColors] = useState({})
 
     useEffect(() => {
+        fetchNews();
         getOrgColors().then(colors => {
             setColors(colors)
         })
-    }, [])
+    });
+
+    const fetchNews = () => {
+        ApiHelper.get('/news')
+            .then((res) => {
+                const parsedNews = []
+                res.data.forEach((newsItem) => {
+                    parsedNews.push(new NewsModel(newsItem._id, newsItem.author, newsItem.title, newsItem.content, newsItem.createdAt.split('T', 1), newsItem.updatedAt.split('T', 1)));
+                });
+                setNewsArticles(parsedNews);
+            })
+    }
 
     return (
         <View style={styles.newsShowcase}>
@@ -33,20 +48,11 @@ const PageActionButton = (props) => {
             <View style={styles.newsTextWrapper}>
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
-                        <HomeIcon stroke={colors?.secondarycolor}
-                                  width={10} height={10} />
-                        <StyledText inputStyle={styles.newsTextTop}>{props.newsItem?._title}</StyledText>
+                        <CalendarIcon stroke={colors?.secondarycolor} width={10} height={10} />
                     </View>
-                    <StyledText inputStyle={styles.newsTextTopLine} theme={'secondaryColor'}>
-                        |
-                    </StyledText>
-                    <StyledText inputStyle={styles.newsTextTop}>
-                        {props.newsItem?._createdAt}
-                    </StyledText>
+                    <StyledText inputStyle={styles.newsTextTop}>{newsArticles[0]?._createdAt}</StyledText>
                 </View>
-                <StyledText inputStyle={styles.newsTitle}>
-                    {props.newsItem?._content}
-                </StyledText>
+                <StyledText inputStyle={styles.newsTitle}>{newsArticles[0]?._title}</StyledText>
             </View>
         </View>
     )
@@ -83,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         paddingTop: 10,
-        paddingBottom: 20,
+        paddingBottom: 25,
     },
     newsTitle: {
         color: '#FCFCFC',
@@ -97,6 +103,7 @@ const styles = StyleSheet.create({
         fontSize: 10,
         marginRight: 8,
         marginLeft: 8,
+        opacity: .8
     },
     newsTextTopLine: {
         fontSize: 10,
@@ -107,4 +114,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default PageActionButton
+export default NewsShowcase

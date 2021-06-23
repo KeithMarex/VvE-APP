@@ -1,31 +1,33 @@
-import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text} from 'react-native'
-import React, {useEffect, useState} from 'react'
+import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import sortBy from 'sort-by'
+import tra from '../../config/languages/translate'
+import { getOrgColors } from '../../util/OrganizationUtil'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
-import PageLogo from "../../components/PageLogo";
-import tra from "../../config/languages/translate";
-import ApiHelper from "../../util/ApiHelper";
-import NewsModel from "../../models/news.model";
-import NewsItem from "../../components/NewsItem.component";
-import { getOrgColors } from '../../util/OrganizationUtil'
+import PageLogo from '../../components/PageLogo'
+import ApiHelper from '../../util/ApiHelper'
+import NewsModel from '../../models/news.model'
+import NewsItem from '../../components/NewsItem.component'
+import { parseDateWithTime } from '../../util/DateUtil'
 
 const window = Dimensions.get('window')
 
 const News = () => {
     const [tr, setTr] = React.useState({})
-    const [isFetchingNews, setIsFetchingNews] = React.useState(true);
-    const [newsArticles, setNewsArticles] = React.useState([]);
+    const [isFetchingNews, setIsFetchingNews] = React.useState(true)
+    const [newsArticles, setNewsArticles] = React.useState([])
     const [colors, setColors] = useState({})
 
     useEffect(() => {
-        fetchNews();
+        fetchNews()
 
         getOrgColors().then(colors => {
             setColors(colors)
         })
 
         tra().then(res => {
-            setTr(res);
+            setTr(res)
         })
     }, [])
 
@@ -33,11 +35,18 @@ const News = () => {
         ApiHelper.get('/news')
             .then((res) => {
                 const parsedNews = []
-                res.data.forEach((newsItem) => {
-                    parsedNews.push(new NewsModel(newsItem._id, newsItem.author, newsItem.title, newsItem.content, newsItem.createdAt.split('T', 1), newsItem.updatedAt.split('T', 1)));
-                });
-                setNewsArticles(parsedNews);
-                setIsFetchingNews(false);
+
+                const sortedNews = res.data.sort(sortBy('-updatedAt'))
+
+                sortedNews.forEach((newsItem) => {
+                    parsedNews.push(
+                        new NewsModel(
+                            newsItem._id, newsItem.author, newsItem.title, newsItem.content,
+                            parseDateWithTime(newsItem.createdAt), parseDateWithTime(newsItem.createdAt)
+                        ))
+                })
+                setNewsArticles(parsedNews)
+                setIsFetchingNews(false)
             })
     }
 
@@ -53,11 +62,13 @@ const News = () => {
 
     const createNewsArticles = () => {
         const newsList = []
-        for (let i = 0; i < newsArticles.length; i++) {
+
+        for (let i = 1; i < newsArticles.length; i++) {
             newsList.push(
                 <NewsItem newsItem={newsArticles[i]} key={i}/>
             )
         }
+
         return newsList
     }
 
@@ -70,9 +81,10 @@ const News = () => {
 
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
 
-                    {!isFetchingNews && (
-                        <NewsShowcase newsItem={newsArticles[0]}/>
-                    )}
+                    {!isFetchingNews
+                        ? (<NewsShowcase />)
+                        : <Text>Aan het laden...</Text>
+                    }
 
                     <View style={styles.newsList}>
                         {newsArticles.length > 0

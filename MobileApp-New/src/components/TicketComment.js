@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native'
 import StyledText from "./StyledText";
-import { parseDate } from "../util/DateUtil";
+import { parseDateWithTime } from '../util/DateUtil'
 import { getOrgColors } from '../util/OrganizationUtil'
 
 const TicketComment = (props) => {
@@ -29,22 +29,20 @@ const TicketComment = (props) => {
                     { isUserComment ? 'U' : 'Bestuur' }
                 </StyledText>
                 <StyledText inputStyle={styles.ticketCommentContent}>
-                    {comment.comment}
+                    { comment.comment }
                 </StyledText>
                 { comment.images.length > 0 && (
                     <View style={styles.imagesContainer}>
                         { comment.images.map((image, i) => (
                             <TouchableOpacity onPress={() => showCommentImage(image.image_url)} style={styles.imageWrapper} key={i}>
-                                <Image style={styles.image}
-                                       source={{uri: image.image_url}}
-                                />
+                                <Image style={styles.image} source={{uri: image.image_url}}/>
                             </TouchableOpacity>
                             )
                         )}
                     </View>
                 )}
                 <StyledText inputStyle={styles.ticketCommentDate}>
-                    {parseDate(comment.createdAt)}
+                    {parseDateWithTime(comment.createdAt)}
                 </StyledText>
             </View>
         </View>

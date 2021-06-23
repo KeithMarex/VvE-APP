@@ -1,27 +1,35 @@
-import {StyleSheet, View, Image} from "react-native";
-import StyledText from '../components/StyledText';
-import {HomeIcon} from '../resources/index';
-import React from "react";
+import { StyleSheet, View, Image } from 'react-native'
+import StyledText from '../components/StyledText'
+import { HomeIcon } from '../resources/index'
+import React, {useEffect, useState} from 'react'
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const NewsItem = ({newsItem}) => {
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
     return (
         <View style={styles.newsItem}>
             <View style={styles.newsThumbnailWrapper}>
-                <Image
-                    style={styles.newsThumbnail}
-                    source={require('../resources/images/news-placeholder.png')}
-                />
+                <Image style={styles.newsThumbnail} source={require('../resources/images/news-placeholder.png')} />
             </View>
             <View style={styles.newsTextWrapper}>
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
-                        <HomeIcon stroke={'#A0CAE8'} width={8} height={8} />
-                        <StyledText inputStyle={styles.newsTextTop}>{newsItem.title}</StyledText>
+                        <HomeIcon stroke={colors?.secondarycolor} width={8} height={8} />
                     </View>
-                    <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
-                    <StyledText inputStyle={styles.newsTextTop}>{newsItem.createdAt}</StyledText>
+                    <StyledText inputStyle={styles.newsTextTop}>
+                        { newsItem.updatedAt }
+                    </StyledText>
                 </View>
-                <StyledText inputStyle={styles.newsTitle}>{newsItem.content}</StyledText>
+                <StyledText inputStyle={styles.newsTitle}>
+                    { newsItem.title }
+                </StyledText>
             </View>
         </View>
     )

@@ -5,7 +5,7 @@ import PageActionButton from '../../components/PageActionButton'
 import TicketsListItem from '../../components/TicketsListItem'
 import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
-import { initDateParser, parseDate } from '../../util/DateUtil'
+import { initDateParser, parseDateWithTime } from '../../util/DateUtil'
 import tra from "../../config/languages/translate";
 import { getOrgColors } from '../../util/OrganizationUtil';
 import sortBy from 'sort-by'
@@ -52,8 +52,8 @@ const Tickets = (props) => {
                 const parsedTickets = []
                 const sortedTickets = res.data.sort(sortBy('-updatedAt'))
                 sortedTickets.forEach((ticket) => {
-                    ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
-                    ticket.parsedCreatedAt = parseDate(ticket.createdAt)
+                    ticket.parsedUpdatedAt = parseDateWithTime(ticket.updatedAt)
+                    ticket.parsedCreatedAt = parseDateWithTime(ticket.createdAt)
                     parsedTickets.push(ticket)
                     setIsFetchingTickets(false)
                 })
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         paddingHorizontal: 30,
-        paddingTop: 0,
+        paddingTop: 30,
         paddingBottom: 90
     },
     logo: {
