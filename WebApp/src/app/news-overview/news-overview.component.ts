@@ -12,7 +12,4 @@ export class NewsOverviewComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onCreateNewsClicked(): void {
-
-  }
 }

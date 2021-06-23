@@ -65,7 +65,8 @@ const HomeNavigation = (props) => {
                             const isFocused = useIsFocused()
                             return <ProfileIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={'#FCFCFC'} />
                         },
-                    }} />
+                    }}
+                    initialParams={{user: props.navigation.state.params.user}} />
                 </Tab.Navigator>
             </NavigationContainer>
         </View>

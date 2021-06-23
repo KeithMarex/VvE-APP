@@ -73,6 +73,7 @@ body {
         margin-bottom: 25px;
 
         .svg-element {
+            cursor: pointer;
             fill: $dynamic-primary;
         }
     }
