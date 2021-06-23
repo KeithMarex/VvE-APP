@@ -1,8 +1,18 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { StyleSheet, Text } from 'react-native'
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const StyledText = (props) => {
-    const styles = getTextStyle(parseInputStyleArray(props.inputStyle))
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
+    const styles = getTextStyle(parseInputStyleArray(props.inputStyle), colors)
+
     return (
         <Text style={[styles.styledText, styles[props.theme]]}>
             { props.children }
@@ -12,6 +22,7 @@ const StyledText = (props) => {
 
 const parseInputStyleArray = (inputStyle) => {
     let result = {}
+
     if (Array.isArray(inputStyle)) {
         inputStyle.forEach((inputStyleItem) => {
             Object.keys(inputStyleItem).forEach((inputStyleItemField) => {
@@ -19,17 +30,19 @@ const parseInputStyleArray = (inputStyle) => {
             })
             result = {...result, }
         })
+
         return result
     } else {
+
         return inputStyle
     }
 }
 
-const getTextStyle = (inputStyle) => {
+const getTextStyle = (inputStyle, colors) => {
     let styledText = {
         fontSize: 14,
         letterSpacing: 1,
-        color: '#451864',
+        color: colors.primarycolor,
         textAlign: 'center'
     }
 
@@ -45,7 +58,7 @@ const getTextStyle = (inputStyle) => {
         // THEMES
         pageTitle: {
             fontSize: 28,
-            color: '#451864',
+            color: colors.primarycolor,
             fontWeight: 'bold',
             letterSpacing: 1
         },
@@ -57,10 +70,13 @@ const getTextStyle = (inputStyle) => {
             textTransform: 'uppercase'
         },
         cardHeader: {
-            color: '#451864',
+            color: colors.primarycolor,
             fontWeight: 'bold',
             fontSize: 20,
             letterSpacing: 1
+        },
+        secondaryColor: {
+            color: colors.secondarycolor
         }
     })
 }

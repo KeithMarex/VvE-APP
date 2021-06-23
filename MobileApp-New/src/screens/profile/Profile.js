@@ -5,7 +5,7 @@ import {
     ScrollView,
     TouchableWithoutFeedback, Dimensions, TouchableOpacity, AsyncStorage
 } from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import { ProfileIcon, MailIcon, PhoneIcon, Logo, NLFlag, ENFlag } from '../../resources'
 import { SafeAreaView } from 'react-navigation'
@@ -13,15 +13,23 @@ import PageActionButton from '../../components/PageActionButton'
 import StyledText from '../../components/StyledText'
 import PageLogo from "../../components/PageLogo";
 import tra from "../../config/languages/translate";
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
-const Profile = (props) => {
+const Profile = () => {
+    const [colors, setColors] = useState({})
     const [tr, setTr] = React.useState({})
 
-    tra().then(res => {
-        setTr(res);
-    })
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
 
     return (
         <SafeAreaView>
@@ -34,16 +42,16 @@ const Profile = (props) => {
 
                         <View style={styles.profileSection}>
                             <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
-                                <ProfileIcon stroke={'#451864'} style={{marginRight: '5%'}}/>
+                                <ProfileIcon stroke={colors?.primarycolor} style={{marginRight: '5%'}}/>
                                 <StyledText inputStyle={styles.accountName}>Hicham Ben Yessef</StyledText>
                             </View>
                             <StyledText inputStyle={{paddingBottom: '3%', textAlign: 'left'}}>Hasebroekstraat 75 II</StyledText>
                             <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
-                                <MailIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
+                                <MailIcon stroke={colors?.primarycolor} style={{marginRight: '2%'}} width={window.width / 15} />
                                 <StyledText inputStyle={{color: '#6E7191'}}>hicham@hotmail.com</StyledText>
                             </View>
                             <View style={{flexDirection: 'row'}}>
-                                <PhoneIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
+                                <PhoneIcon stroke={colors?.primarycolor} style={{marginRight: '2%'}} width={window.width / 15} />
                                 <StyledText inputStyle={{color: '#6E7191'}}>06-12345678</StyledText>
                             </View>
 

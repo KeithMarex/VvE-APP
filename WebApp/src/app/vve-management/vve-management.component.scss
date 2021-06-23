@@ -31,13 +31,23 @@ button {
     @include button;
 }
 
+.errorMessage {
+    width: 100%;
+    padding: 5px 0;
+    border-radius: 3px;
+    background-color: #bb2d3b;
+    color: white;
+    align-items: center;
+    text-align: center;
+}
+
 .control-panel {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     margin-left: 15%;
     margin-right: 15%;
-    gap: 20%;
+    gap: 15%;
     flex-direction: row;
 
     input[type="file"] {
@@ -128,18 +138,62 @@ button {
             input::-webkit-color-swatch {
                 border: none;
                 border-radius: 3rem;
+                cursor: pointer;
             }
         }
     }
     
     .information {
-        flex: 2;
+        flex-grow: 0.5;
 
         .files-block {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            min-height: 65%;
+            height: 32vh;
+            max-height: 32vh;
+            border-radius: 1rem;
             background-color: #F7F7FC;
             margin: 0.3rem 0;
+            resize: none;
+            overflow: auto;
+
+            .file {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin: 0 1rem;
+                
+                p {
+                    margin: 0.5rem 0.6rem;
+                }
+                
+                .filesize {
+                    color: $dynamic-secondary;
+                }
+
+                .filename {
+                    color: #6E7191;
+                    cursor: pointer;
+                }
+
+                .filename:hover {
+                    color: $dynamic-primary;
+                }
+    
+                .delete-button {
+                    display: flex;
+                    align-items: center;
+                    stroke: #6E7191;
+                    width: 1rem;
+                    height: 1rem;
+                    cursor: pointer;
+                }
+
+                .delete-button:hover {
+                    stroke: $dynamic-primary;
+                }
+            }
         }
 
         .file-upload {

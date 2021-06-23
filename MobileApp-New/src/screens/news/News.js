@@ -1,5 +1,5 @@
 import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text} from 'react-native'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
@@ -7,6 +7,7 @@ import tra from "../../config/languages/translate";
 import ApiHelper from "../../util/ApiHelper";
 import NewsModel from "../../models/news.model";
 import NewsItem from "../../components/NewsItem.component";
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
@@ -14,13 +15,18 @@ const News = () => {
     const [tr, setTr] = React.useState({})
     const [isFetchingNews, setIsFetchingNews] = React.useState(true);
     const [newsArticles, setNewsArticles] = React.useState([]);
-
-    tra().then(res => {
-        setTr(res);
-    })
+    const [colors, setColors] = useState({})
 
     useEffect(() => {
         fetchNews();
+
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res);
+        })
     }, [])
 
     const fetchNews = () => {
@@ -38,7 +44,7 @@ const News = () => {
     const createTicketsReplacement = () => {
         if (newsArticles.length <= 0) {
             return isFetchingNews
-                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
+                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={colors?.primarycolor}/>
                 : <StyledText inputStyle={styles.noTickets}>
                     {tr.ticket?.noNotifications}
                 </StyledText>
@@ -64,10 +70,9 @@ const News = () => {
 
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
 
-                    {!isFetchingNews
-                        ? (<NewsShowcase newsItem={newsArticles[0]}/>)
-                        : <Text>Aan het laden...</Text>
-                    }
+                    {!isFetchingNews && (
+                        <NewsShowcase newsItem={newsArticles[0]}/>
+                    )}
 
                     <View style={styles.newsList}>
                         {newsArticles.length > 0

@@ -5,14 +5,22 @@ import React, {useEffect, useState} from "react";
 import ApiHelper from "../util/ApiHelper";
 import moment from "moment";
 import tra from "../config/languages/translate";
+import { getOrgColors } from '../util/OrganizationUtil';
 
 const UpcomingAppointment = () => {
     const [upcomingApp, setUpcomingApp] = useState('');
-    const [tr, setTr] = React.useState({})
+    const [colors, setColors] = useState({})
+    const [tr, setTr] = useState({})
 
-    tra().then(res => {
-        setTr(res);
-    })
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
 
     useEffect(() => {
         // Function to get API Data
@@ -28,8 +36,8 @@ const UpcomingAppointment = () => {
             <View style={{width: Dimensions.get('window').width * .7,}}>
             <StyledText>{tr.agenda?.upcomingAppointment}</StyledText>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 10}}>
-                <CalendarIcon stroke={'#451864'}/>
-                <StyledText inputStyle={styles.information}>{upcomingApp}</StyledText>
+                <CalendarIcon stroke={colors?.primarycolor}/>
+                <StyledText inputStyle={styles.information} theme={'secondaryColor'}>{upcomingApp}</StyledText>
             </View>
         </View>
     </View>

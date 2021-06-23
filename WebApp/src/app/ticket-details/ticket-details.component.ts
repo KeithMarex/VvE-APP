@@ -48,7 +48,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getActiveTicket();
-    this.getTicketCreator();
   }
 
   getActiveTicket() {
@@ -84,22 +83,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.getStatus();
   }
 
-  getTicketCreator() {
-    const storedCreator = sessionStorage.getItem('creator');
-
-    if (storedCreator) {
-      this.ticketCreator = JSON.parse(storedCreator);
-    }
-    else {
-      this.creatorSub = this.ticketEditorService.ticketCreator.subscribe(creator => {
-        if (creator) {
-          this.ticketCreator = creator;
-          sessionStorage.setItem('creator', JSON.stringify(this.ticketCreator));
-        }
-      })
-    }
-  }
-
   getTags(): void {
     this.tagDao.getAllTags()
     .subscribe((incomingtags: Tag[]) => {
@@ -107,10 +90,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       })
 
       if (this.ticket.tag) {
-        this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
-          this.selectedTag = tag;
-          this.originalTag = tag;
-        });
+        this.selectedTag = this.ticket.tag;
+        this.originalTag = this.ticket.tag;
       }
       else {
         let unnamedTag: Tag = { name: "Nog niet toegewezen" }
@@ -131,10 +112,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       });
 
       if (this.ticket.assignee) {
-        this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
-          this.selectedAssignee = user;
-          this.originalAssignee = user;
-        });
+        this.selectedAssignee = this.ticket.assignee;
+        this.originalAssignee = this.ticket.assignee;
       }
       else {
         let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }

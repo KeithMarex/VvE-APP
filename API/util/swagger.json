@@ -203,6 +203,20 @@
         }
       }
     },
+    "/user/logout": {
+      "post": {
+        "summary": "Logs the user out and removes the access- & refreshtoken",
+        "tags": [
+          "User"
+        ],
+        "description": "The cookies are removed of the users computer",
+        "responses": {
+          "200": {
+            "description": "Cookies succesfully deleted"
+          }
+        }
+      }
+    },
     "/user/register": {
       "post": {
         "summary": "Registers users (Creates accounts) and gives a generated password",
@@ -656,6 +670,9 @@
                     "data": {
                       "type": "Buffer"
                     },
+                    "filesize": {
+                      "type": "Number"
+                    },
                     "organisation": {
                       "type": "string objectId"
                     },
@@ -675,6 +692,33 @@
           },
           "500": {
             "description": "Error while saving file to database."
+          }
+        }
+      }
+    },
+    "/organization/file/{id}/": {
+      "delete": {
+        "summary": "Deletes the File by ID.",
+        "tags": [
+          "Organization"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success message"
+          },
+          "500": {
+            "description": "Error occured while deleting File"
           }
         }
       }
@@ -938,7 +982,7 @@
                     "images": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/paths/~1comment~1/post/responses/201/content/application~1json/schema/properties/images/items"
+                        "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema/properties/thumbnail"
                       }
                     },
                     "creator": {
@@ -1213,30 +1257,7 @@
                     "images": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "image_url": {
-                            "type": "string"
-                          },
-                          "delete_url": {
-                            "type": "string"
-                          },
-                          "createdAt": {
-                            "type": "string"
-                          },
-                          "updatedAt": {
-                            "type": "string"
-                          },
-                          "__v": {
-                            "type": "string"
-                          }
-                        }
+                        "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema/properties/thumbnail"
                       }
                     },
                     "createdAt": {
@@ -1544,7 +1565,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/paths/~1news~1%7Bid%7D/get/responses/200/content/application~1json/schema"
+                    "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema"
                   }
                 }
               }
@@ -1579,33 +1600,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "author": {
-                      "type": "string"
-                    },
-                    "content": {
-                      "type": "string"
-                    },
-                    "organization": {
-                      "type": "Organization"
-                    },
-                    "createdAt": {
-                      "type": "string"
-                    },
-                    "updatedAt": {
-                      "type": "string"
-                    },
-                    "_v": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema"
                 }
               }
             }
@@ -1629,7 +1624,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -1641,6 +1636,9 @@
                   },
                   "content": {
                     "type": "string"
+                  },
+                  "thumbnail": {
+                    "type": "image"
                   }
                 },
                 "required": [
@@ -1658,13 +1656,127 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "thumbnail": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "delete_url": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "organization": {
+                      "type": "Organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "_v": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
           },
           "500": {
             "description": "Error while creating News"
+          }
+        }
+      }
+    },
+    "/news/{id}//": {
+      "put": {
+        "summary": "Updates news in the database",
+        "description": "Updates the news with a multipart/form-data\nEverything needs to be send otherwise it will remove the not send data\n",
+        "tags": [
+          "News"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "author",
+                  "thumbnail",
+                  "content"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "News has been updated successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "500": {
+            "description": "Error with updating in database"
           }
         }
       }
