@@ -1,10 +1,18 @@
 import {StyleSheet, View, TouchableOpacity} from "react-native";
 import StyledText from "./StyledText";
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import ApiHelper from "../util/ApiHelper";
-import download from "downloadjs";
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const NewsLine = (props) => {
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
     const openFile = () => {
         ApiHelper.get(`/organization/file/${props.file._id}`, {headers: {'Content-Type': 'application/pdf'}, timeout: 1000}).then((val) => {
         })
@@ -13,9 +21,13 @@ const NewsLine = (props) => {
     return (
         <View style={styles.infoOrganizationFile}>
             <TouchableOpacity onPress={() => openFile()}>
-                <StyledText inputStyle={styles.infoOrganizationFileName}>{props.file?._filename}</StyledText>
+                <StyledText inputStyle={styles.infoOrganizationFileName}>
+                    {props.file?._filename}
+                </StyledText>
             </TouchableOpacity>
-            <StyledText inputStyle={styles.infoOrganizationFileSize}>({props.file?._filesize})</StyledText>
+            <StyledText inputStyle={[styles.infoOrganizationFileSize, { color: colors?.secondarycolor }]}>
+                ({props.file?._filesize})
+            </StyledText>
         </View>
     )
 }
@@ -35,7 +47,6 @@ const styles = StyleSheet.create({
     infoOrganizationFileSize: {
         marginLeft: 6,
         fontSize: 16,
-        color: '#A0CAE8',
     }
 })
 
