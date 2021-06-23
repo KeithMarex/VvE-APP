@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         paddingHorizontal: 30,
-        paddingTop: 0,
+        paddingTop: 30,
         paddingBottom: 90
     },
     logo: {

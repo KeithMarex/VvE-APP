@@ -43,7 +43,6 @@ const Profile = () => {
 
     const fetchUser = () => {
         AsyncStorage.getItem('userId').then((userId) => {
-            console.log(userId)
             ApiHelper.get('/user/' + userId)
                 .then((res) => {
                     setUser(res.data)
@@ -58,7 +57,6 @@ const Profile = () => {
                     <View style={styles.home}>
                         <PageLogo/>
                         <StyledText inputStyle={styles.pageTitle}>{tr.profile?.general}</StyledText>
-                        <PageActionButton icon={'pen'} text={tr.profile?.modify}/>
 
                         <View style={styles.profileSection}>
                             <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
