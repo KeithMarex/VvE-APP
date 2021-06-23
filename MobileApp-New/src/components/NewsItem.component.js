@@ -1,9 +1,18 @@
-import {StyleSheet, View, Image} from "react-native";
-import StyledText from '../components/StyledText';
-import {HomeIcon} from '../resources/index';
-import React from "react";
+import { StyleSheet, View, Image } from "react-native"
+import StyledText from '../components/StyledText'
+import { HomeIcon } from '../resources/index'
+import React, {useEffect, useState} from 'react'
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const NewsItem = ({newsItem}) => {
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
     return (
         <View style={styles.newsItem}>
             <View style={styles.newsThumbnailWrapper}>
@@ -15,11 +24,15 @@ const NewsItem = ({newsItem}) => {
             <View style={styles.newsTextWrapper}>
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
-                        <HomeIcon stroke={'#A0CAE8'} width={8} height={8} />
+                        <HomeIcon stroke={colors?.secondarycolor} width={8} height={8} />
                     </View>
-                    <StyledText inputStyle={styles.newsTextTop}>{newsItem.createdAt}</StyledText>
+                    <StyledText inputStyle={styles.newsTextTop}>
+                        {newsItem.createdAt}
+                    </StyledText>
                 </View>
-                <StyledText inputStyle={styles.newsTitle}>{newsItem.title}</StyledText>
+                <StyledText inputStyle={styles.newsTitle}>
+                    {newsItem.title}
+                </StyledText>
             </View>
         </View>
     )
