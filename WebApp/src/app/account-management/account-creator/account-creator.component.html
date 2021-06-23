@@ -20,8 +20,8 @@
                     <input type="text" placeholder="Confirm email adres" name="confirmEmail" required ngModel>
                 </div> 
             </div>
-            <div class="error-text">
-                <p *ngIf="errorMessage">{{ errorMessage }}</p>
+            <div class="error-field">
+                <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
             </div>
         </div>
         <button type="submit" [disabled]="userForm.invalid || isLoading">

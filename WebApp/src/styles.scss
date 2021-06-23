@@ -61,6 +61,8 @@ input:focus, textarea:focus {
 }
 
 .error-text {
+    background-color: $error-color;
+    color: white;
     padding: 0.5rem;
 }
 
