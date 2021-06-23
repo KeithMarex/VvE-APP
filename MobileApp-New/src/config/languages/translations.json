@@ -1,5 +1,6 @@
 {
   "en": {
+    "locale": "en",
     "login": {
       "loginForget": {
         "pass_forgot": "Retrieve password",
@@ -71,6 +72,7 @@
     }
   },
   "nl": {
+    "locale": "nl",
     "login": {
       "loginForget": {
         "pass_forgot": "Wachtwoord herstellen",

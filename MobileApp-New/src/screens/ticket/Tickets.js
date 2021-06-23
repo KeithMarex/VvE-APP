@@ -27,7 +27,6 @@ const Tickets = (props) => {
             setTr(res)
         })
 
-        initDateParser('nl') //TODO move to splash screen
         fetchTickets()
         screenFocusSubscription = props.navigation.addListener('focus', () => {
             reloadTickets()

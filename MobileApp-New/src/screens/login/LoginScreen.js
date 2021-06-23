@@ -19,6 +19,7 @@ import ApiHelper from '../../util/ApiHelper'
 import UserModel from '../../models/user.model'
 import tra from '../../config/languages/translate'
 import { initOrg } from '../../util/OrganizationUtil'
+import {initDateParser} from "../../util/DateUtil";
 
 const ss = Dimensions.get('window')
 
@@ -49,6 +50,7 @@ const LoginScreen = (props) => {
     const initData = async (user) => {
         await AsyncStorage.setItem('userId', user._id)
         await initOrg()
+        initDateParser(tr.locale)
     }
 
     return (
