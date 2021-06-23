@@ -3,17 +3,18 @@ import {
     Keyboard,
     View,
     ScrollView,
-    TouchableWithoutFeedback, Dimensions, TouchableOpacity, AsyncStorage
+    TouchableWithoutFeedback, Dimensions
 } from 'react-native'
 import React, {useEffect, useState} from 'react'
 
-import { ProfileIcon, MailIcon, PhoneIcon, Logo, NLFlag, ENFlag } from '../../resources'
+import { ProfileIcon, MailIcon, PhoneIcon } from '../../resources'
 import { SafeAreaView } from 'react-navigation'
 import PageActionButton from '../../components/PageActionButton'
 import StyledText from '../../components/StyledText'
 import PageLogo from "../../components/PageLogo";
 import tra from "../../config/languages/translate";
 import { getOrgColors } from '../../util/OrganizationUtil'
+import LanguageSelector from '../../components/LanguageSelector'
 
 const window = Dimensions.get('window')
 
@@ -62,22 +63,7 @@ const Profile = () => {
                             <StyledText inputStyle={[styles.organizationAddress, {marginBottom: '10%'}]}>Autoplaatsplekstraat</StyledText>
                         </View>
                         <StyledText inputStyle={[styles.accountName, {marginTop: '5%'}]}>{tr.profile?.language}</StyledText>
-                        <View style={{flexDirection: 'row', marginTop: '5%'}}>
-                            <TouchableOpacity onPress={async () => {
-                                await AsyncStorage.setItem('lang', 'nl');
-                                console.log('Item set NL');
-                                alert('Restart application for changes to be applied.');
-                            }}>
-                                <NLFlag style={{marginRight: '2%'}}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={async () => {
-                                await AsyncStorage.setItem('lang', 'en');
-                                console.log('Item set EN');
-                                alert('Restart application for changes to be applied.');
-                            }}>
-                                <ENFlag style={{marginLeft: '2%', marginRight: '-2%'}}/>
-                            </TouchableOpacity>
-                        </View>
+                        <LanguageSelector/>
                     </View>
                 </ScrollView>
             </TouchableWithoutFeedback>
