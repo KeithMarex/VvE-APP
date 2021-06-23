@@ -85,5 +85,7 @@ paths:
     $ref: ./news/getNews.yaml
   /news/:
     $ref: ./news/postNews.yaml
+  /news/{id}//:
+    $ref: ./news/putNews.yaml
   /news/{id}/:
     $ref: ./news/deleteNews.yaml
