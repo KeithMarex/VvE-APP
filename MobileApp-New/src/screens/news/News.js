@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
+import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import sortBy from 'sort-by'
 import tra from '../../config/languages/translate'

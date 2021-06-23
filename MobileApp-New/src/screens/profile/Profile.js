@@ -19,7 +19,7 @@ import ApiHelper from "../../util/ApiHelper";
 
 const window = Dimensions.get('window')
 
-const Profile = () => {
+const Profile = (props) => {
     const [colors, setColors] = useState({})
     const [tr, setTr] = useState({})
     const [orgName, setOrgName] = useState('')
