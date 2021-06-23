@@ -62,9 +62,12 @@ const styles = StyleSheet.create({
     },
     ticketComment: {
         width: '90%',
-        borderRadius: 20,
         paddingHorizontal: 14,
-        paddingVertical: 8
+        paddingVertical: 8,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
     orgComment: {
         backgroundColor: '#fff'
