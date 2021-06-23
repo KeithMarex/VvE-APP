@@ -30,6 +30,9 @@ export class TicketListComponent implements OnInit {
   }
 
   onChangeSort(sortProperty: string): void {
+    if (this.filteredTickets.length > 0) {
+      this.filteredTickets.sort(sortBy('-' + sortProperty));
+    }
     this.tickets = this.tickets.sort(sortBy('-' + sortProperty));
   }
 

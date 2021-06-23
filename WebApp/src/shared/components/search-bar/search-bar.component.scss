@@ -1,0 +1,13 @@
+@import "../../../utilities/index.scss";
+
+input {
+    width: 90%;
+    padding: 0 0.2rem;
+    margin: 0.2rem 0;
+    border-color: $dynamic-primary;
+    border-radius: 1rem;
+}
+
+input:focus {
+    outline: none;
+}
