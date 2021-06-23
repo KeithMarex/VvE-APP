@@ -3,7 +3,6 @@ import StyledText from '../components/StyledText'
 import { HomeIcon } from '../resources/index'
 import React, {useEffect, useState} from 'react'
 import { getOrgColors } from '../util/OrganizationUtil'
-import { parseDateWithoutTime } from '../util/DateUtil'
 
 const NewsItem = ({newsItem}) => {
     const [colors, setColors] = useState({})
@@ -25,7 +24,7 @@ const NewsItem = ({newsItem}) => {
                         <HomeIcon stroke={colors?.secondarycolor} width={8} height={8} />
                     </View>
                     <StyledText inputStyle={styles.newsTextTop}>
-                        { parseDateWithoutTime(newsItem.createdAt) }
+                        { newsItem.updatedAt }
                     </StyledText>
                 </View>
                 <StyledText inputStyle={styles.newsTitle}>
