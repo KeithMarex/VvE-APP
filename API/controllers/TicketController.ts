@@ -130,7 +130,7 @@ const getTicketsAdmin = (req, res, organization) => {
                 "as": "tag"
             }
         },
-        { "$unwind": "$tag" },
+        { "$unwind": {path: "$tag", preserveNullAndEmptyArrays: true} },
         { "$project": {"creator.password": 0, "assignee.password": 0} }
     ])
 }
