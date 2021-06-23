@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/shared/models/ticket.model';
-import { User } from 'src/shared/models/user.model';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 
@@ -15,7 +14,7 @@ export class TicketItemComponent implements OnInit {
 
   constructor(private userDao: UserDao, private router: Router, private ticketEditorService: TicketEditorService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onEdit() {
     this.ticketEditorService.selectedTicketId.next(this.ticket._id);
