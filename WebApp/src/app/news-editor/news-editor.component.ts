@@ -107,6 +107,15 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
 
     const formData = this.createFormData();
 
+    if (this.isNew) {
+      this.createNews(formData);
+    } else {
+      this.updateNews(formData);
+    }
+
+  }
+
+  createNews(formData): void {
     this.newsDao.createNewsItem(formData).subscribe(
       () => {
         this.isSucces = true;
@@ -116,11 +125,20 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
         this.error.isError = true;
       }
     )
-
-    // if this is existing thingy do if with other request "Update"
-    // if object id === null
-
   }
+
+  updateNews(formData): void {
+    this.newsDao.updateNewsItem(formData).subscribe(
+      () => {
+        this.isSucces = true;
+      },
+      err => {
+        this.error.message = err.message;
+        this.error.isError = true;
+      }
+    )
+  }
+
 
   setErrorMessage(): void {
     if (!this.editorForm.valid) {
