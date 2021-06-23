@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { Defs, LinearGradient, Rect, Stop, Svg } from 'react-native-svg'
-import { HomeIcon } from "../resources"
+import { CalendarIcon } from '../resources'
 import StyledText from "./StyledText"
 import { getOrgColors } from '../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
-const PageActionButton = (props) => {
+const NewsShowcase = (props) => {
     const [colors, setColors] = useState({})
 
     useEffect(() => {
@@ -33,13 +33,10 @@ const PageActionButton = (props) => {
             <View style={styles.newsTextWrapper}>
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
-                        <HomeIcon stroke={colors?.secondarycolor} width={10} height={10} />
+                        <CalendarIcon stroke={colors?.secondarycolor} width={10} height={10} />
                     </View>
                     <StyledText inputStyle={styles.newsTextTop}>
-                        {props.newsItem?._createdAt}
-                    </StyledText>
-                    <StyledText inputStyle={styles.newsTextTopLine} theme={'secondaryColor'}>
-                        |
+                        {props.newsItem?._updatedAt}
                     </StyledText>
                 </View>
                 <StyledText inputStyle={styles.newsTitle}>
@@ -81,7 +78,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         paddingTop: 10,
-        paddingBottom: 20,
+        paddingBottom: 25,
     },
     newsTitle: {
         color: '#FCFCFC',
@@ -95,6 +92,7 @@ const styles = StyleSheet.create({
         fontSize: 10,
         marginRight: 8,
         marginLeft: 8,
+        opacity: .8
     },
     newsTextTopLine: {
         fontSize: 10,
@@ -105,4 +103,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default PageActionButton
+export default NewsShowcase
