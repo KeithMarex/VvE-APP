@@ -19,6 +19,12 @@ export const getOrgLogo = async () => {
     return organization.logo.image_url
 }
 
+export const getOrgName = async () => {
+    if (!organization)
+        await fetchOrganization()
+    return organization.name
+}
+
 const fetchOrganization = async () => {
     await ApiHelper.get('/organization')
         .then(async (fetchedOrganization) => {
