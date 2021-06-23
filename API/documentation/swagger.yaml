@@ -43,6 +43,8 @@ paths:
     $ref: ./organization/getFile.yaml
   /organization/file/:
     $ref: ./organization/postFile.yaml
+  /organization/file/{id}/:
+    $ref: ./organization/deleteFile.yaml
   /tag:
     $ref: ./tag/getTags.yaml
   /tag/{id}:

@@ -27,6 +27,7 @@
     "ngx-daterangepicker-material": "^4.0.1",
     "ngx-editor": "^10.0.2",
     "rxjs": "^6.6.7",
+    "sort-by-typescript": "^1.2.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },

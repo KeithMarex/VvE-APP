@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { imagesConvert } from '~/middleware/ImagesConverting';
-import { getUsersOrganization, getOrganizationTheme, putOrganizationTheme, getOrganization, putOrganization, postFile, getFiles, getFile } from '../controllers/OrganizationController';
+import { getUsersOrganization, getOrganizationTheme, putOrganizationTheme, getOrganization, putOrganization, postFile, getFiles, getFile, deleteFile } from '../controllers/OrganizationController';
 import { isAdmin } from '../middleware/IsAdmin';
 import formidableMiddleware  from 'express-formidable'
 
@@ -15,5 +15,6 @@ router.put('/', isAdmin, formidableMiddleware(), imagesConvert, putOrganization)
 router.post('/file', isAdmin, formidableMiddleware(), postFile);
 router.get('/file', getFiles);
 router.get('/file/:id', getFile);
+router.delete('/file/:id', isAdmin, deleteFile);
 
 export default router;
