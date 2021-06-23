@@ -42,7 +42,7 @@ const TicketComment = (props) => {
                     </View>
                 )}
                 <StyledText inputStyle={styles.ticketCommentDate}>
-                    {parseDateWithTime(comment.createdAt)}
+                    { parseDateWithTime(comment.createdAt) }
                 </StyledText>
             </View>
         </View>

@@ -6,10 +6,11 @@ import StyledText from "../../components/StyledText";
 import PageLogo from "../../components/PageLogo";
 import DateDetailModalComponent from "../../components/DateDetailModalComponent";
 import ApiHelper from "../../util/ApiHelper";
-import moment from "moment";
+import moment from 'moment'
 import UpcomingAppointment from "../../components/UpcomingAppointment";
 import DateChooseModalComponent from "../../components/DateChooseModalComponent";
 import { getOrgColors } from '../../util/OrganizationUtil'
+import {parseDateWithTime} from "../../util/DateUtil";
 
 const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -26,20 +27,21 @@ const CalendarScreen = () => {
         getOrgColors().then(colors => {
             setColors(colors)
 
-            getDatumElements(nowDateObj);
+            fetchCalendarItems(nowDateObj);
         })
     }, [])
 
-    const getDatumElements = (dateObj) => {
+    const fetchCalendarItems = (dateObj) => {
         const date = (dateObj['year']+'-'+dateObj['month']);
 
         ApiHelper.get(`/agenda/${date}`).then(res => {
             const dates = {};
             setRawData(res.data);
-            if (res['data'].length !== 0 ){
-                res['data'].forEach(val => {
-                    const dateVal = val['date'].split('T', 1);
-                    dates[dateVal] = {marked: true, id: val['_id']};
+            if (res.data.length !== 0 ){
+                res.data.forEach(dataItem => {
+                    console.log(moment(dataItem.date))
+                    const dateVal = dataItem['date'].split('T', 1);
+                    dates[dateVal] = {marked: true, id: dataItem._id};
                 })
             }
             setCalendarData(dates);
@@ -106,8 +108,8 @@ const CalendarScreen = () => {
                                           }
                                       }
                                   }}
-                                  loadItemsForMonth={() => {getDatumElements({'year': moment().year(), 'month': moment().month() + 1})}}
-                                  onMonthChange={(month) => {getDatumElements(month)}}
+                                  loadItemsForMonth={() => {fetchCalendarItems({'year': moment().year(), 'month': moment().month() + 1})}}
+                                  onMonthChange={(month) => {fetchCalendarItems(month)}}
                                   enableSwipeMonths={true}
                         />
                     </View>
