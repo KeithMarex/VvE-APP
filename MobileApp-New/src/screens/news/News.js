@@ -65,7 +65,7 @@ const News = () => {
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
 
                     {!isFetchingNews
-                        ? (<NewsShowcase newsItem={newsArticles[0]}/>)
+                        ? (<NewsShowcase />)
                         : <Text>Aan het laden...</Text>
                     }
 

@@ -19,6 +19,8 @@ const window = Dimensions.get('window')
 const Profile = (props) => {
     const [tr, setTr] = React.useState({})
 
+    const user = props.route.params.user;
+
     tra().then(res => {
         setTr(res);
     })
@@ -35,12 +37,12 @@ const Profile = (props) => {
                         <View style={styles.profileSection}>
                             <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
                                 <ProfileIcon stroke={'#451864'} style={{marginRight: '5%'}}/>
-                                <StyledText inputStyle={styles.accountName}>Hicham Ben Yessef</StyledText>
+                                <StyledText inputStyle={styles.accountName}>{user._firstname} {user._lastname}</StyledText>
                             </View>
-                            <StyledText inputStyle={{paddingBottom: '3%', textAlign: 'left'}}>Hasebroekstraat 75 II</StyledText>
+                            {/*<StyledText inputStyle={{paddingBottom: '3%', textAlign: 'left'}}>Hasebroekstraat 75 II</StyledText>*/}
                             <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
                                 <MailIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
-                                <StyledText inputStyle={{color: '#6E7191'}}>hicham@hotmail.com</StyledText>
+                                <StyledText inputStyle={{color: '#6E7191'}}>{user._email}</StyledText>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <PhoneIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />

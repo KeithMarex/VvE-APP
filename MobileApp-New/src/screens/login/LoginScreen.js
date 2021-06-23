@@ -39,8 +39,7 @@ const LoginScreen = (props) => {
                 await AsyncStorage.setItem('userId', d._id);
                 props.navigation.navigate('homeNavigation', { user });
             }).catch(error => {
-                console.log(error);
-                if (error.response.status === 401){
+                if (error.response.status === 400){
                     Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
                 }
             })
