@@ -116,4 +116,8 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     formData.append("file1" , this.thumbnail);
     return formData;
   }
+
+  doesTitleExist(): boolean {
+    return this.detailsForm.controls["title"].value
+  }
 }

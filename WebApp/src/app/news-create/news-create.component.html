@@ -1,6 +1,7 @@
 <div class="body">
     <header>
-        <h1>Titel van nieuws</h1>
+        <h1 *ngIf="!doesTitleExist()">Titel van nieuws</h1>
+        <h1 *ngIf="doesTitleExist()">{{detailsForm.controls["title"].value}}</h1>
     </header>
     <article class="text-editor">
         <form [formGroup]="editorForm">
