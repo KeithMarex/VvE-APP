@@ -17,8 +17,11 @@ const Tickets = (props) => {
     let screenFocusSubscription
     const [colors, setColors] = useState({})
     const [tr, setTr] = React.useState({})
+    let isMounted
 
     useEffect(() => {
+        isMounted = true
+
         getOrgColors().then(colors => {
             setColors(colors)
         })
@@ -32,6 +35,7 @@ const Tickets = (props) => {
         screenFocusSubscription = props.navigation.addListener('focus', () => reloadTickets())
 
         return () => {
+            isMounted = false
             props.navigation.removeListener('focus', () => reloadTickets())
         }
     }, [])
@@ -71,7 +75,7 @@ const Tickets = (props) => {
     }
 
     const createTicketsReplacement = () => {
-        if (tickets.length <= 0) {
+        if (tickets.length <= 0 && isMounted) {
             return isFetchingTickets
                 ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={colors?.primarycolor}/>
                 : <StyledText inputStyle={styles.noTickets}>
