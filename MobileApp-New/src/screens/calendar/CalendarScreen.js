@@ -114,7 +114,7 @@ const CalendarScreen = () => {
                 </View>
             </ScrollView>
         </SafeAreaView>
-    ) : <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={colors.primarycolor}/>
+    ) : <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={'black'}/>
 }
 
 const styles = StyleSheet.create({

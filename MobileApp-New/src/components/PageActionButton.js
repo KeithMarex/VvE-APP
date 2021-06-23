@@ -41,7 +41,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     addButtonIconWrapper: {
-        borderRadius: 100,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        borderBottomLeftRadius: 50,
+        borderBottomRightRadius: 50,
         width: window.width / 10 * 1.1,
         height: window.width / 10 * 1.1,
         justifyContent: 'center',
