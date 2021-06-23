@@ -22,6 +22,7 @@ import { getOrgColors } from '../util/OrganizationUtil'
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
+    const [isSending, setIsSending] = useState(false)
     const [comments, setComments] = useState(props.ticket.comments)
     const [images, setImages] = useState([])
     const [tr, setTr] = useState({})
@@ -54,11 +55,13 @@ const TicketCommentBox = (props) => {
             })
         })
 
+        setIsSending(true)
         await ApiHelper.post('/comment', fd, {'content-type': 'multipart/form-data'})
             .then((res) => {
                 setComments([...comments, res.data])
                 setImages([])
                 clearCommentInput()
+                setIsSending(false)
             }).catch((err) => {
                 console.log(err)
                 alert('Er is iets fout gegaan. Probeer het opnieuw.')
@@ -128,7 +131,7 @@ const TicketCommentBox = (props) => {
                     />
                 </TouchableOpacity>
                 { commentInputText.length > 0 && (
-                    <Button withArrow style={styles.commentSendButton} pressAction={sendComment}>
+                    <Button withArrow style={styles.commentSendButton} pressAction={isSending ? undefined : sendComment} disabled={isSending}>
                         {tr.ticket?.send}
                     </Button>
                 )}
