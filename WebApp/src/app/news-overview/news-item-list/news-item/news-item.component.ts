@@ -13,6 +13,7 @@ export class NewsItemComponent implements OnInit {
   @Input() newsItem: NewsItem;
   @Output() deleteNewsItem = new EventEmitter<NewsItem>();
   thumbnailUrl: string;
+  isWarningShown: boolean = false;
 
   constructor(
     private dataStorage: DataStorageService,
@@ -30,6 +31,15 @@ export class NewsItemComponent implements OnInit {
   }
 
   onDeleteNewsItemClicked(): void {
+    this.isWarningShown = true;
+  }
+
+  onCloseWarning() {
+    this.isWarningShown = false;
+  }
+
+  onConfirmDeletion() {
+    this.onCloseWarning();
     this.deleteNewsItem.emit(this.newsItem);
   }
 
