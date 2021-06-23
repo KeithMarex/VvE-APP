@@ -23,7 +23,7 @@ const TicketComment = (props) => {
         <View style={styles[commentType + 'CommentWrapper']}>
             <View style={[
                 styles.ticketComment, styles[commentType + 'Comment'],
-                isUserComment ? {backgroundColor: colors?.primarycolor + '40'} : undefined]}
+                isUserComment ? {backgroundColor: colors?.primarycolor + '1A'} : undefined]}
             >
                 <StyledText inputStyle={styles[commentType + 'CommentUser']}>
                     { isUserComment ? 'U' : 'Bestuur' }
