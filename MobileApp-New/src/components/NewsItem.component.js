@@ -1,8 +1,9 @@
-import { StyleSheet, View, Image } from "react-native"
+import { StyleSheet, View, Image } from 'react-native'
 import StyledText from '../components/StyledText'
 import { HomeIcon } from '../resources/index'
 import React, {useEffect, useState} from 'react'
 import { getOrgColors } from '../util/OrganizationUtil'
+import { parseDateWithoutTime } from '../util/DateUtil'
 
 const NewsItem = ({newsItem}) => {
     const [colors, setColors] = useState({})
@@ -16,10 +17,7 @@ const NewsItem = ({newsItem}) => {
     return (
         <View style={styles.newsItem}>
             <View style={styles.newsThumbnailWrapper}>
-                <Image
-                    style={styles.newsThumbnail}
-                    source={require('../resources/images/news-placeholder.png')}
-                />
+                <Image style={styles.newsThumbnail} source={require('../resources/images/news-placeholder.png')} />
             </View>
             <View style={styles.newsTextWrapper}>
                 <View style={styles.newsTextTopWrapper}>
@@ -27,11 +25,11 @@ const NewsItem = ({newsItem}) => {
                         <HomeIcon stroke={colors?.secondarycolor} width={8} height={8} />
                     </View>
                     <StyledText inputStyle={styles.newsTextTop}>
-                        {newsItem.createdAt}
+                        { parseDateWithoutTime(newsItem.createdAt) }
                     </StyledText>
                 </View>
                 <StyledText inputStyle={styles.newsTitle}>
-                    {newsItem.title}
+                    { newsItem.title }
                 </StyledText>
             </View>
         </View>
