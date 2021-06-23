@@ -26,23 +26,20 @@ const Tickets = (props) => {
         tra().then(res => {
             setTr(res)
         })
-    }, [])
 
-    useEffect(() => {
         initDateParser('nl') //TODO move to splash screen
         fetchTickets()
-        screenFocusSubscription = props.navigation.addListener(
-            'focus',
-            () => {
-                setTickets([])
-                fetchTickets()
-            }
-        )
+        screenFocusSubscription = props.navigation.addListener('focus', () => reloadTickets())
 
         return () => {
-            props.navigation.removeListener('focus')
+            props.navigation.removeListener('focus', () => reloadTickets())
         }
     }, [])
+
+    const reloadTickets = () => {
+        setTickets([])
+        fetchTickets()
+    }
 
     const fetchTickets = () => {
         setIsFetchingTickets(true)
