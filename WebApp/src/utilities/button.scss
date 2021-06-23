@@ -18,6 +18,10 @@
         cursor: initial;
         filter:opacity(40%);
         filter:grayscale(60%);
+
+        &:hover {
+            filter: none;
+        }
     }
 
     &:hover {

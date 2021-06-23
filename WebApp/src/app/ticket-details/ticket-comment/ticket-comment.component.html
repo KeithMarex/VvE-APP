@@ -1,6 +1,9 @@
 <div class="comment-container">
     <div class="comment">
-        <h1>user</h1>
+        <h1 *ngIf="comment.user; else noUser">{{ comment.user.firstname + ' ' + comment.user.lastname }}</h1>
+        <ng-template #noUser>
+            <h1>Gebruiker</h1>
+        </ng-template>
         <p class="comment-text">{{comment.comment}}</p>
         <div class="date">{{ comment.createdAt | date: 'dd/MM/yyyy HH:mm' }}</div>
         <section *ngIf="comment.images.length > 0" class="image-section">
