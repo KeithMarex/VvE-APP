@@ -17,7 +17,7 @@ export class NewsDao {
   }
 
   createNewsItem(payload: object): Observable<NewsItem> {
-    return this.dao.sendPostRequest('news/', payload);
+    return this.dao.sendPostRequestForm('news/', payload);
   }
 
   deleteCalendarItem(id: string): Observable<NewsItem> {
