@@ -7,6 +7,7 @@ import Tickets from "../../../../screens/ticket/Tickets";
 import TicketCreate from "../../../../screens/ticket/TicketCreate";
 import TicketDetails from '../../../../screens/ticket/TicketDetails'
 import TicketImages from "../../../../screens/ticket/TicketImages";
+import CommentImage from '../../../../screens/ticket/CommentImage'
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const TicketNavigation = (props) => {
             <Stack.Screen name="Create" component={TicketCreate} options={{headerShown: false, headerLeft: ()=> null}}/>
             <Stack.Screen name="Details" component={TicketDetails} options={{headerShown: false, headerLeft: ()=> null}}/>
             <Stack.Screen name="ShowImages" component={TicketImages} options={{headerShown: false, headerLeft: ()=> null}}/>
+            <Stack.Screen name="ShowCommentImage" component={CommentImage} options={{headerShown: false, headerLeft: ()=> null}}/>
         </Stack.Navigator>
     );
 };

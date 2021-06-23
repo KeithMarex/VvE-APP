@@ -18,7 +18,9 @@ export const postNews = (req, res) => {
 
 export const getAllNews = (req, res) => {
     const organizationid = res.locals.user.organizations[0];
-    News.find({ organization: organizationid }).select('-organization')
+    News.find({ organization: organizationid })
+    .select('-organization')
+    .populate('thumbnail')
     .then(result => {
         res.status(200).send(result);
     })
@@ -32,6 +34,7 @@ export const getAllNews = (req, res) => {
 export const getNews = (req, res) => {
     const id = req.params.id;
     News.findById(id)
+    .populate('thumbnail')
     .then(result => {
         res.status(200).send(result);
     })
@@ -55,8 +58,28 @@ export const deleteNews = (req, res) => {
     });
 }
 
-const createNews = (req, res) => {
-    req.body.organization = res.locals.user.organizations[0];
+export const putNews = (req, res) => {
+    News.updateOne({_id: req.params.id}, {
+        title: req.fields.title,
+        author: req.fields.author,
+        content: req.fields.content,
+        thumbnail: res.locals.images[0]
+    })
+    .then(() => {
+        res.status(200).json({message: "News has been updated successfully"});
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json({message: err});
+    });
+}
 
-    return new News(req.body);
+const createNews = (req, res) => {
+    req.fields.organization = res.locals.user.organizations[0];
+    if(res.locals.images) {
+        req.fields.thumbnail = res.locals.images[0];
+    }
+
+    return new News(req.fields);
 }

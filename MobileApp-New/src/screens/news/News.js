@@ -1,44 +1,59 @@
-import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text} from 'react-native'
-import React, {useEffect} from 'react'
+import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import sortBy from 'sort-by'
+import tra from '../../config/languages/translate'
+import { getOrgColors } from '../../util/OrganizationUtil'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
-import PageLogo from "../../components/PageLogo";
-import tra from "../../config/languages/translate";
-import ApiHelper from "../../util/ApiHelper";
-import NewsModel from "../../models/news.model";
-import NewsItem from "../../components/NewsItem.component";
+import PageLogo from '../../components/PageLogo'
+import ApiHelper from '../../util/ApiHelper'
+import NewsModel from '../../models/news.model'
+import NewsItem from '../../components/NewsItem.component'
+import { parseDateWithTime } from '../../util/DateUtil'
 
 const window = Dimensions.get('window')
 
 const News = () => {
     const [tr, setTr] = React.useState({})
-    const [isFetchingNews, setIsFetchingNews] = React.useState(true);
-    const [newsArticles, setNewsArticles] = React.useState([]);
-
-    tra().then(res => {
-        setTr(res);
-    })
+    const [isFetchingNews, setIsFetchingNews] = React.useState(true)
+    const [newsArticles, setNewsArticles] = React.useState([])
+    const [colors, setColors] = useState({})
 
     useEffect(() => {
-        fetchNews();
+        fetchNews()
+
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
     }, [])
 
     const fetchNews = () => {
         ApiHelper.get('/news')
             .then((res) => {
                 const parsedNews = []
-                res.data.forEach((newsItem) => {
-                    parsedNews.push(new NewsModel(newsItem._id, newsItem.author, newsItem.title, newsItem.content, newsItem.createdAt.split('T', 1), newsItem.updatedAt.split('T', 1)));
-                });
-                setNewsArticles(parsedNews);
-                setIsFetchingNews(false);
+
+                const sortedNews = res.data.sort(sortBy('-updatedAt'))
+
+                sortedNews.forEach((newsItem) => {
+                    parsedNews.push(
+                        new NewsModel(
+                            newsItem._id, newsItem.author, newsItem.title, newsItem.content,
+                            parseDateWithTime(newsItem.createdAt), parseDateWithTime(newsItem.createdAt)
+                        ))
+                })
+                setNewsArticles(parsedNews)
+                setIsFetchingNews(false)
             })
     }
 
     const createTicketsReplacement = () => {
         if (newsArticles.length <= 0) {
             return isFetchingNews
-                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
+                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={colors?.primarycolor}/>
                 : <StyledText inputStyle={styles.noTickets}>
                     {tr.ticket?.noNotifications}
                 </StyledText>
@@ -47,11 +62,13 @@ const News = () => {
 
     const createNewsArticles = () => {
         const newsList = []
-        for (let i = 0; i < newsArticles.length; i++) {
+
+        for (let i = 1; i < newsArticles.length; i++) {
             newsList.push(
                 <NewsItem newsItem={newsArticles[i]} key={i}/>
             )
         }
+
         return newsList
     }
 
@@ -64,10 +81,16 @@ const News = () => {
 
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
 
+<<<<<<< HEAD
                     {!isFetchingNews
                         ? (<NewsShowcase />)
                         : <Text>Aan het laden...</Text>
                     }
+=======
+                    {!isFetchingNews && (
+                        <NewsShowcase newsItem={newsArticles[0]}/>
+                    )}
+>>>>>>> 3a904fb7ffe1dd4079dc47c0cdfc14da1aed16e3
 
                     <View style={styles.newsList}>
                         {newsArticles.length > 0

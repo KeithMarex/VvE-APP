@@ -9,7 +9,13 @@ const FileSchema = new Schema({
         required: [true, 'Files required']
     },
     type: String,
-    data: Buffer,
+    data: {
+        type: Buffer,
+        required: [true, 'A file is required to create File'],
+    },
+    filesize: {
+        type: Number
+    },
     organisation: {
         type: Schema.Types.ObjectId,
         ref: "Organisation",

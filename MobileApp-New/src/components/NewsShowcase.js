@@ -5,14 +5,19 @@ import StyledText from "./StyledText";
 import {Defs, LinearGradient, Rect, Stop, Svg} from "react-native-svg";
 import ApiHelper from "../util/ApiHelper";
 import NewsModel from "../models/news.model";
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
 const PageActionButton = () => {
     const [newsArticles, setNewsArticles] = React.useState([]);
+    const [colors, setColors] = useState({})
 
     useEffect(() => {
         fetchNews();
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
     });
 
     const fetchNews = () => {
@@ -34,7 +39,7 @@ const PageActionButton = () => {
                     <Defs>
                         <LinearGradient id="grad" x1="1" y1="0" x2="1" y2="1">
                             <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.5" />
-                            <Stop offset="100%" stopColor="#5C3974" stopOpacity="0.9" />
+                            <Stop offset="100%" stopColor={colors?.primarycolor} stopOpacity="0.9" />
                         </LinearGradient>
                     </Defs>
                     <Rect x="0" y="0" width="100%" height="100%" rx='10' fill="url(#grad)" />
@@ -43,7 +48,7 @@ const PageActionButton = () => {
             <View style={styles.newsTextWrapper}>
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
-                        <HomeIcon stroke={'#A0CAE8'} width={10} height={10} />
+                        <CalendarIcon stroke={colors?.secondarycolor} width={10} height={10} />
                     </View>
                     <StyledText inputStyle={styles.newsTextTop}>{newsArticles[0]?._createdAt}</StyledText>
                 </View>
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         paddingTop: 10,
-        paddingBottom: 20,
+        paddingBottom: 25,
     },
     newsTitle: {
         color: '#FCFCFC',
@@ -98,10 +103,10 @@ const styles = StyleSheet.create({
         fontSize: 10,
         marginRight: 8,
         marginLeft: 8,
+        opacity: .8
     },
     newsTextTopLine: {
         fontSize: 10,
-        color: '#A0CAE8'
     },
     newsTextTopOrganization: {
         flexDirection: 'row',
@@ -109,4 +114,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default PageActionButton
+export default NewsShowcase

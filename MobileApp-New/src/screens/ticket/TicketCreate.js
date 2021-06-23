@@ -9,67 +9,63 @@ import {
     Text,
     Image,
     Alert,
-    ActivityIndicator
 } from 'react-native'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import StyledText from '../../components/StyledText'
-import {Logo} from '../../resources'
+import { Logo } from '../../resources'
 import PageActionButton from '../../components/PageActionButton';
 import BackArrow from '../../resources/icons/Back_Arrow.svg'
-import * as ImagePicker from 'expo-image-picker';
 import OptionsMenu from "react-native-option-menu";
 import ApiHelper from "../../util/ApiHelper";
-import * as ImageManipulator from 'expo-image-manipulator';
 import CloseButtonComponent from "../../components/Buttons/CloseButton.Component";
 import tra from "../../config/languages/translate";
+import { takeCameraImage, pickGalleryImage } from "../../util/ImageUtil"
+import InputImage from "../../components/InputImage";
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
 const TicketCreate = (props) => {
-    const [subject, onChangeSubject] = React.useState("")
-    const [description, onChangeDescription] = React.useState("")
-    const [images, setImages] = React.useState([]);
-    const [tr, setTr] = React.useState({})
+    const [subject, onChangeSubject] = useState("")
+    const [description, onChangeDescription] = useState("")
+    const [images, setImages] = useState([])
+    const [tr, setTr] = useState({})
+    const [colors, setColors] = useState({})
 
-    tra().then(res => {
-        setTr(res);
-    })
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
 
-    const takePicture = async () => {
-        let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
 
-        if (permissionResult.granted === false) {
-            alert("Toegang tot uw camera is vereist.");
-            return;
-        }
-
-        let pickerResult = await ImagePicker.launchCameraAsync();
-        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
-        setImages((images) => [...images, result]);
+    const onTakeCameraImagePressed = async () => {
+        const takenImage = await takeCameraImage()
+        if (!takenImage)
+            return
+        setImages((images) => [...images, takenImage])
     };
 
-    const choosePicture = async () => {
-        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-        if (permissionResult.granted === false) {
-            alert("Wij hebben toegang nodig tot je camera rol.");
-            return;
-        }
-
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        const result = await ImageManipulator.manipulateAsync(pickerResult['uri'], [], {compress: 0.1, format: ImageManipulator.SaveFormat.PNG, base64: true});
-        setImages((images) => [...images, result]);
+    const onPickGalleryImagePressed = async () => {
+        const pickedImage = await pickGalleryImage()
+        if (!pickedImage)
+            return
+        setImages((images) => [...images, pickedImage])
     };
 
-    const afbeeldingKnop = (<PageActionButton icon={'plus'} text={tr.ticket?.addPictures}/>);
+    const imageButton = (<PageActionButton icon={'plus'} text={tr.ticket?.addPictures}/>)
 
-    async function maakMelding() {
+    async function createTicket() {
         const fd = new FormData();
         fd.append('title', subject);
         fd.append('description', description);
         fd.append('creator', '60a69daf408255502dd4a948');
 
         images.forEach((image, index) => {
+            console.log(image)
             fd.append(`file${index+1}` , {
                 name: image['uri'].split('ImageManipulator/')[1],
                 type: 'image/png',
@@ -77,14 +73,14 @@ const TicketCreate = (props) => {
             })
         })
 
-        await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/form-data'}).then(res => {
-            props.navigation.goBack();
-        }).catch(error => {
-            console.log(error);
-            if (error.response.status === 413) {
-                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
-            }
-        })
+        await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/form-data'})
+            .then(() => {
+                props.navigation.goBack();
+            }).catch(error => {
+                if (error.response.status === 413) {
+                    Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+                }
+            })
     }
 
     function removeImage(image) {
@@ -114,23 +110,20 @@ const TicketCreate = (props) => {
                     </View>
                     <Text style={styles.inputText}>{tr.ticket?.message}</Text>
                     <View style={styles.inputField}>
-                        <TextInput style={styles.inputBeschrijving} multiline={true} onChangeText={onChangeDescription} value={description} placeholder={tr.ticket?.placeholderMessage} />
+                        <TextInput style={styles.inputDescription} multiline={true} onChangeText={onChangeDescription} value={description} placeholder={tr.ticket?.placeholderMessage} />
                     </View>
 
                     <TouchableOpacity onPress={() => null}>
-                        <OptionsMenu customButton={afbeeldingKnop} options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]} actions={[takePicture, choosePicture]}/>
+                        <OptionsMenu customButton={imageButton} options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]} actions={[onTakeCameraImagePressed, onPickGalleryImagePressed]}/>
                     </TouchableOpacity>
 
                     <View style={styles.images}>
                         {images.map(image => (
-                            <TouchableOpacity key={image['uri'].split('ImageManipulator/')[1]} onPress={() => removeImage(image)}>
-                                <Image style={{width: 100, height: 100, borderRadius: 15, marginLeft: 5, marginRight: 5, marginTop: 5, marginBottom: 5}} source={{uri: `data:image/png;base64,${image['base64']}`}} />
-                                <CloseButtonComponent style={styles.circle}/>
-                            </TouchableOpacity>
+                            <InputImage image={image} removeImage={() => {removeImage(image)}} key={image['uri'].split('ImageManipulator/')[1]}/>
                         ))}
                     </View>
 
-                    <TouchableOpacity onPress={() => maakMelding()} style={styles.sendBtn}>
+                    <TouchableOpacity onPress={() => createTicket()} style={[styles.sendBtn, { backgroundColor: colors?.secondarycolor }]}>
                         <StyledText inputStyle={styles.ticketBtnText}>
                             {tr.ticket?.send}
                         </StyledText>
@@ -148,19 +141,11 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'center'
     },
-    circle: {
-        position: 'absolute',
-        right: 1,
-        top: 1,
-        marginTop: -5,
-        marginRight: -5
-    },
     root: {
         backgroundColor: '#F7F7FC',
         height: '100%',
     },
     sendBtn: {
-        backgroundColor: '#A0CAE8',
         borderRadius: 20,
         justifyContent: 'center',
         paddingHorizontal: 20,
@@ -193,7 +178,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
-    inputBeschrijving: {
+    inputDescription: {
         flex: 1,
         height: Dimensions.get('window').height / 5,
         borderRadius: 10,

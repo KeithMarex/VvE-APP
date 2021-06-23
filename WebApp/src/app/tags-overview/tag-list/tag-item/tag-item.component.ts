@@ -11,6 +11,7 @@ export class TagItemComponent implements OnInit {
   @Input() tag: Tag;
   @Output() tagsChanged = new EventEmitter();
   editingTag = false;
+  warningPopup = false;
   errorMessage: string;
 
   constructor(private tagDao: TagDao) { }
@@ -18,6 +19,26 @@ export class TagItemComponent implements OnInit {
   ngOnInit(): void {}
 
   onDeleteTag() {
+    this.warningPopup = true;
+    // this.tagDao.deleteTag(this.tag._id)
+    // .subscribe(
+    //   res => {
+    //     this.tagsChanged.emit();
+    //   }, 
+    //   errorRes => {
+    //     let incomingErrorMessage = errorRes.error.message;
+    //     if (incomingErrorMessage) {
+    //       this.errorMessage = 'Er is een onbekende error opgetreden';
+    //     } else {
+    //       this.errorMessage = 'Er is een onbekende error opgetreden';
+    //     }
+    //   }
+    // );
+  }
+
+  onConfirmDelete() {
+    this.warningPopup = false;
+
     this.tagDao.deleteTag(this.tag._id)
     .subscribe(
       res => {
@@ -32,6 +53,10 @@ export class TagItemComponent implements OnInit {
         }
       }
     );
+  }
+
+  onCloseWarning() {
+    this.warningPopup = false;
   }
 
   onEditTag() {

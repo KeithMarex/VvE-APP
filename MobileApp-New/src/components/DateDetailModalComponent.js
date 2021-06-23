@@ -34,15 +34,26 @@ const DateDetailModalComponent = (props) => {
     }
 
     return (
-        <Modal animationType="fade" transparent={true} statusBarTranslucent={true} deviceHeight={Platform.OS === "ios" ? useWindowDimensions().height : useWindowDimensions().height + StatusBar.currentHeight * 2} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
+        <Modal animationType="fade" transparent={true} statusBarTranslucent={true}
+               deviceHeight={Platform.OS === "ios"
+                   ? useWindowDimensions().height
+                   : useWindowDimensions().height + StatusBar.currentHeight * 2} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}
+        >
             <View style={styles.centeredView}>
                 {(modalInfo !== undefined) ?
                 <View style={styles.modalView}>
-                    <StyledText theme={'pageTitle'}>{tr.agenda?.appointment}</StyledText>
-                    <StyledText inputStyle={styles.informatie}>{modalInfo.title}</StyledText>
-                    <StyledText inputStyle={styles.informatie}>{getText()}</StyledText>
-                    <StyledText inputStyle={{color: '#6E7191', fontSize: 13, marginBottom: 10}}>{modalInfo.description}</StyledText>
-                    <Button pressAction={handleClose}>{tr.agenda?.close}</Button>
+                    <StyledText theme={'pageTitle'}>
+                        {modalInfo.title}
+                    </StyledText>
+                    <StyledText inputStyle={styles.information}>
+                        { getText() }
+                    </StyledText>
+                    <StyledText inputStyle={styles.description}>
+                        { modalInfo.description }
+                    </StyledText>
+                    <Button pressAction={handleClose}>
+                        {tr.agenda?.close}
+                    </Button>
                 </View>: null
                 }
             </View>
@@ -51,10 +62,14 @@ const DateDetailModalComponent = (props) => {
 }
 
 const styles = StyleSheet.create({
-    informatie: {
+    information: {
         color: '#14142B',
         fontSize: 13,
-        marginBottom: 10,
+    },
+    description: {
+        color: '#6E7191',
+        fontSize: 13,
+        marginVertical: 25
     },
     centeredView: {
         flex: 1,

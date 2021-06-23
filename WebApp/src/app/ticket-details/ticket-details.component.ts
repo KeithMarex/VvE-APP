@@ -21,20 +21,18 @@ import { CommentDao } from 'src/shared/services/comment-dao.service';
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: User;
+
   selectedStatus: string;
-  originalStatus: string;
   statuses: string[] = ["PENDING", "HANDLING", "HANDLED"];
   selectedTag: Tag;
-  originalTag: Tag;
   tags: Tag[] = [];
   selectedAssignee: User;
-  originalAssignee: User;
   assignees: User[] = [];
-  inputCommentText: string;
-  inputCommentImage: Blob;
+  
   commentImages: Blob[] = [];
   comments: Comment[];
   commentText = new FormControl('');
+  
   commentErrorMessage: string;
   infoErrorMessage: string;
   isCommentError = false;
@@ -48,7 +46,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getActiveTicket();
-    this.getTicketCreator();
   }
 
   getActiveTicket() {
@@ -84,22 +81,6 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
     this.getStatus();
   }
 
-  getTicketCreator() {
-    const storedCreator = sessionStorage.getItem('creator');
-
-    if (storedCreator) {
-      this.ticketCreator = JSON.parse(storedCreator);
-    }
-    else {
-      this.creatorSub = this.ticketEditorService.ticketCreator.subscribe(creator => {
-        if (creator) {
-          this.ticketCreator = creator;
-          sessionStorage.setItem('creator', JSON.stringify(this.ticketCreator));
-        }
-      })
-    }
-  }
-
   getTags(): void {
     this.tagDao.getAllTags()
     .subscribe((incomingtags: Tag[]) => {
@@ -107,15 +88,11 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       })
 
       if (this.ticket.tag) {
-        this.tagDao.getTagById(this.ticket.tag).subscribe(tag => {
-          this.selectedTag = tag;
-          this.originalTag = tag;
-        });
+        this.selectedTag = this.ticket.tag;
       }
       else {
         let unnamedTag: Tag = { name: "Nog niet toegewezen" }
         this.selectedTag = unnamedTag;
-        this.originalTag = unnamedTag;
       }
   }
 
@@ -131,26 +108,20 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       });
 
       if (this.ticket.assignee) {
-        this.userDao.getUserById(this.ticket.assignee).subscribe(user => {
-          this.selectedAssignee = user;
-          this.originalAssignee = user;
-        });
+        this.selectedAssignee = this.ticket.assignee;
       }
       else {
         let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
         this.selectedAssignee = unnamedAssignee;
-        this.originalAssignee = unnamedAssignee;
       }
   }
 
   getStatus(): void {
     if (this.ticket.status) {
       this.selectedStatus = this.ticket.status;
-      this.originalStatus = this.ticket.status;
     }
     else {
       this.selectedStatus = this.statuses[0];
-      this.originalStatus = this.statuses[0];
     }
   }
 
@@ -240,9 +211,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   handleFileInput(target: any): void {
-		this.inputCommentImage = target.files[0];
-    this.commentImages.push(this.inputCommentImage);
-    this.inputCommentImage = undefined;
+    this.commentImages.push(target.files[0]);
     target.value = "";
 	}
 

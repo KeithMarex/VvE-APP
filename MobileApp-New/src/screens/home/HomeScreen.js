@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 import StyledText from '../../components/StyledText'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { CommentIcon, CalendarIcon, Logo } from '../../resources'
+import { CommentIcon, CalendarIcon } from '../../resources'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import UpcomingAppointment from "../../components/UpcomingAppointment";
 import tra from '../../config/languages/translate';
+import { getOrgColors } from '../../util/OrganizationUtil'
 import OrganisationFilesComponent from "../../components/OrganisationFiles.component";
 
 const window = Dimensions.get('window')
@@ -15,12 +16,18 @@ const Tab = createBottomTabNavigator()
 
 const HomeScreen = (props) => {
     const user = props.route.params.user;
+    const [colors, setColors] = useState({})
+    const [tr, setTr] = useState({})
 
-    const [tr, setTr] = React.useState({})
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
 
-    tra().then(res => {
-        setTr(res);
-    })
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
 
     return (
         <SafeAreaView style={styles.root}>
@@ -32,12 +39,18 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.introWelcome}>{tr.home?.welcome}</StyledText>
                         <StyledText inputStyle={styles.introName}>{user._firstname} {user._lastname}</StyledText>
                         <View style={styles.introMessage}>
-                            <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
+                            <CommentIcon style={styles.introMessageIcon}
+                                         stroke={colors?.primarycolor}
+                                         width={19} height={19}
+                            />
                             <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 {tr.home?.newReaction} &#62;</StyledText>
                         </View>
                         <TouchableOpacity onPress={() => props.navigation.navigate('Agenda')}>
                             <View style={styles.introMessage}>
-                                <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
+                                <CalendarIcon style={styles.introMessageIcon}
+                                              stroke={colors?.primarycolor}
+                                              width={16} height={16}
+                                />
                                 <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 {tr.home?.appointments} &#62;</StyledText>
                             </View>
                         </TouchableOpacity>

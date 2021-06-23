@@ -65,15 +65,23 @@ export class CalendarComponent implements OnInit {
 
   fetchMonthItems(newDate: Date, oldDate?: Date): void {
     if (oldDate) {
-      const foundFetchedMonthItems =
+      const didOverwriteMonthItems =
         this.calendarService.overwriteWithNewMonthItems(newDate, oldDate);
-      if (foundFetchedMonthItems) {
+      if (didOverwriteMonthItems) {
         this.currentMonth = newDate;
         return;
       }
     }
     this.calendarService.fetchMonthAndSurroundingMonthsItems(newDate);
     this.currentMonth = newDate;
+  }
+
+  onCalendarDateChanged(newDate: Date): void {
+    const oldDate = this.currentMonth;
+    if (!isSameMonth(newDate, oldDate)) {
+      this.fetchMonthItems(newDate, oldDate);
+    }
+    this.activeDayIsOpen = false;
   }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
@@ -116,14 +124,6 @@ export class CalendarComponent implements OnInit {
 
   setCalendarViewType(view: CalendarView): void {
     this.currentView = view;
-  }
-
-  onCalendarDateChanged(newDate: Date): void {
-    const oldDate = this.currentMonth;
-    if (!isSameMonth(newDate, oldDate)) {
-      this.fetchMonthItems(newDate, oldDate);
-    }
-    this.activeDayIsOpen = false;
   }
 
   showCalendarItemPopUp(calendarItemToShow: CustomEvent): void {

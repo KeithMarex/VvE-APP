@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TicketListComponent } from './ticket-list/ticket-list.component';
 
 @Component({
   selector: 'app-ticket-overview',
@@ -6,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ticket-overview.component.scss']
 })
 export class TicketOverviewComponent implements OnInit {
+  @ViewChild('ticketList') listCmp: TicketListComponent;
   creatingTicket = false;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onAdd(): void {
     this.creatingTicket = true;
@@ -24,6 +25,14 @@ export class TicketOverviewComponent implements OnInit {
   onCreateTicket(): void {
     this.creatingTicket = false;
     window.location.reload();
+  }
+
+  onChangeSort(sortProperty: string): void {
+    this.listCmp.onChangeSort(sortProperty);
+  }
+
+  searchTermChanged(newTerm: string): void {
+    this.listCmp.onChangeFilter(newTerm);
   }
 
 }

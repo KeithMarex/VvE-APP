@@ -1,9 +1,10 @@
 {
   "en": {
+    "locale": "en",
     "login": {
       "loginForget": {
         "pass_forgot": "Retrieve password",
-        "description": "A new email will be sent to your address",
+        "description": "An e-mail containing a temporary password for your account will be sent to you.",
         "back": "Back to login"
       },
       "login": {
@@ -14,23 +15,23 @@
     },
     "home": {
       "welcome": "Welcome",
-      "soon": "soon",
-      "recentNews": "Recent news",
-      "vveinfo": "Homeowners Association Info",
+      "soon": "Upcoming",
+      "recentNews": "Latest news",
+      "vveinfo": "Owners Association Info",
       "parking": "Parking",
-      "newReaction": "New reaction",
-      "appointments": "Agenda points"
+      "newReaction": "New comments",
+      "appointments": "Events"
     },
     "agenda": {
-      "upcomingAppointment": "First new upcoming appointment",
-      "appointment": "Appointment",
-      "close": "close",
+      "upcomingAppointment": "Next event",
+      "appointment": "Event",
+      "close": "Close",
       "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-      "chooseApp": "Choose an appointment"
+      "chooseApp": "Pick an event"
     },
     "news": {
       "news": "News",
-      "mRecent": "Most recent"
+      "mRecent": "Latest"
     },
     "profile": {
       "general": "General",
@@ -38,27 +39,32 @@
       "language": "Language"
     },
     "ticket": {
-      "notifications": "Notifications",
+      "notifications": "Tickets",
       "create": "Create",
-      "noNotifications": "You have not created any tickets.",
+      "noNotifications": "You have not created any tickets yet.",
       "createdOn": "Created on",
       "lastModified": "Last modified",
-      "status": "Status",
-      "pictures": "Pictures",
-      "showPictures": "Show pictures",
-      "message": "Message",
+      "status": {
+        "status": "Status",
+        "pending": "Pending",
+        "handling": "Handling",
+        "handled": "Handled"
+      },
+      "pictures": "Images",
+      "showPictures": "Show images",
+      "message": "Inhoud",
       "comments": "Comments",
-      "noComments": "No comments have been left yet",
+      "noComments": "No comments have been made yet.",
       "send": "Send",
-      "placeholder": "Type here your comment",
+      "placeholder": "Type a comment",
       "createTicket": "Create ticket",
       "subject": "Subject",
       "placeholderSubject": "Subject of ticket",
-      "placeholderMessage": "Message of ticket",
-      "addPictures": "Add pictures",
+      "placeholderMessage": "Content of ticket",
+      "addPictures": "Add images",
       "photo": {
-        "makePhoto": "Create a picture",
-        "choosePicture": "Choose an existing picture",
+        "makePhoto": "Take with camera",
+        "choosePicture": "Pick from gallery",
         "cancel": "Cancel"
       },
       "moreInfo": "More info"
@@ -66,10 +72,11 @@
     }
   },
   "nl": {
+    "locale": "nl",
     "login": {
       "loginForget": {
         "pass_forgot": "Wachtwoord herstellen",
-        "description": "Een nieuwe mail zal verstuurd worden met een tijdelijk wachtwoord voor het daar aan gekoppelde account.",
+        "description": "Er zal een e-mail naar u verstuurd worden met een nieuw tijdelijk wachtwoord voor uw account.",
         "back": "Terug naar login"
       },
       "login": {
@@ -82,17 +89,17 @@
       "welcome": "Welkom",
       "soon": "Binnenkort",
       "recentNews": "Recent nieuws",
-      "vveinfo": "VVE INfo",
+      "vveinfo": "VvE Info",
       "parking": "Parkeerplaats",
       "newReaction": "Nieuwe reacties",
-      "appointments": "Agenda punten"
+      "appointments": "Evenementen"
     },
     "agenda": {
-      "upcomingAppointment": "Eerst nieuw aankomende afspraak",
-      "appointment": "Afspraak",
-      "close": "sluiten",
+      "upcomingAppointment": "Eerstvolgende evenement",
+      "appointment": "Evenement",
+      "close": "Sluiten",
       "months": ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
-      "chooseApp": "Kies een afspraak"
+      "chooseApp": "Kies een evenement"
     },
     "news": {
       "news": "Nieuws",
@@ -106,25 +113,30 @@
     "ticket": {
       "notifications": "Meldingen",
       "create": "Aanmaken",
-      "noNotifications": "Je hebt geen meldingen gemaakt.",
+      "noNotifications": "Je hebt nog geen meldingen gemaakt.",
       "createdOn": "Aangemaakt op",
       "lastModified": "Laatst gewijzigd",
-      "status": "Status",
-      "pictures": "Foto's",
-      "showPictures": "Bekijk foto's",
-      "message": "Bericht",
+      "status": {
+        "status": "Status",
+        "pending": "In afwachting",
+        "handling": "In afhandeling",
+        "handled": "Afgehandeld"
+      },
+      "pictures": "Afbeeldingen",
+      "showPictures": "Bekijk afbeeldingen",
+      "message": "Inhoud",
       "comments": "Reacties",
-      "noComments": "Er zijn nog geen reacties achtergelaten",
-      "send": "Versturen",
-      "placeholder": "Schrijf hier jouw reactie",
+      "noComments": "Er zijn nog geen reacties geplaatst.",
+      "send": "Verzenden",
+      "placeholder": "Typ uw reactie",
       "createTicket": "Maak melding",
       "subject": "Onderwerp",
       "placeholderSubject": "Onderwerp van melding",
-      "placeholderMessage": "Bericht van melding",
-      "addPictures": "Foto's toevoegen",
+      "placeholderMessage": "Inhoud van melding",
+      "addPictures": "Afbeeldingen toevoegen",
       "photo": {
-        "makePhoto": "Maak een nieuwe foto",
-        "choosePicture": "Kies een bestaande foto",
+        "makePhoto": "Neem met camera",
+        "choosePicture": "Kies uit gallerij",
         "cancel": "Annuleren"
       },
       "moreInfo": "Meer info"

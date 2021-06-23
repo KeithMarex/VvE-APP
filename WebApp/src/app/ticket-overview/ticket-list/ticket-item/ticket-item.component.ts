@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/shared/models/ticket.model';
-import { User } from 'src/shared/models/user.model';
 import { TicketEditorService } from 'src/shared/services/ticket-editor.service';
 import { UserDao } from 'src/shared/services/user-dao.service';
 
@@ -12,40 +11,30 @@ import { UserDao } from 'src/shared/services/user-dao.service';
 })
 export class TicketItemComponent implements OnInit {
   @Input() ticket: Ticket;
-  creator: User;
-  assignee: User;
+  formattedStatus: string;
 
   constructor(private userDao: UserDao, private router: Router, private ticketEditorService: TicketEditorService) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.formatStatus();
   }
 
-  getUsers(): void {
-    var creatorId = this.ticket.creator;
-    var assigneeId = this.ticket.assignee;
+  formatStatus() {
+    const status = this.ticket.status;
 
-    if (creatorId) {
-      this.userDao.getUserById(creatorId)
-      .subscribe(userRes => 
-        { 
-          this.creator = userRes 
-        }
-      );
+    if (status == 'PENDING') {
+      this.formattedStatus = 'In afwachting';
     }
-    if (assigneeId) {
-      this.userDao.getUserById(assigneeId)
-      .subscribe(userRes => 
-        {
-          this.assignee = userRes;
-        }
-      )
+    else if (status == 'HANDLING') {
+      this.formattedStatus = 'In behandeling';
+    }
+    else if (status == 'HANDLED') {
+      this.formattedStatus = 'Afgehandeld';
     }
   }
 
   onEdit() {
     this.ticketEditorService.selectedTicketId.next(this.ticket._id);
-    this.ticketEditorService.ticketCreator.next(this.creator);
     this.router.navigate(['ticket-details/' + this.ticket._id]);
   }
 }

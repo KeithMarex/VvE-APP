@@ -96,6 +96,7 @@ export const getFiles = (req, res) => {
     File.find({ organisation: organizationid})
     .select('-data')
     .then(result => {
+
         res.status(200).send(result);
     })
     .catch(err => {
@@ -112,6 +113,20 @@ export const getFile = (req, res) => {
     File.findOne({ _id: id, organisation: organizationid })
     .then(file => {
         serveFileFromTemp(req, res, file);        
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json( { message: err } )
+    });
+}
+
+export const deleteFile = (req, res) => {
+    const id = req.params.id;
+
+    File.deleteOne({_id: id})
+    .then(result => {
+        res.status(200).send(result);
     })
     .catch(err => {
         logger.error(err);
@@ -138,6 +153,7 @@ const createFile = (req, res, file) => {
         filename: file.name,
         type: file.type,
         data: fs.readFileSync(file.path),
+        filesize: fs.statSync(file.path).size,
         organisation: res.locals.user.organizations[0]
     });
 

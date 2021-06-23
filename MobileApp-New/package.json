@@ -32,6 +32,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-auto-height-image": "^3.2.4",
     "react-native-autogrow-textinput": "^5.4.0",
     "react-native-calendars": "^1.1262.0",
     "react-native-cookie": "^0.3.0",
@@ -49,6 +50,7 @@
     "react-native-webview": "11.2.3",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
+    "sort-by": "^1.2.0",
     "validator": "^13.6.0"
   },
   "devDependencies": {

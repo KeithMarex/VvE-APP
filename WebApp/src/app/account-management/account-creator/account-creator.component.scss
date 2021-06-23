@@ -19,10 +19,13 @@ form {
         margin: 0 auto;
         margin-bottom: 1rem;
 
-        object {
+        .svg-element {
+            display: flex;
+            align-items: center;
             position: absolute;
             bottom: 0.9rem;
             left: 0.5rem;
+            stroke: #A0A3BD;
         }
     }
 
@@ -37,8 +40,8 @@ form {
         resize: none;
     }
 
-    input::placeholder {
-        color: #a6a6a6;
+    :focus-within > .svg-element {
+        stroke: $dynamic-primary;
     }
     
     button {
@@ -51,10 +54,5 @@ form {
 
     #loading {
         visibility: hidden;
-    }
-
-    .error-field {
-        background-color: $error-color;
-        color: white;
     }
 }

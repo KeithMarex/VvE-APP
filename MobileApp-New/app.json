@@ -9,7 +9,8 @@
       "fallbackToCacheTimeout": 0
     },
     "splash": {
-      "image": "./assets/ios/splash/splash.png"
+      "image": "./assets/splash.png",
+      "backgroundColor": "#F7F7FC"
     },
     "assetBundlePatterns": [
       "**/*"

@@ -12,11 +12,11 @@
       {{ newsItem?.title }}
     </h3>
     <p class="news-description">
-      {{ newsItem?.content }}
+      {{ htmlToText(newsItem?.content) }}
     </p>
   </div>
   <div class="news-buttons">
-    <button class="secondary-btn">
+    <button class="secondary-btn" (click)="updateButton(newsItem?._id)">
       Wijzigen
       <object data="../../../assets/icons/edit-white.svg"></object>
     </button>
@@ -26,3 +26,6 @@
     </button>
   </div>
 </div>
+<app-popup *ngIf="isWarningShown" title="Waarschuwing" (closed)="onCloseWarning()" [fitContent]="true">
+    <app-confirmation-popup content="Weet u zeker dat u het nieuws artikel '{{ newsItem?.title }}' wilt verwijderen?" (confirmed)="onConfirmDeletion()"></app-confirmation-popup>
+</app-popup>
