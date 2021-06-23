@@ -1,15 +1,16 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Dimensions, Image, StyleSheet, View} from 'react-native'
 import StyledText from "./StyledText";
 import {Defs, LinearGradient, Rect, Stop, Svg} from "react-native-svg";
 import ApiHelper from "../util/ApiHelper";
 import NewsModel from "../models/news.model";
 import { getOrgColors } from '../util/OrganizationUtil'
+import {CalendarIcon} from "../resources";
 
 const window = Dimensions.get('window')
 
 const NewsShowcase = () => {
-    const [newsArticles, setNewsArticles] = React.useState([]);
+    const [newsArticles, setNewsArticles] = useState([]);
     const [colors, setColors] = useState({})
 
     useEffect(() => {

@@ -41,6 +41,7 @@ const LoginScreen = (props) => {
                 await initData(user)
                 props.navigation.navigate('homeNavigation', { user })
             }).catch(error => {
+                console.log(error);
                 if (error.response.status === 400){
                     Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
                 }
