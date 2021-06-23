@@ -6,9 +6,12 @@
         <section class="button-section">
             <button id="add-user-button" class="icon-button dropdown-button">Toevoegen
                 <span class="button-dropdown">
-                    <div class="top-option" (click)="onImportUsers()">
-                        <p>CSV importeren</p>
-                    </div>
+                    <label class="csv-import">
+                        <div class="top-option">
+                            <p>CSV importeren</p>
+                            <input class="input-csv" type="file" accept=".csv" id="accounts" name="accounts" (change)="onImportUsers($event.target)" ngModel>
+                        </div>
+                    </label>
                     <hr>
                     <div class="bottom-option" (click)="onAddUser()">
                         <p>Gebruiker toevoegen</p>
@@ -23,7 +26,7 @@
             <app-account-creator (userCreated)="onCreateUser($event)"></app-account-creator>
         </app-popup>
         <app-popup *ngIf="importingUsers" title="Accounts toevoegen (csv)" (closed)="onCloseImport()">
-            <app-account-import (userImported)="onUsersImported($event)"></app-account-import>
+            <app-account-import (usersImported)="onUsersImported($event)" [csv]="importCsv"></app-account-import>
         </app-popup>
     </body>
 </div>

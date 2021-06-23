@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/shared/models/user.model';
 import { UserDao } from 'src/shared/services/user-dao.service';
@@ -12,49 +12,43 @@ import { AccountListComponent } from '../account-list/account-list.component';
 })
 export class AccountImportComponent implements OnInit {
   @Output() usersImported = new EventEmitter();
+  @Input() csv: File;
   errorMessage: string;
-  fileLoaded: false;
-  loadedFileName: string = "accounts";
-  loadedFile: Blob;
-  accounts: any[] = [];
-  public userArray: User[] = [];
+  isError = false;
+  newuser: User = {"firstname":"karel", "lastname":"karelsen", "email":"karelkarelsen@karel.kar", "role":"admin"};
+  newuser1: User = {"firstname":"jan", "lastname":"jansen", "email":"janjansen@jan.jan", "role":"user"};
+  newuser2: User = {"firstname":"piet", "lastname":"pietersen", "email":"pietpietersen@piet.pit", "role":"admin"};
+  newuser3: User = {"firstname":"hans", "lastname":"hansen", "email":"hanshansen@hans.han", "role":"user"};
+  public users: User[] = [];
 
   constructor(private userDao: UserDao, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.users.push(this.newuser);
+    this.users.push(this.newuser1);
+    this.users.push(this.newuser2);
+    this.users.push(this.newuser3);
   }
 
-  onCreateUser(form: NgForm) {
+  onCreateUsers() {
+    this.isError = false;
     this.errorMessage = null;
-    const formValues = form.value;
-
-    const mailValid = this.validateEmail(formValues.email, formValues.confirmEmail);
-
-    if (mailValid) {
-      this.userDao.registerUser(formValues.email, formValues.firstname, formValues.lastname).subscribe(
-        res => {
-          this.usersImported.emit();
-        },
-        errorRes => {
-          this.errorMessage = errorRes.error.message;
-        }
-      );
+    
+    this.userDao.registerUsers(this.users).subscribe(
+      res => {
+        this.usersImported.emit();
+      },
+      errorRes => {
+        this.errorMessage = "Er is iets mis gegaan";
+        this.isError = true;
+      });
     }
-    else {
-      this.displayErrorMessage('Controleer of uw email op beide plekken correct is ingevoerd.');
-    }
+
+  onDelete(user: User, index: number): void {
+    this.users.splice(index,1);
   }
 
-  validateEmail(input: string, confirmInput: string): boolean {
-    return input.includes('@') && input == confirmInput;
-  }
-
-  displayErrorMessage(message: string)
-  {
-    this.errorMessage = message;
-  }
-
-  onInputFile(form: NgForm) {
+  // onInputFile(form: NgForm) {
   //   this.http.get('WebApp/src/app/account-management/assets/test-users.csv', {responseType: 'text'})
   //   .subscribe(
   //       data => {
@@ -70,20 +64,20 @@ export class AccountImportComponent implements OnInit {
   //           console.log(error);
   //       }
   //   );
-    const formValues = form.value;
-    console.log(formValues.accounts)
-    this.loadedFile = formValues.accounts;
-    var reader = new FileReader();
-    reader.readAsText(formValues.accounts)
-    // console.log(this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' }))
+  //   const formValues = form.value;
+  //   console.log(formValues.accounts)
+  //   this.loadedFile = formValues.accounts;
+  //   var reader = new FileReader();
+  //   reader.readAsText(formValues.accounts)
+  //   console.log(this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' }))
 
-    // this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' })
-    //   .pipe().subscribe((result: Array<any>) => {
+  //   this.ngxCsvParser.parse(formValues.accounts, { header: true, delimiter: ';' })
+  //     .pipe().subscribe((result: Array<any>) => {
 
-    //     console.log('Result', result);
-    //     this.accounts = result;
-    //   }, (error: NgxCSVParserError) => {
-    //     console.log('Error', error);
-    //   });
-  }
+  //       console.log('Result', result);
+  //       this.accounts = result;
+  //     }, (error: NgxCSVParserError) => {
+  //       console.log('Error', error);
+  //     });
+  // }
 }

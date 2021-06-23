@@ -6,84 +6,89 @@
     flex-direction: column;
 
     h1 {
-        justify-content: center;
+        align-self: center;
         color: $dynamic-primary;
         font-size: 120%;
         font-weight: 700;
         margin-bottom: 10px;
     }
-}
 
-.control-panel {
-    display: flex;
-    width: 100%;
-
-    input[type="file"] {
-        display: none;
+    .error-message {
+        display: flex;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 3px;
+        background-color: $error-color;
+        color: white;
+        align-items: center;
+        justify-content: center;
     }
 
-    .custom-file-input {
-        display: inline-flex;
-        flex-direction: row;
-        justify-content: space-between;
-        height: 2rem;
-        min-width: 100%;
-        border: none;
-        margin-bottom: 1rem;
-        cursor: pointer;
-        margin: 0.5rem 0;
-        
-        .file-input-icon {
+    .account-list {
+        height: 60%;
+        overflow: auto;
+
+        .user-item {
             display: flex;
-            justify-content: center;
-            align-content: center;
+            flex-direction: row;
+            width: 95%;
+            background-color: $background-color;
+            margin: 8px 0px;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            align-items: center;
+
+            h1 {
+                font-size: 80%;
+                font-weight: 500;
+                color: $grayscale-color;
+                margin: 0;
+            }
+
+            .item-name {
+                width: 30%;
+            }
+
+            .item-email {
+                width: 35%;
+            }
+
+            .item-role {
+                width: 30%;
+            }
+
+            button {
+                @include button;
+                
+                align-self: flex-end;
+                justify-self: flex-end;
+                background-color: $dynamic-primary;
+                height: 25px;
+                width: 180px;
+
+                &::after {
+                    height: 17px;
+                    width: 20px;
+                    background: url('../../../assets/icons/delete.svg') no-repeat;
+                }
+            }
         }
     }
 
-    .personalization {
-    
-        .input-fields {
-    
-            input {
-                height: 2rem;
-                width: 100%;
-                border: none;
-                margin: 0.5rem 0;
-            }
-    
-            .file-name-field {
-                flex-grow: 2;
-    
-                .file-name {
-                    display: flex;
-                    height: 100%;
-                    align-items: center;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    color: #A0A3BD;
-                }
-            }
-    
-            .file-input-icon {
-                min-width: 15%;
-                border-radius: 0 15% 15% 0;
-                background-color: $dynamic-primary;
-    
-                .svg-element {
-                    stroke: white;
-                    display: flex;
-                    width: 1.1rem;
-                    height: 1.1rem;
-                }
-            }
-        }
-}
+    .submit-button {
+        display: flex;
+        align-self: flex-end;
+        justify-self: flex-end;
+    }
 }
 
 button {
     @include button;
-    
     align-self: flex-end;
+    align-items: flex-end;
+    justify-self: flex-end;
     margin: 1rem 0;
     background-color: $dynamic-secondary;
 }
