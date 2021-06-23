@@ -1,13 +1,13 @@
-import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text} from 'react-native'
-import React, {useEffect, useState} from 'react'
+import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import tra from '../../config/languages/translate'
+import { getOrgColors } from '../../util/OrganizationUtil'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
-import PageLogo from "../../components/PageLogo";
-import tra from "../../config/languages/translate";
-import ApiHelper from "../../util/ApiHelper";
-import NewsModel from "../../models/news.model";
-import NewsItem from "../../components/NewsItem.component";
-import { getOrgColors } from '../../util/OrganizationUtil'
+import PageLogo from '../../components/PageLogo'
+import ApiHelper from '../../util/ApiHelper'
+import NewsModel from '../../models/news.model'
+import NewsItem from '../../components/NewsItem.component'
 
 const window = Dimensions.get('window')
 
@@ -53,11 +53,13 @@ const News = () => {
 
     const createNewsArticles = () => {
         const newsList = []
+
         for (let i = 0; i < newsArticles.length; i++) {
             newsList.push(
                 <NewsItem newsItem={newsArticles[i]} key={i}/>
             )
         }
+
         return newsList
     }
 

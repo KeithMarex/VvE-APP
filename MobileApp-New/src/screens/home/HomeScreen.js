@@ -3,7 +3,7 @@ import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacit
 import StyledText from '../../components/StyledText'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { CommentIcon, CalendarIcon, Logo } from '../../resources'
+import { CommentIcon, CalendarIcon } from '../../resources'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import UpcomingAppointment from "../../components/UpcomingAppointment";

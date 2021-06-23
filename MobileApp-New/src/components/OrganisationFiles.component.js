@@ -1,14 +1,13 @@
 import {ActivityIndicator, StyleSheet, View} from 'react-native'
 import StyledText from './StyledText'
-import React, {useEffect, useState} from 'react'
-import tra from '../config/languages/translate'
+import React, { useEffect, useState } from 'react'
 import ApiHelper from '../util/ApiHelper'
 import fileModel from '../models/file.model'
 import NewsLine from './NewsLine.component'
 
 const OrganisationFilesComponent = () => {
-    const [files, setFiles] = React.useState([])
-    const [isFectchingData, setIsFecthingData] = React.useState(true)
+    const [files, setFiles] = useState([])
+    const [isFectchingData, setIsFecthingData] = useState(true)
 
     useEffect(() => {
         if (isFectchingData) {

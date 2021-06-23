@@ -1,7 +1,7 @@
-import {StyleSheet, View, TouchableOpacity} from "react-native";
-import StyledText from "./StyledText";
+import {StyleSheet, View, TouchableOpacity} from 'react-native'
+import StyledText from './StyledText'
 import React, { useState, useEffect } from 'react'
-import ApiHelper from "../util/ApiHelper";
+import ApiHelper from '../util/ApiHelper'
 import { getOrgColors } from '../util/OrganizationUtil'
 
 const NewsLine = (props) => {
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default NewsLine;
+export default NewsLine
