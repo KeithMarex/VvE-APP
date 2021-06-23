@@ -12,7 +12,7 @@ import { AccountListComponent } from '../account-list/account-list.component';
 })
 export class AccountImportComponent implements OnInit {
   @Output() usersImported = new EventEmitter();
-  @Input() csv: File;
+  @Input() csv: Blob;
   errorMessage: string;
   isError = false;
   newuser: User = {"firstname":"karel", "lastname":"karelsen", "email":"karelkarelsen@karel.kar", "role":"admin"};
@@ -20,6 +20,7 @@ export class AccountImportComponent implements OnInit {
   newuser2: User = {"firstname":"piet", "lastname":"pietersen", "email":"pietpietersen@piet.pit", "role":"admin"};
   newuser3: User = {"firstname":"hans", "lastname":"hansen", "email":"hanshansen@hans.han", "role":"user"};
   public users: User[] = [];
+  reader = new FileReader();
 
   constructor(private userDao: UserDao, private http: HttpClient) { }
 
@@ -28,6 +29,7 @@ export class AccountImportComponent implements OnInit {
     this.users.push(this.newuser1);
     this.users.push(this.newuser2);
     this.users.push(this.newuser3);
+    this.reader.readAsText(this.csv); 
   }
 
   onCreateUsers() {

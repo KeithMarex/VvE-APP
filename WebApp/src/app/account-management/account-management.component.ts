@@ -10,6 +10,9 @@ export class AccountManagementComponent implements OnInit {
   creatingUser = false;
   importingUsers = false;
   importCsv: File;
+  file: Blob;
+  reader: FileReader = new FileReader()
+  readFile = this.reader.result;
 
   constructor() { }
 
@@ -21,8 +24,12 @@ export class AccountManagementComponent implements OnInit {
   }
 
   onImportUsers(form: NgForm) {
-    this.importCsv = form.value;
-    this.importingUsers = true;
+    // this.importCsv = form;
+    var file    = new Blob(form.value);
+    console.log(form)
+    this.reader.readAsText(file);
+    
+    // this.importingUsers = true;
   }
 
   onCloseCreator() {

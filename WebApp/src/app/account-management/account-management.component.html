@@ -9,7 +9,7 @@
                     <label class="csv-import">
                         <div class="top-option">
                             <p>CSV importeren</p>
-                            <input class="input-csv" type="file" accept=".csv" id="accounts" name="accounts" (change)="onImportUsers($event.target)" ngModel>
+                            <input class="input-csv" [(ngModel)]="file" type="file" accept=".csv" id="accounts" name="accounts" (change)="onImportUsers($event.target.files[0])" ngModel>
                         </div>
                     </label>
                     <hr>
@@ -30,3 +30,4 @@
         </app-popup>
     </body>
 </div>
+<div *ngIf="readFile">hallo</div>
