@@ -137,7 +137,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       }
     }),
     NgxDaterangepickerMd.forRoot(),
-    NgxEditorModule
+    NgxEditorModule,
   ],
   providers: [
     Dao,

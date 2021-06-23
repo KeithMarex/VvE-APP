@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-account-management',
@@ -23,13 +22,9 @@ export class AccountManagementComponent implements OnInit {
     this.creatingUser = true;
   }
 
-  onImportUsers(form: NgForm) {
-    // this.importCsv = form;
-    var file    = new Blob(form.value);
-    console.log(form)
-    this.reader.readAsText(file);
-    
-    // this.importingUsers = true;
+  onImportUsers(form: any) {
+    this.importCsv = form;
+    this.importingUsers = true;
   }
 
   onCloseCreator() {
