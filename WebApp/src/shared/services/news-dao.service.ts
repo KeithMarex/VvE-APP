@@ -20,6 +20,10 @@ export class NewsDao {
     return this.dao.sendPostRequestForm('news/', payload);
   }
 
+  updateNewsItem(payload: object): Observable<any> {
+    return this.dao.sendPutRequestForm('news/', payload);
+  }
+
   deleteCalendarItem(id: string): Observable<NewsItem> {
     return this.dao.sendDeleteRequest('news/' + id);
   }
