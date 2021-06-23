@@ -24,16 +24,15 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   selectedStatus: string;
   statuses: string[] = ["PENDING", "HANDLING", "HANDLED"];
-
   selectedTag: Tag;
   tags: Tag[] = [];
-
   selectedAssignee: User;
   assignees: User[] = [];
   
   commentImages: Blob[] = [];
   comments: Comment[];
   commentText = new FormControl('');
+  
   commentErrorMessage: string;
   infoErrorMessage: string;
   isCommentError = false;
