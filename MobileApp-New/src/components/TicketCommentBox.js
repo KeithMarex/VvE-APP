@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {
     Dimensions,
     Keyboard,
@@ -18,17 +18,25 @@ import Button from './Button'
 import TicketComment from './TicketComment'
 import StyledText from './StyledText'
 import InputImage from './InputImage'
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const TicketCommentBox = (props) => {
     const [commentInputText, onCommentInputText] = useState('')
     const [comments, setComments] = useState(props.ticket.comments)
     const [images, setImages] = useState([])
     const [tr, setTr] = useState({})
+    const [colors, setColors] = useState({})
     const inputRef = useRef('')
 
-    tra().then(res => {
-        setTr(res)
-    })
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
 
     const sendComment = async () => {
         if (!commentInputText) return
@@ -112,7 +120,7 @@ const TicketCommentBox = (props) => {
                 />
             </View>
             <View style={styles.commentActionButtons}>
-                <TouchableOpacity style={styles.commentAddImageButton}>
+                <TouchableOpacity style={[styles.commentAddImageButton, { backgroundColor: colors?.secondarycolor }]}>
                     <OptionsMenu
                         customButton={<PlusIcon stroke={'#F7F7FC'} width={20} height={20}/>}
                         options={[`${tr.ticket?.photo.makePhoto}`, `${tr.ticket?.photo.choosePicture}`, `${tr.ticket?.photo.cancel}`]}
@@ -156,7 +164,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     commentAddImageButton: {
-        backgroundColor: '#A0CAE8',
         borderRadius: 50,
         width: 30,
         height: 30,
