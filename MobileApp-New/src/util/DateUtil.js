@@ -1,9 +1,23 @@
 import moment from 'moment'
-import { fr } from 'moment/locale/fr'
+import { enGb } from 'moment/locale/en-gb'
 import { nl } from 'moment/locale/nl'
 
-export const initDateParser = (language) => {
-    moment.updateLocale('nl', [nl])
+/**
+ * If you want to add a locale,
+ * import it from moment and add it accordingly
+ */
+export const initDateParser = (locale) => {
+    switch (locale) {
+        case 'en':
+            moment.updateLocale('en-gb', [enGb])
+            break
+        case 'nl':
+            moment.updateLocale('nl', [nl])
+            break
+        default:
+            moment.updateLocale('en-gb', [enGb])
+            break
+    }
 }
 
 export const parseDate = (dateInput) => {

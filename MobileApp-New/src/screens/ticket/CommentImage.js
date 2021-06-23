@@ -10,8 +10,10 @@ const CommentImage = (props) => {
     return (
         <SafeAreaView style={styles.root}>
             <ScrollView contentContainerStyle={styles.scrollView}>
-                <AutoHeightImage source={{uri: image}} style={styles.image} width={window.width}>
-                </AutoHeightImage>
+                <AutoHeightImage
+                    source={{uri: image}}
+                    style={styles.image}
+                    width={window.width}/>
             </ScrollView>
         </SafeAreaView>
     );

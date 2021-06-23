@@ -18,6 +18,8 @@ import { Logo } from '../../resources'
 import ApiHelper from '../../util/ApiHelper'
 import UserModel from '../../models/user.model'
 import tra from '../../config/languages/translate'
+import { initOrg } from '../../util/OrganizationUtil'
+import {initDateParser} from "../../util/DateUtil";
 
 const ss = Dimensions.get('window')
 
@@ -28,23 +30,28 @@ const LoginScreen = (props) => {
     const [tr, setTr] = React.useState({})
 
     tra().then(res => {
-        setTr(res);
+        setTr(res)
     })
 
     const loginUser = async (email, password) => {
         await ApiHelper.post('/user/login', {email: email, password: password})
             .then(async (res) => {
-                const d = res.data;
-                const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname);
-                await AsyncStorage.setItem('userId', d._id);
-                props.navigation.navigate('homeNavigation', { user });
+                const d = res.data
+                const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname)
+                await initData(user)
+                props.navigation.navigate('homeNavigation', { user })
             }).catch(error => {
-                console.log(error);
                 if (error.response.status === 401){
-                    Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
+                    Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem')
                 }
             })
-    };
+    }
+
+    const initData = async (user) => {
+        await AsyncStorage.setItem('userId', user._id)
+        await initOrg()
+        initDateParser(tr.locale)
+    }
 
     return (
         <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
@@ -62,8 +69,8 @@ const LoginScreen = (props) => {
                 <TouchableOpacity style={styles.passForgotBtn} onPress={() => props.navigation.navigate('login_forget')}><Text style={styles.passForgot}>{tr.login?.login.forgotPassword}</Text></TouchableOpacity>
             </View>
         </TouchableWithoutFeedback>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
     svg: {

@@ -1,7 +1,8 @@
 import {SafeAreaView, StyleSheet, ScrollView, Dimensions, ActivityIndicator} from 'react-native'
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import ApiHelper from '../../util/ApiHelper'
 import AutoHeightImage from 'react-native-auto-height-image'
+import {getOrgColors} from "../../util/OrganizationUtil";
 
 const window = Dimensions.get('window')
 
@@ -9,6 +10,14 @@ const TicketImages = (props) => {
     const { ticket } = props.route.params;
     const [imageUrls, setImageUrls] = useState([])
     const [dataLoading, setDataLoading] = useState(true)
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
 
     if (dataLoading) {
         ApiHelper.get(`/ticket/${ticket._id}`).then(ticket => {
@@ -36,7 +45,7 @@ const TicketImages = (props) => {
     }
 
     function showLoader() {
-        return <ActivityIndicator style={{marginTop: '15%'}} size={'large'} color='#451864'/>
+        return <ActivityIndicator style={{marginTop: '15%'}} size={'large'} color={colors?.primarycolor}/>
     }
 
     return (
