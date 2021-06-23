@@ -60,5 +60,9 @@ input:focus, textarea:focus {
     fill: white;
 }
 
+.error-text {
+    padding: 0.5rem;
+}
+
 @include date-picker();
 @include calendar();
