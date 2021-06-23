@@ -12,7 +12,7 @@ export class NewsDao {
     return this.dao.sendGetRequest('news');
   }
 
-  getNewsItem(id): Observable<NewsItem[]> {
+  getNewsItem(id): Observable<NewsItem> {
     return this.dao.sendGetRequest('news/' + id);
   }
 
