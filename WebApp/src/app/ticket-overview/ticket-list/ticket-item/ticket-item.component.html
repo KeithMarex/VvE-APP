@@ -24,7 +24,7 @@
                         <p class="colored-text">{{ ticket.tag ? ticket.tag.name : 'Geen tag' }}</p>
                         <div *ngIf="ticket.tag" class="tag-color" [ngStyle]="{ 'background-color': ticket.tag.color }"></div>
                     </div>
-                    <p class="colored-text">{{ ticket.status }}</p>
+                    <p class="colored-text">{{ formattedStatus ? formattedStatus : ticket.status }}</p>
                     <p class="colored-text">{{ ticket.assignee ? ticket.assignee.firstname.slice(0, 1) + '. ' + ticket.assignee.lastname : 'Niet toegewezen' }}</p>
                 </div>
             </div>

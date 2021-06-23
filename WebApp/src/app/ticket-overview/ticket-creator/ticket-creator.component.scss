@@ -28,9 +28,6 @@ section > form {
         color: black;
         resize: none;
     }
-    ::placeholder {
-        color: black;
-    }
 
     textarea {
         height: 80%;
@@ -69,10 +66,5 @@ section > form {
         align-self: flex-end;
         margin: 1rem 0;
         background-color: $dynamic-secondary;
-    }
-
-    .error-text {
-        background-color: $error-color;
-        color: white;
     }
 }

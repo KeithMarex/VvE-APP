@@ -17,7 +17,8 @@ export class TicketCreatorComponent implements OnInit {
   organizationTags: Tag[] = [new Tag(null, 'Geen tag geselecteerd', null, null, null)];
   statusOptions = ['In afwachting', 'In behandeling', 'Afgehandeld'];
   errorMessage: string;
-  
+  isLoading: boolean = false;
+
   selectedAssignee = this.organizationMembers[0];
   selectedTag = this.organizationTags[0];
   selectedStatus = this.statusOptions[0];
@@ -30,6 +31,7 @@ export class TicketCreatorComponent implements OnInit {
   }
 
   onCreateTicket(form: NgForm) {
+    this.isLoading = true;
     const formValues = form.value;
     const mForm = new FormData();
 
@@ -46,9 +48,11 @@ export class TicketCreatorComponent implements OnInit {
     this.ticketDao.createTicket(mForm)
     .subscribe(
       () => {
-      this.ticketCreated.emit();
-      }, 
+        this.isLoading = false;
+        this.ticketCreated.emit();
+      },
       errorRes => {
+        this.isLoading = false;
         this.errorMessage = errorRes.statusText;
       }
     );

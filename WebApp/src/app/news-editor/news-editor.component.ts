@@ -100,10 +100,12 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.error.isError = false;
     this.isSucces = false;
+    this.isLoading = true;
 
     if (!(this.editorForm.valid && this.detailsForm.valid && this.thumbnail)) {
       this.setErrorMessage();
       this.error.isError = true;
+      this.isLoading = false;
       return;
     }
 
@@ -121,10 +123,12 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
     this.newsDao.createNewsItem(formData).subscribe(
       () => {
         this.isSucces = true;
+        this.isLoading = false;
       },
       err => {
         this.error.message = err.message;
         this.error.isError = true;
+        this.isLoading = false;
       }
     )
   }
@@ -133,10 +137,12 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
     this.newsDao.updateNewsItem(formData, this._id).subscribe(
       () => {
         this.isSucces = true;
+        this.isLoading = false;
       },
       err => {
         this.error.message = err.error.message;
         this.error.isError = true;
+        this.isLoading = false;
       }
     )
   }

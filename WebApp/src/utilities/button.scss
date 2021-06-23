@@ -18,10 +18,14 @@
         cursor: initial;
         filter:opacity(40%);
         filter:grayscale(60%);
+
+        &:hover {
+            filter: none;
+        }
     }
 
     &:hover {
-        filter: opacity(80%);
+        filter: brightness(115%);
     }
 }
 
@@ -45,6 +49,7 @@
 }
 
 .dropdown-button {
+    filter: brightness(95%);
     position: relative;
 
     .button-dropdown {
