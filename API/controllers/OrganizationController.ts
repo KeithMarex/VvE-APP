@@ -121,6 +121,21 @@ export const getFile = (req, res) => {
     });
 }
 
+export const downloadFile = (req, res) => {
+    const id = req.params.id;
+    const organizationid = res.locals.user.organizations[0];
+    
+    File.findOne({ _id: id, organisation: organizationid })
+    .then(file => {
+        downloadFromTemp(req, res, file);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json( { message: err } )
+    });
+}
+
 export const deleteFile = (req, res) => {
     const id = req.params.id;
 
@@ -163,10 +178,7 @@ const createFile = (req, res, file) => {
 const serveFileFromTemp = (req, res, file) => {
     const dir = path.join("./", 'temp/')
     const writePath = dir + file["filename"]
-    if (!fs.existsSync(dir)){
-        fs.mkdirSync(dir);
-    }
-    fs.writeFileSync(writePath, file["data"]);
+    writeDataStream(dir, writePath, file);
 
     res.sendFile(file["filename"], {
         root: dir
@@ -175,4 +187,24 @@ const serveFileFromTemp = (req, res, file) => {
             logger.error(err);
         fs.unlinkSync(writePath);
     });
+}
+
+const downloadFromTemp = (req, res, file) => {
+    const dir = path.join("./", 'temp/')
+    const writePath = dir + file["filename"]
+    writeDataStream(dir, writePath, file);
+
+    //download file
+    res.download(writePath, err => {
+        if(err)
+            logger.error(err);
+        fs.unlinkSync(writePath);
+    });
+}
+
+function writeDataStream(dir: string, writePath: string, file: any) {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
+    fs.writeFileSync(writePath, file["data"]);
 }
