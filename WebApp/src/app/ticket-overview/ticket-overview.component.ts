@@ -32,7 +32,7 @@ export class TicketOverviewComponent implements OnInit {
   }
 
   searchTermChanged(newTerm: string): void {
-    console.log(newTerm);
+    this.listCmp.onChangeFilter(newTerm);
   }
 
 }

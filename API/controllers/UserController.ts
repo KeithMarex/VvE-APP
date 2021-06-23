@@ -29,6 +29,12 @@ export const login = async (req, res) => {
     });
 }
 
+export const logout = async (req, res) => {
+    res.clearCookie('access-token');
+    res.clearCookie('refresh-token');
+    res.status(200).json({ message: "Cookies succesfully deleted" })
+}
+
 // Creating a new users and generate password
 export const register = async(req, res) => {
     const users = await createUsers(req.body, res.locals.user);

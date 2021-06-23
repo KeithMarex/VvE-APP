@@ -19,6 +19,8 @@ paths:
     $ref: ./user/getUser.yaml
   /user/login:
     $ref: ./user/login.yaml
+  /user/logout:
+    $ref: ./user/logout.yaml
   /user/register:
     $ref: ./user/register.yaml
   /user/reset:
@@ -85,5 +87,7 @@ paths:
     $ref: ./news/getNews.yaml
   /news/:
     $ref: ./news/postNews.yaml
+  /news/{id}//:
+    $ref: ./news/putNews.yaml
   /news/{id}/:
     $ref: ./news/deleteNews.yaml

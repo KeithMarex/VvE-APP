@@ -1,0 +1,42 @@
+put:
+  summary: Updates news in the database
+  description: |
+    Updates the news with a multipart/form-data
+    Everything needs to be send otherwise it will remove the not send data
+  tags:
+    - News
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            author:
+              type: string
+            thumbnail:
+              type: string
+              format: binary
+            content:
+              type: string
+          required:
+            - title
+            - author
+            - thumbnail
+            - content
+  responses:
+    '200':
+      description: News has been updated successfully
+    '400':
+      description: Validation error
+    '500':
+      description: Error with updating in database

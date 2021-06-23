@@ -28,6 +28,6 @@ post:
       content:
         application/json:
           schema:
-            $ref: ../definitions/Tag.yaml
+            $ref: ../definitions/News.yaml
     '500':
       description: Error while creating News
