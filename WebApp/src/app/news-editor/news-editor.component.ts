@@ -133,7 +133,7 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
         this.isSucces = true;
       },
       err => {
-        this.error.message = err.message;
+        this.error.message = err.error.message;
         this.error.isError = true;
       }
     )
@@ -155,7 +155,7 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
     formData.append("title", this.detailsForm.controls["title"].value);
     formData.append("author", this.detailsForm.controls["author"].value);
     formData.append("content", this.editorForm.controls["editorContent"].value);
-    formData.append("file1" , this.thumbnail);
+    formData.append("file1" , this.thumbnail, this.thumbnail["name"]);
     return formData;
   }
 
