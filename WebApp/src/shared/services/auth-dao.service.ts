@@ -19,4 +19,8 @@ export class AuthDao {
           return response;
         }));
     };
+
+    logout(): Observable<any> {
+        return this.dao.sendPostRequest('user/logout', {});
+    }
 }
