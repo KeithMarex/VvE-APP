@@ -55,7 +55,10 @@
                 </app-dropdown>
             </div>
             <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
-            <button type="submit" [disabled]="form.invalid">Aanmaken</button>
+            <button type="submit" [disabled]="form.invalid || isLoading">
+                <p *ngIf="!isLoading">Aanmaken</p>
+                <app-spinner *ngIf="isLoading"></app-spinner>
+            </button>
         </div>
     </form>
 </section>
