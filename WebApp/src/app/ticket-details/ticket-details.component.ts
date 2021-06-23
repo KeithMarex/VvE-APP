@@ -21,20 +21,18 @@ import { CommentDao } from 'src/shared/services/comment-dao.service';
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticket: Ticket;
   ticketCreator: User;
+
   selectedStatus: string;
-  originalStatus: string;
   statuses: string[] = ["PENDING", "HANDLING", "HANDLED"];
   selectedTag: Tag;
-  originalTag: Tag;
   tags: Tag[] = [];
   selectedAssignee: User;
-  originalAssignee: User;
   assignees: User[] = [];
-  inputCommentText: string;
-  inputCommentImage: Blob;
+  
   commentImages: Blob[] = [];
   comments: Comment[];
   commentText = new FormControl('');
+  
   commentErrorMessage: string;
   infoErrorMessage: string;
   isCommentError = false;
@@ -91,12 +89,10 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
       if (this.ticket.tag) {
         this.selectedTag = this.ticket.tag;
-        this.originalTag = this.ticket.tag;
       }
       else {
         let unnamedTag: Tag = { name: "Nog niet toegewezen" }
         this.selectedTag = unnamedTag;
-        this.originalTag = unnamedTag;
       }
   }
 
@@ -113,23 +109,19 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
       if (this.ticket.assignee) {
         this.selectedAssignee = this.ticket.assignee;
-        this.originalAssignee = this.ticket.assignee;
       }
       else {
         let unnamedAssignee: User = { firstname: "Nog niet", lastname: "toegewezen" }
         this.selectedAssignee = unnamedAssignee;
-        this.originalAssignee = unnamedAssignee;
       }
   }
 
   getStatus(): void {
     if (this.ticket.status) {
       this.selectedStatus = this.ticket.status;
-      this.originalStatus = this.ticket.status;
     }
     else {
       this.selectedStatus = this.statuses[0];
-      this.originalStatus = this.statuses[0];
     }
   }
 
@@ -219,9 +211,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   }
 
   handleFileInput(target: any): void {
-		this.inputCommentImage = target.files[0];
-    this.commentImages.push(this.inputCommentImage);
-    this.inputCommentImage = undefined;
+    this.commentImages.push(target.files[0]);
     target.value = "";
 	}
 

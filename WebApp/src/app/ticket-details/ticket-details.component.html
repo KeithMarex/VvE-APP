@@ -141,10 +141,10 @@
                         </div>
                     </div>
                     <form class="comment-form" #formForm="ngForm" (ngSubmit)="submitComment(formForm)">
-                        <input required type="text" class="textfield" ngModel [name]="'inputCommentText'" placeholder="Type hier uw bericht" [formControl]="commentText">
+                        <input required type="text" class="textfield" ngModel placeholder="Type hier uw bericht" [formControl]="commentText">
                         <label class="file-input">
                             <div class="svg-element" [inlineSVG]="'../../../../assets/icons/Plus.svg'"></div>
-                            <input type="file" class="image-select-button" [name]="'inputCommentImage'" (change)="handleFileInput($event.target)">
+                            <input type="file" accept="image/png, image/jpeg" class="image-select-button" (change)="handleFileInput($event.target)">
                         </label>
                         <div class="submit-button">
                             <button [disabled]="formForm.invalid" class="submit-comment-button">

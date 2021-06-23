@@ -13,14 +13,24 @@ const Button = (props) => {
         })
     }, [])
 
+
     return (
-        <TouchableOpacity style={[styles.button, props.style, {borderColor: colors?.secondarycolor}]}
-                          onPress={props.pressAction}>
-            <StyledText inputStyle={[styles.buttonText, {color: colors?.secondarycolor}]}>
+        <TouchableOpacity
+            style={[
+                styles.button, props.style,
+                {borderColor: props.disabled ? colors?.secondarycolor + '33' : colors?.secondarycolor}
+            ]}
+            onPress={props.pressAction}>
+            <StyledText inputStyle={[
+                styles.buttonText,
+                {color: props.disabled ? colors?.secondarycolor + '33' : colors?.secondarycolor}
+            ]}>
                 { props.children }
             </StyledText>
             {props.withArrow && (
-                <ArrowIcon width={14} height={14} stroke={colors?.secondarycolor} marginLeft={4} />
+                <ArrowIcon width={14} height={14} marginLeft={4}
+                           stroke={props.disabled ? colors?.secondarycolor + '33' : colors?.secondarycolor}
+                />
             )}
         </TouchableOpacity>
     )
