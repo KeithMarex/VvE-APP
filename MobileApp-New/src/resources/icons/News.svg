@@ -8,6 +8,6 @@
 <path d="M5.47729 23.1254H17.8871" stroke="black" stroke-width="2" stroke-linecap="round"/>
 <path d="M5.47729 14.4963H9.19934" stroke="black" stroke-width="2" stroke-linecap="round"/>
 <path d="M5.47729 18.1945H9.19934" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<ellipse rx="0.248199" ry="0.246546" transform="matrix(-1 0 0 1 14.1646 14.9893)" fill="#451864" stroke="black" stroke-width="0.5"/>
+<ellipse rx="0.248199" ry="0.246546" transform="matrix(-1 0 0 1 14.1646 14.9893)" fill="black" stroke="black" stroke-width="0.5"/>
 </g>
 </svg>
