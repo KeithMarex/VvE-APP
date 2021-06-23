@@ -20,6 +20,6 @@ export const initDateParser = (locale) => {
     }
 }
 
-export const parseDate = (dateInput) => {
+export const parseDateWithTime = (dateInput) => {
     return moment(dateInput).format('LLL')
 }
