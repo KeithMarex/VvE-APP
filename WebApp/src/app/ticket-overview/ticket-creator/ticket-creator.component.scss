@@ -29,11 +29,16 @@ section > form {
         resize: none;
     }
     ::placeholder {
-        color: black;
+        color: #a6a6a6;
     }
 
     textarea {
         height: 80%;
+    }
+
+    input:focus, textarea:focus {
+        border-color: $dynamic-primary;
+        outline: none;
     }
 }
 

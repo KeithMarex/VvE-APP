@@ -36,9 +36,9 @@ form {
         color: #686868;
         resize: none;
     }
-
+    
     input::placeholder {
-        color: #a6a6a6;
+        color: #a6a6a6 !important;
     }
     
     button {
