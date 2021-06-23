@@ -12,11 +12,11 @@ export class Ticket {
     assignee?: User;
     status?: string;
     comments?: Comment[];
-    tag?: Tag[];
+    tag?: Tag;
     createdAt?: Date;
     updatedAt?: Date;
 
-    constructor(_id: string, title: string, description: string, images: Image[], creator: User, assignee: User, status: string, comments: Comment[], tag: Tag[], createdAt: Date, updatedAt: Date) {
+    constructor(_id: string, title: string, description: string, images: Image[], creator: User, assignee: User, status: string, comments: Comment[], tag: Tag, createdAt: Date, updatedAt: Date) {
         this._id = _id;
         this.title = title;
         this.description = description;

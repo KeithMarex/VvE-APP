@@ -90,8 +90,8 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       })
 
       if (this.ticket.tag) {
-        this.selectedTag = this.ticket.tag[0];
-        this.originalTag = this.ticket.tag[0];
+        this.selectedTag = this.ticket.tag;
+        this.originalTag = this.ticket.tag;
       }
       else {
         let unnamedTag: Tag = { name: "Nog niet toegewezen" }

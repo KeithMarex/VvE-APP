@@ -20,7 +20,7 @@
                     <p>Aangewezen:</p>
                 </div>
                 <div class="right-block-column">
-                    <p class="colored-text">{{ ticket.tag.length > 0 ? ticket.tag[0].name : 'Geen tag' }}</p>
+                    <p class="colored-text">{{ ticket.tag ? ticket.tag.name : 'Geen tag' }}</p>
                     <p class="colored-text">{{ ticket.status }}</p>
                     <p class="colored-text">{{ ticket.assignee ? ticket.assignee.firstname + ' ' + ticket.assignee.lastname : 'Niet toegewezen' }}</p>
                 </div>

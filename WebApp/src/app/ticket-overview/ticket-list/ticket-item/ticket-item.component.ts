@@ -14,7 +14,7 @@ export class TicketItemComponent implements OnInit {
 
   constructor(private userDao: UserDao, private router: Router, private ticketEditorService: TicketEditorService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   onEdit() {
     this.ticketEditorService.selectedTicketId.next(this.ticket._id);
