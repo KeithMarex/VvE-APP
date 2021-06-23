@@ -20,8 +20,8 @@ export class NewsItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.thumbnailUrl = !!this.newsItem.thumbnailUrl
-      ? this.newsItem.thumbnailUrl
+    this.thumbnailUrl = !!this.newsItem.thumbnail["image_url"]
+      ? this.newsItem.thumbnail["image_url"]
       : this.dataStorage.logoUrl.getValue();
   }
 
