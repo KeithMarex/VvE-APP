@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'account-management', component: AccountManagementComponent, canActivate:[AuthGuard] },
   { path: 'calendar', component: CalendarOverviewComponent, canActivate:[AuthGuard] },
   { path: 'news-overview', component: NewsOverviewComponent, canActivate:[AuthGuard] },
-  { path: 'news-create', component: NewsCreateComponent, /*canActivate:[AuthGuard]*/ },
+  { path: 'news-create', component: NewsCreateComponent, canActivate:[AuthGuard] },
   { path: 'ticket-overview', component: TicketOverviewComponent, canActivate:[AuthGuard] },
   { path: 'vve-management', component: VveManagementComponent, canActivate:[AuthGuard] },
   { path: 'tags-overview', component: TagsOverviewComponent, canActivate:[AuthGuard] },
