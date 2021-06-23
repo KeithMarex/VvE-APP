@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewsCreateComponent } from './news-create.component';
+import { NewsCreateComponent } from './news-editor.component';
 
 describe('NewsCreateComponent', () => {
   let component: NewsCreateComponent;

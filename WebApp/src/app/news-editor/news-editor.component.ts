@@ -1,15 +1,15 @@
-import { NewsDao } from './../../shared/services/news-dao.service';
+import { NewsDao } from '../../shared/services/news-dao.service';
 import { Component, OnInit, OnDestroy, ViewEncapsulation  } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
 
 @Component({
-  selector: 'app-news-create',
-  templateUrl: './news-create.component.html',
-  styleUrls: ['./news-create.component.scss'],
+  selector: 'app-news-editor',
+  templateUrl: './news-editor.component.html',
+  styleUrls: ['./news-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class NewsCreateComponent implements OnInit, OnDestroy {
+export class NewsEditorComponent implements OnInit, OnDestroy {
 
   html = '';
   editor: Editor;
