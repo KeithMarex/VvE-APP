@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import moment from 'moment';
 import { NewsItem } from '../../../../shared/models/news-item';
@@ -14,13 +15,18 @@ export class NewsItemComponent implements OnInit {
   thumbnailUrl: string;
 
   constructor(
-    private dataStorage: DataStorageService
+    private dataStorage: DataStorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.thumbnailUrl = !!this.newsItem.image
       ? this.newsItem.image
       : this.dataStorage.logoUrl.getValue();
+  }
+
+  updateButton(id: string): void {
+    this.router.navigate(['/news-editor', id]);
   }
 
   onDeleteNewsItemClicked(): void {
