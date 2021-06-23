@@ -982,7 +982,7 @@
                     "images": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/paths/~1comment~1/post/responses/201/content/application~1json/schema/properties/images/items"
+                        "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema/properties/thumbnail"
                       }
                     },
                     "creator": {
@@ -1257,30 +1257,7 @@
                     "images": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "image_url": {
-                            "type": "string"
-                          },
-                          "delete_url": {
-                            "type": "string"
-                          },
-                          "createdAt": {
-                            "type": "string"
-                          },
-                          "updatedAt": {
-                            "type": "string"
-                          },
-                          "__v": {
-                            "type": "string"
-                          }
-                        }
+                        "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema/properties/thumbnail"
                       }
                     },
                     "createdAt": {
@@ -1588,7 +1565,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/paths/~1news~1%7Bid%7D/get/responses/200/content/application~1json/schema"
+                    "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema"
                   }
                 }
               }
@@ -1623,33 +1600,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "author": {
-                      "type": "string"
-                    },
-                    "content": {
-                      "type": "string"
-                    },
-                    "organization": {
-                      "type": "Organization"
-                    },
-                    "createdAt": {
-                      "type": "string"
-                    },
-                    "updatedAt": {
-                      "type": "string"
-                    },
-                    "_v": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/paths/~1news~1/post/responses/201/content/application~1json/schema"
                 }
               }
             }
@@ -1705,7 +1656,59 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/paths/~1tag~1/post/responses/201/content/application~1json/schema"
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "thumbnail": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "delete_url": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "organization": {
+                      "type": "Organization"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "_v": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
