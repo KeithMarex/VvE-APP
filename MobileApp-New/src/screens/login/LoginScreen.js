@@ -37,7 +37,7 @@ const LoginScreen = (props) => {
             .then(async (res) => {
                 const d = res.data
                 const user = new UserModel(d.role, d.organizations, d.parking, d._id, d.email, d.firstname, d.lastname)
-                await storeData(user)
+                await initData(user)
                 props.navigation.navigate('homeNavigation', { user })
             }).catch(error => {
                 if (error.response.status === 401){
@@ -46,9 +46,9 @@ const LoginScreen = (props) => {
             })
     }
 
-    const storeData = async (user) => {
+    const initData = async (user) => {
         await AsyncStorage.setItem('userId', user._id)
-        await initOrg(user)
+        await initOrg()
     }
 
     return (

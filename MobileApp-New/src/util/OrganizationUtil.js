@@ -3,12 +3,7 @@ import ApiHelper from './ApiHelper'
 
 let organization
 
-export const initOrg = async (user) => {
-    const storedOrganization = JSON.parse(await AsyncStorage.getItem('organization'))
-    if (storedOrganization && storedOrganization._id === user._organizations[0]) {
-        organization = storedOrganization
-        return
-    }
+export const initOrg = async () => {
     await fetchOrganization()
 }
 
