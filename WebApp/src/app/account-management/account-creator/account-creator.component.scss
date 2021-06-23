@@ -37,10 +37,6 @@ form {
         resize: none;
     }
     
-    input::placeholder {
-        color: #a6a6a6 !important;
-    }
-    
     button {
         @include button;
         
