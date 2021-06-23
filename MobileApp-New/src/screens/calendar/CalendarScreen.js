@@ -1,4 +1,4 @@
-import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions} from "react-native";
+import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
 import React, {useEffect, useState} from "react";
 import {CalendarIcon} from "../../resources";
 import {Calendar} from 'react-native-calendars';
@@ -9,15 +9,26 @@ import ApiHelper from "../../util/ApiHelper";
 import moment from "moment";
 import UpcomingAppointment from "../../components/UpcomingAppointment";
 import DateChooseModalComponent from "../../components/DateChooseModalComponent";
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalDetailVisible, setModalDetailVisible] = useState(false);
     const [modalInfo, setModalInfo] = useState();
     const [calendarData, setCalendarData] = useState({});
-    const [dataLoad, setDataLoad] = useState(true);
     const [rawData, setRawData] = useState({});
     const [currAppData, setCurrAppData] = useState();
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
+
+        getOrgColors().then(colors => {
+            setColors(colors)
+
+            getDatumElements(nowDateObj);
+        })
+    }, [])
 
     const getDatumElements = (dateObj) => {
         const date = (dateObj['year']+'-'+dateObj['month']);
@@ -28,7 +39,7 @@ const CalendarScreen = () => {
             if (res['data'].length !== 0 ){
                 res['data'].forEach(val => {
                     const dateVal = val['date'].split('T', 1);
-                    dates[dateVal] = {marked: true, dotColor: '#451864', id: val['_id']};
+                    dates[dateVal] = {marked: true, id: val['_id']};
                 })
             }
             setCalendarData(dates);
@@ -40,12 +51,6 @@ const CalendarScreen = () => {
         setModalDetailVisible(false);
     }
 
-    if(dataLoad){
-        const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
-        getDatumElements(nowDateObj);
-        setDataLoad(false);
-    }
-
     const openDetailModal = (data) => {
         setCurrAppData(data);
         setModalDetailVisible(false);
@@ -53,7 +58,7 @@ const CalendarScreen = () => {
         setModalVisible(true);
     }
 
-    return (
+    return colors.primarycolor ? (
         <SafeAreaView style={styles.root}>
             <DateDetailModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo}/>
             <DateChooseModalComponent visible={modalDetailVisible} onClose={closeModal} modalInfo={modalInfo} openDetailModal={openDetailModal}/>
@@ -63,49 +68,54 @@ const CalendarScreen = () => {
                     <StyledText inputStyle={styles.header} theme={'pageTitle'}>Agenda</StyledText>
                     <UpcomingAppointment/>
                     <View style={styles.calendarView}>
-                        <Calendar style={{width: Dimensions.get('window').width * .7}} theme={{arrowColor: '#451864'}}
-                              markingType={'custom'}
-                              markedDates={calendarData}
-                              onDayPress={(day) => {
-                                  if (day.dateString in calendarData){
-                                      let count = 0;
-                                      rawData.forEach(res => {
-                                          if ((res['date'].split('T', 1)[0]) === day.dateString){
-                                              count++;
-                                          }
-                                      })
-                                      if (count === 1){
-                                          let todayObject = [];
+                        <Calendar style={{width: Dimensions.get('window').width * .7}}
+                                  theme={{
+                                      arrowColor: colors.primarycolor,
+                                      todayTextColor: colors.primarycolor,
+                                      dotColor: colors.primarycolor
+                                  }}
+                                  markingType={'custom'}
+                                  markedDates={calendarData}
+                                  onDayPress={(day) => {
+                                      if (day.dateString in calendarData){
+                                          let count = 0;
                                           rawData.forEach(res => {
                                               if ((res['date'].split('T', 1)[0]) === day.dateString){
-                                                  todayObject.push(res);
+                                                  count++;
                                               }
                                           })
-                                          setModalInfo(todayObject[0])
-                                          setModalVisible(true);
-                                      } else if (count > 1){
-                                          let todayObject = [];
-                                          rawData.forEach(res => {
-                                              if ((res['date'].split('T', 1)[0]) === day.dateString){
-                                                  todayObject.push(res);
-                                              }
-                                          })
+                                          if (count === 1){
+                                              let todayObject = [];
+                                              rawData.forEach(res => {
+                                                  if ((res['date'].split('T', 1)[0]) === day.dateString){
+                                                      todayObject.push(res);
+                                                  }
+                                              })
+                                              setModalInfo(todayObject[0])
+                                              setModalVisible(true);
+                                          } else if (count > 1){
+                                              let todayObject = [];
+                                              rawData.forEach(res => {
+                                                  if ((res['date'].split('T', 1)[0]) === day.dateString){
+                                                      todayObject.push(res);
+                                                  }
+                                              })
 
-                                          setModalInfo(todayObject);
-                                          setModalDetailVisible(true);
+                                              setModalInfo(todayObject);
+                                              setModalDetailVisible(true);
+                                          }
                                       }
-                                  }
-                              }}
-                              loadItemsForMonth={() => {getDatumElements({'year': moment().year(), 'month': moment().month() + 1})}}
-                              onMonthChange={(month) => {getDatumElements(month)}}
-                              enableSwipeMonths={true}
+                                  }}
+                                  loadItemsForMonth={() => {getDatumElements({'year': moment().year(), 'month': moment().month() + 1})}}
+                                  onMonthChange={(month) => {getDatumElements(month)}}
+                                  enableSwipeMonths={true}
                         />
                     </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
-    );
-};
+    ) : <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={colors.primarycolor}/>
+}
 
 const styles = StyleSheet.create({
     centeredView: {
@@ -179,6 +189,9 @@ const styles = StyleSheet.create({
     },
     logo: {
         marginBottom: 10
+    },
+    loadingSpinner: {
+        marginTop: '15%'
     },
 })
 

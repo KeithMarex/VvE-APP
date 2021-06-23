@@ -37,7 +37,7 @@ const UpcomingAppointment = () => {
             <StyledText>{tr.agenda?.upcomingAppointment}</StyledText>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 10}}>
                 <CalendarIcon stroke={colors?.primarycolor}/>
-                <StyledText inputStyle={styles.information}>{upcomingApp}</StyledText>
+                <StyledText inputStyle={styles.information} theme={'secondaryColor'}>{upcomingApp}</StyledText>
             </View>
         </View>
     </View>
