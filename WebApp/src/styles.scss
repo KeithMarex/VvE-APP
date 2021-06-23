@@ -46,6 +46,11 @@ header {
     color: #a6a6a6;
 }
 
+input:focus, textarea:focus {
+    outline: none;
+    border-color: $dynamic-primary !important;
+}
+
 :host app-popup {
     height: auto;
 }

@@ -32,11 +32,6 @@ section > form {
     textarea {
         height: 80%;
     }
-
-    input:focus, textarea:focus {
-        border-color: $dynamic-primary;
-        outline: none;
-    }
 }
 
 .right-side {
