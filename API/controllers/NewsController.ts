@@ -65,8 +65,8 @@ export const putNews = (req, res) => {
         content: req.fields.content,
         thumbnail: res.locals.images[0]
     })
-    .then(result => {
-        res.status(200).send(result);
+    .then(() => {
+        res.status(200).json({message: "News has been updated successfully"});
     })
     .catch(err => {
         logger.error(err);
