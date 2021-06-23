@@ -52,8 +52,28 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(
       params => {
         if (params['id'] !== 'create') {
-          console.log("Im a special route!!!")
+          this.initzializeNews(params['id']);
         }
+      }
+    )
+  }
+
+  initzializeNews(id: String) {
+    this.error.isError = false;
+    this.newsDao.getNewsItem(id).subscribe(
+      response => {
+        this.editorForm.controls["editorContent"].setValue(response.content);
+        this.detailsForm.controls["title"].setValue(response.title);
+        this.detailsForm.controls["author"].setValue(response.author);
+        this.getBase64FromUrl(response.thumbnail["image_url"]).then(
+          blob => {
+            blob["name"] = response.thumbnail["name"];
+            this.thumbnail = blob;
+          });
+      },
+      err => {
+        this.error.message = "SERVER ERROR: Er was een probleem met het ophalen van het nieuws artikel." + err.message;
+        this.error.isError = true;
       }
     )
   }
@@ -122,5 +142,10 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
 
   doesTitleExist(): boolean {
     return this.detailsForm.controls["title"].value
+  }
+
+  getBase64FromUrl = async (url) => {
+    const data = await fetch(url);
+    return data.blob();
   }
 }
