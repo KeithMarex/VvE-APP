@@ -16,12 +16,10 @@ const NewsItem = ({newsItem}) => {
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
                         <HomeIcon stroke={'#A0CAE8'} width={8} height={8} />
-                        <StyledText inputStyle={styles.newsTextTop}>{newsItem.title}</StyledText>
                     </View>
-                    <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
                     <StyledText inputStyle={styles.newsTextTop}>{newsItem.createdAt}</StyledText>
                 </View>
-                <StyledText inputStyle={styles.newsTitle}>{newsItem.content}</StyledText>
+                <StyledText inputStyle={styles.newsTitle}>{newsItem.title}</StyledText>
             </View>
         </View>
     )

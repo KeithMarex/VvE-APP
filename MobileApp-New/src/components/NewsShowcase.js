@@ -26,12 +26,10 @@ const PageActionButton = (props) => {
                 <View style={styles.newsTextTopWrapper}>
                     <View style={styles.newsTextTopOrganization}>
                         <HomeIcon stroke={'#A0CAE8'} width={10} height={10} />
-                        <StyledText inputStyle={styles.newsTextTop}>{props.newsItem?._title}</StyledText>
                     </View>
-                    <StyledText inputStyle={styles.newsTextTopLine}>|</StyledText>
                     <StyledText inputStyle={styles.newsTextTop}>{props.newsItem?._createdAt}</StyledText>
                 </View>
-                <StyledText inputStyle={styles.newsTitle}>{props.newsItem?._content}</StyledText>
+                <StyledText inputStyle={styles.newsTitle}>{props.newsItem?._title}</StyledText>
             </View>
         </View>
     )
