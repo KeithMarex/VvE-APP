@@ -23,15 +23,9 @@ const Profile = () => {
     const [colors, setColors] = useState({})
     const [tr, setTr] = useState({})
     const [orgName, setOrgName] = useState('')
-    const [user, setUser] = useState({})
 
-<<<<<<< HEAD
     const user = props.route.params.user;
 
-    tra().then(res => {
-        setTr(res);
-    })
-=======
     useEffect(() => {
         getOrgColors().then(colors => {
             setColors(colors)
@@ -44,19 +38,7 @@ const Profile = () => {
         tra().then(res => {
             setTr(res)
         })
-
-        fetchUser()
     }, [])
-
-    const fetchUser = () => {
-        AsyncStorage.getItem('userId').then((userId) => {
-            ApiHelper.get('/user/' + userId)
-                .then((res) => {
-                    setUser(res.data)
-                })
-        })
-    }
->>>>>>> 3a904fb7ffe1dd4079dc47c0cdfc14da1aed16e3
 
     return (
         <SafeAreaView>
@@ -68,30 +50,17 @@ const Profile = () => {
 
                         <View style={styles.profileSection}>
                             <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
-<<<<<<< HEAD
-                                <ProfileIcon stroke={'#451864'} style={{marginRight: '5%'}}/>
+                                <ProfileIcon stroke={colors?.primarycolor} style={{marginRight: '5%'}}/>
                                 <StyledText inputStyle={styles.accountName}>{user._firstname} {user._lastname}</StyledText>
                             </View>
                             {/*<StyledText inputStyle={{paddingBottom: '3%', textAlign: 'left'}}>Hasebroekstraat 75 II</StyledText>*/}
                             <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
-                                <MailIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
+                                <MailIcon stroke={colors?.primarycolor} style={{marginRight: '2%'}} width={window.width / 15} />
                                 <StyledText inputStyle={{color: '#6E7191'}}>{user._email}</StyledText>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <PhoneIcon stroke={'#451864'} style={{marginRight: '2%'}} width={window.width / 15} />
                                 <StyledText inputStyle={{color: '#6E7191'}}>06-12345678</StyledText>
-=======
-                                <ProfileIcon stroke={colors?.primarycolor} style={{marginRight: '5%'}}/>
-                                <StyledText inputStyle={styles.accountName}>
-                                    { user?.firstname + ' ' + user?.lastname }
-                                </StyledText>
-                            </View>
-                            <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
-                                <MailIcon stroke={colors?.primarycolor} style={{marginRight: '2%'}} width={window.width / 15} />
-                                <StyledText inputStyle={{color: '#6E7191'}}>
-                                    { user?.email }
-                                </StyledText>
->>>>>>> 3a904fb7ffe1dd4079dc47c0cdfc14da1aed16e3
                             </View>
 
                             <StyledText inputStyle={styles.organizationsSection}>{tr.home?.vveinfo}</StyledText>

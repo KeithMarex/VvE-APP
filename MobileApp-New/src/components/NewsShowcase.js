@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
 import {Dimensions, Image, StyleSheet, View} from 'react-native'
-import {HomeIcon, PenIcon, PlusIcon} from "../resources";
 import StyledText from "./StyledText";
 import {Defs, LinearGradient, Rect, Stop, Svg} from "react-native-svg";
 import ApiHelper from "../util/ApiHelper";
@@ -9,7 +8,7 @@ import { getOrgColors } from '../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
-const PageActionButton = () => {
+const NewsShowcase = () => {
     const [newsArticles, setNewsArticles] = React.useState([]);
     const [colors, setColors] = useState({})
 

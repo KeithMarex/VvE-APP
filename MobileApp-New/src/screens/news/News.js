@@ -81,16 +81,10 @@ const News = () => {
 
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
 
-<<<<<<< HEAD
                     {!isFetchingNews
                         ? (<NewsShowcase />)
                         : <Text>Aan het laden...</Text>
                     }
-=======
-                    {!isFetchingNews && (
-                        <NewsShowcase newsItem={newsArticles[0]}/>
-                    )}
->>>>>>> 3a904fb7ffe1dd4079dc47c0cdfc14da1aed16e3
 
                     <View style={styles.newsList}>
                         {newsArticles.length > 0
