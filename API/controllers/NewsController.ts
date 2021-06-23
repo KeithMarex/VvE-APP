@@ -66,7 +66,7 @@ export const putNews = (req, res) => {
         thumbnail: res.locals.images[0]
     })
     .then(result => {
-        res.status(201).send(result);
+        res.status(200).send(result);
     })
     .catch(err => {
         logger.error(err);
