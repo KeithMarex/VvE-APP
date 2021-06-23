@@ -59,7 +59,7 @@ export const deleteNews = (req, res) => {
 }
 
 export const putNews = (req, res) => {
-    News.updateOne({_id: req.fields._id}, {
+    News.updateOne({_id: req.params.id}, {
         title: req.fields.title,
         author: req.fields.author,
         content: req.fields.content,
