@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { NgxEditorModule } from 'ngx-editor';
 import {
   CalendarModule,
   CalendarDateFormatter,
@@ -55,6 +56,7 @@ import { CalendarComponent } from './calendar-overview/calendar/calendar.compone
 import { CalendarItemCreatorComponent } from './calendar-overview/calendar-item-creator/calendar-item-creator.component';
 import { CalendarService } from './calendar-overview/calendar/calendar.service';
 import { CalendarItemDetailsComponent } from './calendar-overview/calendar/calendar-item-details/calendar-item-details.component';
+import { NewsEditorComponent } from './news-editor/news-editor.component';
 import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
 import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 import { JsonParserService } from 'src/shared/services/json-parser.service';
@@ -82,6 +84,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     TicketOverviewComponent,
     NavigationBarComponent,
     NewsOverviewComponent,
+    NewsEditorComponent,
     CalendarOverviewComponent,
     AccountManagementComponent,
     VveManagementComponent,
@@ -121,6 +124,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CommonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     InlineSVGModule,
     BrowserAnimationsModule,
     CalendarModule.forRoot({
@@ -133,7 +137,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       }
     }),
     NgxDaterangepickerMd.forRoot(),
-    ReactiveFormsModule,
+    NgxEditorModule
   ],
   providers: [
     Dao,

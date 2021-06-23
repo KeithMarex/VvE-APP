@@ -21,6 +21,7 @@ import CloseButtonComponent from "../../components/Buttons/CloseButton.Component
 import tra from "../../config/languages/translate";
 import { takeCameraImage, pickGalleryImage } from "../../util/ImageUtil"
 import InputImage from "../../components/InputImage";
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
@@ -29,10 +30,17 @@ const TicketCreate = (props) => {
     const [description, onChangeDescription] = useState("")
     const [images, setImages] = useState([])
     const [tr, setTr] = useState({})
+    const [colors, setColors] = useState({})
 
-    tra().then(res => {
-        setTr(res)
-    })
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
 
     const onTakeCameraImagePressed = async () => {
         const takenImage = await takeCameraImage()
@@ -114,7 +122,7 @@ const TicketCreate = (props) => {
                         ))}
                     </View>
 
-                    <TouchableOpacity onPress={() => createTicket()} style={styles.sendBtn}>
+                    <TouchableOpacity onPress={() => createTicket()} style={[styles.sendBtn, { backgroundColor: colors?.secondarycolor }]}>
                         <StyledText inputStyle={styles.ticketBtnText}>
                             {tr.ticket?.send}
                         </StyledText>
@@ -137,7 +145,6 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     sendBtn: {
-        backgroundColor: '#A0CAE8',
         borderRadius: 20,
         justifyContent: 'center',
         paddingHorizontal: 20,

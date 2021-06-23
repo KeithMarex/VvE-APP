@@ -19,6 +19,10 @@
         filter:opacity(40%);
         filter:grayscale(60%);
     }
+
+    &:hover {
+        filter: opacity(80%);
+    }
 }
 
 .icon-button {

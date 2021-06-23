@@ -1,20 +1,38 @@
-import React from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import React, {useEffect, useState} from 'react'
+import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-native'
 import { Logo } from '../resources'
+import { getOrgLogo } from '../util/OrganizationUtil'
+import AutoHeightImage from 'react-native-auto-height-image'
 
 const window = Dimensions.get('window')
 
 const PageLogo = (props) => {
+    const [logo, setLogo] = useState()
+
+    useEffect(() => {
+        getOrgLogo().then(logo => {
+            setLogo(logo)
+        })
+    }, [])
+
     return (
         <View>
-            <Logo style={styles.logo} width={window.width / 10 * 4} height={window.width / 10 * 3}/>
+            { logo && (
+                <AutoHeightImage
+                    source={{uri: logo}}
+                    style={styles.logo}
+                    resizeMode={'contain'}
+                    width={window.width / 10 * 3}
+                    height={window.height}
+                />
+            )}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     logo: {
-        marginVertical: 5
+        marginVertical: 20
     }
 })
 

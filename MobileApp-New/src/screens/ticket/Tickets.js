@@ -7,6 +7,7 @@ import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
 import { initDateParser, parseDate } from '../../util/DateUtil'
 import tra from "../../config/languages/translate";
+import { getOrgColors } from '../../util/OrganizationUtil';
 
 const window = Dimensions.get('window')
 
@@ -14,27 +15,34 @@ const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
     const [isFetchingTickets, setIsFetchingTickets] = useState(false)
     let screenFocusSubscription
-    const [tr, setTr] = React.useState({})
-
-    tra().then(res => {
-        setTr(res);
-    })
+    const [colors, setColors] = useState({})
+    const [tr, setTr] = useState({})
 
     useEffect(() => {
-        initDateParser('nl') //TODO move to splash screen
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
+
         fetchTickets()
-        screenFocusSubscription = props.navigation.addListener(
-            'focus',
-            () => {
-                setTickets([])
-                fetchTickets()
-            }
-        )
+        screenFocusSubscription = props.navigation.addListener('focus', () => {
+            reloadTickets()
+        })
 
         return () => {
-            props.navigation.removeListener('focus')
+            props.navigation.removeListener('focus', () => {
+                reloadTickets()
+            })
         }
     }, [])
+
+    const reloadTickets = () => {
+        setTickets([])
+        fetchTickets()
+    }
 
     const fetchTickets = () => {
         setIsFetchingTickets(true)
@@ -42,7 +50,6 @@ const Tickets = (props) => {
             .then((res) => {
                 const parsedTickets = []
                 res.data.forEach((ticket) => {
-                    // ticket.parsedStatus = parseTicketStatus(ticket.status, 'en')
                     ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
                     ticket.parsedCreatedAt = parseDate(ticket.createdAt)
                     parsedTickets.push(ticket)
@@ -66,14 +73,9 @@ const Tickets = (props) => {
         return ticketsListEl
     }
 
-    // Is used when no tickets are available; they're being fetched or don't exist
     const createTicketsReplacement = () => {
         if (tickets.length <= 0) {
-            return isFetchingTickets
-                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
-                : <StyledText inputStyle={styles.noTickets}>
-                    {tr.ticket?.noNotifications}
-                </StyledText>
+            return <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={colors?.primarycolor}/>
         }
     }
 
@@ -119,24 +121,6 @@ const styles = StyleSheet.create({
     },
     pageTitle: {
         marginBottom: window.height / 40,
-    },
-
-    addButton: {
-        marginVertical: 15,
-        alignItems: 'center'
-    },
-    addButtonIconWrapper: {
-        backgroundColor: '#A0CAE8',
-        borderRadius: 50,
-        width: window.width / 10 * 1.1,
-        height: window.width / 10 * 1.1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    addButtonText: {
-        marginTop: 4,
-        fontSize: 11,
-        color: 'black'
     },
 
     noTickets: {

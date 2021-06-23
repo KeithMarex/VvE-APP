@@ -64,6 +64,10 @@ body {
         stroke: $dynamic-primary;
     }
 
+    .svg-element:hover {
+        filter: opacity(80%);
+    }
+
     .active-link {
         stroke: white;
         fill: $dynamic-primary;

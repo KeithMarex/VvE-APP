@@ -12,12 +12,16 @@ export class NewsDao {
     return this.dao.sendGetRequest('news');
   }
 
-  getNewsItem(id): Observable<NewsItem[]> {
+  getNewsItem(id): Observable<NewsItem> {
     return this.dao.sendGetRequest('news/' + id);
   }
 
   createNewsItem(payload: object): Observable<NewsItem> {
-    return this.dao.sendPostRequest('news/', payload);
+    return this.dao.sendPostRequestForm('news/', payload);
+  }
+
+  updateNewsItem(payload: object, id: string): Observable<any> {
+    return this.dao.sendPutRequestForm(`news/${id}`, payload);
   }
 
   deleteCalendarItem(id: string): Observable<NewsItem> {

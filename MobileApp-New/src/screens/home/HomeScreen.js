@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 import StyledText from '../../components/StyledText'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
@@ -8,18 +8,25 @@ import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import UpcomingAppointment from "../../components/UpcomingAppointment";
 import tra from '../../config/languages/translate';
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 const Tab = createBottomTabNavigator()
 
 const HomeScreen = (props) => {
     const user = props.route.params.user;
+    const [colors, setColors] = useState({})
+    const [tr, setTr] = useState({})
 
-    const [tr, setTr] = React.useState({})
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
 
-    tra().then(res => {
-        setTr(res);
-    })
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
 
     return (
         <SafeAreaView style={styles.root}>
@@ -31,12 +38,18 @@ const HomeScreen = (props) => {
                         <StyledText inputStyle={styles.introWelcome}>{tr.home?.welcome}</StyledText>
                         <StyledText inputStyle={styles.introName}>{user._firstname} {user._lastname}</StyledText>
                         <View style={styles.introMessage}>
-                            <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
+                            <CommentIcon style={styles.introMessageIcon}
+                                         stroke={colors?.primarycolor}
+                                         width={19} height={19}
+                            />
                             <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 {tr.home?.newReaction} &#62;</StyledText>
                         </View>
                         <TouchableOpacity onPress={() => props.navigation.navigate('Agenda')}>
                             <View style={styles.introMessage}>
-                                <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
+                                <CalendarIcon style={styles.introMessageIcon}
+                                              stroke={colors?.primarycolor}
+                                              width={16} height={16}
+                                />
                                 <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 {tr.home?.appointments} &#62;</StyledText>
                             </View>
                         </TouchableOpacity>
@@ -62,12 +75,12 @@ const HomeScreen = (props) => {
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Huishoudelijk reglement.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(2KB)</StyledText>
                                     </View>
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Informatie over het pand.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(10,29KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(10,29KB)</StyledText>
                                     </View>
 
                                 </View>
@@ -79,12 +92,12 @@ const HomeScreen = (props) => {
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(8,13KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(8,13KB)</StyledText>
                                     </View>
 
                                     <View style={styles.infoOrganizationFile}>
                                         <StyledText inputStyle={styles.infoOrganizationFileName}>Kosten.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2,29KB)</StyledText>
+                                        <StyledText inputStyle={styles.infoOrganizationFileSize} theme={'secondaryColor'}>(2,29KB)</StyledText>
                                     </View>
 
                                 </View>
@@ -166,26 +179,6 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
 
-    agenda: {
-        paddingTop: 15,
-        paddingBottom: 18
-    },
-    agendaItemName: {
-        fontSize: 17,
-        marginBottom: 10
-    },
-    agendaItemDate: {
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
-    agendaItemDateText: {
-        color: '#A0CAE8',
-        fontSize: 14,
-    },
-    agendaItemDateIcon: {
-        marginRight: 10
-    },
-
     infoOrganization: {
         marginTop: 12
     },
@@ -211,7 +204,6 @@ const styles = StyleSheet.create({
     infoOrganizationFileSize: {
         marginLeft: 6,
         fontSize: 16,
-        color: '#A0CAE8',
     }
 })
 
