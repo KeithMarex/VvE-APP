@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native'
 import StyledText from "./StyledText";
 import { parseDate } from "../util/DateUtil";
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const TicketComment = (props) => {
+    const [colors, setColors] = useState({})
     const { isUserComment, comment } = props
     const commentType = isUserComment ? 'user' : 'org'
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
 
     const showCommentImage = (image) => {
         props.navigation.navigate('ShowCommentImage', { image });
@@ -13,7 +21,10 @@ const TicketComment = (props) => {
 
     return (
         <View style={styles[commentType + 'CommentWrapper']}>
-            <View style={[styles.ticketComment, styles[commentType + 'Comment']]}>
+            <View style={[
+                styles.ticketComment, styles[commentType + 'Comment'],
+                isUserComment ? {backgroundColor: colors?.primarycolor + '40'} : undefined]}
+            >
                 <StyledText inputStyle={styles[commentType + 'CommentUser']}>
                     { isUserComment ? 'U' : 'Bestuur' }
                 </StyledText>
@@ -57,9 +68,6 @@ const styles = StyleSheet.create({
     },
     orgComment: {
         backgroundColor: '#fff'
-    },
-    userComment: {
-        backgroundColor: '#E4DAFF'
     },
     orgCommentUser: {
         textAlign: 'left',
