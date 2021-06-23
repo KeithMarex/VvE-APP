@@ -13,6 +13,7 @@ export class NewsItemComponent implements OnInit {
   @Input() newsItem: NewsItem;
   @Output() deleteNewsItem = new EventEmitter<NewsItem>();
   thumbnailUrl: string;
+  isWarningShown: boolean = false;
 
   constructor(
     private dataStorage: DataStorageService,
@@ -30,10 +31,25 @@ export class NewsItemComponent implements OnInit {
   }
 
   onDeleteNewsItemClicked(): void {
+    this.isWarningShown = true;
+  }
+
+  onCloseWarning() {
+    this.isWarningShown = false;
+  }
+
+  onConfirmDeletion() {
+    this.onCloseWarning();
     this.deleteNewsItem.emit(this.newsItem);
   }
 
   parseDate(date: Date): string {
     return moment(date).format('llll');
   }
+
+  htmlToText(html): String {
+    var temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent;
+}
 }

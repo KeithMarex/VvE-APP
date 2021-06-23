@@ -23,3 +23,6 @@
 <app-popup class="ticket-editor" *ngIf="editingTag" title="Tag wijzigen" (closed)="onClose()" [fitContent]="true" [small]="true">
     <app-tag-editor [tag]="tag" (tagEdited)="editTag($event)"></app-tag-editor>
 </app-popup>
+<app-popup *ngIf="warningPopup" title="Waarschuwing" (closed)="onCloseWarning()" [fitContent]="true">
+    <app-confirmation-popup content="Weet u zeker dat u {{ tag.name }} wil verwijderen?" (confirmed)="onConfirmDelete()"></app-confirmation-popup>
+</app-popup>
