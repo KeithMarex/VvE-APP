@@ -11,10 +11,6 @@
         <div class="right-side">
             <div class="member-select">
                 <h1>Persoon toewijzen</h1>
-                <!-- <select name="assignee" ngModel>
-                    <option value="">Niet toegewezen</option>
-                    <option *ngFor="let member of organizationMembers" [ngValue]="member._id">{{ member.firstname + ' ' + member.lastname }}</option>
-                </select> -->
                 <app-dropdown class="dropdown" [(ngModel)]="selectedAssignee" name="assignee" ngDefaultControl [options]="organizationMembers">
                     <ng-template dropdownSelected let-selected>
                         <div class="dropdown-item">
@@ -30,10 +26,6 @@
             </div>
             <div class="tag-field">
                 <h1>Tag toewijzen</h1>
-                <!-- <select name="tag" ngModel>
-                    <option value="">Geen tag</option>
-                    <option *ngFor="let tag of organizationTags" [ngValue]="tag._id">{{ tag.name }}</option>
-                </select> -->
                 <app-dropdown class="dropdown" [(ngModel)]="selectedTag" name="tag" ngDefaultControl [options]="organizationTags">
                     <ng-template dropdownSelected let-selected>
                         <div class="dropdown-item">
@@ -63,7 +55,10 @@
                 </app-dropdown>
             </div>
             <p class="error-text" *ngIf="errorMessage">{{ errorMessage }}</p>
-            <button type="submit" [disabled]="form.invalid">Aanmaken</button>
+            <button type="submit" [disabled]="form.invalid || isLoading">
+                <p *ngIf="!isLoading">Aanmaken</p>
+                <app-spinner *ngIf="isLoading"></app-spinner>
+            </button>
         </div>
     </form>
 </section>

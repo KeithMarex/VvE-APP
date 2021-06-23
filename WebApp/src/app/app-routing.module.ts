@@ -4,7 +4,7 @@ import { AccountManagementComponent } from './account-management/account-managem
 import { CalendarOverviewComponent } from './calendar-overview/calendar-overview.component';
 import { LoginComponent } from './login/login.component';
 import { NewsOverviewComponent } from './news-overview/news-overview.component';
-import { NewsCreateComponent } from './news-create/news-create.component';
+import { NewsEditorComponent } from './news-editor/news-editor.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { TicketOverviewComponent } from './ticket-overview/ticket-overview.component';
 import { VveManagementComponent } from './vve-management/vve-management.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'account-management', component: AccountManagementComponent, canActivate:[AuthGuard] },
   { path: 'calendar', component: CalendarOverviewComponent, canActivate:[AuthGuard] },
   { path: 'news-overview', component: NewsOverviewComponent, canActivate:[AuthGuard] },
-  { path: 'news-create', component: NewsCreateComponent, canActivate:[AuthGuard] },
+  { path: 'news-editor/:id', component: NewsEditorComponent, canActivate:[AuthGuard] },
   { path: 'ticket-overview', component: TicketOverviewComponent, canActivate:[AuthGuard] },
   { path: 'vve-management', component: VveManagementComponent, canActivate:[AuthGuard] },
   { path: 'tags-overview', component: TagsOverviewComponent, canActivate:[AuthGuard] },

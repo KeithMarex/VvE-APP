@@ -13,17 +13,17 @@ import { from, Observable } from 'rxjs';
   styleUrls: ['./vve-management.component.scss']
 })
 export class VveManagementComponent implements OnInit {
-  organization: Organization
-  primaryColor = '#000000';
-  secondaryColor = '#000000';
+  organization: Organization;
+  primaryColor: String = '#000000';
+  secondaryColor: String = '#000000';
   logo: Image;
   newLogoName: string; // Based on uploaded file
   newLogo: File;
-  detailsUploadLoading = false;
-  detailsUploadError;
+  detailsUploadLoading: boolean = false;
+  detailsUploadError: String;
   organizationFiles: OrganizationFile[];
-  fileUploadLoading = false;
-  fileUploadError;
+  fileUploadLoading: boolean = false;
+  fileUploadError: String;
 
   constructor(private dataStorageService: DataStorageService, private organizationDao: OrganizationDao) { }
 
@@ -72,7 +72,7 @@ export class VveManagementComponent implements OnInit {
     });
 
     var newName = formValues.name;
-    
+
     if (newName) {
       mForm.append('name', formValues.name);
     }
@@ -91,7 +91,7 @@ export class VveManagementComponent implements OnInit {
       })
       .add(() => {
         this.detailsUploadLoading = false;
-      }); 
+      });
     } else {
       this.detailsUploadLoading = false;
     }
@@ -142,11 +142,21 @@ export class VveManagementComponent implements OnInit {
   downloadFile(data: any, type: string): void {
     const blob = new Blob([data], { type: type });
     const url = window.URL.createObjectURL(blob);
-    
+
     window.open(url);
   }
 
-  getFilesizeInMB(file: OrganizationFile): number {
-    return +(file.filesize / 1000000).toFixed(2);
+  getFormattedFilesize(file: OrganizationFile): string {
+    var filesize = +(file.filesize / 1000).toFixed(2); // To KB
+    var filesizeString;
+
+    if (filesize > 1000) { // If larger than 1MB
+      filesizeString = (filesize / 1000).toFixed(2) + 'MB';
+    }
+    else {
+      filesizeString = filesize.toString() + 'KB';
+    }
+
+    return filesizeString;
   }
 }

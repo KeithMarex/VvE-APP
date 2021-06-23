@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit">
+                    <button type="submit" [disabled]="detailsUploadLoading">
                         <p *ngIf="!detailsUploadLoading">Update gegevens</p>
                         <app-spinner *ngIf="detailsUploadLoading"></app-spinner>
                     </button>
@@ -50,7 +50,7 @@
                 <div class="files-block">
                     <div class="file" *ngFor="let file of organizationFiles">
                         <p class="filename" (click)="onDownloadFile(file)">{{ file.filename.length > 25 ? file.filename.slice(0, 20) + '... ' + file.filename.slice(-4) : file.filename }}</p>
-                        <p class="filesize" *ngIf="file.filesize">{{ '(' + getFilesizeInMB(file) + 'MB)' }}</p>
+                        <p class="filesize" *ngIf="file.filesize">{{ '(' + getFormattedFilesize(file) + ')' }}</p>
                         <div class="delete-button" [inlineSVG]="'../../assets/icons/Close.svg'" (click)="onDeleteFile(file)"></div>
                     </div>
                 </div>

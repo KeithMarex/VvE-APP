@@ -1,0 +1,8 @@
+post:
+  summary: Logs the user out and removes the access- & refreshtoken
+  tags:
+    - User
+  description: The cookies are removed of the users computer
+  responses:
+    '200':
+      description: Cookies succesfully deleted

@@ -59,7 +59,7 @@ const LoginScreen = (props) => {
                 <Logo width={ss.width / 10 * 7} style={styles.logo} />
                 <View style={styles.emailField}>
                     <Mail style={styles.svg} stroke={'#A0A3BD'}/>
-                    <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder={tr.login?.login.email} />
+                    <TextInput style={styles.input} onChangeText={onChangeName} value={username} placeholder={tr.login?.login.email} keyboardType={'email-address'} />
                 </View>
                 <View style={styles.emailField}>
                     <Lock style={styles.svg} stroke={'#A0A3BD'}/>
