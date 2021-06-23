@@ -5,9 +5,8 @@
     <body>
         <section class="button-section">
             <button (click)="onAdd()">Nieuw</button>
-            <button class="icon-button dropdown-button">Filter
+            <button class="icon-button dropdown-button">Sorteer / Filter
                 <span class="button-dropdown">
-                    <!-- <app-search-bar (searchTermChanged)="searchTermChanged($event)"></app-search-bar> -->
                     <div class="top-option" (click)="onChangeSort('status')">
                         <p>Ticket status</p>
                     </div>
@@ -16,8 +15,13 @@
                         <p>Laatste wijziging</p>
                     </div>
                     <hr>
-                    <div class="bottom-option" (click)="onChangeSort('createdAt')">
+                    <div (click)="onChangeSort('createdAt')">
                         <p>Aanmaak datum</p>
+                    </div>
+                    <hr>
+                    <div class="bottom-option">
+                        <p>Filter term:</p>
+                        <app-search-bar (searchTermChanged)="searchTermChanged($event)"></app-search-bar>
                     </div>
                 </span>
             </button>
