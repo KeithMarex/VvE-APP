@@ -12,7 +12,7 @@
       {{ newsItem?.title }}
     </h3>
     <p class="news-description">
-      {{ newsItem?.content }}
+      {{ htmlToText(newsItem?.content) }}
     </p>
   </div>
   <div class="news-buttons">

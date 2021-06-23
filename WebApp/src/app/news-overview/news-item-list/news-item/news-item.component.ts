@@ -36,4 +36,10 @@ export class NewsItemComponent implements OnInit {
   parseDate(date: Date): string {
     return moment(date).format('llll');
   }
+
+  htmlToText(html): String {
+    var temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent;
+}
 }
