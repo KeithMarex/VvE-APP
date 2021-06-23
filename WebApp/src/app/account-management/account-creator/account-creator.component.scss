@@ -19,10 +19,13 @@ form {
         margin: 0 auto;
         margin-bottom: 1rem;
 
-        object {
+        .svg-element {
+            display: flex;
+            align-items: center;
             position: absolute;
             bottom: 0.9rem;
             left: 0.5rem;
+            stroke: #A0A3BD;
         }
     }
 
@@ -35,6 +38,10 @@ form {
         font-size: 110%;
         color: #686868;
         resize: none;
+    }
+
+    :focus-within > .svg-element {
+        stroke: $dynamic-primary;
     }
     
     button {
