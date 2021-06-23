@@ -10,7 +10,7 @@ const router = Router();
 router.post('/', formidableMiddleware(), imagesConvert, isAdmin, postNews);
 router.get('/', getAllNews);
 router.get('/:id', getNews);
-router.put('/', formidableMiddleware(), imagesConvert, isAdmin, putNews);
+router.put('/:id', formidableMiddleware(), imagesConvert, isAdmin, putNews);
 router.delete('/:id', isAdmin, deleteNews);
 
 export default router;
