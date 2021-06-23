@@ -65,6 +65,7 @@ const TicketCreate = (props) => {
         fd.append('creator', '60a69daf408255502dd4a948');
 
         images.forEach((image, index) => {
+            console.log(image)
             fd.append(`file${index+1}` , {
                 name: image['uri'].split('ImageManipulator/')[1],
                 type: 'image/png',
@@ -72,14 +73,15 @@ const TicketCreate = (props) => {
             })
         })
 
-        await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/form-data'}).then(res => {
-            props.navigation.goBack();
-        }).catch(error => {
-            console.log(error);
-            if (error.response.status === 413) {
-                Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
-            }
-        })
+        await ApiHelper.post('/ticket', fd, {'content-type': 'multipart/form-data'})
+            .then(() => {
+                props.navigation.goBack();
+            }).catch(error => {
+                console.log(error)
+                if (error.response.status === 413) {
+                    Alert.alert('Te veel data', 'Probeer minder afbeeldingen mee te sturen');
+                }
+            })
     }
 
     function removeImage(image) {
