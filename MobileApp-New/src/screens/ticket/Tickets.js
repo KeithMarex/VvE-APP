@@ -8,6 +8,7 @@ import ApiHelper from '../../util/ApiHelper'
 import { initDateParser, parseDate } from '../../util/DateUtil'
 import tra from "../../config/languages/translate";
 import { getOrgColors } from '../../util/OrganizationUtil';
+import sortBy from 'sort-by'
 
 const window = Dimensions.get('window')
 
@@ -49,7 +50,8 @@ const Tickets = (props) => {
         ApiHelper.get('/ticket')
             .then((res) => {
                 const parsedTickets = []
-                res.data.forEach((ticket) => {
+                const sortedTickets = res.data.sort(sortBy('-updatedAt'))
+                sortedTickets.forEach((ticket) => {
                     ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
                     ticket.parsedCreatedAt = parseDate(ticket.createdAt)
                     parsedTickets.push(ticket)
