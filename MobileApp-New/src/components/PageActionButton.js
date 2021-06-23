@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {Dimensions, StyleSheet, View} from 'react-native'
 import {PenIcon, PlusIcon, CloseButton} from '../resources'
 import StyledText from './StyledText'
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const window = Dimensions.get('window')
 
 const PageActionButton = (props) => {
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
     return (
         <View style={styles.addButton}>
-            <View style={styles.addButtonIconWrapper}>
+            <View style={[styles.addButtonIconWrapper, { backgroundColor: colors?.secondarycolor }]}>
                 {props.icon === 'plus' && (
                     <PlusIcon stroke={'#F7F7FC'} width={window.width / 10 * .6} height={window.width / 10 * .6}/>
                 )}
@@ -32,8 +41,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     addButtonIconWrapper: {
-        backgroundColor: '#A0CAE8',
-        borderRadius: 50,
+        borderRadius: 100,
         width: window.width / 10 * 1.1,
         height: window.width / 10 * 1.1,
         justifyContent: 'center',
