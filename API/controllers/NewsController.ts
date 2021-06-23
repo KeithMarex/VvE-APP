@@ -58,6 +58,23 @@ export const deleteNews = (req, res) => {
     });
 }
 
+export const putNews = (req, res) => {
+    News.updateOne({_id: req.fields._id}, {
+        title: req.fields.title,
+        author: req.fields.author,
+        content: req.fields.content,
+        thumbnail: res.locals.images[0]
+    })
+    .then(result => {
+        res.status(201).send(result);
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json({message: err});
+    });
+}
+
 const createNews = (req, res) => {
     req.fields.organization = res.locals.user.organizations[0];
     if(res.locals.images) {
