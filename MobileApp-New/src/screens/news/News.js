@@ -63,7 +63,7 @@ const News = () => {
     const createNewsArticles = () => {
         const newsList = []
 
-        for (let i = 0; i < newsArticles.length; i++) {
+        for (let i = 1; i < newsArticles.length; i++) {
             newsList.push(
                 <NewsItem newsItem={newsArticles[i]} key={i}/>
             )
