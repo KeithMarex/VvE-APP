@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { NewsDao } from '../../shared/services/news-dao.service';
 import { Component, OnInit, OnDestroy, ViewEncapsulation  } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -41,13 +42,20 @@ export class NewsEditorComponent implements OnInit, OnDestroy {
     author: new FormControl('', Validators.required())
   });
 
-  constructor(private newsDao: NewsDao) {};
+  constructor(private newsDao: NewsDao, private route: ActivatedRoute) {};
 
   ngOnInit(): void {
     this.editor = new Editor({
       keyboardShortcuts: true,
       history: true
     });
+    this.route.params.subscribe(
+      params => {
+        if (params['id'] !== 'create') {
+          console.log("Im a special route!!!")
+        }
+      }
+    )
   }
 
   ngOnDestroy(): void {
