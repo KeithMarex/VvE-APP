@@ -96,9 +96,6 @@ export class NewsCreateComponent implements OnInit, OnDestroy {
     // if this is existing thingy do if with other request "Update"
     // if object id === null
 
-    // Do request
-    // Show error when there is a mistake
-
   }
 
   setErrorMessage(): void {
