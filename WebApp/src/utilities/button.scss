@@ -21,7 +21,7 @@
     }
 
     &:hover {
-        filter: opacity(80%);
+        filter: brightness(115%);
     }
 }
 
@@ -45,6 +45,7 @@
 }
 
 .dropdown-button {
+    filter: brightness(95%);
     position: relative;
 
     .button-dropdown {
