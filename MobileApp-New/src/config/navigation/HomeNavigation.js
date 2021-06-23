@@ -15,6 +15,7 @@ import News from "../../screens/news/News";
 import Calendar from "../../screens/calendar/CalendarScreen";
 import TicketNavigation from "./tabsNavigation/ticket/TicketNavigation";
 import { getOrgColors } from '../../util/OrganizationUtil'
+import NewsNavigation from "./tabsNavigation/news/NewsNavigation";
 
 const Tab = createBottomTabNavigator();
 const ss = Dimensions.get('window');
@@ -46,7 +47,9 @@ const HomeNavigation = (props) => {
                             return <CalendarIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? colors?.primarycolor : '#FCFCFC'} />
                         },
                     }} />
-                    <Tab.Screen name="Nieuws" component={News} options={{
+                    <Tab.Screen name="Nieuws" component={NewsNavigation} options={{
+                        headerShown: false,
+                        headerLeft: ()=> null,
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
                             return <NewsIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? colors?.primarycolor : '#FCFCFC'} />
