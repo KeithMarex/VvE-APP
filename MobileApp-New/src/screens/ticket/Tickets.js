@@ -29,10 +29,14 @@ const Tickets = (props) => {
 
         initDateParser('nl') //TODO move to splash screen
         fetchTickets()
-        screenFocusSubscription = props.navigation.addListener('focus', () => reloadTickets())
+        screenFocusSubscription = props.navigation.addListener('focus', () => {
+            reloadTickets()
+        })
 
         return () => {
-            props.navigation.removeListener('focus', () => reloadTickets())
+            props.navigation.removeListener('focus', () => {
+                reloadTickets()
+            })
         }
     }, [])
 
