@@ -37,22 +37,6 @@ const HomeScreen = (props) => {
                     <View style={[styles.homeSection, styles.intro]}>
                         <StyledText inputStyle={styles.introWelcome}>{tr.home?.welcome}</StyledText>
                         <StyledText inputStyle={styles.introName}>{user._firstname} {user._lastname}</StyledText>
-                        <View style={styles.introMessage}>
-                            <CommentIcon style={styles.introMessageIcon}
-                                         stroke={colors?.primarycolor}
-                                         width={19} height={19}
-                            />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 {tr.home?.newReaction} &#62;</StyledText>
-                        </View>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('Agenda')}>
-                            <View style={styles.introMessage}>
-                                <CalendarIcon style={styles.introMessageIcon}
-                                              stroke={colors?.primarycolor}
-                                              width={16} height={16}
-                                />
-                                <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 {tr.home?.appointments} &#62;</StyledText>
-                            </View>
-                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
