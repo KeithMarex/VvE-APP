@@ -19,11 +19,12 @@ import ApiHelper from "../../util/ApiHelper";
 
 const window = Dimensions.get('window')
 
-const Profile = () => {
+const Profile = (props) => {
     const [colors, setColors] = useState({})
     const [tr, setTr] = useState({})
     const [orgName, setOrgName] = useState('')
-    const [user, setUser] = useState({})
+
+    const user = props.route.params.user;
 
     useEffect(() => {
         getOrgColors().then(colors => {
@@ -37,18 +38,7 @@ const Profile = () => {
         tra().then(res => {
             setTr(res)
         })
-
-        fetchUser()
     }, [])
-
-    const fetchUser = () => {
-        AsyncStorage.getItem('userId').then((userId) => {
-            ApiHelper.get('/user/' + userId)
-                .then((res) => {
-                    setUser(res.data)
-                })
-        })
-    }
 
     return (
         <SafeAreaView>
@@ -56,23 +46,27 @@ const Profile = () => {
                 <ScrollView style={styles.view}>
                     <View style={styles.home}>
                         <PageLogo/>
-                        <StyledText inputStyle={styles.pageTitle}>{tr.profile?.general}</StyledText>
+                        <StyledText inputStyle={styles.pageTitle}>
+                            { tr.profile?.general }
+                        </StyledText>
 
                         <View style={styles.profileSection}>
                             <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
                                 <ProfileIcon stroke={colors?.primarycolor} style={{marginRight: '5%'}}/>
                                 <StyledText inputStyle={styles.accountName}>
-                                    { user?.firstname + ' ' + user?.lastname }
+                                    { user._firstname} {user._lastname }
                                 </StyledText>
                             </View>
                             <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
                                 <MailIcon stroke={colors?.primarycolor} style={{marginRight: '2%'}} width={window.width / 15} />
                                 <StyledText inputStyle={{color: '#6E7191'}}>
-                                    { user?.email }
+                                    { user._email }
                                 </StyledText>
                             </View>
 
-                            <StyledText inputStyle={styles.organizationsSection}>{tr.home?.vveinfo}</StyledText>
+                            <StyledText inputStyle={styles.organizationsSection}>
+                                { tr.home?.vveinfo }
+                            </StyledText>
                             <StyledText inputStyle={{color: 'black', textAlign: 'left'}}>
                                 { orgName }
                             </StyledText>
@@ -83,7 +77,9 @@ const Profile = () => {
                             )}
                         </View>
 
-                        <StyledText inputStyle={[styles.accountName, {marginTop: '5%'}]}>{tr.profile?.language}</StyledText>
+                        <StyledText inputStyle={[styles.accountName, {marginTop: '5%'}]}>
+                            { tr.profile?.language }
+                        </StyledText>
                         <LanguageSelector/>
                     </View>
                 </ScrollView>

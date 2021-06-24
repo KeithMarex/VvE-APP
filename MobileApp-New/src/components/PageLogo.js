@@ -23,7 +23,7 @@ const PageLogo = (props) => {
                     style={styles.logo}
                     resizeMode={'contain'}
                     width={window.width / 10 * 3}
-                    height={window.height}
+                    height={window.height / 10}
                 />
             )}
         </View>
