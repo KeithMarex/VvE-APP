@@ -4,7 +4,7 @@ import React from 'react'
 // Screen imports + Navigator
 import {createStackNavigator} from "@react-navigation/stack";
 import News from "../../../../screens/news/News";
-import NewsDetail from "../../../../screens/news/NewsDetail";
+import NewsExpanded from "../../../../screens/news/NewsExpanded";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +14,7 @@ const NewsNavigation = (props) => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="List" component={News} options={{headerShown: false, headerLeft: ()=> null}}/>
-            <Stack.Screen name="detail" component={NewsDetail} options={{headerShown: false, headerLeft: ()=> null}}/>
+            <Stack.Screen name="detail" component={NewsExpanded} options={{headerShown: false, headerLeft: ()=> null}}/>
         </Stack.Navigator>
     );
 };

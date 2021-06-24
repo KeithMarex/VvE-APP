@@ -11,7 +11,6 @@ import { HomeIcon, CalendarIcon, NewsIcon, NotificationIcon, ProfileIcon } from 
 
 import {Dimensions, StyleSheet, View} from "react-native";
 import Profile from "../../screens/profile/Profile";
-import News from "../../screens/news/News";
 import Calendar from "../../screens/calendar/CalendarScreen";
 import TicketNavigation from "./tabsNavigation/ticket/TicketNavigation";
 import { getOrgColors } from '../../util/OrganizationUtil'

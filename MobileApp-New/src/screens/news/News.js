@@ -65,7 +65,7 @@ const News = (props) => {
 
         for (let i = 1; i < newsArticles.length; i++) {
             const currItem = newsArticles[i];
-            newsList.push(<TouchableOpacity key={i} onPress={() => {props.navigation.navigate('detail')}}><NewsItem newsItem={currItem}/></TouchableOpacity>)
+            newsList.push(<TouchableOpacity key={i} onPress={() => {props.navigation.navigate('detail', {currItem})}}><NewsItem newsItem={currItem}/></TouchableOpacity>)
         }
 
         return newsList
