@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
+import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import sortBy from 'sort-by'
 import tra from '../../config/languages/translate'
@@ -6,10 +6,8 @@ import { getOrgColors } from '../../util/OrganizationUtil'
 import StyledText from '../../components/StyledText'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from '../../components/PageLogo'
-import ApiHelper from '../../util/ApiHelper'
-import NewsModel from '../../models/news.model'
 import NewsItem from '../../components/NewsItem.component'
-import { parseDateWithTime } from '../../util/DateUtil'
+import { getNews } from '../../util/NewsUtil'
 
 const window = Dimensions.get('window')
 
@@ -20,7 +18,11 @@ const News = () => {
     const [colors, setColors] = useState({})
 
     useEffect(() => {
-        fetchNews()
+        setIsFetchingNews(true)
+        getNews().then(news => {
+            setNewsArticles(news)
+            setIsFetchingNews(false)
+        })
 
         getOrgColors().then(colors => {
             setColors(colors)
@@ -30,25 +32,6 @@ const News = () => {
             setTr(res)
         })
     }, [])
-
-    const fetchNews = () => {
-        ApiHelper.get('/news')
-            .then((res) => {
-                const parsedNews = []
-
-                const sortedNews = res.data.sort(sortBy('-updatedAt'))
-
-                sortedNews.forEach((newsItem) => {
-                    parsedNews.push(
-                        new NewsModel(
-                            newsItem._id, newsItem.author, newsItem.title, newsItem.content,
-                            parseDateWithTime(newsItem.createdAt), parseDateWithTime(newsItem.createdAt)
-                        ))
-                })
-                setNewsArticles(parsedNews)
-                setIsFetchingNews(false)
-            })
-    }
 
     const createTicketsReplacement = () => {
         if (newsArticles.length <= 0) {
@@ -81,9 +64,10 @@ const News = () => {
 
                     <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.news?.mRecent}</StyledText>
 
-                    {!isFetchingNews && (
-                        <NewsShowcase newsItem={newsArticles[0]}/>
-                    )}
+                    {!isFetchingNews
+                        ? (<NewsShowcase />)
+                        : <Text>Aan het laden...</Text>
+                    }
 
                     <View style={styles.newsList}>
                         {newsArticles.length > 0

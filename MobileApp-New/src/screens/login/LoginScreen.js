@@ -20,6 +20,7 @@ import UserModel from '../../models/user.model'
 import tra from '../../config/languages/translate'
 import { initOrg } from '../../util/OrganizationUtil'
 import {initDateParser} from "../../util/DateUtil";
+import { initNews } from '../../util/NewsUtil'
 
 const ss = Dimensions.get('window')
 
@@ -41,8 +42,9 @@ const LoginScreen = (props) => {
                 await initData(user)
                 props.navigation.navigate('homeNavigation', { user })
             }).catch(error => {
-                if (error.response.status === 401){
-                    Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem')
+                console.log(error);
+                if (error.response.status === 400){
+                    Alert.alert('Fout inloggegevens', 'De opgegeven inloggegevens zijn niet bekend in ons systeem');
                 }
             })
     }
@@ -50,6 +52,7 @@ const LoginScreen = (props) => {
     const initData = async (user) => {
         await AsyncStorage.setItem('userId', user._id)
         await initOrg()
+        await initNews()
         initDateParser(tr.locale)
     }
 
