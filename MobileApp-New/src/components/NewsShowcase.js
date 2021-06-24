@@ -20,7 +20,7 @@ const NewsShowcase = () => {
         getOrgColors().then(colors => {
             setColors(colors)
         })
-    });
+    }, [])
 
     return (
         <View style={styles.newsShowcase}>
@@ -44,7 +44,7 @@ const NewsShowcase = () => {
                                 <CalendarIcon stroke={colors?.secondarycolor} width={10} height={10} />
                             </View>
                             <StyledText inputStyle={styles.newsTextTop}>
-                                {newsArticles[0]?._createdAt}
+                                {newsArticles[0]?._updatedAt}
                             </StyledText>
                         </View>
                         <StyledText inputStyle={styles.newsTitle}>

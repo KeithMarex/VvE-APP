@@ -54,7 +54,7 @@ const Profile = (props) => {
                             <View style={{flexDirection: 'row', paddingTop: '5%', paddingBottom: '3%'}} >
                                 <ProfileIcon stroke={colors?.primarycolor} style={{marginRight: '5%'}}/>
                                 <StyledText inputStyle={styles.accountName}>
-                                    { user._firstname} {user._lastname }
+                                    { user._firstname } { user._lastname }
                                 </StyledText>
                             </View>
                             <View style={{flexDirection: 'row', paddingBottom: '3%'}}>
