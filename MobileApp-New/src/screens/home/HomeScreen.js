@@ -12,7 +12,6 @@ import { getOrgColors } from '../../util/OrganizationUtil'
 import OrganisationFilesComponent from "../../components/OrganisationFiles.component";
 
 const window = Dimensions.get('window')
-const Tab = createBottomTabNavigator()
 
 const HomeScreen = (props) => {
     const user = props.route.params.user;

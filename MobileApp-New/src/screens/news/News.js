@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text } from 'react-native'
+import { SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import sortBy from 'sort-by'
 import tra from '../../config/languages/translate'
@@ -11,7 +11,7 @@ import { getNews } from '../../util/NewsUtil'
 
 const window = Dimensions.get('window')
 
-const News = () => {
+const News = (props) => {
     const [tr, setTr] = React.useState({})
     const [isFetchingNews, setIsFetchingNews] = React.useState(true)
     const [newsArticles, setNewsArticles] = React.useState([])
@@ -47,9 +47,8 @@ const News = () => {
         const newsList = []
 
         for (let i = 1; i < newsArticles.length; i++) {
-            newsList.push(
-                <NewsItem newsItem={newsArticles[i]} key={i}/>
-            )
+            const currItem = newsArticles[i];
+            newsList.push(<TouchableOpacity key={i} onPress={() => {props.navigation.navigate('detail', {currItem})}}><NewsItem newsItem={currItem}/></TouchableOpacity>)
         }
 
         return newsList
