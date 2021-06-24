@@ -1,10 +1,10 @@
-import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
-import {Modal, StatusBar, View, StyleSheet, ScrollView, Text, Dimensions} from "react-native";
-import React, {useState} from "react";
-import Button from "./Button";
-import AppointmentChoose from "./AppointmentChoose";
-import StyledText from "./StyledText";
-import tra from "../config/languages/translate";
+import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
+import {Modal, StatusBar, View, StyleSheet, ScrollView, Text, Dimensions} from 'react-native'
+import React, {useState} from 'react'
+import Button from './Button'
+import AppointmentChoose from './AppointmentChoose'
+import StyledText from './StyledText'
+import tra from '../config/languages/translate'
 
 const DateChooseModalComponent = (props) => {
     React.useEffect(() => {
@@ -23,24 +23,25 @@ const DateChooseModalComponent = (props) => {
     })
 
     function handleClose(data){
-        props.onClose(false);
-        setSelectedData(data);
-        props.openDetailModal(data);
+        props.onClose(false)
+        setSelectedData(data)
+        props.openDetailModal(data)
     }
 
     const renderAppointments = () => {
         const appointments = []
         for (let i = 0; i < props.modalInfo.length; i++) {
-            const currentAppointment = props.modalInfo[i];
+            const currentAppointment = props.modalInfo[i]
             appointments.push(
                 <AppointmentChoose key={i} currApp={currentAppointment} pressAction={handleClose}/>
             )
         }
+
         return appointments
     }
 
     function showLoader() {
-        return <Text>Er is niks te zien</Text>;
+        return <Text>Er is niks te zien</Text>
     }
 
     return (
@@ -112,4 +113,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DateChooseModalComponent;
+export default DateChooseModalComponent

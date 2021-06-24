@@ -62,8 +62,9 @@ const CalendarScreen = () => {
     }
 
     const onDayPress = (day) => {
-        if (!day.dateString in calendarData)
+        if (!day.dateString in calendarData) {
             return
+        }
 
         let count = 0
         rawData.forEach(res => {
@@ -75,7 +76,7 @@ const CalendarScreen = () => {
         if (count <= 1){
             let todayObject = []
             rawData.forEach(res => {
-                if (getDateString(res.date) === day.dateString){
+                if (getDateString(res.date) === day.dateString) {
                     todayObject.push(res)
                 }
             })

@@ -1,43 +1,37 @@
-import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
-import {Modal, StatusBar, View, StyleSheet} from "react-native";
-import React, {useState} from "react";
-import StyledText from "./StyledText";
-import moment from "moment";
-import Button from "./Button";
-import tra from "../config/languages/translate";
+import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
+import {Modal, StatusBar, View, StyleSheet} from 'react-native'
+import React, {useState} from 'react'
+import StyledText from './StyledText'
+import Button from './Button'
+import tra from '../config/languages/translate'
+import { parseDateWithTime } from '../util/DateUtil'
 
 const DateDetailModalComponent = (props) => {
     React.useEffect(() => {
-        setModalInfo(props.modalInfo);
-        setModalVisible(props.visible);
-    }, [props.visible]);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [modalInfo, setModalInfo] = useState();
+        setModalInfo(props.modalInfo)
+        setModalVisible(props.visible)
+    }, [props.visible])
+    const [modalVisible, setModalVisible] = useState(false)
+    const [modalInfo, setModalInfo] = useState()
     const [tr, setTr] = React.useState({})
 
     tra().then(res => {
-        setTr(res);
+        setTr(res)
     })
 
     const getText = () => {
-        if (modalInfo !== undefined || modalInfo !== ''){
-            const date = moment(modalInfo['date'].split('T', 1), "YYYY-MM-DD").format("DD-MMMM-YYYY").split('-');
-            const time = modalInfo['date'].split('T', 2)[1].split('.', 1)[0].split(':');
-            return(`${date[0]} ${date[1]} ${date[2]} om ${time[0]}:${time[1]}`);
-        } else {
-            return 'geen data';
-        }
+        return modalInfo ? parseDateWithTime(modalInfo.date) : 'Geen datum'
     }
 
     function handleClose(){
-        props.onClose();
+        props.onClose()
     }
 
     return (
         <Modal animationType="fade" transparent={true} statusBarTranslucent={true}
                deviceHeight={Platform.OS === "ios"
                    ? useWindowDimensions().height
-                   : useWindowDimensions().height + StatusBar.currentHeight * 2} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}
+                   : useWindowDimensions().height + StatusBar.currentHeight * 2} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible)}}
         >
             <View style={styles.centeredView}>
                 {(modalInfo !== undefined) ?
@@ -113,4 +107,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DateDetailModalComponent;
+export default DateDetailModalComponent
