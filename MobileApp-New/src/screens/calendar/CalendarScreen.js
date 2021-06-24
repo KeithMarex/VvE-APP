@@ -1,16 +1,14 @@
-import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
-import React, {useEffect, useState} from "react";
-import {CalendarIcon} from "../../resources";
-import {Calendar} from 'react-native-calendars';
-import StyledText from "../../components/StyledText";
-import PageLogo from "../../components/PageLogo";
-import DateDetailModalComponent from "../../components/DateDetailModalComponent";
-import ApiHelper from "../../util/ApiHelper";
+import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native'
+import React, {useEffect, useState} from 'react'
+import {Calendar} from 'react-native-calendars'
+import StyledText from "../../components/StyledText"
+import PageLogo from '../../components/PageLogo'
+import DateDetailModalComponent from '../../components/DateDetailModalComponent'
+import ApiHelper from '../../util/ApiHelper'
 import moment from 'moment'
-import UpcomingAppointment from "../../components/UpcomingAppointment";
-import DateChooseModalComponent from "../../components/DateChooseModalComponent";
+import UpcomingAppointment from '../../components/UpcomingAppointment'
+import DateChooseModalComponent from '../../components/DateChooseModalComponent'
 import { getOrgColors } from '../../util/OrganizationUtil'
-import {parseDateWithTime} from "../../util/DateUtil";
 
 const CalendarScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -32,21 +30,24 @@ const CalendarScreen = () => {
     }, [])
 
     const fetchCalendarItems = (dateObj) => {
-        const date = (dateObj['year']+'-'+dateObj['month']);
+        const date = (dateObj['year']+'-'+dateObj['month'])
 
         ApiHelper.get(`/agenda/${date}`).then(res => {
-            const dates = {};
-            setRawData(res.data);
+            const dates = {}
+            setRawData(res.data)
             if (res.data.length !== 0 ){
                 res.data.forEach(dataItem => {
-                    console.log(moment(dataItem.date))
-                    const dateVal = dataItem['date'].split('T', 1);
-                    dates[dateVal] = {marked: true, id: dataItem._id};
+                    const dateVal = getDateString(dataItem.date)
+                    dates[dateVal] = {marked: true, id: dataItem._id}
                 })
             }
             setCalendarData(dates);
         })
-    };
+    }
+
+    const getDateString = (date) => {
+        return moment(date).format('YYYY-MM-DD')
+    }
 
     const closeModal = () => {
         setModalVisible(false);
