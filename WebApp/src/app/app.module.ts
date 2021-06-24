@@ -61,6 +61,7 @@ import { SpinnerComponent } from 'src/shared/spinner/spinner.component';
 import { OrganizationDao } from 'src/shared/services/organization-dao.service';
 import { JsonParserService } from 'src/shared/services/json-parser.service';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { AccountImportComponent } from './account-management/account-import/account-import.component';
 import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 import { SearchBarComponent } from '../shared/components/search-bar/search-bar.component';
 import { NewsDao } from '../shared/services/news-dao.service';
@@ -111,6 +112,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     CalendarItemDetailsComponent,
     SpinnerComponent,
     PasswordRecoveryComponent,
+    AccountImportComponent,
     ConfirmationPopupComponent,
     SearchBarComponent,
     NewsItemListComponent,
@@ -135,7 +137,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
       }
     }),
     NgxDaterangepickerMd.forRoot(),
-    NgxEditorModule
+    NgxEditorModule,
   ],
   providers: [
     Dao,

@@ -24,6 +24,7 @@
     "date-fns": "^2.22.1",
     "moment": "^2.29.1",
     "ng-inline-svg": "^13.0.0",
+    "ngx-csv-parser": "0.0.7",
     "ngx-daterangepicker-material": "^4.0.1",
     "ngx-editor": "^10.0.2",
     "rxjs": "^6.6.7",

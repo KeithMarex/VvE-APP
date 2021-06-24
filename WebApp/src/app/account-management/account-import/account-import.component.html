@@ -1,0 +1,30 @@
+<div class="container">
+    <h1>Ingeladen data</h1>
+    <div *ngIf="isError" class="error-message">{{ errorMessage }}</div>
+    <div class="account-list">
+        <div *ngFor="let user of users; index as i;">
+            <div class="user-item">
+                <div class="item-name">
+                    <h1>Naam</h1>
+                    <p>{{ user.firstname + ' ' + user.lastname }}</p>
+                </div>
+                <div class="item-email">
+                    <h1>Email</h1>
+                    <p>{{ user.email }}</p>
+                </div>
+                <div class="item-role">
+                    <div *ngIf="user.role == 'admin'">
+                        <h1>Rol</h1>
+                        <p>{{ user.role }}</p>
+                    </div>
+                </div>
+                <div class="item-button">
+                    <button class="icon-button" (click)="onDelete(user, i)">verwijderen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="submit-button">
+        <button (click)="onCreateUsers()">Aanmaken</button>
+    </div>
+</div>

@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountManagementComponent implements OnInit {
   creatingUser = false;
+  importingUsers = false;
+  importCsv: File;
+  file: Blob;
+  reader: FileReader = new FileReader()
+  readFile = this.reader.result;
 
   constructor() { }
 
@@ -17,12 +22,26 @@ export class AccountManagementComponent implements OnInit {
     this.creatingUser = true;
   }
 
-  onClose() {
+  onImportUsers(form: any) {
+    this.importCsv = form;
+    this.importingUsers = true;
+  }
+
+  onCloseCreator() {
     this.creatingUser = false;
+  }
+
+  onCloseImport() {
+    this.importingUsers = false;
   }
 
   onCreateUser() {
     this.creatingUser = false;
+    window.location.reload();
+  }
+
+  onUsersImported() {
+    this.importingUsers = false;
     window.location.reload();
   }
 
