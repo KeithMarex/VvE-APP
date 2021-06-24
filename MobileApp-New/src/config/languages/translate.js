@@ -1,21 +1,22 @@
-import translations from '../languages/translations.json'
-import { NativeModules, Platform, AsyncStorage } from 'react-native'
-
-let language
+import translations from '../languages/translations.json';
+import { NativeModules, Platform, AsyncStorage } from "react-native";
 
 const translate = async () => {
-    if (!language) {
-        language = await AsyncStorage.getItem('lang')
+    let locale = ""
+    const hasLang = await AsyncStorage.getItem('lang');
+
+    if (hasLang != null){
+        locale = hasLang;
+    } else {
+        if (Platform.OS === 'ios'){
+            locale = NativeModules.SettingsManager.settings.AppleLocale.split('_', 1) || NativeModules.SettingsManager.settings.AppleLanguages[0].split('_', 1);
+        } else {
+            locale = NativeModules.I18nManager.localeIdentifier.split('_', 1);
+        }
+        locale = locale[0];
     }
 
-    return translations[language ? language : fetchSystemLocale]
+    return translations[locale];
 }
 
-const fetchSystemLocale = () => {
-    return Platform.OS === 'ios'
-        ? (NativeModules.SettingsManager.settings.AppleLocale.split('_', 1) || NativeModules.SettingsManager.settings.AppleLanguages[0].split('_', 1))[0]
-        : (NativeModules.I18nManager.localeIdentifier.split('_', 1))[0]
-}
-
-export default translate
-
+export default translate;
