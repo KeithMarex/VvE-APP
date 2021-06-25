@@ -1,16 +1,36 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native'
 import {ArrowIcon, Logo} from '../resources'
 import StyledText from "./StyledText";
+import { getOrgColors } from '../util/OrganizationUtil'
 
 const Button = (props) => {
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
+
     return (
-        <TouchableOpacity style={[styles.button, props.style]} onPress={props.pressAction}>
-            <StyledText inputStyle={styles.buttonText}>
+        <TouchableOpacity
+            style={[
+                styles.button, props.style,
+                {borderColor: props.disabled ? colors?.secondarycolor + '33' : colors?.secondarycolor}
+            ]}
+            onPress={props.pressAction}>
+            <StyledText inputStyle={[
+                styles.buttonText,
+                {color: props.disabled ? colors?.secondarycolor + '33' : colors?.secondarycolor}
+            ]}>
                 { props.children }
             </StyledText>
             {props.withArrow && (
-                <ArrowIcon width={14} height={14} stroke={'#A0CAE8'} marginLeft={4} />
+                <ArrowIcon width={14} height={14} marginLeft={4}
+                           stroke={props.disabled ? colors?.secondarycolor + '33' : colors?.secondarycolor}
+                />
             )}
         </TouchableOpacity>
     )
@@ -18,7 +38,6 @@ const Button = (props) => {
 
 const styles = StyleSheet.create({
     button: {
-        borderColor: '#A0CAE8',
         borderWidth: 2,
         borderRadius: 40,
         justifyContent: 'center',
@@ -28,7 +47,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     buttonText: {
-        color: '#A0CAE8',
         fontSize: 14,
         fontWeight: 'bold',
     },

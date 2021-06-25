@@ -1,59 +1,103 @@
-import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions} from "react-native";
-import React, {useEffect, useState} from "react";
-import {CalendarIcon} from "../../resources";
-import {Calendar} from 'react-native-calendars';
-import StyledText from "../../components/StyledText";
-import PageLogo from "../../components/PageLogo";
-import DateDetailModalComponent from "../../components/DateDetailModalComponent";
-import ApiHelper from "../../util/ApiHelper";
-import moment from "moment";
-import UpcomingAppointment from "../../components/UpcomingAppointment";
-import DateChooseModalComponent from "../../components/DateChooseModalComponent";
+import {SafeAreaView, ScrollView, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native'
+import React, {useEffect, useState} from 'react'
+import {Calendar} from 'react-native-calendars'
+import StyledText from "../../components/StyledText"
+import PageLogo from '../../components/PageLogo'
+import DateDetailModalComponent from '../../components/DateDetailModalComponent'
+import ApiHelper from '../../util/ApiHelper'
+import moment from 'moment'
+import UpcomingAppointment from '../../components/UpcomingAppointment'
+import DateChooseModalComponent from '../../components/DateChooseModalComponent'
+import { getOrgColors } from '../../util/OrganizationUtil'
 
 const CalendarScreen = () => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [modalDetailVisible, setModalDetailVisible] = useState(false);
-    const [modalInfo, setModalInfo] = useState();
-    const [calendarData, setCalendarData] = useState({});
-    const [dataLoad, setDataLoad] = useState(true);
-    const [rawData, setRawData] = useState({});
-    const [currAppData, setCurrAppData] = useState();
+    const [modalVisible, setModalVisible] = useState(false)
+    const [modalDetailVisible, setModalDetailVisible] = useState(false)
+    const [modalInfo, setModalInfo] = useState()
+    const [calendarData, setCalendarData] = useState({})
+    const [rawData, setRawData] = useState({})
+    const [currAppData, setCurrAppData] = useState()
+    const [colors, setColors] = useState({})
 
-    const getDatumElements = (dateObj) => {
-        const date = (dateObj['year']+'-'+dateObj['month']);
+    useEffect(() => {
+        const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1}
+
+        getOrgColors().then(colors => {
+            setColors(colors)
+
+            fetchCalendarItems(nowDateObj)
+        })
+    }, [])
+
+    const fetchCalendarItems = (dateObj) => {
+        const date = (dateObj['year']+'-'+dateObj['month'])
 
         ApiHelper.get(`/agenda/${date}`).then(res => {
-            const dates = {};
-            setRawData(res.data);
-            if (res['data'].length !== 0 ){
-                res['data'].forEach(val => {
-                    const dateVal = val['date'].split('T', 1);
-                    dates[dateVal] = {marked: true, dotColor: '#451864', id: val['_id']};
+            const dates = {}
+            setRawData(res.data)
+            if (res.data.length !== 0 ){
+                res.data.forEach(dataItem => {
+                    const dateVal = getDateString(dataItem.date)
+                    dates[dateVal] = {marked: true, id: dataItem._id}
                 })
             }
-            setCalendarData(dates);
+            setCalendarData(dates)
         })
-    };
-
-    const closeModal = () => {
-        setModalVisible(false);
-        setModalDetailVisible(false);
     }
 
-    if(dataLoad){
-        const nowDateObj = {'year': moment().year(), 'month': moment().month() + 1};
-        getDatumElements(nowDateObj);
-        setDataLoad(false);
+    const getDateString = (date) => {
+        return moment(date).format('YYYY-MM-DD')
+    }
+
+    const closeModal = () => {
+        setModalVisible(false)
+        setModalDetailVisible(false)
     }
 
     const openDetailModal = (data) => {
-        setCurrAppData(data);
-        setModalDetailVisible(false);
+        setCurrAppData(data)
+        setModalDetailVisible(false)
         setModalInfo(data)
-        setModalVisible(true);
+        setModalVisible(true)
     }
 
-    return (
+    const onDayPress = (day) => {
+        if (!day.dateString in calendarData) {
+            return
+        }
+
+        let count = 0
+        rawData.forEach(res => {
+            if (getDateString(res.date) === day.dateString) {
+                count++
+            }
+        })
+
+        if (count <= 1){
+            let todayObject = []
+            rawData.forEach(res => {
+                if (getDateString(res.date) === day.dateString) {
+                    todayObject.push(res)
+                }
+            })
+            setModalInfo(todayObject[0])
+            setModalVisible(true)
+
+            return
+        }
+
+        let todayObject = []
+        rawData.forEach(res => {
+            if (getDateString(res.date) === day.dateString) {
+                todayObject.push(res)
+            }
+        })
+
+        setModalInfo(todayObject)
+        setModalDetailVisible(true)
+    }
+
+    return colors.primarycolor ? (
         <SafeAreaView style={styles.root}>
             <DateDetailModalComponent visible={modalVisible} onClose={closeModal} modalInfo={modalInfo}/>
             <DateChooseModalComponent visible={modalDetailVisible} onClose={closeModal} modalInfo={modalInfo} openDetailModal={openDetailModal}/>
@@ -63,49 +107,25 @@ const CalendarScreen = () => {
                     <StyledText inputStyle={styles.header} theme={'pageTitle'}>Agenda</StyledText>
                     <UpcomingAppointment/>
                     <View style={styles.calendarView}>
-                        <Calendar style={{width: Dimensions.get('window').width * .7}} theme={{arrowColor: '#451864'}}
-                              markingType={'custom'}
-                              markedDates={calendarData}
-                              onDayPress={(day) => {
-                                  if (day.dateString in calendarData){
-                                      let count = 0;
-                                      rawData.forEach(res => {
-                                          if ((res['date'].split('T', 1)[0]) === day.dateString){
-                                              count++;
-                                          }
-                                      })
-                                      if (count === 1){
-                                          let todayObject = [];
-                                          rawData.forEach(res => {
-                                              if ((res['date'].split('T', 1)[0]) === day.dateString){
-                                                  todayObject.push(res);
-                                              }
-                                          })
-                                          setModalInfo(todayObject[0])
-                                          setModalVisible(true);
-                                      } else if (count > 1){
-                                          let todayObject = [];
-                                          rawData.forEach(res => {
-                                              if ((res['date'].split('T', 1)[0]) === day.dateString){
-                                                  todayObject.push(res);
-                                              }
-                                          })
-
-                                          setModalInfo(todayObject);
-                                          setModalDetailVisible(true);
-                                      }
-                                  }
-                              }}
-                              loadItemsForMonth={() => {getDatumElements({'year': moment().year(), 'month': moment().month() + 1})}}
-                              onMonthChange={(month) => {getDatumElements(month)}}
-                              enableSwipeMonths={true}
+                        <Calendar style={{width: Dimensions.get('window').width * .7}}
+                                  theme={{
+                                      arrowColor: colors.primarycolor,
+                                      todayTextColor: colors.primarycolor,
+                                      dotColor: colors.primarycolor
+                                  }}
+                                  markingType={'custom'}
+                                  markedDates={calendarData}
+                                  onDayPress={(day) => { onDayPress(day) }}
+                                  loadItemsForMonth={() => { fetchCalendarItems({'year': moment().year(), 'month': moment().month() + 1}) }}
+                                  onMonthChange={(month) => { fetchCalendarItems(month) }}
+                                  enableSwipeMonths={true}
                         />
                     </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
-    );
-};
+    ) : <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={'black'}/>
+}
 
 const styles = StyleSheet.create({
     centeredView: {
@@ -180,6 +200,9 @@ const styles = StyleSheet.create({
     logo: {
         marginBottom: 10
     },
+    loadingSpinner: {
+        marginTop: '15%'
+    },
 })
 
-export default CalendarScreen;
+export default CalendarScreen

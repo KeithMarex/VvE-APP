@@ -4,42 +4,54 @@ import { NavigationContainer, useIsFocused } from '@react-navigation/native';
 
 // Component imports
 import ActualHomeScreen from "../../screens/home/HomeScreen";
-import React from "react";
+import React, { useEffect, useState } from 'react'
 
 // Icons
 import { HomeIcon, CalendarIcon, NewsIcon, NotificationIcon, ProfileIcon } from "../../resources"
 
 import {Dimensions, StyleSheet, View} from "react-native";
 import Profile from "../../screens/profile/Profile";
-import News from "../../screens/news/News";
 import Calendar from "../../screens/calendar/CalendarScreen";
 import TicketNavigation from "./tabsNavigation/ticket/TicketNavigation";
+import { getOrgColors } from '../../util/OrganizationUtil'
+import NewsNavigation from "./tabsNavigation/news/NewsNavigation";
 
 const Tab = createBottomTabNavigator();
 const ss = Dimensions.get('window');
 
 const HomeNavigation = (props) => {
+    const [colors, setColors] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+    }, [])
+
     return (
         <View style={styles.root}>
             <NavigationContainer>
-                <Tab.Navigator tabBarOptions={{style: styles.navBar, showLabel: false, keyboardHidesTabBar: true}}>
+                <Tab.Navigator tabBarOptions={{style: [styles.navBar, {backgroundColor: colors?.primarycolor}], showLabel: false, keyboardHidesTabBar: true}}>
                     <Tab.Screen name="Home" component={ActualHomeScreen} options={{
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
                             return <HomeIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={'#FCFCFC'} />
-                        },
-                        user: props.user
-                    }} />
+                        }
+                    }}
+                    initialParams={{user: props.navigation.state.params.user}}
+                    />
                     <Tab.Screen name="Agenda" component={Calendar} options={{
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
-                            return <CalendarIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? '#451864' : '#FCFCFC'} />
+                            return <CalendarIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? colors?.primarycolor : '#FCFCFC'} />
                         },
                     }} />
-                    <Tab.Screen name="Nieuws" component={News} options={{
+                    <Tab.Screen name="Nieuws" component={NewsNavigation} options={{
+                        headerShown: false,
+                        headerLeft: ()=> null,
                         tabBarIcon: () => {
                             const isFocused = useIsFocused()
-                            return <NewsIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? '#451864' : '#FCFCFC'} />
+                            return <NewsIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={isFocused ? colors?.primarycolor : '#FCFCFC'} />
                         },
                     }} />
                     <Tab.Screen name="Meldingen" component={TicketNavigation} options={{
@@ -55,7 +67,8 @@ const HomeNavigation = (props) => {
                             const isFocused = useIsFocused()
                             return <ProfileIcon opacity={isFocused ? 1 : 0.8} fill={isFocused ? 'white' : 'transparent'} stroke={'#FCFCFC'} />
                         },
-                    }} />
+                    }}
+                    initialParams={{user: props.navigation.state.params.user}} />
                 </Tab.Navigator>
             </NavigationContainer>
         </View>
@@ -67,7 +80,6 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     navBar: {
-        backgroundColor: '#451864',
         height: ss.height / 12,
         borderTopWidth: 0
     }

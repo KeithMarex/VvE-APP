@@ -1,0 +1,191 @@
+@import "../../utilities/index.scss";
+
+.body {
+    height: 85vh;
+    overflow: auto;
+}
+
+h1 {
+    text-align: center;
+    color: $dynamic-primary;
+
+    span svg {
+        stroke: $dynamic-primary;
+        width: 24px;
+        height: auto;
+    }
+}
+
+.text-editor {
+    margin: 20px 0 20px 0;
+}
+
+.NgxEditor__Wrapper {
+    min-width: 40%;
+    max-width: 87%;
+    margin: auto;
+    border: none !important;
+    box-shadow: $default-box-shadow;
+
+    .NgxEditor__MenuBar {
+        border-color: $dynamic-secondary !important;
+    }
+}
+
+.NgxEditor__Content {
+    height: 500px;
+    overflow: auto;
+    overflow-y: scroll;
+}
+
+.NgxEditor__MenuItem--IconContainer svg{
+    fill: $dynamic-primary;
+}
+
+.details {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+
+    h2 {
+        font-size: 20px;
+        color: $dynamic-primary;
+    }
+
+    .text-section {
+        display: flex;
+
+        div {
+            margin: 10px 35px;
+        }
+
+        span {
+            border-bottom: 2px solid $dynamic-primary;
+
+            svg{
+                stroke: $dynamic-primary;
+                width: 24px;
+                height: auto;
+            }
+
+            .input-detail {
+                background: none;
+                border: none;
+                min-width: 400px;
+
+                &:focus {
+                    outline: none;
+                    background-color: $background-color;
+                }
+            }
+        }
+
+    }
+
+    .file-section {
+        margin-top: 70px;
+        display: flex;
+        flex-direction: column;
+        min-width: 500px;
+
+        p {
+            margin-top: 5px;
+            display: flex;
+            cursor: pointer;
+            width: fit-content;
+            color: $grayscale-color;
+
+            span svg {
+                width: 20px;
+                height: auto;
+                stroke: $grayscale-color;
+                margin-left: 5px;
+            }
+        }
+
+        div {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+
+            label {
+                @include button;
+                display: flex;
+                flex-direction: row;
+                width: 190px;
+                margin: 20px;
+                align-items: center;
+                justify-content: center;
+                position:relative;
+                overflow:hidden;
+                cursor: pointer;
+                background-color: $dynamic-secondary;
+                color: $background-color;
+                font-size: 16px;
+
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    margin: 0;
+                    padding:0;
+                }
+
+                span svg {
+                    margin: 2px 0 0 5px;
+                    stroke: $background-color;
+                }
+            }
+        }
+
+    }
+}
+
+.error-message {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 3px;
+    background-color: $error-color;
+    color: $background-color;
+    text-align: center;
+}
+
+.save-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    .error-message {
+        background-color: $dynamic-primary;
+
+        span {
+            vertical-align: middle;
+            svg{
+                stroke: $background-color;
+                width: 19px;
+                height: auto;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    button {
+        @include button;
+    }
+}
+
+@media screen and (max-width: 1250px){
+    .input-detail {
+        min-width: 250px !important;
+    }
+}

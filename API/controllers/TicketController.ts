@@ -4,6 +4,7 @@ import User from '~/models/User';
 import { sendAdminMail, sendMail } from '~/util/Mailer';
 import { validateBodyPutTicket } from '~/validators/TicketPutValidator';
 import { Types } from 'mongoose';
+import Tag from '~/models/Tag';
 
 export const getTickets = async(req, res) => {
     const user = res.locals.user;
@@ -39,6 +40,9 @@ export const getTicket = (req, res) => {
             model: 'User'
         }]
     })
+    .populate("creator", "-password")
+    .populate("assignee", "-password")
+    .populate("tag")
     .then(result => {
         res.status(200).send(removePasswordFromCommentUser(result));
     })
@@ -75,8 +79,8 @@ export const putTicket = (req, res) => {
     const id = req.params.id;
     const body = validateBodyPutTicket(req.body);
     Ticket.updateOne({ _id: id }, body)
-    .then(() => {
-        res.status(200);
+    .then(result => {
+        res.status(200).send(result);
     })
     .catch(err => {
         logger.error(err);
@@ -88,7 +92,6 @@ export const putTicket = (req, res) => {
 const getTicketsUser = (req, res) => {
     Ticket.find({ creator: Types.ObjectId(res.locals.user._id) })
     .then(result => {
-        console.log("This is the response: ", result)
         res.status(200).send(result);
     })
     .catch(err => {
@@ -110,7 +113,25 @@ const getTicketsAdmin = (req, res, organization) => {
         },
         { "$unwind": "$creator" },
         { "$match": { "creator.organizations": Types.ObjectId(organization)}},
-        { "$set": {"creator": "$creator._id"}},
+        {
+            "$lookup": {
+                "from": User.collection.name,
+                "localField": "assignee",
+                "foreignField": "_id",
+                "as": "assignee"
+            }
+        },
+        { "$unwind": { path: "$assignee", preserveNullAndEmptyArrays: true } },
+        {
+            "$lookup": {
+                "from": Tag.collection.name,
+                "localField": "tag",
+                "foreignField": "_id",
+                "as": "tag"
+            }
+        },
+        { "$unwind": { path: "$tag", preserveNullAndEmptyArrays: true } },
+        { "$project": {"creator.password": 0, "assignee.password": 0} }
     ])
 }
 

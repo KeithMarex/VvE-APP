@@ -1,0 +1,20 @@
+type: object
+properties:
+  _id:
+    type: string
+  title:
+    type: string
+  author:
+    type: string
+  content:
+    type: string
+  thumbnail:
+    $ref: ./Image.yaml
+  organization:
+    type: Organization
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+  _v:
+    type: string

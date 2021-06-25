@@ -4,7 +4,7 @@
     height: 44px;
     width: 202px;
     margin: 10px;
-    background-color: $primary-color;
+    background-color: $dynamic-primary;
     color: $highlight-color;
     font-family: 'Inter', sans-serif;
     font-size: 110%;
@@ -16,11 +16,19 @@
 
     &:disabled {
         cursor: initial;
-        filter:opacity(30%);
+        filter:opacity(40%);
+        filter:grayscale(60%);
+
+        &:hover {
+            filter: none;
+        }
+    }
+
+    &:hover {
+        filter: brightness(115%);
     }
 }
 
-// TODO replace with mixin
 .icon-button {
     display: flex;
     justify-content: space-around;
@@ -41,6 +49,7 @@
 }
 
 .dropdown-button {
+    filter: brightness(95%);
     position: relative;
 
     .button-dropdown {
@@ -48,6 +57,7 @@
         visibility: hidden;
         background-color: #F7F7FC;
         border: 2px solid;
+        border-color: $dynamic-primary;
         border-radius: 1rem;
         width: inherit;
         top: 2.75rem;
@@ -56,6 +66,7 @@
             padding: 0.5rem 1rem;
             text-align: start;
             font-size: 80%;
+            color: $dynamic-primary;
         }
 
         div:hover {
@@ -76,6 +87,7 @@
             border: none;
             border-bottom: 1px solid;
             margin: 0 1rem;
+            color: $dynamic-primary;
         }
     }
 }
@@ -118,4 +130,10 @@
 
 .dropdown-button:hover .button-dropdown {
     visibility: visible;
+}
+
+@media only screen and (max-width: 830px) {
+    button {
+        width: 150px !important;
+    }
 }

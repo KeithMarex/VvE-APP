@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { Image } from "../models/image.model";
 import { Ticket } from "../models/ticket.model";
 import { Dao } from "./dao.service";
 
@@ -28,7 +27,7 @@ export class TicketDao {
       return this.dao.sendPostRequestForm('ticket/', ticketData);
     }
 
-    updateticket(id: string, ticketData: FormData): Observable<any> {
-      return this.dao.sendPutRequest('ticket/' + id, ticketData);
-    }
+    updateTicket(id: string, ticket: Ticket): Observable<any> {
+      return this.dao.sendPutRequest('ticket/' + id, ticket);
+    };
 }

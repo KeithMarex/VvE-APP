@@ -1,9 +1,10 @@
-import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
-import {Modal, StatusBar, View, StyleSheet, ScrollView, Text, Dimensions} from "react-native";
-import React, {useState} from "react";
-import Button from "./Button";
-import AppointmentChoose from "./AppointmentChoose";
-import StyledText from "./StyledText";
+import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
+import {Modal, StatusBar, View, StyleSheet, ScrollView, Text, Dimensions} from 'react-native'
+import React, {useState} from 'react'
+import Button from './Button'
+import AppointmentChoose from './AppointmentChoose'
+import StyledText from './StyledText'
+import tra from '../config/languages/translate'
 
 const DateChooseModalComponent = (props) => {
     React.useEffect(() => {
@@ -15,33 +16,39 @@ const DateChooseModalComponent = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [dates, setDates] = useState('');
     const [selectedData, setSelectedData] = useState();
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
 
     function handleClose(data){
-        props.onClose(false);
-        setSelectedData(data);
-        props.openDetailModal(data);
+        props.onClose(false)
+        setSelectedData(data)
+        props.openDetailModal(data)
     }
 
     const renderAppointments = () => {
         const appointments = []
         for (let i = 0; i < props.modalInfo.length; i++) {
-            const currentAppointment = props.modalInfo[i];
+            const currentAppointment = props.modalInfo[i]
             appointments.push(
                 <AppointmentChoose key={i} currApp={currentAppointment} pressAction={handleClose}/>
             )
         }
+
         return appointments
     }
 
     function showLoader() {
-        return <Text>Er is niks te zien</Text>;
+        return <Text>Er is niks te zien</Text>
     }
 
     return (
         <Modal animationType="fade" transparent={true} statusBarTranslucent={true} deviceHeight={Platform.OS === "ios" ? useWindowDimensions().height : useWindowDimensions().height + StatusBar.currentHeight * 2} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <StyledText theme={'pageTitle'}>Kies een afspraak</StyledText>
+                    <StyledText theme={'pageTitle'}>{tr.agenda?.chooseApp}</StyledText>
                     <View style={{height: Dimensions.get('window').height * .6, paddingTop: 10}}>
                         <ScrollView>
                             { (props.modalInfo)
@@ -51,7 +58,7 @@ const DateChooseModalComponent = (props) => {
                         </ScrollView>
                     </View>
 
-                    <Button pressAction={handleClose}>Sluiten</Button>
+                    <Button pressAction={() => props.onClose(false)}>{tr.agenda?.close}</Button>
                 </View>
             </View>
         </Modal>
@@ -106,4 +113,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DateChooseModalComponent;
+export default DateChooseModalComponent

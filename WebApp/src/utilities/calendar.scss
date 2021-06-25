@@ -7,7 +7,7 @@
     box-shadow: none !important;
 
     .month {
-      color: $primary-color !important;
+      color: $dynamic-primary !important;
       text-transform: capitalize !important;
     }
 
@@ -20,22 +20,22 @@
     }
 
     .available:not(.active, .off) {
-      color: $primary-color !important;
+      color: $dynamic-primary !important;
     }
 
     td.active {
-      background-color: $primary-color !important;
+      background-color: $dynamic-primary !important;
     }
 
     .select-item {
       border-bottom: none !important;
       background-color: $background-color !important;
       padding: 10px 10px 10px 0 !important;
-      color: $primary-color !important;
+      color: $dynamic-primary !important;
 
       &::after {
         display: none !important;
-        color: $secondary-color !important;
+        color: $dynamic-secondary !important;
       }
     }
     .hourselect {
@@ -54,7 +54,7 @@
       border: 0;
       background-clip: padding-box;
       border-radius: 20px;
-      background-color: $secondary-color;
+      background-color: $dynamic-secondary;
     }
   }
 }
@@ -82,7 +82,7 @@
       transition: all .1s ease-in-out;
 
       &:hover, &:focus {
-        filter: none;
+        filter: brightness(0%)
       }
     }
 
@@ -92,7 +92,7 @@
     }
 
     .calendar-edit-icon {
-      background-image: url(../assets/icons/edit.svg);
+      background-image: url(../assets/icons/edit-white.svg);
       transform: translateY(3px);
     }
   }
@@ -102,13 +102,13 @@
       border: none !important;
       margin-top: 10px !important;
       .cal-today:not(.cal-open) {
-        background-color: rgba($secondary-color, .6) !important;
+        background-color: rgba($dynamic-secondary, .6) !important;
         &:hover {
           background-color: $calendar-selected-color !important;
         }
       }
       .cal-day-badge {
-        background-color: $primary-color !important;
+        background-color: $dynamic-primary !important;
       }
 
       .cal-day-cell {
@@ -130,7 +130,7 @@
       }
 
       .cal-day-number {
-        color: $primary-color !important;
+        color: $dynamic-primary !important;
         opacity: 1 !important;
       }
     }
@@ -165,7 +165,7 @@
   .cal-week-view {
     .cal-day-headers {
       .cal-today {
-        background-color: rgba($secondary-color, .7) !important;
+        background-color: rgba($dynamic-secondary, .7) !important;
         color: black !important;
       }
     }
@@ -173,7 +173,11 @@
 
   .cal-day-view, .cal-week-view {
     .cal-current-time-marker {
-      background-color: $primary-color;
+      background-color: $dynamic-primary;
     }
+  }
+
+  .cal-event {
+    background-color: $dynamic-primary !important;
   }
 }

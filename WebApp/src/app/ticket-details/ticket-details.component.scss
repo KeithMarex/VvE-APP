@@ -1,9 +1,8 @@
-@import "../../utilities/colors.scss";
-@import "../../utilities/effects.scss";
-@import "../../utilities/button.scss";
+@import "../../utilities/index.scss";
 
 
 .details-page {
+    color: $dynamic-primary;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -11,6 +10,15 @@
 
     p {
         color: $default-text-color;
+    }
+
+    .svg-element {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-right: 0.5rem;
     }
 }
 
@@ -50,7 +58,7 @@ header {
 body {
     display: flex;
     flex-direction: column;
-    width: 85vw;
+    width: 100%;
     
     h1 {
         font-size: 150%;
@@ -62,9 +70,26 @@ body {
         justify-content: space-between;
         width: 100%;
         margin: 2rem 0;
+        resize: none;
+        max-height: 25vh;
 
         .ticket-description {
+            display: inline-block;
             margin: 0;
+            overflow: auto;
+            word-break: break-all;
+            height: inherit;
+        }
+
+        .error-message {
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 3px;
+            background-color: $error-color;
+            color: white;
+            align-items: center;
+            text-align: center;
         }
     }
 
@@ -82,9 +107,9 @@ body {
             flex-wrap: wrap;
             gap: 2rem;
     
-            p > a > img {
-                max-width: 13rem;
-                max-height: 13rem;
+            a > img {
+                max-width: 7rem;
+                max-height: 7rem;
                 cursor: pointer;
             }
         }
@@ -92,63 +117,63 @@ body {
 
     .info-container {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        flex-direction: row;
         margin: 0.5rem 0;
-        padding: 1.5rem;
-        border-radius: 32px;
+        margin-right: 30px;
+        padding: 1rem;
+        border-radius: 30px;
         box-shadow: $default-box-shadow;
 
         h1 {
-            font-size: 110%;
+            font-size: 90%;
             padding-bottom: 5px;
         }
         
 
-        .first-row {
+        .left-column {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            margin-bottom: 1rem;
+            flex-direction: column;
+            margin-right: 2rem;
 
             .dropdown {
-                .dropdown-text{
-                    padding-left: 10px;
-                }
+                display: flex;
 
-                .dot {
+                .dropdown-colored-circle {
                     height: 15px;
                     width: 15px;
                     border-radius: 50%;
                     display: inline-block;
+                    margin-right: 4px;
                 }
+
                 .dropdown-item {
                     display: flex;
                     flex-direction: row;
+                    min-width: 100px;
                 }
-            }
-
-            .status {
-                padding-right: 6rem;
-                width: 250px;
-            }
-            
-            .tag {
-                width: 175px;
             }
         }
 
-        .second-row {
-            width: 250px;
+        .right-column {
+            position: relative;
+            display: flex;
+            flex-direction: column;
 
             .dropdown {
-                .dropdown-text{
-                    padding-left: 10px;
+                display: flex;
+                
+                .dropdown-colored-circle {
+                    height: 15px;
+                    width: 15px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    margin-right: 4px;
                 }
 
                 .dropdown-item {
                     display: flex;
                     flex-direction: row;
+                    min-width: 100px;
                 }
             }
         }
@@ -156,10 +181,21 @@ body {
 
     .comment-section {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
 
         .left-section {
             width: 70%;
+            
+            .error-message {
+                width: 100%;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 3px;
+                background-color: $error-color;
+                color: white;
+                align-items: center;
+                text-align: center;
+            }
 
             h1 {
                 width: 100%;
@@ -167,52 +203,76 @@ body {
             }
             
             .comments {
-                height: 150px;
+                display: flex;
+                flex-direction: column;
+                height: 350px;
                 min-width: 100%;
                 overflow: auto;
-
-                .user-comment {
-                    float: right;
-                }
+                border-radius: 4px;
+                box-shadow: $default-box-shadow;
+                background-color: white;
+                padding: 5px;
             }
     
             .comment-form {
-                width: 95%;
+                width: 100%;
                 display: flex;
                 flex-direction: row;
-                border-radius: 10px;
+                border-radius: 4px;
                 box-shadow: $default-box-shadow;
                 padding-left: 10px;
-                position: relative; top: 10px;
+                padding-top: 7px;
+                padding-bottom: 7px;
+                position: relative; 
+                top: 10px;
                 background-color: white;
+                margin-bottom: 40px;
+
+                input:focus {
+                    outline: none;
+                }
     
                 .textfield {
-                    width: 90%;
+                    width: 100%;
                     border: none;
                     background-color: white;
                 }
     
-                .image-select-logo {
-                    margin-top: 7px;
-                    margin-left: 2px;
-                    background-color: white;
+                .file-input {
+
+                    display: flex;
+                    align-items: center;
+
+                    .svg-element {
+                        margin-top: 5px;
+                        filter: drop-shadow( 0px 3px 2px rgba(112, 112, 112, 0.7));
+                        cursor: pointer;
+                    }
                 }
     
                 .image-select-button {
                     width: 0px;
                 }
 
-                .send-logo {
-                    margin-top: 7px;
-                    background-color: white;
+                .submit-button {
+                    display: flex;
+                    align-items: center;
                 }
     
                 .submit-comment-button {
-                    display: inline-block;
+                    display: flex;
                     border: none;
-                    padding-left: 10px;
-                    padding-top: 4px;
-                    background-color: white;
+                    align-items: center;
+                    background: none;
+                    
+                    .svg-element {
+                        display: flex;
+                        fill: $dynamic-primary;
+                        stroke: $dynamic-primary;
+                        align-items: center;
+                        filter: drop-shadow( 0px 3px 2px rgba(112, 112, 112, 0.7));
+                        cursor: pointer;
+                    }
                 }
             }
         
@@ -220,41 +280,27 @@ body {
         }
 
         .input-image-name {
-            width: 25%;
-            height: 70%;
-            margin: 30px;
-            border-radius: 32px;
+            display: flex;
+            flex-direction: row;
+            width: 70%;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            border-radius: 15px;
             box-shadow: $default-box-shadow;
             overflow: auto;
 
             .remove-button {
-                height: 25px;
-                width: 80%px;
-                margin: 10px;
-                background-color: lightgray;
-                font-family: 'Inter', sans-serif;
-                font-size: 110%;
-                border: none;
-                border-radius: 5px;
-                box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
-                cursor: pointer;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-
-                &::before {
-                    content: '';
-                }
-            
-                &::after {
-                    display: flex;
-                    margin-left: 0.6rem;
-                    margin-right: 0.6rem;
-                    content: '';
-                    height: 100%;
-                    width: 1.5rem;
-                    background-position: center !important;
-                    background: url('../../assets/icons/Close.svg') no-repeat;
+                button {
+                    @include button;
+                    background-color: $dynamic-primary;
+                    font-size: 90%;
+                    height: 30px;
+    
+                    &::after {
+                        height: 17px;
+                        width: 20px;
+                        background: url('../../assets/icons/delete.svg') no-repeat;
+                    }
                 }
             }        
         }

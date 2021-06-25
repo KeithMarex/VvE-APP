@@ -1,17 +1,33 @@
-import React from 'react'
-import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View, Dimensions, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
 import StyledText from '../../components/StyledText'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 
-import { CommentIcon, CalendarIcon, Logo } from '../../resources'
+import { CommentIcon, CalendarIcon } from '../../resources'
 import NewsShowcase from '../../components/NewsShowcase'
 import PageLogo from "../../components/PageLogo";
 import UpcomingAppointment from "../../components/UpcomingAppointment";
+import tra from '../../config/languages/translate';
+import { getOrgColors } from '../../util/OrganizationUtil'
+import OrganisationFilesComponent from "../../components/OrganisationFiles.component";
 
 const window = Dimensions.get('window')
-const Tab = createBottomTabNavigator()
 
 const HomeScreen = (props) => {
+    const user = props.route.params.user;
+    const [colors, setColors] = useState({})
+    const [tr, setTr] = useState({})
+
+    useEffect(() => {
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
+    }, [])
+
     return (
         <SafeAreaView style={styles.root}>
             <ScrollView style={styles.scrollView}>
@@ -19,67 +35,23 @@ const HomeScreen = (props) => {
                     <PageLogo/>
 
                     <View style={[styles.homeSection, styles.intro]}>
-                        <StyledText inputStyle={styles.introWelcome}>Welkom</StyledText>
-                        <StyledText inputStyle={styles.introName}>Hicham Ben Yessef</StyledText>
-                        <View style={styles.introMessage}>
-                            <CommentIcon style={styles.introMessageIcon} stroke={'#451864'} width={19} height={19} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextComments]}>1 nieuwe reactie &#62;</StyledText>
-                        </View>
-                        <View style={styles.introMessage}>
-                            <CalendarIcon style={styles.introMessageIcon} stroke={'#451864'} width={16} height={16} />
-                            <StyledText inputStyle={[styles.introMessageText, styles.introMessageTextAgenda]}>3 nabije agendapunten &#62;</StyledText>
-                        </View>
+                        <StyledText inputStyle={styles.introWelcome}>{tr.home?.welcome}</StyledText>
+                        <StyledText inputStyle={styles.introName}>{user._firstname} {user._lastname}</StyledText>
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Binnenkort</StyledText>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home?.soon}</StyledText>
                         <UpcomingAppointment/>
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>Recent nieuws</StyledText>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home?.recentNews}</StyledText>
                         <NewsShowcase />
                     </View>
 
                     <View style={styles.homeSectionWrapper}>
-                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>VvE informatie</StyledText>
-                        <View style={styles.info}>
-
-                            <View style={styles.infoOrganization}>
-                                <StyledText inputStyle={styles.infoOrganizationName}>De Nieuwe Wereld</StyledText>
-                                <View style={styles.infoOrganizationFiles}>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Huishoudelijk reglement.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2KB)</StyledText>
-                                    </View>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Informatie over het pand.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(10,29KB)</StyledText>
-                                    </View>
-
-                                </View>
-                            </View>
-
-                            <View style={styles.infoOrganization}>
-                                <StyledText inputStyle={styles.infoOrganizationName}>Parkeerplaats</StyledText>
-                                <View style={styles.infoOrganizationFiles}>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Parkeren.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(8,13KB)</StyledText>
-                                    </View>
-
-                                    <View style={styles.infoOrganizationFile}>
-                                        <StyledText inputStyle={styles.infoOrganizationFileName}>Kosten.pdf</StyledText>
-                                        <StyledText inputStyle={styles.infoOrganizationFileSize}>(2,29KB)</StyledText>
-                                    </View>
-
-                                </View>
-                            </View>
-
-                        </View>
+                        <StyledText inputStyle={styles.sectionHeader} theme={'sectionHeader'}>{tr.home?.vveinfo}</StyledText>
+                        <OrganisationFilesComponent/>
                     </View>
 
                 </View>
@@ -113,7 +85,8 @@ const styles = StyleSheet.create({
     },
     homeSectionWrapper: {
         marginTop: 40,
-        width: '100%'
+        width: '100%',
+        alignItems: 'center'
     },
     sectionHeader: {
         marginBottom: 10
@@ -172,34 +145,6 @@ const styles = StyleSheet.create({
     },
     agendaItemDateIcon: {
         marginRight: 10
-    },
-
-    infoOrganization: {
-        marginTop: 12
-    },
-    infoOrganizationName: {
-        fontSize: 16
-    },
-    infoOrganizationFiles: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    infoOrganizationFile: {
-        paddingBottom: 10,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center'
-    },
-    infoOrganizationFileName: {
-        color: '#6E7191',
-        fontSize: 16,
-        textDecorationLine: 'underline'
-    },
-    infoOrganizationFileSize: {
-        marginLeft: 6,
-        fontSize: 16,
-        color: '#A0CAE8',
     }
 })
 

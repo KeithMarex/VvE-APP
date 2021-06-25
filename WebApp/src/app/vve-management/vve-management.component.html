@@ -1,26 +1,78 @@
-<div appColoring>
+<div>
     <header>
         <h1>Uw VvE</h1>
     </header>
     <body>
-        <section class="personalization">
-            <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
-                <div class="color-picker">
-                    <p>Primaire kleur</p>
-                    <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
-                    <label for="primary-color">{{ primaryColor }}</label>
+        <div class="control-panel">
+            <section class="personalization">
+                <h2>Personalisatie</h2>
+                <form (ngSubmit)="onChangeStyling(stylingForm)" #stylingForm="ngForm">
+                    <div class="input-fields">
+                        <p>Naam</p>
+                        <input type="text" placeholder="{{ organization ? organization.name : '' }}" name="name" ngModel>
+                        <p>Logo</p>
+                        <label class="custom-file-input">
+                            <input type="file" accept="image/png, image/jpeg" name="logo" [multiple]="false" (change)="onLogoFileChanged($event)" [(ngModel)]="newLogoName">
+                            <div class="file-name-field">
+                                <div class="file-name"> {{ newLogo ? newLogo.name.slice(0, 18) : 'Selecteer bestand' }}</div>
+                            </div>
+                            <div class="file-input-icon">
+                                <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="color-fields">
+                        <div class="color-picker-container">
+                            <p>Primaire kleur</p>
+                            <div class="color-picker">
+                                <input type="color" id="primary-color" name="primaryColor" [(ngModel)]="primaryColor">
+                                <label for="primary-color" class="light-text">{{ primaryColor }}</label>
+                            </div>
+                        </div>
+                        <div class="color-picker-container">
+                            <p>Secundaire kleur</p>
+                            <div class="color-picker">
+                                <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
+                                <label for="secondary-color" class="light-text">{{ secondaryColor }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" [disabled]="detailsUploadLoading">
+                        <p *ngIf="!detailsUploadLoading">Update gegevens</p>
+                        <app-spinner *ngIf="detailsUploadLoading"></app-spinner>
+                    </button>
+                </form>
+            </section>
+            <section class="information">
+                <h2>Woninginformatie</h2>
+                <p>Bestanden</p>
+                <div class="files-block">
+                    <div class="file" *ngFor="let file of organizationFiles">
+                        <p class="filename" (click)="onDownloadFile(file)">{{ file.filename.length > 25 ? file.filename.slice(0, 20) + '... ' + file.filename.slice(-4) : file.filename }}</p>
+                        <p class="filesize" *ngIf="file.filesize">{{ '(' + getFormattedFilesize(file) + ')' }}</p>
+                        <div class="delete-button" [inlineSVG]="'../../assets/icons/Close.svg'" (click)="onDeleteFile(file)"></div>
+                    </div>
                 </div>
-                <div class="color-picker">
-                    <p>Secundaire kleur</p>
-                    <input type="color" id="secondary-color" name="secondaryColor" [(ngModel)]="secondaryColor">
-                    <label for="secondary-color">{{ secondaryColor }}</label>
+                <div class="file-upload">
+                    <label class="custom-file-input">
+                        <input type="file" accept="application/pdf" [multiple]="false" (change)="onFileUpload($event)" *ngIf="!fileUploadLoading">
+                        <app-spinner *ngIf="fileUploadLoading"></app-spinner>
+                        <div class="file-name-field" *ngIf="!fileUploadLoading">
+                            <div class="file-name">Voeg toe</div>
+                        </div>
+                        <div class="file-input-icon" *ngIf="!fileUploadLoading">
+                            <div class="svg-element" [inlineSVG]="'../../assets/icons/File-colored.svg'"></div>
+                        </div>
+                    </label>
                 </div>
-                <br>
-                <button type="button" [ngStyle]="{backgroundColor: primaryColor}">Primair preview</button>
-                <button type="button" [ngStyle]="{backgroundColor: secondaryColor}">Secundair preview</button>
-                <br>
-                <button type="submit" appColoring colorElement="backgroundColor">Update styling</button>
-            </form>
-        </section>
+                <div class="errorMessage" *ngIf="fileUploadError">
+                    <p>{{ fileUploadError }}</p>
+                </div>
+                <div class="errorMessage" *ngIf="detailsUploadError">
+                    <p>{{ detailsUploadError }}</p>
+                </div>
+            </section>
+        </div>
     </body>
 </div>

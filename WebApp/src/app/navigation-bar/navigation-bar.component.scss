@@ -26,6 +26,11 @@ body {
     .top-icon {
         margin-top: 20px;
         height: 25%;
+
+        img {
+            width: 2.2rem;
+            height: 2.2rem;
+        }
     }
 
     ul {
@@ -51,19 +56,29 @@ body {
             text-align: center;
             border-radius: 50%;
             color: white;
+            background-color: $dynamic-secondary;
         }
     }
 
     .svg-element {
-        stroke: currentColor;
+        stroke: $dynamic-primary;
+    }
+
+    .svg-element:hover {
+        filter: opacity(80%);
     }
 
     .active-link {
         stroke: white;
-        fill: currentColor;
+        fill: $dynamic-primary;
     }
 
     .bottom-section {
         margin-bottom: 25px;
+
+        .svg-element {
+            cursor: pointer;
+            fill: $dynamic-primary;
+        }
     }
 }

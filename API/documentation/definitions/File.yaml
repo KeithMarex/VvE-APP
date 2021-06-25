@@ -1,0 +1,20 @@
+type: object
+properties:
+  _id:
+    type: string
+  filename:
+    type: string
+  type:
+    type: string
+  data:
+    type: Buffer
+  filesize:
+    type: Number
+  organisation:
+    type: string objectId
+  createdAt:
+    type: string
+  updatedAt:
+    type: string
+  __v:
+    type: string

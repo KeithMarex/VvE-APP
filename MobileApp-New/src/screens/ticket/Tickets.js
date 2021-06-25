@@ -5,29 +5,55 @@ import PageActionButton from '../../components/PageActionButton'
 import TicketsListItem from '../../components/TicketsListItem'
 import PageLogo from '../../components/PageLogo'
 import ApiHelper from '../../util/ApiHelper'
-import { initDateParser, parseDate } from '../../util/DateUtil'
-import { parseTicketStatus } from '../../util/ApiParseUtil'
+import { initDateParser, parseDateWithTime } from '../../util/DateUtil'
+import tra from "../../config/languages/translate";
+import { getOrgColors } from '../../util/OrganizationUtil';
+import sortBy from 'sort-by'
 
 const window = Dimensions.get('window')
 
 const Tickets = (props) => {
     const [tickets, setTickets] = useState([])
     const [isFetchingTickets, setIsFetchingTickets] = useState(false)
+    let screenFocusSubscription
+    const [colors, setColors] = useState({})
+    const [tr, setTr] = useState({})
 
     useEffect(() => {
-        initDateParser('nl') //TODO move to splash screen
+        getOrgColors().then(colors => {
+            setColors(colors)
+        })
+
+        tra().then(res => {
+            setTr(res)
+        })
+
         fetchTickets()
+        screenFocusSubscription = props.navigation.addListener('focus', () => {
+            reloadTickets()
+        })
+
+        return () => {
+            props.navigation.removeListener('focus', () => {
+                reloadTickets()
+            })
+        }
     }, [])
+
+    const reloadTickets = () => {
+        setTickets([])
+        fetchTickets()
+    }
 
     const fetchTickets = () => {
         setIsFetchingTickets(true)
         ApiHelper.get('/ticket')
             .then((res) => {
                 const parsedTickets = []
-                res.data.forEach((ticket) => {
-                    ticket.parsedStatus = parseTicketStatus(ticket.status, 'nl')
-                    ticket.parsedUpdatedAt = parseDate(ticket.updatedAt)
-                    ticket.parsedCreatedAt = parseDate(ticket.createdAt)
+                const sortedTickets = res.data.sort(sortBy('-updatedAt'))
+                sortedTickets.forEach((ticket) => {
+                    ticket.parsedUpdatedAt = parseDateWithTime(ticket.updatedAt)
+                    ticket.parsedCreatedAt = parseDateWithTime(ticket.createdAt)
                     parsedTickets.push(ticket)
                     setIsFetchingTickets(false)
                 })
@@ -49,14 +75,9 @@ const Tickets = (props) => {
         return ticketsListEl
     }
 
-    // Is used when no tickets are available; they're being fetched or don't exist
     const createTicketsReplacement = () => {
         if (tickets.length <= 0) {
-            return isFetchingTickets
-                ? <ActivityIndicator style={styles.loadingSpinner} size={'large'} color='#451864'/>
-                : <StyledText inputStyle={styles.noTickets}>
-                    U heeft nog geen meldingen gedaan.
-                </StyledText>
+            return <ActivityIndicator style={styles.loadingSpinner} size={'large'} color={colors?.primarycolor}/>
         }
     }
 
@@ -66,10 +87,10 @@ const Tickets = (props) => {
                 <View style={styles.tickets}>
                     <PageLogo/>
                     <StyledText inputStyle={styles.pageTitle} theme={'pageTitle'}>
-                        Meldingen
+                        {tr.ticket?.notifications}
                     </StyledText>
                     <TouchableOpacity onPress={() => props.navigation.navigate('Create')}>
-                        <PageActionButton icon={'plus'} text={'Aanmaken'}/>
+                        <PageActionButton icon={'plus'} text={tr.ticket?.create}/>
                     </TouchableOpacity>
 
                     <View>
@@ -94,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         paddingHorizontal: 30,
-        paddingTop: 0,
+        paddingTop: 30,
         paddingBottom: 90
     },
     logo: {
@@ -102,24 +123,6 @@ const styles = StyleSheet.create({
     },
     pageTitle: {
         marginBottom: window.height / 40,
-    },
-
-    addButton: {
-        marginVertical: 15,
-        alignItems: 'center'
-    },
-    addButtonIconWrapper: {
-        backgroundColor: '#A0CAE8',
-        borderRadius: 50,
-        width: window.width / 10 * 1.1,
-        height: window.width / 10 * 1.1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    addButtonText: {
-        marginTop: 4,
-        fontSize: 11,
-        color: 'black'
     },
 
     noTickets: {

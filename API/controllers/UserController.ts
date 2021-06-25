@@ -29,6 +29,12 @@ export const login = async (req, res) => {
     });
 }
 
+export const logout = async (req, res) => {
+    res.clearCookie('access-token');
+    res.clearCookie('refresh-token');
+    res.status(200).json({ message: "Cookies succesfully deleted" })
+}
+
 // Creating a new users and generate password
 export const register = async(req, res) => {
     const users = await createUsers(req.body, res.locals.user);
@@ -121,6 +127,32 @@ const createUsers = async(body: Array<any>, user) => {
     }
 
     return users;
+}
+
+export const resetPassword = async (req, res) => {
+    const email = req.body.email;
+    if(email === undefined)
+        res.status(500).send({message: "No email defined"});
+
+    const password = generator.generate({length: 10, numbers: true});
+    User.findOneAndUpdate({ email: email }, {
+        password: await bcrypt.hash(password, 12)
+    })
+    .then(result => {
+        sendMail("Password has been reset", {
+            firstname: result["firstname"],
+            lastname: result["lastname"],
+            password: password,
+            email: email
+        }, "resetPassword");
+
+        res.status(200).send({message: "Password reset successfully"})
+    })
+    .catch(err => {
+        logger.error(err);
+        const status = err.statusCode || 500;
+        res.status(status).json({ message: err })
+    });
 }
 
 const removePasswords = async(users: Array<any>) => {

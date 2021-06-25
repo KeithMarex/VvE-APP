@@ -1,0 +1,145 @@
+{
+  "en": {
+    "locale": "en",
+    "login": {
+      "loginForget": {
+        "pass_forgot": "Retrieve password",
+        "description": "An e-mail containing a temporary password for your account will be sent to you.",
+        "back": "Back to login"
+      },
+      "login": {
+        "password": "Password",
+        "email": "Email",
+        "forgotPassword": "Forgot password?"
+      }
+    },
+    "home": {
+      "welcome": "Welcome",
+      "soon": "Upcoming",
+      "recentNews": "Latest news",
+      "vveinfo": "Owners Association Info",
+      "parking": "Parking",
+      "newReaction": "new comments",
+      "appointments": "Events"
+    },
+    "agenda": {
+      "upcomingAppointment": "Next event",
+      "appointment": "Event",
+      "close": "Close",
+      "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      "chooseApp": "Pick an event"
+    },
+    "news": {
+      "news": "News",
+      "mRecent": "Latest"
+    },
+    "profile": {
+      "general": "General",
+      "modify": "Modify",
+      "language": "Language"
+    },
+    "ticket": {
+      "notifications": "Tickets",
+      "create": "Create",
+      "noNotifications": "You have not created any tickets yet.",
+      "createdOn": "Created on",
+      "lastModified": "Last modified",
+      "status": {
+        "status": "Status",
+        "pending": "Pending",
+        "handling": "Handling",
+        "handled": "Handled"
+      },
+      "pictures": "Images",
+      "showPictures": "Show images",
+      "message": "Inhoud",
+      "comments": "Comments",
+      "noComments": "No comments have been made yet.",
+      "send": "Send",
+      "placeholder": "Type a comment",
+      "createTicket": "Create ticket",
+      "subject": "Subject",
+      "placeholderSubject": "Subject of ticket",
+      "placeholderMessage": "Content of ticket",
+      "addPictures": "Add images",
+      "photo": {
+        "makePhoto": "Take with camera",
+        "choosePicture": "Pick from gallery",
+        "cancel": "Cancel"
+      },
+      "moreInfo": "More info"
+
+    }
+  },
+  "nl": {
+    "locale": "nl",
+    "login": {
+      "loginForget": {
+        "pass_forgot": "Wachtwoord herstellen",
+        "description": "Er zal een e-mail naar u verstuurd worden met een nieuw tijdelijk wachtwoord voor uw account.",
+        "back": "Terug naar login"
+      },
+      "login": {
+        "password": "Wachtwoord",
+        "email": "Email",
+        "forgotPassword": "Wachtwoord vergeten?"
+      }
+    },
+    "home": {
+      "welcome": "Welkom",
+      "soon": "Binnenkort",
+      "recentNews": "Recent nieuws",
+      "vveinfo": "VvE Info",
+      "parking": "Parkeerplaats",
+      "newReaction": "nieuwe reacties",
+      "appointments": "Evenementen"
+    },
+    "agenda": {
+      "upcomingAppointment": "Eerstvolgende evenement",
+      "appointment": "Evenement",
+      "close": "Sluiten",
+      "months": ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
+      "chooseApp": "Kies een evenement"
+    },
+    "news": {
+      "news": "Nieuws",
+      "mRecent": "Meest recent"
+    },
+    "profile": {
+      "general": "Algemeen",
+      "modify": "Aanpassen",
+      "language": "Taal"
+    },
+    "ticket": {
+      "notifications": "Meldingen",
+      "create": "Aanmaken",
+      "noNotifications": "Je hebt nog geen meldingen gemaakt.",
+      "createdOn": "Aangemaakt op",
+      "lastModified": "Laatst gewijzigd",
+      "status": {
+        "status": "Status",
+        "pending": "In afwachting",
+        "handling": "In afhandeling",
+        "handled": "Afgehandeld"
+      },
+      "pictures": "Afbeeldingen",
+      "showPictures": "Bekijk afbeeldingen",
+      "message": "Inhoud",
+      "comments": "Reacties",
+      "noComments": "Er zijn nog geen reacties geplaatst.",
+      "send": "Verzenden",
+      "placeholder": "Typ uw reactie",
+      "createTicket": "Maak melding",
+      "subject": "Onderwerp",
+      "placeholderSubject": "Onderwerp van melding",
+      "placeholderMessage": "Inhoud van melding",
+      "addPictures": "Afbeeldingen toevoegen",
+      "photo": {
+        "makePhoto": "Neem met camera",
+        "choosePicture": "Kies uit gallerij",
+        "cancel": "Annuleren"
+      },
+      "moreInfo": "Meer info"
+    }
+  }
+}

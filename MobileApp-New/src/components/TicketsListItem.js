@@ -3,9 +3,15 @@ import { StyleSheet, View } from 'react-native'
 import { CommentIcon} from "../resources"
 import StyledText from './StyledText'
 import Button from './Button'
-import { parseTicketStatus } from '../util/ApiParseUtil'
+import tra from "../config/languages/translate";
 
 const TicketsListItem = (props) => {
+    const [tr, setTr] = React.useState({})
+
+    tra().then(res => {
+        setTr(res);
+    })
+
     const viewTicket = () => {
         props.viewTicket(props.ticket)
     }
@@ -44,20 +50,20 @@ const TicketsListItem = (props) => {
             </StyledText>
 
             <StyledText inputStyle={styles.ticketStatus}>
-                Status: { props.ticket.parsedStatus }
+                {tr.ticket?.status?.status}: { tr.ticket?.status[props.ticket.status.toLowerCase()] }
             </StyledText>
 
             <View style={styles.ticketBottom}>
                 <View>
                     <StyledText inputStyle={styles.updatedAtText}>
-                        Laatste wijziging:
+                        {tr.ticket?.lastModified}:
                     </StyledText>
                     <StyledText inputStyle={styles.updatedAtText}>
                         { props.ticket.parsedUpdatedAt }
                     </StyledText>
                 </View>
 
-                <Button pressAction={viewTicket} withArrow>Meer info</Button>
+                <Button pressAction={viewTicket} withArrow>{tr.ticket?.moreInfo}</Button>
             </View>
 
         </View>

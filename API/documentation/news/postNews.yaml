@@ -1,0 +1,33 @@
+post:
+  summary: Adds News to the database
+  description: Adds the data to the database in a News Object.
+  tags:
+    - News
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            author:
+              type: string
+            content:
+              type: string
+            thumbnail:
+              type: image
+          required:
+            - title
+            - author
+            - content
+  responses:
+    '201':
+      description: Receiving created News
+      content:
+        application/json:
+          schema:
+            $ref: ../definitions/News.yaml
+    '500':
+      description: Error while creating News

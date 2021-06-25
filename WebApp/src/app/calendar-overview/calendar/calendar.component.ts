@@ -1,15 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
-import { CalendarView } from 'angular-calendar';
 import { CustomEvent, CustomEventAction, CustomEventTimesChangedEvent } from './custom-event';
+import { CalendarView } from 'angular-calendar';
 import { CalendarDao } from '../../../shared/services/calendar-dao.service';
 import { CalendarItem } from '../../../shared/models/calendar-item';
 import { CalendarService } from './calendar.service';
-
-/*
- * Component with main calendar logic
- */
 
 @Component({
   selector: 'app-calendar',
@@ -19,7 +15,6 @@ import { CalendarService } from './calendar.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CalendarComponent implements OnInit {
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   currentView: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   refresh: Subject<any> = new Subject();
@@ -27,7 +22,7 @@ export class CalendarComponent implements OnInit {
   locale = 'nl';
   selectedCalendarItemToShow: CalendarItem;
   selectedCalendarItemToEdit: CalendarItem;
-  events: CustomEvent[] = [];
+  calendarItemsToShow: CustomEvent[] = [];
   activeDayIsOpen = true;
   currentMonth: Date;
   actions: CustomEventAction[] = [
@@ -55,54 +50,38 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.calendarService.calendarItems
       .subscribe((calendarItems) => {
-        this.parseCalendarItems(calendarItems);
-        this.refresh.next();
+        this.displayCalendarItems(calendarItems);
       });
 
-    const now = new Date();
-    this.currentMonth = now;
-    this.fetchMonthItems(now, null);
+    this.currentMonth = new Date();
+    this.fetchMonthItems(this.currentMonth);
   }
 
-  fetchMonthItems(newDate: Date, oldDate: Date): void {
+  displayCalendarItems(calendarItems: CalendarItem[]): void {
+    this.calendarItemsToShow =
+      this.calendarService.parseCalendarItemsToDisplayable(calendarItems, this.actions);
+    this.refresh.next();
+  }
+
+  fetchMonthItems(newDate: Date, oldDate?: Date): void {
     if (oldDate) {
-      const foundCalendarItems = this.findStoredCalendarItems(newDate);
-      if (foundCalendarItems) {
-        this.calendarService.setCalendarItems(foundCalendarItems);
+      const didOverwriteMonthItems =
+        this.calendarService.overwriteWithNewMonthItems(newDate, oldDate);
+      if (didOverwriteMonthItems) {
+        this.currentMonth = newDate;
         return;
       }
     }
-
-    const year = newDate.getFullYear();
-    const month = newDate.getMonth() + 1;
-    this.calendarDao.getCalendarItems(year + '-' + month)
-      .subscribe(resCalItems => {
-        this.calendarService.setCalendarItems(resCalItems);
-      });
+    this.calendarService.fetchMonthAndSurroundingMonthsItems(newDate);
     this.currentMonth = newDate;
   }
 
-  findStoredCalendarItems(date: Date): CalendarItem[] {
-    if (this.events.length > 0) {
-      this.calendarService.storeFetchedMonth(this.currentMonth);
+  onCalendarDateChanged(newDate: Date): void {
+    const oldDate = this.currentMonth;
+    if (!isSameMonth(newDate, oldDate)) {
+      this.fetchMonthItems(newDate, oldDate);
     }
-    const foundFetchedCalendarItems =
-      this.calendarService.findFetchedCalendarItems(date);
-    if (foundFetchedCalendarItems) {
-      return foundFetchedCalendarItems;
-    }
-    return null;
-  }
-
-  parseCalendarItems(calItems: CalendarItem[]): void {
-    const parsedEvents: CustomEvent[] = [];
-
-    calItems.forEach((calItem) => {
-      parsedEvents.push(
-        this.calendarService.calendarItemToCustomEvent(calItem, this.actions)
-      );
-    });
-    this.events = parsedEvents;
+    this.activeDayIsOpen = false;
   }
 
   dayClicked({ date, events }: { date: Date; events: CustomEvent[] }): void {
@@ -145,14 +124,6 @@ export class CalendarComponent implements OnInit {
 
   setCalendarViewType(view: CalendarView): void {
     this.currentView = view;
-  }
-
-  onCalendarDateChanged(newDate: Date): void {
-    const oldDate = this.currentMonth;
-    if (!isSameMonth(newDate, oldDate)) {
-      this.fetchMonthItems(newDate, oldDate);
-    }
-    this.activeDayIsOpen = false;
   }
 
   showCalendarItemPopUp(calendarItemToShow: CustomEvent): void {

@@ -1,0 +1,16 @@
+delete:
+  summary: Deletes the File by ID.
+  tags:
+    - Organization
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type : string
+        minimum: 1
+  responses:
+    '200':
+      description: Success message
+    '500':
+      description: Error occured while deleting File

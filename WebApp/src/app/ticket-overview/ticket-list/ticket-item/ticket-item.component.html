@@ -1,10 +1,10 @@
 <div class="container">
     <section class="left-block">
         <div class="top-section">
-            <div class="svg-element" appColoring colorElement="stroke" [inlineSVG]="'../../../../assets/icons/members.svg'"></div>
-            <h1>{{ creator ? creator.firstname + ' ' + creator.lastname : 'Maker kan niet geladen worden' }}</h1>
+            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/members.svg'"></div>
+            <h1>{{ ticket.creator ? ticket.creator.firstname.slice(0, 1) + '. ' + ticket.creator.lastname : 'Maker kan niet geladen worden' }}</h1>
             <h1 id="comment-count">{{ ticket.comments.length }}</h1>
-            <div class="svg-element" appColoring colorElement="stroke" [inlineSVG]="'../../../../assets/icons/comment.svg'"></div>
+            <div class="svg-element" [inlineSVG]="'../../../../assets/icons/comment.svg'"></div>
         </div>
         <div class="title">
             <h1>{{ ticket.title.length > 180 ? ticket.title.slice(0, 180) + '...' : ticket.title }}</h1>
@@ -15,12 +15,17 @@
         <div class="information-block">
             <div class="top-rows">
                 <div class="right-block-column">
+                    <p>Tag:</p>
                     <p>Status:</p>
                     <p>Aangewezen:</p>
                 </div>
                 <div class="right-block-column">
-                    <p class="colored-text">{{ ticket.status }}</p>
-                    <p class="colored-text">{{ assignee ? assignee.firstname + ' ' + assignee.lastname : 'Niet toegewezen' }}</p>
+                    <div class="tag">
+                        <p class="colored-text">{{ ticket.tag ? ticket.tag.name : 'Geen tag' }}</p>
+                        <div *ngIf="ticket.tag" class="tag-color" [ngStyle]="{ 'background-color': ticket.tag.color }"></div>
+                    </div>
+                    <p class="colored-text">{{ formattedStatus ? formattedStatus : ticket.status }}</p>
+                    <p class="colored-text">{{ ticket.assignee ? ticket.assignee.firstname.slice(0, 1) + '. ' + ticket.assignee.lastname : 'Niet toegewezen' }}</p>
                 </div>
             </div>
     
@@ -29,6 +34,6 @@
                 <p>Laatste wijziging: {{ ticket.updatedAt | date: 'dd/MM/yyyy HH:mm' }}</p>
             </div>
         </div>
-        <button id="details-button" (click)="onEdit()"></button>
+        <button id="details-button" (click)="onEdit()" [inlineSVG]="'../../../../assets/icons/Forward.svg'"></button>
     </section>
 </div>

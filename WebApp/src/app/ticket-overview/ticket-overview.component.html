@@ -1,15 +1,34 @@
-<div appColoring>
+<div>
     <header>
         <h1>Tickets</h1>
     </header>
     <body>
         <section class="button-section">
-            <button appColoring colorElement="backgroundColor" (click)="onAdd()">Nieuw</button>
-            <button appColoring colorElement="backgroundColor" class="icon-button">Filter</button>
-            <button appColoring colorElement="backgroundColor" class="icon-button" [routerLink]="['/tags-overview']">Tags</button>
+            <button (click)="onAdd()">Nieuw</button>
+            <button class="icon-button dropdown-button">Sorteer / Filter
+                <span class="button-dropdown">
+                    <div class="top-option" (click)="onChangeSort('status')">
+                        <p>Ticket status</p>
+                    </div>
+                    <hr>
+                    <div (click)="onChangeSort('updatedAt')">
+                        <p>Laatste wijziging</p>
+                    </div>
+                    <hr>
+                    <div (click)="onChangeSort('createdAt')">
+                        <p>Aanmaak datum</p>
+                    </div>
+                    <hr>
+                    <div class="bottom-option">
+                        <p>Filter term:</p>
+                        <app-search-bar class="filter-bar" (searchTermChanged)="searchTermChanged($event)"></app-search-bar>
+                    </div>
+                </span>
+            </button>
+            <button [routerLink]="['/tags-overview']">Tags</button>
         </section>
         <section class="content-section">
-            <app-ticket-list></app-ticket-list>
+            <app-ticket-list #ticketList></app-ticket-list>
         </section>
         <app-popup *ngIf="creatingTicket" title="Ticket aanmaken" (closed)="onClose()">
             <app-ticket-creator (ticketCreated)="onCreateTicket($event)"></app-ticket-creator>
